@@ -11,15 +11,18 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewControllers = [habitScreen()]
     }
     
     
-//    func habitScreen() -> UINavigationController {
-//
-//
-//    }
-//
+    func habitScreen() -> UINavigationController {
+        let habitVC = HabitVC()
+        habitVC.title = "Habits"
+        habitVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0) //change the system item image
+        return UINavigationController(rootViewController: habitVC)
+        
+    }
+
 //    func summaryScreen() -> UINavigationController {
 //
 //
