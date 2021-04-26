@@ -5,4 +5,32 @@
 //  Created by Alexander Thompson on 26/4/21.
 //
 
-import Foundation
+import UIKit
+
+class TabBarController: UITabBarController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    
+//    func habitScreen() -> UINavigationController {
+//
+//
+//    }
+//
+//    func summaryScreen() -> UINavigationController {
+//
+//
+//    }
+//
+//
+//    func settingScreen() -> UINavigationController {
+//
+//
+//    }
+    
+    
+    
+}
