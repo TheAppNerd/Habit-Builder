@@ -13,7 +13,8 @@ class HabitVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureViewController()
+        configureTableView()
     }
     
     func configureViewController() {
@@ -21,6 +22,7 @@ class HabitVC: UIViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitPressed))
         let helpButton = UIBarButtonItem(image: UIImage(systemName: "questionmark"), style: .plain, target: self, action: #selector(helpButtonPressed))
         
+        navigationItem.rightBarButtonItems = [addButton, helpButton]
     }
     
     func configureTableView() {
@@ -35,7 +37,9 @@ class HabitVC: UIViewController {
     
     
     @objc func addHabitPressed() {
-        //enter functionality to push through to habit creation screen here.
+        let destVC = AddHabitVC()
+        let navController = UINavigationController(rootViewController: destVC)
+        present(navController, animated: true)
     }
     
     @objc func helpButtonPressed() {
@@ -50,7 +54,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
-        
+        cell.habitName.text = "Testing"
+        cell.streakCount.text = "Current Streak: 12 days"
+        cell.completionCount.text = "0/3"
+        cell.completionButton.backgroundColor = .systemRed
         return cell
     }
     
