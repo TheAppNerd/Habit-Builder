@@ -18,9 +18,16 @@ class AddHabitVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-  
+        configureBarButtons()
     }
     
+    func configureBarButtons() {
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveHabit))
+        
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = saveButton
+    }
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
@@ -62,6 +69,11 @@ class AddHabitVC: UIViewController {
         ])
     }
 
-  
+    @objc func dismissVC() {
+        dismiss(animated: true)
+    }
 
+    @objc func saveHabit() {
+        //enter functionality to save data here and pass it back to home page
+    }
 }

@@ -18,6 +18,7 @@
 		FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C732B263656BC00E63CBE /* AddHabitVC.swift */; };
 		FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C732F26365AFC00E63CBE /* BodyLabel.swift */; };
 		FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733326365CFA00E63CBE /* TitleLabel.swift */; };
+		FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733726379DDE00E63CBE /* ColorButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		FA1C732B263656BC00E63CBE /* AddHabitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitVC.swift; sourceTree = "<group>"; };
 		FA1C732F26365AFC00E63CBE /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		FA1C733326365CFA00E63CBE /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
+		FA1C733726379DDE00E63CBE /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		FA1C7304263636D800E63CBE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				FA1C733626379DC900E63CBE /* Buttons */,
 				FA1C732E263659D100E63CBE /* Labels */,
 				FA1C7327263648F400E63CBE /* Cells */,
 				FA1C73222636404500E63CBE /* Screens */,
@@ -112,6 +115,14 @@
 				FA1C733326365CFA00E63CBE /* TitleLabel.swift */,
 			);
 			path = Labels;
+			sourceTree = "<group>";
+		};
+		FA1C733626379DC900E63CBE /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C733726379DDE00E63CBE /* ColorButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,6 +201,7 @@
 				FA1C731F263638BE00E63CBE /* TabBarController.swift in Sources */,
 				FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
+				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 			);
