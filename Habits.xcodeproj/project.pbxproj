@@ -19,6 +19,8 @@
 		FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C732F26365AFC00E63CBE /* BodyLabel.swift */; };
 		FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733326365CFA00E63CBE /* TitleLabel.swift */; };
 		FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733726379DDE00E63CBE /* ColorButton.swift */; };
+		FA1C733D2637B9FD00E63CBE /* HabitProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */; };
+		FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73422637CD3E00E63CBE /* TableCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		FA1C732F26365AFC00E63CBE /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		FA1C733326365CFA00E63CBE /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		FA1C733726379DDE00E63CBE /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
+		FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitProgressView.swift; sourceTree = "<group>"; };
+		FA1C73422637CD3E00E63CBE /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 		FA1C7304263636D800E63CBE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				FA1C73412637CD1C00E63CBE /* Views */,
+				FA1C733B2637B9DF00E63CBE /* ProgressViews */,
 				FA1C733626379DC900E63CBE /* Buttons */,
 				FA1C732E263659D100E63CBE /* Labels */,
 				FA1C7327263648F400E63CBE /* Cells */,
@@ -123,6 +129,22 @@
 				FA1C733726379DDE00E63CBE /* ColorButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		FA1C733B2637B9DF00E63CBE /* ProgressViews */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */,
+			);
+			path = ProgressViews;
+			sourceTree = "<group>";
+		};
+		FA1C73412637CD1C00E63CBE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C73422637CD3E00E63CBE /* TableCellView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +225,8 @@
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */,
+				FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */,
+				FA1C733D2637B9FD00E63CBE /* HabitProgressView.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

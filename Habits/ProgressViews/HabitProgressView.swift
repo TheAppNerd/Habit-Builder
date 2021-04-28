@@ -1,5 +1,5 @@
 //
-//  ColorButton.swift
+//  HabitProgressView.swift
 //  Habits
 //
 //  Created by Alexander Thompson on 27/4/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ColorButton: UIButton {
+class HabitProgressView: UIProgressView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,17 +18,16 @@ class ColorButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(backgroundColor: UIColor) {
+    convenience init(color: UIColor) {
         self.init(frame: .zero)
-        self.backgroundColor = backgroundColor
-    }
-    
-    private func configure() {
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.white.cgColor
-        self.layer.cornerRadius = self.frame.height / 2
-        self.clipsToBounds = true
-        translatesAutoresizingMaskIntoConstraints = false
+        self.progressTintColor = color
         
     }
+    
+    
+    private func configure() {
+        self.trackTintColor = .systemFill
+        self.layer.cornerRadius = self.frame.height / 2
+    }
+    
 }

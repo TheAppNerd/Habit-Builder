@@ -14,6 +14,15 @@ class AddHabitVC: UIViewController {
     let colorLabel = BodyLabel(textInput: "Color", textAlignment: .center, fontSize: 20)
     let dailyNumberLabel = BodyLabel(textInput: "Daily Number", textAlignment: .center, fontSize: 20)
     let reminderLabel = BodyLabel(textInput: "Set Reminder?", textAlignment: .center, fontSize: 20)
+   
+    
+    var colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemRed),
+                                       ColorButton(backgroundColor: .systemBlue),
+                                       ColorButton(backgroundColor: .systemYellow),
+                                       ColorButton(backgroundColor: .systemGreen),
+                                       ColorButton(backgroundColor: .systemPink)
+    ]
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +47,16 @@ class AddHabitVC: UIViewController {
         view.addSubview(colorLabel)
         view.addSubview(dailyNumberLabel)
         view.addSubview(reminderLabel)
+        
+        for button in colorButtons {
+            view.addSubview(button)
+            NSLayoutConstraint.activate([
+                button.topAnchor.constraint(equalTo: colorLabel.topAnchor),
+                button.heightAnchor.constraint(equalTo: colorLabel.heightAnchor),
+                button.widthAnchor.constraint(equalTo: button.heightAnchor),
+            ])
+            
+        }
         
         let padding: CGFloat = 20
         
@@ -65,7 +84,14 @@ class AddHabitVC: UIViewController {
             reminderLabel.topAnchor.constraint(equalTo: dailyNumberLabel.bottomAnchor, constant: padding),
             reminderLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             reminderLabel.widthAnchor.constraint(equalToConstant: 80),
-            reminderLabel.heightAnchor.constraint(equalToConstant: padding)
+            reminderLabel.heightAnchor.constraint(equalToConstant: padding),
+            
+            colorButtons[0].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding),
+            colorButtons[1].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 3),
+            colorButtons[2].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 5),
+            colorButtons[3].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 7),
+            colorButtons[4].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 9)
+            
         ])
     }
 
@@ -74,6 +100,9 @@ class AddHabitVC: UIViewController {
     }
 
     @objc func saveHabit() {
+        
+        
+        dismiss(animated: true)
         //enter functionality to save data here and pass it back to home page
     }
 }
