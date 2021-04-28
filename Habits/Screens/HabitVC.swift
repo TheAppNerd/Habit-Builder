@@ -11,6 +11,8 @@ class HabitVC: UIViewController {
     
     let tableView = UITableView()
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -28,9 +30,9 @@ class HabitVC: UIViewController {
     func configureTableView() {
         view.addSubview(tableView)
         tableView.frame = view.bounds
-        tableView.rowHeight = 80 //refactor this figure
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedRowHeight = 100
         tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
 
     }
@@ -49,14 +51,14 @@ class HabitVC: UIViewController {
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         cell.habitName.text = "Testing"
         cell.streakCount.text = "Current Streak: 12 days"
-        cell.completionCount.text = "0/3"
+        cell.completionCount.text = "Daily Target 0/3"
         cell.completionButton.backgroundColor = .systemRed
         return cell
     }
