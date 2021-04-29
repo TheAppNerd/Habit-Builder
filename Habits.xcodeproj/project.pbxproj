@@ -22,6 +22,7 @@
 		FA1C733D2637B9FD00E63CBE /* HabitProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */; };
 		FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73422637CD3E00E63CBE /* TableCellView.swift */; };
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
+		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitProgressView.swift; sourceTree = "<group>"; };
 		FA1C73422637CD3E00E63CBE /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
+		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		FA1C7304263636D800E63CBE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				FA212C4B263A3DCD00BFDA3F /* Model */,
 				FA212C48263917FE00BFDA3F /* TextFields */,
 				FA1C73412637CD1C00E63CBE /* Views */,
 				FA1C733B2637B9DF00E63CBE /* ProgressViews */,
@@ -158,6 +161,14 @@
 			path = TextFields;
 			sourceTree = "<group>";
 		};
+		FA212C4B263A3DCD00BFDA3F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FA212C4C263A3DE000BFDA3F /* HabitData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,6 +250,7 @@
 				FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */,
 				FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */,
 				FA1C733D2637B9FD00E63CBE /* HabitProgressView.swift in Sources */,
+				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

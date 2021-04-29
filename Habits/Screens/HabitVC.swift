@@ -11,7 +11,9 @@ class HabitVC: UIViewController {
     
     let tableView = UITableView()
     
-
+    var habitName: String = ""
+    var dailyNumber: String = ""
+    static var cellCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,15 +53,18 @@ class HabitVC: UIViewController {
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return HabitVC.cellCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
-        cell.habitName.text = "Testing"
+        
+        let dataIndex = HabitArray.Array[indexPath.row]
+        
+        cell.habitName.text = dataIndex.habitName
         cell.streakCount.text = "Current Streak: 12 days"
-        cell.completionCount.text = "Daily Target 0/3"
-        cell.completionButton.backgroundColor = .systemRed
+        cell.completionCount.text = "Daily Target 0/\(dataIndex.completionCount)"
+        cell.completionButton.backgroundColor = dataIndex.buttonColor
         return cell
     }
     

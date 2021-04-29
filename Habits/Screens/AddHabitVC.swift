@@ -14,10 +14,14 @@ class AddHabitVC: UIViewController {
     let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .center, fontSize: 16)
     let dailyNumberLabel = BodyLabel(textInput: "Daily Target:", textAlignment: .center, fontSize: 16)
     let reminderLabel = BodyLabel(textInput: "Set Reminder?", textAlignment: .center, fontSize: 16)
+    
    
     let habitNameTextField = HabitTextField()
     let notesTextField = HabitTextField()
     let dailyNumberTextField = HabitTextField()
+    
+    var habitData: HabitData!
+    var habitColor: UIColor = .clear
     
     let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemRed),
                                        ColorButton(backgroundColor: .systemBlue),
@@ -31,6 +35,28 @@ class AddHabitVC: UIViewController {
         super.viewDidLoad()
         configure()
         configureBarButtons()
+        configureColorButtons()
+    }
+    
+    func configureColorButtons() {
+        for button in colorButtons {
+            button.addTarget(self, action: #selector(colorTapped), for: .touchUpInside)
+            
+        }
+    }
+  
+    @objc func colorTapped(_ sender: UIButton) {
+        deselectButtons()
+        sender.layer.borderWidth = 2
+        sender.layer.borderColor = UIColor.systemGray2.cgColor
+        habitColor = sender.backgroundColor ?? .clear
+    }
+    
+    func deselectButtons() {
+        colorButtons.forEach {
+            $0.isSelected = false
+            $0.layer.borderWidth = 0
+        }
     }
     
     func configureBarButtons() {
@@ -123,8 +149,11 @@ class AddHabitVC: UIViewController {
 
     @objc func saveHabit() {
         
-        
-        dismiss(animated: true)
-        //enter functionality to save data here and pass it back to home page
+        habitData.habitName = habitNameTextField.text ?? ""
+        habitData.habitNote = notesTextField.text ?? ""
+        habitData.completionCount = dailyNumberLabel.text ?? ""
+        habitData.buttonColor = habitColor
+        HabitVC.cellCount += 1
+        HabitArray.Array.insert(habitData, at: HabitVC.cellCount)
     }
 }
