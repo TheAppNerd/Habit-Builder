@@ -57,8 +57,13 @@ class HabitVC: UIViewController {
     }
     
     @objc func completePressed(_ sender: UIButton) {
+        let buttonCount = HabitArray.Array[sender.tag].currentDailyCount!
+        let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
+        
+        if buttonCount < totalCount {
         HabitArray.Array[sender.tag].currentDailyCount! += 1
         tableView.reloadData()
+        }
             }
 }
 
