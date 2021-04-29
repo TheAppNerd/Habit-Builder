@@ -13,7 +13,13 @@ class HabitVC: UIViewController {
     
     var habitName: String = ""
     var dailyNumber: String = ""
-    static var cellCount = 0
+    static var cellCount = 1
+    var habitData = HabitData()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +55,17 @@ class HabitVC: UIViewController {
     @objc func helpButtonPressed() {
         //enter functionality for help screen popup
     }
+    
+    @objc func completePressed(_ sender: UIButton) {
+        HabitArray.Array[sender.tag].currentDailyCount! += 1
+        tableView.reloadData()
+            }
 }
+
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return HabitVC.cellCount
+        return HabitVC.cellCount - 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,10 +73,12 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
         let dataIndex = HabitArray.Array[indexPath.row]
         
+        cell.completionButton.addTarget(self, action: #selector(completePressed), for: .touchUpInside)
         cell.habitName.text = dataIndex.habitName
         cell.streakCount.text = "Current Streak: 12 days"
-        cell.completionCount.text = "Daily Target 0/\(dataIndex.completionCount)"
+        cell.completionCount.text = "Daily Target: \(dataIndex.currentDailyCount ?? 0) out of \(dataIndex.completionCount!)"
         cell.completionButton.backgroundColor = dataIndex.buttonColor
+        cell.completionButton.tag = indexPath.row
         return cell
     }
     

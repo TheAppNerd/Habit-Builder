@@ -20,7 +20,7 @@ class AddHabitVC: UIViewController {
     let notesTextField = HabitTextField()
     let dailyNumberTextField = HabitTextField()
     
-    var habitData: HabitData!
+    var habitData = HabitData()
     var habitColor: UIColor = .clear
     
     let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemRed),
@@ -151,9 +151,12 @@ class AddHabitVC: UIViewController {
         
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
-        habitData.completionCount = dailyNumberLabel.text ?? ""
+        habitData.completionCount = dailyNumberTextField.text ?? ""
         habitData.buttonColor = habitColor
+        habitData.currentDailyCount = 0
         HabitVC.cellCount += 1
-        HabitArray.Array.insert(habitData, at: HabitVC.cellCount)
+        HabitArray.Array.append(habitData)
+        let destVC = UINavigationController(rootViewController: HabitVC())
+        present(destVC, animated: true)
     }
 }

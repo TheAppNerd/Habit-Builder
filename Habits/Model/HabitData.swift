@@ -9,11 +9,12 @@ import UIKit
 
 struct HabitData {
     
-    var habitName: String
-    var habitNote: String
-    var streakCount: String
-    var completionCount: String
-    var buttonColor: UIColor
+    var habitName: String?
+    var habitNote: String?
+    var streakCount: String?
+    var completionCount: String?
+    var buttonColor: UIColor?
+    var currentDailyCount: Int?
     
 }
 

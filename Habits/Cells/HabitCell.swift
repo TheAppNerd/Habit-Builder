@@ -48,12 +48,16 @@ static let reuseID = "HabitCell"
     }
     
     private func configure() {
+        
+        contentView.isUserInteractionEnabled = true
+        
         addSubview(habitName)
         addSubview(streakCount)
         addSubview(stackView)
         addSubview(completionButton)
         addSubview(cellView)
         
+
         let padding: CGFloat = 20
         completionButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
