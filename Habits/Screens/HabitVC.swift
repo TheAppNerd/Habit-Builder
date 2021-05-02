@@ -64,10 +64,31 @@ class HabitVC: UIViewController {
         HabitArray.Array[sender.tag].currentDailyCount! += 1
         tableView.reloadData()
         }
+        
+        //make an enum for this
+        
+        if buttonCount == totalCount - 1 {
+            sender.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+            tableView.reloadData()
+        } else if buttonCount < totalCount {
+            sender.setImage(nil, for: .normal)
+            tableView.reloadData()
+        }
             }
+    
+    @objc func reducePressed(_ sender: UIButton) {
+        let buttonCount = HabitArray.Array[sender.tag].currentDailyCount!
+        let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
+        
+        if buttonCount > 0 {
+        HabitArray.Array[sender.tag].currentDailyCount! -= 1
+        tableView.reloadData()
+            
+            //implement a button to remove checkmark
+    }
 }
 
-
+}
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return HabitVC.cellCount - 1
@@ -79,6 +100,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let dataIndex = HabitArray.Array[indexPath.row]
         
         cell.completionButton.addTarget(self, action: #selector(completePressed), for: .touchUpInside)
+        cell.reduceButton.addTarget(self, action: #selector(reducePressed), for: .touchUpInside)
         cell.habitName.text = dataIndex.habitName
         cell.streakCount.text = "Current Streak: 12 days"
         cell.completionCount.text = "Daily Target: \(dataIndex.currentDailyCount ?? 0) out of \(dataIndex.completionCount!)"

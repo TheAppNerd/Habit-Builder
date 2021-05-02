@@ -14,7 +14,11 @@ static let reuseID = "HabitCell"
     let habitName = TitleLabel(textAlignment: .left, fontSize: 16)
     let streakCount = TitleLabel(textAlignment: .left, fontSize: 10)
     let completionCount = TitleLabel(textAlignment: .center, fontSize: 10)
+    
+    //make these a custom button and also a horizontal stackview
+    let reduceButton = UIButton()
     let completionButton = UIButton()
+    
     let progressBar = HabitProgressView()
     let cellView = TableCellView()
     
@@ -55,13 +59,17 @@ static let reuseID = "HabitCell"
         addSubview(streakCount)
         addSubview(stackView)
         addSubview(completionButton)
+        addSubview(reduceButton)
         addSubview(cellView)
         
 
         let padding: CGFloat = 20
         completionButton.translatesAutoresizingMaskIntoConstraints = false
+        reduceButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
+        let image = UIImage(systemName: "arrow.uturn.left.circle")
+        reduceButton.setImage(image, for: .normal)
         self.sendSubviewToBack(cellView)
         NSLayoutConstraint.activate([
             
@@ -78,7 +86,7 @@ static let reuseID = "HabitCell"
             streakCount.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             streakCount.leadingAnchor.constraint(equalTo: habitName.trailingAnchor, constant: padding),
             streakCount.heightAnchor.constraint(equalToConstant: padding),
-            streakCount.trailingAnchor.constraint(equalTo: completionButton.leadingAnchor, constant: -padding),
+            streakCount.trailingAnchor.constraint(equalTo: reduceButton.leadingAnchor, constant: -padding),
             
             stackView.topAnchor.constraint(equalTo: habitName.bottomAnchor, constant: 30),
             stackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -padding),
@@ -89,7 +97,13 @@ static let reuseID = "HabitCell"
             completionButton.leadingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -50),
             completionButton.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
             completionButton.heightAnchor.constraint(equalToConstant: 30),
-            completionButton.widthAnchor.constraint(equalToConstant: 30)
+            completionButton.widthAnchor.constraint(equalToConstant: 30),
+            
+            reduceButton.topAnchor.constraint(equalTo: completionButton.topAnchor),
+            reduceButton.leadingAnchor.constraint(equalTo: streakCount.trailingAnchor, constant: padding),
+            reduceButton.trailingAnchor.constraint(equalTo: completionButton.leadingAnchor, constant: -padding),
+            reduceButton.heightAnchor.constraint(equalToConstant: 30),
+            reduceButton.widthAnchor.constraint(equalToConstant: 30)
         ])
     }
 }
