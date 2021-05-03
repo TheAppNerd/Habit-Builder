@@ -15,12 +15,7 @@ class HabitVC: UIViewController {
     var dailyNumber: String = ""
     static var cellCount = 1
     var habitData = HabitData()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -47,6 +42,7 @@ class HabitVC: UIViewController {
     
     
     @objc func addHabitPressed() {
+        HabitArray.habitCreated = false
         let destVC = AddHabitVC()
         let navController = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
@@ -78,8 +74,7 @@ class HabitVC: UIViewController {
     
     @objc func reducePressed(_ sender: UIButton) {
         let buttonCount = HabitArray.Array[sender.tag].currentDailyCount!
-        let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
-        
+       
         if buttonCount > 0 {
         HabitArray.Array[sender.tag].currentDailyCount! -= 1
         tableView.reloadData()
@@ -87,7 +82,10 @@ class HabitVC: UIViewController {
             //implement a button to remove checkmark
     }
 }
-
+    func refresh() {
+        tableView.reloadData()
+    }
+    
 }
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -109,6 +107,12 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = HabitDetailsVC()
+        vc.cellTag = indexPath.row
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+    }
     
 }

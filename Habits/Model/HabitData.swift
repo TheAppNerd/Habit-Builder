@@ -16,10 +16,12 @@ struct HabitData {
     var buttonColor: UIColor?
     var currentDailyCount: Int?
     
+    
 }
 
 struct HabitArray {
     static var Array: [HabitData] = []
+    static var habitCreated: Bool?
 }
 
 

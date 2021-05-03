@@ -23,6 +23,7 @@
 		FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73422637CD3E00E63CBE /* TableCellView.swift */; };
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
+		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		FA1C73422637CD3E00E63CBE /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
+		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 			children = (
 				FA1C73232636406300E63CBE /* HabitVC.swift */,
 				FA1C732B263656BC00E63CBE /* AddHabitVC.swift */,
+				FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FA1C73242636406300E63CBE /* HabitVC.swift in Sources */,
 				FA1C730A263636D800E63CBE /* ViewController.swift in Sources */,

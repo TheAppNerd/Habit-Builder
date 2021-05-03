@@ -14,7 +14,7 @@ class AddHabitVC: UIViewController {
     let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .center, fontSize: 16)
     let dailyNumberLabel = BodyLabel(textInput: "Daily Target:", textAlignment: .center, fontSize: 16)
     let reminderLabel = BodyLabel(textInput: "Set Reminder?", textAlignment: .center, fontSize: 16)
-    
+    var cellTag: Int = 0
    
     let habitNameTextField = HabitTextField()
     let notesTextField = HabitTextField()
@@ -30,12 +30,14 @@ class AddHabitVC: UIViewController {
                                        ColorButton(backgroundColor: .systemPink)
     ]
   
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         configureBarButtons()
         configureColorButtons()
+        editTab()
     }
     
     func configureColorButtons() {
@@ -59,7 +61,17 @@ class AddHabitVC: UIViewController {
         }
     }
     
-    func configureBarButtons() {
+    func editTab() {
+        if HabitArray.habitCreated == true {
+            habitNameTextField.text = HabitArray.Array[cellTag].habitName
+            notesTextField.text = HabitArray.Array[cellTag].habitNote
+                //select correrct color button
+            dailyNumberTextField.text = HabitArray.Array[cellTag].completionCount
+            print("editTab")
+        }
+    }
+    
+   private func configureBarButtons() {
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveHabit))
         
@@ -148,7 +160,6 @@ class AddHabitVC: UIViewController {
     }
 
     @objc func saveHabit() {
-        
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
         habitData.completionCount = dailyNumberTextField.text ?? ""
@@ -157,6 +168,8 @@ class AddHabitVC: UIViewController {
         HabitVC.cellCount += 1
         HabitArray.Array.append(habitData)
         let destVC = UINavigationController(rootViewController: HabitVC())
+        destVC.modalPresentationStyle = .fullScreen
         present(destVC, animated: true)
+     
     }
 }
