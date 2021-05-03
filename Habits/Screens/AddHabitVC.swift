@@ -15,6 +15,8 @@ class AddHabitVC: UIViewController {
     let dailyNumberLabel = BodyLabel(textInput: "Daily Target:", textAlignment: .center, fontSize: 16)
     let reminderLabel = BodyLabel(textInput: "Set Reminder?", textAlignment: .center, fontSize: 16)
     var cellTag: Int = 0
+    
+    let deleteButton = UIButton()
    
     let habitNameTextField = HabitTextField()
     let notesTextField = HabitTextField()
@@ -38,6 +40,13 @@ class AddHabitVC: UIViewController {
         configureBarButtons()
         configureColorButtons()
         editTab()
+        self.tabBarController?.tabBar.isHidden = true
+        deleteButton.isHidden = true
+        if HabitArray.habitCreated == true {
+            deleteButton.isHidden = false
+        } else {
+            deleteButton.isHidden = true
+        }
     }
     
     func configureColorButtons() {
@@ -67,7 +76,7 @@ class AddHabitVC: UIViewController {
             notesTextField.text = HabitArray.Array[cellTag].habitNote
                 //select correrct color button
             dailyNumberTextField.text = HabitArray.Array[cellTag].completionCount
-            print("editTab")
+
         }
     }
     
@@ -87,7 +96,7 @@ class AddHabitVC: UIViewController {
         view.addSubview(colorLabel)
         view.addSubview(dailyNumberLabel)
         view.addSubview(reminderLabel)
-        
+        view.addSubview(deleteButton)
         view.addSubview(habitNameTextField)
         view.addSubview(notesTextField)
         view.addSubview(dailyNumberTextField)
@@ -100,6 +109,10 @@ class AddHabitVC: UIViewController {
                 button.widthAnchor.constraint(equalTo: button.heightAnchor),
             ])
     }
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.backgroundColor = .systemRed
+        deleteButton.setTitle("Delete Habit", for: .normal)
+        deleteButton.addTarget(self, action: #selector(deleteHabit), for: .touchUpInside)
         dailyNumberTextField.keyboardType = .numberPad
         let padding: CGFloat = 20
         
@@ -150,26 +163,58 @@ class AddHabitVC: UIViewController {
             dailyNumberTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             dailyNumberTextField.heightAnchor.constraint(equalToConstant: padding),
             
-            
+            deleteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            deleteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
+            deleteButton.heightAnchor.constraint(equalToConstant: 30)
         
         ])
     }
 
     @objc func dismissVC() {
-        dismiss(animated: true)
+        self.dismiss(animated: true)
     }
 
+    @objc func deleteHabit() {
+        //build out button here asking if user is sure and then delete.
+        
+        let deleteAlert = UIAlertController(title: "Delete Habit?", message: "Are you sure you want to delete this? It cannot be recovered.", preferredStyle: .alert)
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { UIAlertAction in
+        
+        }))
+        deleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { UIAlertAction in
+            HabitArray.Array.remove(at: self.cellTag)
+            HabitArray.habitCreated = false
+            HabitVC.cellCount -= 1
+            let destVC = UINavigationController(rootViewController: HabitVC())
+            destVC.modalPresentationStyle = .fullScreen
+            self.present(destVC, animated: true)
+        }))
+        if HabitArray.habitCreated == true {
+        present(deleteAlert, animated: true, completion: nil)
+        }
+    }
+    
     @objc func saveHabit() {
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
         habitData.completionCount = dailyNumberTextField.text ?? ""
         habitData.buttonColor = habitColor
         habitData.currentDailyCount = 0
-        HabitVC.cellCount += 1
+        
+        if HabitArray.habitCreated == true {
+            HabitArray.Array.insert(habitData, at: cellTag)
+            let destVC = UINavigationController(rootViewController: HabitDetailsVC())
+            destVC.modalPresentationStyle = .fullScreen
+            present(destVC, animated: true)
+            HabitArray.habitCreated = false
+        } else {
         HabitArray.Array.append(habitData)
+        HabitArray.habitCreated = false
+            HabitVC.cellCount += 1
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
         present(destVC, animated: true)
-     
+        }
     }
 }

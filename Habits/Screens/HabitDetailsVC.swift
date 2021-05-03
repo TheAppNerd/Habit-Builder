@@ -20,19 +20,25 @@ class HabitDetailsVC: UIViewController {
         super.viewDidLoad()
         configureViewController()
         configureBarButtons()
-        
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     private func configureBarButtons() {
-    
+        let backButton = UIBarButtonItem(barButtonSystemItem: .rewind, target: self, action: #selector(goBack))
         let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editHabit))
+        
+        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = editButton
+        
     }
  
     private func configureViewController() {
         view.backgroundColor = .systemBackground
     }
 
+    @objc func goBack() {
+        navigationController?.pushViewController(HabitVC(), animated: true)
+    }
     
     @objc func editHabit() {
         HabitArray.habitCreated = true

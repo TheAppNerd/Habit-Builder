@@ -20,6 +20,7 @@ class HabitVC: UIViewController {
         super.viewDidLoad()
         configureViewController()
         configureTableView()
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func configureViewController() {
@@ -43,9 +44,11 @@ class HabitVC: UIViewController {
     
     @objc func addHabitPressed() {
         HabitArray.habitCreated = false
-        let destVC = AddHabitVC()
-        let navController = UINavigationController(rootViewController: destVC)
-        present(navController, animated: true)
+        
+//        let destVC = AddHabitVC()
+//        let navController = UINavigationController(rootViewController: destVC)
+//        present(navController, animated: true)
+        navigationController?.pushViewController(AddHabitVC(), animated: true)
     }
     
     @objc func helpButtonPressed() {
