@@ -1,0 +1,18 @@
+PODS:
+  - KDCalendar (1.8.9):
+    - KDCalendar/EventManager (= 1.8.9)
+  - KDCalendar/EventManager (1.8.9)
+
+DEPENDENCIES:
+  - KDCalendar (~> 1.8.4)
+
+SPEC REPOS:
+  trunk:
+    - KDCalendar
+
+SPEC CHECKSUMS:
+  KDCalendar: a587bc486b992d82ef94bd04001fce9baf45e518
+
+PODFILE CHECKSUM: 5732f654f138e14f00c87dc6eb8961f516b9aa6b
+
+COCOAPODS: 1.10.1
