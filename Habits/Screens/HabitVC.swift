@@ -38,6 +38,7 @@ class HabitVC: UIViewController {
         tableView.dataSource = self
         tableView.estimatedRowHeight = 100
         tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
+        tableView.separatorStyle = .none
 
     }
     
@@ -49,6 +50,7 @@ class HabitVC: UIViewController {
 //        let navController = UINavigationController(rootViewController: destVC)
 //        present(navController, animated: true)
         navigationController?.pushViewController(AddHabitVC(), animated: true)
+
     }
     
     @objc func helpButtonPressed() {

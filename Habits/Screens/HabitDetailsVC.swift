@@ -10,18 +10,18 @@ import KDCalendar
 
 class HabitDetailsVC: UIViewController {
 
-    //implement calendar layout here
     
     var cellTag: Int = 0
     var habitData = HabitData()
     var addHabitVC = AddHabitVC()
     let calendarView = CalendarView()
-    let dateArray: [Date] = []
+    var dateArray: [Date] = []
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let date = Date()
         self.calendarView.setDisplayDate(date)
+        
     }
     
     override func viewDidLoad() {
@@ -60,7 +60,8 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellSelectedBorderColor = HabitArray.Array[cellTag].buttonColor!
         myStyle.cellTextColorDefault = .label
         myStyle.cellSelectedTextColor = .label
-        //use mystyle to set all the relevent colors and selections
+        
+
         
         NSLayoutConstraint.activate([
             calendarView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
@@ -98,7 +99,13 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     
     func calendar(_ calendar: CalendarView, didSelectDate date: Date, withEvents events: [CalendarEvent]) {
         //build in equation to determine current and longest streak based on days selected.
+        //use map to put these in chronological order then fidn a way to see how many days are consecutive.
+        //make it so dates cannot be unselected manually but you can click dates to edit them
+        //make it so the tableview complete button appends the current date to an array if there is no identical date. when this page loads, select all the dates in said array
+        //use calendarView.selectedDates which is an array of selected dates. make this array load the dates from the dates tab. 
         
+        dateArray.append(date)
+        print(date)
         
     }
     
@@ -107,7 +114,7 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     }
     
     func calendar(_ calendar: CalendarView, didDeselectDate date: Date) {
-       
+        
     }
     
     func calendar(_ calendar: CalendarView, didLongPressDate date: Date, withEvents events: [CalendarEvent]?) {
