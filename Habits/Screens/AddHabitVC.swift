@@ -40,6 +40,8 @@ class AddHabitVC: UIViewController {
         configureBarButtons()
         configureColorButtons()
         editTab()
+        
+        //no tab bars. build nav bar settings button
         self.tabBarController?.tabBar.isHidden = true
         deleteButton.isHidden = true
         if HabitArray.habitCreated == true {
@@ -87,6 +89,7 @@ class AddHabitVC: UIViewController {
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = saveButton
     }
+    
     private func configure() {
         view.backgroundColor = .systemBackground
         title = "Add Habit"
