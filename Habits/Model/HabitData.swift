@@ -7,6 +7,19 @@
 
 import UIKit
 
+
+struct HabitArray {
+    static var Array: [HabitData] = []
+    static var habitCreated: Bool?
+    static var habitDates: [DateArray] = []
+   
+}
+
+
+struct DateArray {
+    static var dates: [Date] = []
+}
+
 struct HabitData {
     
     var habitName: String?
@@ -16,13 +29,5 @@ struct HabitData {
     var buttonColor: UIColor?
     var currentDailyCount: Int?
     
-    
+
 }
-
-struct HabitArray {
-    static var Array: [HabitData] = []
-    static var habitCreated: Bool?
-    static var dateArray: [String] = []
-}
-
-
