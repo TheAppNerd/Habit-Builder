@@ -18,20 +18,14 @@ class HabitDetailsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getSelectedDates()
-    }
-   
-    func getSelectedDates() {
         let date = Date()
         self.calendarView.setDisplayDate(date)
-
-        let formatter = DateFormatter()
-        print(HabitArray.dateArray)
-//        for day in HabitArray.dateArray {
-//            print(formatter.date(from: day))
-//            calendarView.selectDate(formatter.date(from: day)!)
-//        }
         
+        for date in DateArray.dates {
+        calendarView.selectDate(date)
+        print(calendarView.selectedDates)
+        
+    }
     }
     
     override func viewDidLoad() {
@@ -113,8 +107,7 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
         //make it so dates cannot be unselected manually but you can click dates to edit them
         //make it so the tableview complete button appends the current date to an array if there is no identical date. when this page loads, select all the dates in said array
         //use calendarView.selectedDates which is an array of selected dates. make this array load the dates from the dates tab. 
-        //HabitArray.dateArray.append(date)
-        print(HabitArray.dateArray)
+        
     }
     
     func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
@@ -140,6 +133,7 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     func endDate() -> Date {
         var dateComponents = DateComponents()
         dateComponents.month = 24
+        
         let today = Date()
         let twelveMonthsFromNow = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
         return twelveMonthsFromNow!

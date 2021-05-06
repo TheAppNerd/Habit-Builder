@@ -54,6 +54,7 @@ class HabitVC: UIViewController {
         //enter functionality for help screen popup
     }
     
+    
     @objc func completePressed(_ sender: UIButton) {
         let buttonCount = HabitArray.Array[sender.tag].currentDailyCount!
         let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
@@ -61,21 +62,15 @@ class HabitVC: UIViewController {
         if buttonCount < totalCount {
         HabitArray.Array[sender.tag].currentDailyCount! += 1
         tableView.reloadData()
-            
-            let formatter = DateFormatter()
-            formatter.dateStyle = .short
-            let dateString = formatter.string(from: Date())
-            
-           
-            
-            
-            if !HabitArray.dateArray.contains(dateString) {
-                HabitArray.dateArray.append(dateString)
-            }
-          
         }
-    
         
+        let today = Calendar.current.startOfDay(for: Date())
+        if !DateArray.dates.contains(today) {
+        DateArray.dates.append(today)
+        
+        }
+        print(DateArray.dates)
+
         //make an enum for this
         
         if buttonCount == totalCount - 1 {
