@@ -19,7 +19,7 @@ static let reuseID = "HabitCell"
     let reduceButton = UIButton()
     let completionButton = UIButton()
     
-    let progressBar = HabitProgressView()
+    let progressBar = UIProgressView()
     let cellView = TableCellView()
     
     let stackView = UIStackView()

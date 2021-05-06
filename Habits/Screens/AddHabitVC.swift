@@ -103,6 +103,10 @@ class AddHabitVC: UIViewController {
         view.addSubview(habitNameTextField)
         view.addSubview(notesTextField)
         view.addSubview(dailyNumberTextField)
+      
+        
+        
+        
         
         for button in colorButtons {
             view.addSubview(button)
@@ -112,6 +116,7 @@ class AddHabitVC: UIViewController {
                 button.widthAnchor.constraint(equalTo: button.heightAnchor),
             ])
     }
+        
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.backgroundColor = .systemRed
         deleteButton.setTitle("Delete Habit", for: .normal)
@@ -169,13 +174,14 @@ class AddHabitVC: UIViewController {
             deleteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             deleteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
-            deleteButton.heightAnchor.constraint(equalToConstant: 30)
-        
+            deleteButton.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
 
     @objc func dismissVC() {
-        self.dismiss(animated: true)
+        let destVC = UINavigationController(rootViewController: HabitVC())
+        destVC.modalPresentationStyle = .fullScreen
+        present(destVC, animated: true)
     }
 
     @objc func deleteHabit() {
