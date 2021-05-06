@@ -22,6 +22,7 @@ struct HabitData {
 struct HabitArray {
     static var Array: [HabitData] = []
     static var habitCreated: Bool?
+    static var dateArray: [String] = []
 }
 
 

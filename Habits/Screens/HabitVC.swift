@@ -46,9 +46,6 @@ class HabitVC: UIViewController {
     @objc func addHabitPressed() {
         HabitArray.habitCreated = false
         
-//        let destVC = AddHabitVC()
-//        let navController = UINavigationController(rootViewController: destVC)
-//        present(navController, animated: true)
         navigationController?.pushViewController(AddHabitVC(), animated: true)
 
     }
@@ -64,7 +61,20 @@ class HabitVC: UIViewController {
         if buttonCount < totalCount {
         HabitArray.Array[sender.tag].currentDailyCount! += 1
         tableView.reloadData()
+            
+            let formatter = DateFormatter()
+            formatter.dateStyle = .short
+            let dateString = formatter.string(from: Date())
+            
+           
+            
+            
+            if !HabitArray.dateArray.contains(dateString) {
+                HabitArray.dateArray.append(dateString)
+            }
+          
         }
+    
         
         //make an enum for this
         
@@ -90,7 +100,8 @@ class HabitVC: UIViewController {
     func refresh() {
         tableView.reloadData()
     }
-    
+
+
 }
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,7 +112,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
         let dataIndex = HabitArray.Array[indexPath.row]
-        
+    
         cell.completionButton.addTarget(self, action: #selector(completePressed), for: .touchUpInside)
         cell.reduceButton.addTarget(self, action: #selector(reducePressed), for: .touchUpInside)
         cell.habitName.text = dataIndex.habitName
@@ -121,3 +132,4 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
