@@ -28,6 +28,7 @@ struct HabitData {
     var completionCount: String?
     var buttonColor: UIColor?
     var currentDailyCount: Int?
+    var progressCount: Float?
     
 
 }

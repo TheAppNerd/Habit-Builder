@@ -61,7 +61,8 @@ class HabitVC: UIViewController {
         
         if buttonCount < totalCount {
         HabitArray.Array[sender.tag].currentDailyCount! += 1
-        tableView.reloadData()
+            HabitArray.Array[sender.tag].progressCount! += (1.0 / Float(totalCount))
+            tableView.reloadData()
         }
         
         let today = Calendar.current.startOfDay(for: Date())
@@ -73,20 +74,15 @@ class HabitVC: UIViewController {
 
         //make an enum for this
         
-        if buttonCount == totalCount - 1 {
-            sender.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
-            tableView.reloadData()
-        } else if buttonCount < totalCount {
-            sender.setImage(nil, for: .normal)
-            tableView.reloadData()
-        }
             }
     
     @objc func reducePressed(_ sender: UIButton) {
         let buttonCount = HabitArray.Array[sender.tag].currentDailyCount!
+        let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
        
         if buttonCount > 0 {
         HabitArray.Array[sender.tag].currentDailyCount! -= 1
+        HabitArray.Array[sender.tag].progressCount! -= (1.0 / Float(totalCount))
         tableView.reloadData()
             
             //implement a button to remove checkmark
@@ -111,10 +107,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         cell.completionButton.addTarget(self, action: #selector(completePressed), for: .touchUpInside)
         cell.reduceButton.addTarget(self, action: #selector(reducePressed), for: .touchUpInside)
         cell.habitName.text = dataIndex.habitName
-        cell.streakCount.text = "Current Streak: 12 days"
         cell.completionCount.text = "Daily Target: \(dataIndex.currentDailyCount ?? 0) out of \(dataIndex.completionCount!)"
-        cell.completionButton.backgroundColor = dataIndex.buttonColor
+        cell.completionButton.tintColor = dataIndex.buttonColor
         cell.completionButton.tag = indexPath.row
+        cell.progressView.progressTintColor = dataIndex.buttonColor
+        UIView.animate(withDuration: 1.0) {
+            cell.progressView.setProgress(dataIndex.progressCount!, animated: true)
+        }
         return cell
     }
     

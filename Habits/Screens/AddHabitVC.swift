@@ -210,6 +210,7 @@ class AddHabitVC: UIViewController {
         habitData.completionCount = dailyNumberTextField.text ?? ""
         habitData.buttonColor = habitColor
         habitData.currentDailyCount = 0
+        habitData.progressCount = 0.0
         
         if HabitArray.habitCreated == true {
             HabitArray.Array.insert(habitData, at: cellTag)
@@ -219,11 +220,11 @@ class AddHabitVC: UIViewController {
             HabitArray.habitCreated = false
         } else {
         HabitArray.Array.append(habitData)
-        HabitArray.habitCreated = false
             HabitVC.cellCount += 1
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
         present(destVC, animated: true)
+            HabitArray.habitCreated = false
         }
     }
 }

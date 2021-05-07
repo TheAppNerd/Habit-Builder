@@ -82,7 +82,9 @@ class HabitDetailsVC: UIViewController {
     }
 
     @objc func goBack() {
-        navigationController?.pushViewController(HabitVC(), animated: true)
+        let destVC = UINavigationController(rootViewController: HabitVC())
+        destVC.modalPresentationStyle = .fullScreen
+        present(destVC, animated: true)
     }
     
     @objc func editHabit() {

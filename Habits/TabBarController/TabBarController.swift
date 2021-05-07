@@ -11,7 +11,7 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = [habitScreen()]
+        viewControllers = [habitScreen(), testScreen()]
     }
     
     
@@ -20,6 +20,14 @@ class TabBarController: UITabBarController {
         habitVC.title = "Habits"
         habitVC.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 0) //change the system item image
         return UINavigationController(rootViewController: habitVC)
+        
+    }
+    
+    func testScreen() -> UINavigationController {
+        let testView = TestVC()
+        testView.view.backgroundColor = .systemBackground
+        testView.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+        return UINavigationController(rootViewController: testView)
         
     }
 
