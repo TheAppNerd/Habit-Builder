@@ -14,6 +14,9 @@ class AddHabitVC: UIViewController {
     let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .center, fontSize: 16)
     let dailyNumberLabel = BodyLabel(textInput: "Daily Target:", textAlignment: .center, fontSize: 16)
     let reminderLabel = BodyLabel(textInput: "Set Reminder?", textAlignment: .center, fontSize: 16)
+    let datePicker = DatePicker()
+    let dateSwitch = DateSwitch()
+    
     var cellTag: Int = 0
     
     let deleteButton = UIButton()
@@ -104,8 +107,8 @@ class AddHabitVC: UIViewController {
         view.addSubview(habitNameTextField)
         view.addSubview(notesTextField)
         view.addSubview(dailyNumberTextField)
-      
-        
+        view.addSubview(datePicker)
+        view.addSubview(dateSwitch)
         
         
         
@@ -117,6 +120,8 @@ class AddHabitVC: UIViewController {
                 button.widthAnchor.constraint(equalTo: button.heightAnchor),
             ])
     }
+        
+        dateSwitch.addTarget(self, action: #selector(dateSwitchPressed), for: .touchUpInside)
         
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.backgroundColor = .systemRed
@@ -146,7 +151,7 @@ class AddHabitVC: UIViewController {
             dailyNumberLabel.widthAnchor.constraint(equalToConstant: 80),
             dailyNumberLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            reminderLabel.topAnchor.constraint(equalTo: dailyNumberLabel.bottomAnchor, constant: padding),
+            reminderLabel.topAnchor.constraint(equalTo: dailyNumberLabel.bottomAnchor, constant: padding * 2),
             reminderLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             reminderLabel.widthAnchor.constraint(equalToConstant: 80),
             reminderLabel.heightAnchor.constraint(equalToConstant: 30),
@@ -176,9 +181,25 @@ class AddHabitVC: UIViewController {
             deleteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
             deleteButton.heightAnchor.constraint(equalToConstant: 30),
+            
+           dateSwitch.leadingAnchor.constraint(equalTo: dailyNumberTextField.leadingAnchor),
+           dateSwitch.centerYAnchor.constraint(equalTo: reminderLabel.centerYAnchor),
+           dateSwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+           dateSwitch.heightAnchor.constraint(equalTo: reminderLabel.heightAnchor),
+            
+            datePicker.leadingAnchor.constraint(equalTo: dateSwitch.leadingAnchor),
+            datePicker.topAnchor.constraint(equalTo: dateSwitch.bottomAnchor, constant: padding),
+            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            datePicker.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 
+    @objc func dateSwitchPressed() {
+    
+            print("on")
+        
+    }
+    
     @objc func dismissVC() {
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
