@@ -15,6 +15,9 @@ class HabitDetailsVC: UIViewController {
     var habitData = HabitData()
     var addHabitVC = AddHabitVC()
     let calendarView = CalendarView()
+    let currentStreak = BodyLabel()
+    let bestStreak = BodyLabel()
+    let noteLabel = BodyLabel()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -23,8 +26,8 @@ class HabitDetailsVC: UIViewController {
         
         for date in DateArray.dates {
         calendarView.selectDate(date)
-        print(calendarView.selectedDates)
         
+//            noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
     }
     }
     
@@ -34,7 +37,8 @@ class HabitDetailsVC: UIViewController {
         configureBarButtons()
         configureCalendarView()
         self.tabBarController?.tabBar.isHidden = true
-       
+        title = HabitArray.Array[cellTag].habitName
+        noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
     }
     
     private func configureBarButtons() {
@@ -47,13 +51,16 @@ class HabitDetailsVC: UIViewController {
     }
  
     func configureCalendarView() {
-        view.addSubview(calendarView)
+       
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.direction = .horizontal
         calendarView.style.locale = Locale.current
         calendarView.style.weekdaysBackgroundColor = .blue
+        
+        currentStreak.text = "Current Streak: 10 Days"
+        bestStreak.text = "Best Streak: 10 Days"
         
         let myStyle = CalendarView.Style()
         myStyle.cellBorderColor = UIColor.black
@@ -64,21 +71,38 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellSelectedBorderColor = HabitArray.Array[cellTag].buttonColor!
         myStyle.cellTextColorDefault = .label
         myStyle.cellSelectedTextColor = .label
-        
-
-        
-        NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        
-        ])
-        
     }
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
+        view.addSubview(calendarView)
+        view.addSubview(currentStreak)
+        view.addSubview(bestStreak)
+        view.addSubview(noteLabel)
+        
+        let padding: CGFloat = 10
+        
+        NSLayoutConstraint.activate([
+            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400),
+            
+            currentStreak.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: padding),
+            currentStreak.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            currentStreak.trailingAnchor.constraint(equalTo: bestStreak.leadingAnchor, constant: -padding),
+            currentStreak.heightAnchor.constraint(equalToConstant: 20),
+            
+            bestStreak.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: padding),
+            bestStreak.leadingAnchor.constraint(equalTo: currentStreak.trailingAnchor, constant: padding),
+            bestStreak.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            bestStreak.heightAnchor.constraint(equalToConstant: 20),
+            
+            noteLabel.topAnchor.constraint(equalTo: bestStreak.bottomAnchor, constant: padding),
+            noteLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            noteLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            noteLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
+        ])
     }
 
     @objc func goBack() {

@@ -9,43 +9,26 @@ import UIKit
 
 class TestVC: UIViewController {
 
-    var circle = HabitProgressView()
-    var a: Float = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    configureCircle()
+
+       gradient(gradientView: view)
     }
     
-    @objc func handleTap() {
-        a += 0.1
+   
         
-        //circle.progress += 0.1
-        UIView.animate(withDuration: 3) {
-            self.circle.setProgress(self.a, animated: true)
-        }
+    func gradient(gradientView: UIView) {
+    
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = gradientView.bounds
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        gradientLayer.colors = [UIColor(red: 0.18, green: 0.19, blue: 0.57, alpha: 1).cgColor, UIColor(red: 0.11, green: 1.00, blue: 1.00, alpha: 1.00).cgColor]
+        gradientLayer.shouldRasterize = true
+        gradientView.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    func configureCircle() {
-        
-        circle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
-        circle.progressTintColor = .red
-        view.addSubview(circle)
-        circle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-        
-            circle.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            circle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            circle.heightAnchor.constraint(equalToConstant: 100),
-            circle.widthAnchor.constraint(equalToConstant: 100)
-        
-        ])
-        
-        
-        
-    }
-    
-    
     
 
 }

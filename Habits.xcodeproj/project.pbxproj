@@ -26,6 +26,10 @@
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
 		FA212C562644C78100BFDA3F /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C552644C78100BFDA3F /* TestVC.swift */; };
+		FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C5726450A9300BFDA3F /* Gradients.swift */; };
+		FAF4E6C92648E8E80029E50D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6C82648E8E80029E50D /* Reminders.swift */; };
+		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
+		FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CC26493FF50029E50D /* DateSwitch.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +55,10 @@
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 		FA212C552644C78100BFDA3F /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		FA212C5726450A9300BFDA3F /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
+		FAF4E6C82648E8E80029E50D /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
+		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		FAF4E6CC26493FF50029E50D /* DateSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSwitch.swift; sourceTree = "<group>"; };
 		FB7F27FC05DA56D0BD8F3CE8 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,6 +203,10 @@
 			isa = PBXGroup;
 			children = (
 				FA212C4C263A3DE000BFDA3F /* HabitData.swift */,
+				FA212C5726450A9300BFDA3F /* Gradients.swift */,
+				FAF4E6C82648E8E80029E50D /* Reminders.swift */,
+				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
+				FAF4E6CC26493FF50029E50D /* DateSwitch.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,10 +327,13 @@
 				FA212C562644C78100BFDA3F /* TestVC.swift in Sources */,
 				FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
+				FAF4E6C92648E8E80029E50D /* Reminders.swift in Sources */,
 				FA1C73242636406300E63CBE /* HabitVC.swift in Sources */,
 				FA1C730A263636D800E63CBE /* ViewController.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
+				FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */,
 				FA1C731F263638BE00E63CBE /* TabBarController.swift in Sources */,
+				FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */,
 				FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
@@ -328,6 +343,7 @@
 				FA1C733D2637B9FD00E63CBE /* HabitProgressView.swift in Sources */,
 				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
+				FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,7 +418,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = KDCALENDAR_EVENT_MANAGER_ENABLED;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -456,7 +471,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				"SWIFT_ACTIVE_COMPILATION_CONDITIONS[arch=*]" = KDCALENDAR_EVENT_MANAGER_ENABLED;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
