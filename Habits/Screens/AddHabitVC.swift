@@ -17,6 +17,8 @@ class AddHabitVC: UIViewController {
     let datePicker = DatePicker()
     let dateSwitch = DateSwitch()
     
+    let reminders = Reminders()
+    
     var cellTag: Int = 0
     
     let deleteButton = UIButton()
@@ -44,6 +46,9 @@ class AddHabitVC: UIViewController {
         configureBarButtons()
         configureColorButtons()
         editTab()
+        if dateSwitch.isOn == false {
+            datePicker.isHidden = true
+        }
         
         //no tab bars. build nav bar settings button
         self.tabBarController?.tabBar.isHidden = true
@@ -195,10 +200,14 @@ class AddHabitVC: UIViewController {
     }
 
     @objc func dateSwitchPressed() {
-    
+        if dateSwitch.isOn == true {
             print("on")
-        
+            datePicker.isHidden = false
+            } else {
+            datePicker.isHidden = true
+        }
     }
+    
     
     @objc func dismissVC() {
         let destVC = UINavigationController(rootViewController: HabitVC())

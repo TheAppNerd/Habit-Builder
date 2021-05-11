@@ -11,25 +11,45 @@ class HabitVC: UIViewController {
     
     let tableView = UITableView()
     
+    var isSlideInMenuPressed = false
+    lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.30
+    
     var habitName: String = ""
     var dailyNumber: String = ""
     static var cellCount = 1
     var habitData = HabitData()
+    
   
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureTableView()
         self.tabBarController?.tabBar.isHidden = false
+        menuView.pinMenuTo(view, with: slideInMenuPadding)
+        containerView.edgeTo(view)
     }
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
+        let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitPressed))
         let helpButton = UIBarButtonItem(image: UIImage(systemName: "questionmark"), style: .plain, target: self, action: #selector(helpButtonPressed))
-        
+        navigationItem.setLeftBarButton(menuButton, animated: true)
         navigationItem.rightBarButtonItems = [addButton, helpButton]
     }
+    
+    lazy var containerView: UIView = {
+       let view = UIView()
+        view.backgroundColor = .systemBackground
+        return view
+    }()
+    
+    lazy var menuView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        return view
+    }()
+    
     
     func configureTableView() {
         view.addSubview(tableView)
@@ -42,6 +62,15 @@ class HabitVC: UIViewController {
 
     }
     
+    @objc func menuBarButtonPressed() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut) {
+            self.containerView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.containerView.frame.width - self.slideInMenuPadding
+        } completion: { (finished) in
+            print("animation finished: \(finished)")
+            self.isSlideInMenuPressed.toggle()
+        }
+
+    }
     
     @objc func addHabitPressed() {
         HabitArray.habitCreated = false
