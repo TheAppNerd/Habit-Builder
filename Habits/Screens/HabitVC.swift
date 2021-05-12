@@ -10,6 +10,7 @@ import UIKit
 class HabitVC: UIViewController {
     
     let tableView = UITableView()
+    let menu = MenuView()
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.30
@@ -46,7 +47,14 @@ class HabitVC: UIViewController {
     
     lazy var menuView: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
+        view.addSubview(menu.view)
+        menu.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            menu.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            menu.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            menu.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            menu.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
         return view
     }()
     
