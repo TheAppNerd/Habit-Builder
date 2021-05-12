@@ -12,7 +12,7 @@ class MenuTableViewCell: UITableViewCell {
     static let reuseID = "MenuCell"
     
     let cellImage = UIImageView()
-    let cellLabel = TitleLabel(textAlignment: .left, fontSize: 30)
+    let cellLabel = TitleLabel(textAlignment: .left, fontSize: 20)
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,18 +24,23 @@ class MenuTableViewCell: UITableViewCell {
     }
     
     private func configure() {
+        self.isUserInteractionEnabled = true
         addSubview(cellImage)
         addSubview(cellLabel)
+        self.backgroundColor = .secondarySystemBackground
+        cellLabel.textColor = .label
+        cellImage.tintColor = .label
         cellImage.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
         let padding: CGFloat = 20
-        
         NSLayoutConstraint.activate([
             
             cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding),
             cellImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            cellImage.heightAnchor.constraint(equalToConstant: self.frame.height / 2),
-            cellImage.widthAnchor.constraint(equalTo: self.heightAnchor),
+            //cellImage.heightAnchor.constraint(equalToConstant: 20),
+            cellImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
+            cellImage.widthAnchor.constraint(equalToConstant: 30),
             
             cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),

@@ -12,7 +12,7 @@ let tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = . red
+        
        configureTableView()
     }
     
@@ -22,12 +22,12 @@ let tableView = UITableView()
     
 
     func configureTableView() {
-        tableView.backgroundColor = .systemGray3
+        tableView.backgroundColor = .secondarySystemBackground
         view.addSubview(tableView)
         tableView.frame = view.bounds
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 70
         tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: MenuTableViewCell.reuseID)
         tableView.separatorStyle = .none
         
