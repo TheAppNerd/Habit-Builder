@@ -37,14 +37,12 @@ class MenuTableViewCell: UITableViewCell {
             
             cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding),
             cellImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            //cellImage.heightAnchor.constraint(equalToConstant: 20),
             cellImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
             cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
             cellImage.widthAnchor.constraint(equalToConstant: 30),
             
             cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            cellLabel.heightAnchor.constraint(equalTo: cellImage.heightAnchor),
             cellLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding)
         ])
         

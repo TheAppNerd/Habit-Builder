@@ -20,14 +20,13 @@ class HabitVC: UIViewController {
     static var cellCount = 1
     var habitData = HabitData()
     
-  
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureTableView()
         self.tabBarController?.tabBar.isHidden = false
         menuView.pinMenuTo(view, with: slideInMenuPadding)
-        containerView.edgeTo(view)
+        tableView.edgeTo(view)
     }
     
     func configureViewController() {
@@ -38,12 +37,6 @@ class HabitVC: UIViewController {
         navigationItem.setLeftBarButton(menuButton, animated: true)
         navigationItem.rightBarButtonItems = [addButton, helpButton]
     }
-    
-    lazy var containerView: UIView = {
-       let view = UIView()
-        view.backgroundColor = .systemBackground
-        return view
-    }()
     
     lazy var menuView: UIView = {
         let view = UIView()
@@ -72,7 +65,7 @@ class HabitVC: UIViewController {
     
     @objc func menuBarButtonPressed() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut) {
-            self.containerView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.containerView.frame.width - self.slideInMenuPadding
+            self.tableView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
         } completion: { (finished) in
             print("animation finished: \(finished)")
             self.isSlideInMenuPressed.toggle()
@@ -103,11 +96,11 @@ class HabitVC: UIViewController {
         }
         
         let today = Calendar.current.startOfDay(for: Date())
-        if !DateArray.dates.contains(today) {
-        DateArray.dates.append(today)
-        
+        if !HabitArray.Array[sender.tag].dates.contains(today) {
+            HabitArray.Array[sender.tag].dates.append(today)
+            HabitArray.habitDates.insert(HabitArray.Array[sender.tag].dates, at: sender.tag)
         }
-        print(DateArray.dates)
+        print(HabitArray.habitDates)
 
         //make an enum for this
         
