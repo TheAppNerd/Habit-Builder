@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import KDCalendar
 
 class HabitVC: UIViewController {
     
     let tableView = UITableView()
     let menu = MenuView()
+    let calendarView = CalendarView()
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.30
@@ -95,17 +97,13 @@ class HabitVC: UIViewController {
             tableView.reloadData()
         }
         
-        let today = Calendar.current.startOfDay(for: Date())
+        let today = calendarView.calendar.startOfDay(for: Date())
         if !HabitArray.Array[sender.tag].dates.contains(today) {
             HabitArray.Array[sender.tag].dates.append(today)
             HabitArray.habitDates.insert(HabitArray.Array[sender.tag].dates, at: sender.tag)
         }
-        print(HabitArray.habitDates)
-
-        //make an enum for this
+        }
         
-            }
-    
     @objc func reducePressed(_ sender: UIButton) {
         let buttonCount = HabitArray.Array[sender.tag].currentDailyCount!
         let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
