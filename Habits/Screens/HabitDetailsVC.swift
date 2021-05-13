@@ -18,6 +18,7 @@ class HabitDetailsVC: UIViewController {
     let currentStreak = BodyLabel()
     let bestStreak = BodyLabel()
     let noteLabel = BodyLabel()
+    var biggestStreak: Int = 0
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -26,7 +27,6 @@ class HabitDetailsVC: UIViewController {
         if cellTag <= HabitArray.habitDates.count - 1 {
         for date in HabitArray.habitDates[cellTag] {
         calendarView.selectDate(date)
-            
         }
 //            noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
     }
@@ -41,6 +41,7 @@ class HabitDetailsVC: UIViewController {
         title = HabitArray.Array[cellTag].habitName
         noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
         currentStreak.text = "Current Streak: \(getCurrentStreak())"
+        bestStreak.text = "Longest Streak: \(getBiggestStreak())"
     }
     
     private func configureBarButtons() {
@@ -107,6 +108,7 @@ class HabitDetailsVC: UIViewController {
         ])
     }
 
+    //move this to habitdata to save to coredata
     func getCurrentStreak() -> Int {
         let today = calendarView.calendar.startOfDay(for: Date())
         var streak = [Date]()
@@ -126,12 +128,14 @@ class HabitDetailsVC: UIViewController {
         }
         return streak.count
     }
-//
-//    func getCurrentStreak() -> Int {
-//
-//
-//    }
     
+    //move this to habitdata to save to coredata
+    func getBiggestStreak() -> Int {
+        if getCurrentStreak() > biggestStreak {
+            biggestStreak = getCurrentStreak()
+        }
+        return biggestStreak
+    }
     
     @objc func goBack() {
         let destVC = UINavigationController(rootViewController: HabitVC())
