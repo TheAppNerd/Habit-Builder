@@ -23,10 +23,10 @@ class HabitDetailsVC: UIViewController {
         super.viewWillAppear(animated)
         let date = Date()
         self.calendarView.setDisplayDate(date)
-        
-        for date in DateArray.dates {
+        if cellTag <= HabitArray.habitDates.count - 1 {
+        for date in HabitArray.habitDates[cellTag] {
         calendarView.selectDate(date)
-        
+        }
 //            noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
     }
     }

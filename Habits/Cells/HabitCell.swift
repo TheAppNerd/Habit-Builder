@@ -76,10 +76,10 @@ static let reuseID = "HabitCell"
             habitName.widthAnchor.constraint(equalToConstant: 80),
             habitName.heightAnchor.constraint(equalToConstant: padding),
             
-            streakCount.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
-            streakCount.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
-            streakCount.heightAnchor.constraint(equalToConstant: padding),
-            streakCount.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -20),
+//            streakCount.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
+//            streakCount.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
+//            streakCount.heightAnchor.constraint(equalToConstant: padding),
+//            streakCount.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -20),
             
             completionCount.topAnchor.constraint(equalTo: habitName.bottomAnchor, constant: 30),
             completionCount.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -padding),
