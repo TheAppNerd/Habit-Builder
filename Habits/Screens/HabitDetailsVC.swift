@@ -26,6 +26,7 @@ class HabitDetailsVC: UIViewController {
         if cellTag <= HabitArray.habitDates.count - 1 {
         for date in HabitArray.habitDates[cellTag] {
         calendarView.selectDate(date)
+            
         }
 //            noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
     }
@@ -39,6 +40,7 @@ class HabitDetailsVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         title = HabitArray.Array[cellTag].habitName
         noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
+        currentStreak.text = "Current Streak: \(getCurrentStreak())"
     }
     
     private func configureBarButtons() {
@@ -105,6 +107,32 @@ class HabitDetailsVC: UIViewController {
         ])
     }
 
+    func getCurrentStreak() -> Int {
+        let today = calendarView.calendar.startOfDay(for: Date())
+        var streak = [Date]()
+        let array = HabitArray.Array[cellTag].dates
+        let sortedArray = array.sorted { $0.compare($1) == .orderedDescending }
+        let dayAfter = Calendar.current.date(byAdding: .day, value: -1, to: today)
+        for date in sortedArray {
+            if array.contains(dayAfter!) {
+                streak.append(date)
+            } else {
+                if HabitArray.Array[cellTag].currentDailyCount == 0 {
+                    return streak.count
+                } else {
+                return streak.count + 1
+                }
+            }
+        }
+        return streak.count
+    }
+//
+//    func getCurrentStreak() -> Int {
+//
+//
+//    }
+    
+    
     @objc func goBack() {
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
@@ -112,6 +140,7 @@ class HabitDetailsVC: UIViewController {
     }
     
     @objc func editHabit() {
+        
         HabitArray.habitCreated = true
         addHabitVC.cellTag = cellTag
         let destVC = UINavigationController(rootViewController: AddHabitVC())
@@ -137,7 +166,7 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     }
     
     func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
-        return true
+        return false
     }
     
     func calendar(_ calendar: CalendarView, didDeselectDate date: Date) {
