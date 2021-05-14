@@ -13,9 +13,9 @@ class HabitVC: UIViewController {
     let tableView = UITableView()
     let menu = MenuView()
     let calendarView = CalendarView()
-    
+    let generator = UIImpactFeedbackGenerator(style: .medium)
     var isSlideInMenuPressed = false
-    lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.30
+    lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
     
     var habitName: String = ""
     var dailyNumber: String = ""
@@ -29,6 +29,7 @@ class HabitVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         menuView.pinMenuTo(view, with: slideInMenuPadding)
         tableView.edgeTo(view)
+        generator.prepare()
     }
     
     func configureViewController() {
@@ -92,15 +93,19 @@ class HabitVC: UIViewController {
         let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
         
         if buttonCount < totalCount {
+            generator.impactOccurred()
         HabitArray.Array[sender.tag].currentDailyCount! += 1
             HabitArray.Array[sender.tag].progressCount! += (1.0 / Float(totalCount))
             tableView.reloadData()
+            
         }
         
         let today = calendarView.calendar.startOfDay(for: Date())
         if !HabitArray.Array[sender.tag].dates.contains(today) {
             HabitArray.Array[sender.tag].dates.append(today)
             HabitArray.habitDates.insert(HabitArray.Array[sender.tag].dates, at: sender.tag)
+            print(HabitArray.Array[sender.tag].dates)
+            print(HabitArray.habitDates)
         }
         }
         
@@ -109,12 +114,19 @@ class HabitVC: UIViewController {
         let totalCount = Int(HabitArray.Array[sender.tag].completionCount ?? "")!
        
         if buttonCount > 0 {
+            generator.impactOccurred()
         HabitArray.Array[sender.tag].currentDailyCount! -= 1
         HabitArray.Array[sender.tag].progressCount! -= (1.0 / Float(totalCount))
         tableView.reloadData()
-            
             //implement a button to remove checkmark
     }
+        if buttonCount == 1 {
+            HabitArray.Array[sender.tag].dates.removeLast()
+            HabitArray.habitDates.remove(at: sender.tag)
+            print(HabitArray.Array[sender.tag].dates)
+            print(HabitArray.habitDates)
+        }
+
 }
     func refresh() {
         tableView.reloadData()
