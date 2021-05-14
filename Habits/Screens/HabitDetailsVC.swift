@@ -19,17 +19,16 @@ class HabitDetailsVC: UIViewController {
     let bestStreak = BodyLabel()
     let noteLabel = BodyLabel()
     var biggestStreak: Int = 0
+ 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let date = Date()
         self.calendarView.setDisplayDate(date)
-        if cellTag <= HabitArray.habitDates.count - 1 {
-        for date in HabitArray.habitDates[cellTag] {
-        calendarView.selectDate(date)
-        }
-//            noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
-    }
+        //            noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
+        updateDates()
+        updateStreaks()
+      
     }
     
     override func viewDidLoad() {
@@ -40,8 +39,58 @@ class HabitDetailsVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         title = HabitArray.Array[cellTag].habitName
         noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
+        
+    }
+    
+    func updateDates() {
+        
+        //ensures that index doesnt = nil before calling dates
+        if cellTag <= HabitArray.habitDates.count - 1 {
+        for date in HabitArray.habitDates[cellTag] {
+        calendarView.selectDate(date)
+        }
+    }
+    }
+    
+    func updateStreaks() {
         currentStreak.text = "Current Streak: \(getCurrentStreak())"
         bestStreak.text = "Longest Streak: \(getBiggestStreak())"
+    }
+    
+    
+    //fix code. selections dont work. habit array doesnt update properly. 
+    func presentAlertToAddHabit(date: Date) {
+        
+        let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+            //self.calendarView.selectDate(date)
+            HabitArray.Array[self.cellTag].dates.append(date)
+            HabitArray.habitDates.insert(HabitArray.Array[self.cellTag].dates, at: self.cellTag)
+            self.updateDates()
+            self.updateStreaks()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
+            self.calendarView.deselectDate(date)
+            return
+        }))
+        present(alert, animated: true)
+    }
+
+    
+    func presentAlertToRemoveHabit(date: Date) {
+        let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+            //self.calendarView.deselectDate(date)
+            HabitArray.Array[self.cellTag].dates.removeLast()
+            HabitArray.habitDates.remove(at: self.cellTag)
+            self.updateDates()
+            self.updateStreaks()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
+            self.calendarView.selectDate(date)
+            return
+        }))
+        present(alert, animated: true)
     }
     
     private func configureBarButtons() {
@@ -53,6 +102,8 @@ class HabitDetailsVC: UIViewController {
         
     }
  
+    //move calendarview to its own VC then input here as a subview.
+    
     func configureCalendarView() {
        
         calendarView.delegate = self
@@ -61,9 +112,6 @@ class HabitDetailsVC: UIViewController {
         calendarView.direction = .horizontal
         calendarView.style.locale = Locale.current
         calendarView.style.weekdaysBackgroundColor = .blue
-        
-        currentStreak.text = "Current Streak: 10 Days"
-        bestStreak.text = "Best Streak: 10 Days"
         
         let myStyle = CalendarView.Style()
         myStyle.cellBorderColor = UIColor.black
@@ -108,7 +156,7 @@ class HabitDetailsVC: UIViewController {
         ])
     }
 
-    //move this to habitdata to save to coredata
+    //move this to habitdata to save to coredata.
     func getCurrentStreak() -> Int {
         let today = calendarView.calendar.startOfDay(for: Date())
         var streak = [Date]()
@@ -129,7 +177,7 @@ class HabitDetailsVC: UIViewController {
         return streak.count
     }
     
-    //move this to habitdata to save to coredata
+    //move this to habitdata to save to coredata. need to change this to take into account adding streaks manually to previous dates.
     func getBiggestStreak() -> Int {
         if getCurrentStreak() > biggestStreak {
             biggestStreak = getCurrentStreak()
@@ -161,16 +209,18 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     }
     
     func calendar(_ calendar: CalendarView, didSelectDate date: Date, withEvents events: [CalendarEvent]) {
-        //build in equation to determine current and longest streak based on days selected.
-        //use map to put these in chronological order then fidn a way to see how many days are consecutive.
-        //make it so dates cannot be unselected manually but you can click dates to edit them
-        //make it so the tableview complete button appends the current date to an array if there is no identical date. when this page loads, select all the dates in said array
-        //use calendarView.selectedDates which is an array of selected dates. make this array load the dates from the dates tab. 
         
     }
     
     func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
-        return false
+        if date < Date() {
+            if calendarView.selectedDates.contains(date) {
+            presentAlertToRemoveHabit(date: date)
+            } else {
+                presentAlertToAddHabit(date: date)
+            }
+        }
+       return false
     }
     
     func calendar(_ calendar: CalendarView, didDeselectDate date: Date) {
