@@ -24,12 +24,12 @@
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
 		FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C5726450A9300BFDA3F /* Gradients.swift */; };
-		FAF4E6C92648E8E80029E50D /* Reminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6C82648E8E80029E50D /* Reminders.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CC26493FF50029E50D /* DateSwitch.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
 		FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* MenuView.swift */; };
 		FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */; };
+		FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6DB265222320029E50D /* UserNotifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,12 +53,12 @@
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 		FA212C5726450A9300BFDA3F /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
-		FAF4E6C82648E8E80029E50D /* Reminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminders.swift; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6CC26493FF50029E50D /* DateSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSwitch.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6D7264A47B90029E50D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		FAF4E6DB265222320029E50D /* UserNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotifications.swift; sourceTree = "<group>"; };
 		FB7F27FC05DA56D0BD8F3CE8 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,9 +204,9 @@
 			children = (
 				FA212C4C263A3DE000BFDA3F /* HabitData.swift */,
 				FA212C5726450A9300BFDA3F /* Gradients.swift */,
-				FAF4E6C82648E8E80029E50D /* Reminders.swift */,
 				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
 				FAF4E6CC26493FF50029E50D /* DateSwitch.swift */,
+				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -335,8 +335,8 @@
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
-				FAF4E6C92648E8E80029E50D /* Reminders.swift in Sources */,
 				FA1C73242636406300E63CBE /* HabitVC.swift in Sources */,
+				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
 				FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */,
 				FA1C730A263636D800E63CBE /* ViewController.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,

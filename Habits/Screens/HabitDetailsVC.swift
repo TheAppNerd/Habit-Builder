@@ -18,6 +18,7 @@ class HabitDetailsVC: UIViewController {
     let currentStreak = BodyLabel()
     let bestStreak = BodyLabel()
     let noteLabel = BodyLabel()
+    var streak: Int = 0
     var biggestStreak: Int = 0
  
     
@@ -53,24 +54,24 @@ class HabitDetailsVC: UIViewController {
     }
     
     func updateStreaks() {
-        currentStreak.text = "Current Streak: \(getCurrentStreak())"
+        currentStreak.text = "Current Streak: \(streak)"
         bestStreak.text = "Longest Streak: \(getBiggestStreak())"
     }
     
     
-    //fix code. selections dont work. habit array doesnt update properly. 
     func presentAlertToAddHabit(date: Date) {
         
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            //self.calendarView.selectDate(date)
+            self.calendarView.selectDate(date)
             HabitArray.Array[self.cellTag].dates.append(date)
             HabitArray.habitDates.insert(HabitArray.Array[self.cellTag].dates, at: self.cellTag)
-            self.updateDates()
+            self.streak = self.getCurrentStreak()
             self.updateStreaks()
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
-            self.calendarView.deselectDate(date)
+            //self.calendarView.deselectDate(date)
             return
         }))
         present(alert, animated: true)
@@ -80,14 +81,14 @@ class HabitDetailsVC: UIViewController {
     func presentAlertToRemoveHabit(date: Date) {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            //self.calendarView.deselectDate(date)
+            self.calendarView.deselectDate(date)
             HabitArray.Array[self.cellTag].dates.removeLast()
             HabitArray.habitDates.remove(at: self.cellTag)
-            self.updateDates()
+            self.streak = self.getCurrentStreak()
             self.updateStreaks()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
-            self.calendarView.selectDate(date)
+            //self.calendarView.selectDate(date)
             return
         }))
         present(alert, animated: true)
@@ -157,15 +158,19 @@ class HabitDetailsVC: UIViewController {
     }
 
     //move this to habitdata to save to coredata.
+    //this doesnt work. redo it. use observers to update streaks as well
     func getCurrentStreak() -> Int {
-        let today = calendarView.calendar.startOfDay(for: Date())
+        let startDate = calendarView.calendar.startOfDay(for: Date())
         var streak = [Date]()
         let array = HabitArray.Array[cellTag].dates
         let sortedArray = array.sorted { $0.compare($1) == .orderedDescending }
-        let dayAfter = Calendar.current.date(byAdding: .day, value: -1, to: today)
+        var dateComponents = DateComponents()
+        dateComponents.day = -1
+        
         for date in sortedArray {
-            if array.contains(dayAfter!) {
+            if sortedArray.contains(calendarView.calendar.date(byAdding: dateComponents, to: date)!)  {
                 streak.append(date)
+                continue
             } else {
                 if HabitArray.Array[cellTag].currentDailyCount == 0 {
                     return streak.count
@@ -176,11 +181,15 @@ class HabitDetailsVC: UIViewController {
         }
         return streak.count
     }
+     
+    
+    
+    //need to start from today and count backwards. break if nothing.
     
     //move this to habitdata to save to coredata. need to change this to take into account adding streaks manually to previous dates.
     func getBiggestStreak() -> Int {
-        if getCurrentStreak() > biggestStreak {
-            biggestStreak = getCurrentStreak()
+        if streak > biggestStreak {
+            biggestStreak = streak
         }
         return biggestStreak
     }
@@ -233,19 +242,19 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     
     func startDate() -> Date {
         var dateComponents = DateComponents()
-        dateComponents.month = -24
+        dateComponents.year = -2
         let today = Date()
-        let twelveMonthsAgo = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-        return twelveMonthsAgo!
+        let twoYearsAgo = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
+        return twoYearsAgo!
     }
     
     func endDate() -> Date {
         var dateComponents = DateComponents()
-        dateComponents.month = 24
+        dateComponents.year = 2
         
         let today = Date()
-        let twelveMonthsFromNow = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-        return twelveMonthsFromNow!
+        let twoYearsFromNow = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
+        return twoYearsFromNow!
     }
     
     func headerString(_ date: Date) -> String? {
