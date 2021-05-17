@@ -17,7 +17,11 @@ class AddHabitVC: UIViewController {
     let datePicker = DatePicker()
     let dateSwitch = DateSwitch()
     
-    let reminders = Reminders()
+    
+    let userNotifications = UserNotifications()
+    var accessGranted = false
+    var hour: String = ""
+    var minute: String = ""
     
     var cellTag: Int = 0
     
@@ -99,6 +103,11 @@ class AddHabitVC: UIViewController {
         navigationItem.rightBarButtonItem = saveButton
     }
     
+    func configureDatePicker() {
+
+        
+    }
+    
     private func configure() {
         view.backgroundColor = .systemBackground
         title = "Add Habit"
@@ -116,6 +125,7 @@ class AddHabitVC: UIViewController {
         view.addSubview(dateSwitch)
         
         
+        datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
         
         for button in colorButtons {
             view.addSubview(button)
@@ -126,7 +136,7 @@ class AddHabitVC: UIViewController {
             ])
     }
         
-        dateSwitch.addTarget(self, action: #selector(dateSwitchPressed), for: .touchUpInside)
+        dateSwitch.addTarget(self, action: #selector(dateSwitchPressed), for: .valueChanged)
         
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.backgroundColor = .systemRed
@@ -201,11 +211,26 @@ class AddHabitVC: UIViewController {
 
     @objc func dateSwitchPressed() {
         if dateSwitch.isOn == true {
-            print("on")
+            userNotifications.requestUserAuthorisation(sender: dateSwitch)
             datePicker.isHidden = false
             } else {
             datePicker.isHidden = true
         }
+    }
+    
+    @objc func datePickerTime() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        let dateAsString = formatter.string(from: datePicker.date)
+        
+        let date = formatter.date(from: dateAsString)
+        formatter.dateFormat = "HH:mm"
+        
+        let twentyFourHourDate = formatter.string(from: date!)
+        
+        let time = twentyFourHourDate.components(separatedBy: ":")
+        print(time)
+       // let components = DateComponents(hour: <#T##Int?#>, minute: <#T##Int?#>)
     }
     
     
