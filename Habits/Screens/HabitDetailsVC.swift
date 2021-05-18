@@ -112,17 +112,20 @@ class HabitDetailsVC: UIViewController {
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.direction = .horizontal
         calendarView.style.locale = Locale.current
-        calendarView.style.weekdaysBackgroundColor = .blue
-        
+
         let myStyle = CalendarView.Style()
-        myStyle.cellBorderColor = UIColor.black
-        myStyle.cellBorderWidth = 2.0
+        myStyle.cellBorderColor = .clear
+        myStyle.cellBorderWidth = 1
         self.calendarView.style = myStyle
         myStyle.cellShape = CalendarView.Style.CellShapeOptions.round
-        
+        myStyle.cellColorDefault = .secondaryLabel
         myStyle.cellSelectedBorderColor = HabitArray.Array[cellTag].buttonColor!
         myStyle.cellTextColorDefault = .label
+        myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
+        myStyle.cellSelectedColor = HabitArray.Array[cellTag].buttonColor!
+        
+        
     }
     
     private func configureViewController() {

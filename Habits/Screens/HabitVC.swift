@@ -30,7 +30,9 @@ class HabitVC: UIViewController {
         menuView.pinMenuTo(view, with: slideInMenuPadding)
         tableView.edgeTo(view)
         generator.prepare()
+ 
     }
+
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
@@ -144,16 +146,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
         let dataIndex = HabitArray.Array[indexPath.row]
     
-        cell.completionButton.addTarget(self, action: #selector(completePressed), for: .touchUpInside)
-        cell.reduceButton.addTarget(self, action: #selector(reducePressed), for: .touchUpInside)
+//        cell.completionButton.addTarget(self, action: #selector(completePressed), for: .touchUpInside)
+//        cell.reduceButton.addTarget(self, action: #selector(reducePressed), for: .touchUpInside)
         cell.habitName.text = dataIndex.habitName
-        cell.completionCount.text = "Daily Target: \(dataIndex.currentDailyCount ?? 0) out of \(dataIndex.completionCount!)"
-        cell.completionButton.tintColor = dataIndex.buttonColor
-        cell.completionButton.tag = indexPath.row
-        cell.progressView.progressTintColor = dataIndex.buttonColor
-        UIView.animate(withDuration: 1.0) {
-            cell.progressView.setProgress(dataIndex.progressCount!, animated: true)
-        }
+//        cell.completionCount.text = "Daily Target: \(dataIndex.currentDailyCount ?? 0) out of \(dataIndex.completionCount!)"
+//        cell.completionButton.tintColor = dataIndex.buttonColor
+//        cell.completionButton.tag = indexPath.row
+
         return cell
     }
     

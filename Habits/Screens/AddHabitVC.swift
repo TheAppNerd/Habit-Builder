@@ -20,8 +20,8 @@ class AddHabitVC: UIViewController {
     
     let userNotifications = UserNotifications()
     var accessGranted = false
-    var hour: String = ""
-    var minute: String = ""
+    var hour: Int = 0
+    var minute: Int = 0
     
     var cellTag: Int = 0
     
@@ -211,7 +211,7 @@ class AddHabitVC: UIViewController {
 
     @objc func dateSwitchPressed() {
         if dateSwitch.isOn == true {
-            userNotifications.requestUserAuthorisation(sender: dateSwitch)
+            
             datePicker.isHidden = false
             } else {
             datePicker.isHidden = true
@@ -229,7 +229,8 @@ class AddHabitVC: UIViewController {
         let twentyFourHourDate = formatter.string(from: date!)
         
         let time = twentyFourHourDate.components(separatedBy: ":")
-        print(time)
+        hour = Int(time[0])!
+        minute = Int(time[1])!
        // let components = DateComponents(hour: <#T##Int?#>, minute: <#T##Int?#>)
     }
     
@@ -283,6 +284,7 @@ class AddHabitVC: UIViewController {
         habitData.buttonColor = habitColor
         habitData.currentDailyCount = 0
         habitData.progressCount = 0.0
+            userNotifications.scheduleNotification(title: habitNameTextField.text!, body: "TEST", hour: hour, minute: minute)
 
         if HabitArray.habitCreated == true {
             HabitArray.Array.insert(habitData, at: cellTag)
