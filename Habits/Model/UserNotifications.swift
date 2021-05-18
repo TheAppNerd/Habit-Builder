@@ -5,28 +5,25 @@
 //  Created by Alexander Thompson on 17/5/21.
 //
 
-import Foundation
+import UIKit
 import UserNotifications
 
 class UserNotifications {
     
-    func requestUserAuthorisation(sender: DateSwitch) {
+    func requestUserAuthorisation() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if granted {
-                print("access granted")
-            } else {
-//                DispatchQueue.main.async {
-//                    sender.isOn = false
-                print("access denied")
-                //present alert to allow in settings?
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
                 }
+            }
                
             }
     }
-    }
     
-    func scheduleNotification(title: String, body: String, time: String) {
+    
+    func scheduleNotification(title: String, body: String, hour: Int, minute: Int) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.title = title
@@ -35,10 +32,33 @@ class UserNotifications {
         content.sound = UNNotificationSound.default
         
         var dateComponents = DateComponents()
+        dateComponents.hour = hour
+        dateComponents.minute = minute
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
         center.add(request)
-        
     }
 
+    
+    func confirmRegisteredNotifications() {
+        let center = UNUserNotificationCenter.current()
+        center.getNotificationSettings { (settings) in
+            switch settings.authorizationStatus {
+            case .authorized, .provisional:
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            case .denied:
+                print("Denied")
+            case .notDetermined:
+                self.requestUserAuthorisation()
+            case .ephemeral:
+                print("")
+            @unknown default:
+                break
+            }
+        }
+        
+    }
+}

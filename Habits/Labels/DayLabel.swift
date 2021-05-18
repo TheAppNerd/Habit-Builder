@@ -1,38 +1,34 @@
 //
-//  HabitProgressView.swift
+//  dayLabel.swift
 //  Habits
 //
-//  Created by Alexander Thompson on 27/4/21.
+//  Created by Alexander Thompson on 18/5/21.
 //
 
 import UIKit
 
-class HabitProgressView: UIProgressView {
-
+class DayLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
     
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-        
     }
     
-    convenience init(color: UIColor) {
+    convenience init(text: String) {
         self.init(frame: .zero)
-        self.progressTintColor = color
-        
-        configure()
+        self.text = text
     }
-    
     
     private func configure() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-  
+        translatesAutoresizingMaskIntoConstraints = false
+        textColor = .label
+        adjustsFontSizeToFitWidth = true
         
-  
-}
+        
+    }
+    
 }

@@ -18,7 +18,6 @@
 		FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C732F26365AFC00E63CBE /* BodyLabel.swift */; };
 		FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733326365CFA00E63CBE /* TitleLabel.swift */; };
 		FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733726379DDE00E63CBE /* ColorButton.swift */; };
-		FA1C733D2637B9FD00E63CBE /* HabitProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */; };
 		FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73422637CD3E00E63CBE /* TableCellView.swift */; };
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
@@ -30,6 +29,7 @@
 		FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* MenuView.swift */; };
 		FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */; };
 		FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6DB265222320029E50D /* UserNotifications.swift */; };
+		FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E126537DEF0029E50D /* DayLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +47,6 @@
 		FA1C732F26365AFC00E63CBE /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		FA1C733326365CFA00E63CBE /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		FA1C733726379DDE00E63CBE /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
-		FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitProgressView.swift; sourceTree = "<group>"; };
 		FA1C73422637CD3E00E63CBE /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
@@ -59,6 +58,7 @@
 		FAF4E6D7264A47B90029E50D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		FAF4E6DB265222320029E50D /* UserNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotifications.swift; sourceTree = "<group>"; };
+		FAF4E6E126537DEF0029E50D /* DayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabel.swift; sourceTree = "<group>"; };
 		FB7F27FC05DA56D0BD8F3CE8 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,7 +116,6 @@
 				FA212C4B263A3DCD00BFDA3F /* Model */,
 				FA212C48263917FE00BFDA3F /* TextFields */,
 				FA1C73412637CD1C00E63CBE /* Views */,
-				FA1C733B2637B9DF00E63CBE /* ProgressViews */,
 				FA1C733626379DC900E63CBE /* Buttons */,
 				FA1C732E263659D100E63CBE /* Labels */,
 				FA1C7327263648F400E63CBE /* Cells */,
@@ -163,6 +162,7 @@
 			children = (
 				FA1C732F26365AFC00E63CBE /* BodyLabel.swift */,
 				FA1C733326365CFA00E63CBE /* TitleLabel.swift */,
+				FAF4E6E126537DEF0029E50D /* DayLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -173,14 +173,6 @@
 				FA1C733726379DDE00E63CBE /* ColorButton.swift */,
 			);
 			path = Buttons;
-			sourceTree = "<group>";
-		};
-		FA1C733B2637B9DF00E63CBE /* ProgressViews */ = {
-			isa = PBXGroup;
-			children = (
-				FA1C733C2637B9FD00E63CBE /* HabitProgressView.swift */,
-			);
-			path = ProgressViews;
 			sourceTree = "<group>";
 		};
 		FA1C73412637CD1C00E63CBE /* Views */ = {
@@ -335,6 +327,7 @@
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
+				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
 				FA1C73242636406300E63CBE /* HabitVC.swift in Sources */,
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
 				FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */,
@@ -348,7 +341,6 @@
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */,
 				FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */,
-				FA1C733D2637B9FD00E63CBE /* HabitProgressView.swift in Sources */,
 				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */,
