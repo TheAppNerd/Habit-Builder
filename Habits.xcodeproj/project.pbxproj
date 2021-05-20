@@ -30,6 +30,9 @@
 		FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */; };
 		FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6DB265222320029E50D /* UserNotifications.swift */; };
 		FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E126537DEF0029E50D /* DayLabel.swift */; };
+		FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E326549DDC0029E50D /* DayButton.swift */; };
+		FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E5265608830029E50D /* EmptyStateView.swift */; };
+		FAF4E6E8265616190029E50D /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E7265616190029E50D /* DividerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +62,9 @@
 		FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		FAF4E6DB265222320029E50D /* UserNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotifications.swift; sourceTree = "<group>"; };
 		FAF4E6E126537DEF0029E50D /* DayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabel.swift; sourceTree = "<group>"; };
+		FAF4E6E326549DDC0029E50D /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
+		FAF4E6E5265608830029E50D /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		FAF4E6E7265616190029E50D /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		FB7F27FC05DA56D0BD8F3CE8 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -144,6 +150,7 @@
 				FA1C732B263656BC00E63CBE /* AddHabitVC.swift */,
 				FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */,
 				FAF4E6D7264A47B90029E50D /* MenuView.swift */,
+				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -171,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				FA1C733726379DDE00E63CBE /* ColorButton.swift */,
+				FAF4E6E326549DDC0029E50D /* DayButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -179,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				FA1C73422637CD3E00E63CBE /* TableCellView.swift */,
+				FAF4E6E7265616190029E50D /* DividerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,6 +334,7 @@
 			files = (
 				FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
+				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
@@ -343,6 +353,8 @@
 				FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */,
 				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
+				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
+				FAF4E6E8265616190029E50D /* DividerView.swift in Sources */,
 				FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

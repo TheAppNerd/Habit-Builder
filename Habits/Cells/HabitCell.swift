@@ -11,34 +11,45 @@ import KDCalendar
 class HabitCell: UITableViewCell {
 
 static let reuseID = "HabitCell"
+    var habitdata = HabitData()
     
     let habitName = TitleLabel(textAlignment: .left, fontSize: 16)
     let streakCount = TitleLabel(textAlignment: .left, fontSize: 10)
     let completionCount = TitleLabel(textAlignment: .center, fontSize: 10)
-    let reduceButton = UIButton()
-    let completionButton = UIButton()
     let cellView = TableCellView()
     var calendarView = CalendarView()
+    var dateArray: [Date] = []
+    var dayArray: [Int] = []
+    let alarmButton = UIButton()
+    let frequencyLabel = BodyLabel()
    
     let labelStackView = UIStackView()
     let buttonStackView = UIStackView()
+    
+    let dayButton: [DayButton] = [ DayButton(),
+                                   DayButton(),
+                                   DayButton(),
+                                   DayButton(),
+                                   DayButton(),
+                                   DayButton(),
+                                   DayButton()
+    ]
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
         configureDays()
+        getDay()
         configureLabelStackView()
         configureButtonStackView()
-      
+       
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
-
     func configureLabelStackView() {
         let dayLabels: [DayLabel] = [ DayLabel(text: "Sun"),
                                       DayLabel(text: "Mon"),
@@ -53,23 +64,20 @@ static let reuseID = "HabitCell"
         }
         labelStackView.axis = .horizontal
         labelStackView.spacing = 10
-        labelStackView.alignment = .fill
+        labelStackView.distribution = .fillEqually
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func configureButtonStackView() {
-        let dayButton: [UIButton] = [ UIButton(),
-                                      UIButton(),
-                                      UIButton(),
-                                      UIButton(),
-                                      UIButton(),
-                                      UIButton(),
-                                      UIButton()
-        ]
+        
+        var count = 0
         for button in dayButton {
             buttonStackView.addArrangedSubview(button)
-            buttonStackView.alignment = .center
-            button.backgroundColor = .red
+            buttonStackView.distribution = .fillEqually
+            button.layer.borderWidth = 1
+            button.setTitle("\(dayArray[count])", for: .normal)
+            
+            count += 1
         }
         buttonStackView.axis = .horizontal
         buttonStackView.spacing = 10
@@ -77,12 +85,12 @@ static let reuseID = "HabitCell"
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func configureDays() {
+    func configureDays() { //this func works out the weeks dates.
 
         var dateComponents = DateComponents()
         var dailyDateComponents = DateComponents()
-        var count = 1
-        var dateArray: [Date] = []
+        var count = 0
+        
             
         switch getDayOfWeek() {
         case 1:
@@ -113,6 +121,13 @@ static let reuseID = "HabitCell"
         }
         }
     }
+        func getDay() { //this func takes the weeks dates and converts them to just the months day
+            let myCalendar = Calendar(identifier: .gregorian)
+            for date in dateArray {
+            let day = myCalendar.component(.day, from: date)
+            dayArray.append(day)
+            }
+        }
     
     func getDayOfWeek() -> Int {
         let myCalendar = Calendar(identifier: .gregorian)
@@ -120,40 +135,61 @@ static let reuseID = "HabitCell"
         let weekDay = myCalendar.component(.weekday, from: today)
         return weekDay
     }
-    
+    func viewWillLayoutSubviews() {
+        
+    }
     private func configure() {
         contentView.isUserInteractionEnabled = true
         addSubview(cellView)
         addSubview(habitName)
         addSubview(labelStackView)
         addSubview(buttonStackView)
+        addSubview(alarmButton)
+        addSubview(frequencyLabel)
         
-
+        alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
+        alarmButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        frequencyLabel.text = "Everyday"
+        
+        
         let padding: CGFloat = 20
         
         self.sendSubviewToBack(cellView)
         NSLayoutConstraint.activate([
-            
+
             cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             cellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
-            
+
             habitName.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             habitName.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
-            habitName.widthAnchor.constraint(equalToConstant: cellView.layer.borderWidth / 2),
+            habitName.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -cellView.frame.width / 3),
             habitName.heightAnchor.constraint(equalToConstant: padding),
-        
-            labelStackView.topAnchor.constraint(equalTo: habitName.bottomAnchor, constant: padding),
-            labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
-            labelStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: padding),
-            labelStackView.heightAnchor.constraint(equalToConstant: 30),
             
-            buttonStackView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 10),
+            frequencyLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
+            frequencyLabel.trailingAnchor.constraint(equalTo: alarmButton.leadingAnchor, constant: -10),
+            frequencyLabel.heightAnchor.constraint(equalToConstant: padding),
+
+            alarmButton.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
+            alarmButton.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
+            alarmButton.heightAnchor.constraint(equalToConstant: padding),
+            alarmButton.widthAnchor.constraint(equalToConstant: padding),
+          
+
+            labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
+            labelStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
+            labelStackView.heightAnchor.constraint(equalToConstant: padding),
+            labelStackView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -10),
+
+            buttonStackView.heightAnchor.constraint(equalToConstant: padding),
             buttonStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
-            buttonStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: padding),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 30)
+            buttonStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
+            buttonStackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -padding)
+       
         ])
+        
     }
     
   

@@ -1,13 +1,13 @@
 //
-//  DatePicker.swift
+//  DividerView.swift
 //  Habits
 //
-//  Created by Alexander Thompson on 10/5/21.
+//  Created by Alexander Thompson on 20/5/21.
 //
 
 import UIKit
 
-class DatePicker: UIDatePicker {
+class DividerView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,13 +18,13 @@ class DatePicker: UIDatePicker {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
-        self.datePickerMode = .time
-        
     
-        self.preferredDatePickerStyle = .inline
-        self.translatesAutoresizingMaskIntoConstraints = false
+    private func configure() {
+        self.backgroundColor = .secondarySystemBackground
+        self.layer.cornerRadius = 10
+        
     }
     
     
+
 }
