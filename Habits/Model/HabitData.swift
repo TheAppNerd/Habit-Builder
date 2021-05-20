@@ -20,10 +20,7 @@ struct HabitData {
     var habitName: String?
     var habitNote: String?
     var streakCount: String?
-    var completionCount: String?
     var buttonColor: UIColor?
-    var currentDailyCount: Int?
-    var progressCount: Float?
-    var dates: [Date] = []
+    var dates = Set<Date>()
 
 }

@@ -9,15 +9,28 @@ import UIKit
 
 class AddHabitVC: UIViewController {
 
-    let habitNameLabel = BodyLabel(textInput: "Name:", textAlignment: .center, fontSize: 16)
-    let notesLabel = BodyLabel(textInput: "Notes:", textAlignment: .center, fontSize: 16)
-    let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .center, fontSize: 16)
-    let dailyNumberLabel = BodyLabel(textInput: "Daily Target:", textAlignment: .center, fontSize: 16)
-    let reminderLabel = BodyLabel(textInput: "Set Reminder?", textAlignment: .center, fontSize: 16)
+    let nameView = DividerView()
+    let frequencyView = DividerView()
+    let colorView = DividerView()
+    let reminderView = DividerView()
+    let reminderNoteView = DividerView()
+    let deleteView = DividerView()
+    
+    let habitNameTextField = HabitTextField()
+    
+    let notesLabel = BodyLabel(textInput: "Notes:", textAlignment: .left, fontSize: 16)
+    let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .left, fontSize: 16)
+    let reminderLabel = BodyLabel(textInput: "Set Reminder?", textAlignment: .left, fontSize: 16)
     let datePicker = DatePicker()
     let dateSwitch = DateSwitch()
     
+    let notesTextField = HabitTextField()
     
+    let padding: CGFloat = 10
+    
+    //add a clear habit button
+    let deleteButton = UIButton()
+
     let userNotifications = UserNotifications()
     var accessGranted = false
     var hour: Int = 0
@@ -25,11 +38,8 @@ class AddHabitVC: UIViewController {
     
     var cellTag: Int = 0
     
-    let deleteButton = UIButton()
    
-    let habitNameTextField = HabitTextField()
-    let notesTextField = HabitTextField()
-    let dailyNumberTextField = HabitTextField()
+
     
     var habitData = HabitData()
     var habitColor: UIColor = .clear
@@ -42,8 +52,6 @@ class AddHabitVC: UIViewController {
                                        ColorButton(backgroundColor: .systemPurple)
     ]
   
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -63,6 +71,80 @@ class AddHabitVC: UIViewController {
             deleteButton.isHidden = true
         }
     }
+    
+    func configureNameView() {
+        let habitNameLabel = BodyLabel(textInput: "Name:", textAlignment: .left, fontSize: 16)
+        
+        nameView.addSubviews(habitNameLabel, habitNameTextField)
+        
+        NSLayoutConstraint.activate([
+            habitNameLabel.leadingAnchor.constraint(equalTo: nameView.leadingAnchor, constant: padding),
+            habitNameLabel.centerYAnchor.constraint(equalTo: nameView.centerYAnchor),
+            habitNameLabel.heightAnchor.constraint(equalToConstant: nameView.frame.height / 3),
+            habitNameLabel.widthAnchor.constraint(equalToConstant: nameView.frame.width / 6),
+            
+            habitNameTextField.leadingAnchor.constraint(equalTo: habitNameLabel.trailingAnchor, constant: padding),
+            habitNameTextField.centerYAnchor.constraint(equalTo: nameView.centerYAnchor),
+            habitNameTextField.heightAnchor.constraint(equalToConstant: nameView.frame.height / 3),
+            habitNameTextField.trailingAnchor.constraint(equalTo: nameView.trailingAnchor, constant: -padding)
+        ])
+    }
+    
+    func configureFrequencyView() {
+        let frequencyLabel = BodyLabel(textInput: "Frequency", textAlignment: .left, fontSize: 16)
+        let timesAWeekLabel = BodyLabel(textInput: "Times a week:", textAlignment: .right, fontSize: 16)
+        let negativeButton = UIButton()
+        let positiveButton = UIButton()
+        let frequencyCount = BodyLabel(textInput: "0", textAlignment: .center, fontSize: 16)
+        negativeButton.setImage(UIImage(systemName: "minus"), for: .normal)
+        positiveButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        //add button targets here.
+        
+        frequencyView.addSubviews(frequencyLabel, timesAWeekLabel, negativeButton, positiveButton, frequencyCount)
+        
+        NSLayoutConstraint.activate([
+            frequencyLabel.leadingAnchor.constraint(equalTo: frequencyView.leadingAnchor, constant: padding),
+            frequencyLabel.centerYAnchor.constraint(equalTo: frequencyView.centerYAnchor),
+            frequencyLabel.heightAnchor.constraint(equalToConstant: frequencyView.frame.height / 3),
+            frequencyLabel.widthAnchor.constraint(equalToConstant: frequencyView.frame.width / 4),
+            
+            timesAWeekLabel.leadingAnchor.constraint(equalTo: frequencyLabel.trailingAnchor,constant: padding),
+            timesAWeekLabel.centerYAnchor.constraint(equalTo: frequencyView.centerYAnchor),
+            timesAWeekLabel.heightAnchor.constraint(equalToConstant: frequencyView.frame.height / 3),
+            timesAWeekLabel.trailingAnchor.constraint(equalTo: negativeButton.leadingAnchor, constant: -padding),
+            
+            negativeButton.leadingAnchor.constraint(equalTo: timesAWeekLabel.trailingAnchor, constant: padding),
+            negativeButton.centerYAnchor.constraint(equalTo: frequencyView.centerYAnchor),
+            negativeButton.heightAnchor.constraint(equalToConstant: frequencyView.frame.height / 3),
+            negativeButton.trailingAnchor.constraint(equalTo: frequencyCount.leadingAnchor, constant: -padding),
+            
+            frequencyCount.leadingAnchor.constraint(equalTo: negativeButton.trailingAnchor, constant: padding),
+            frequencyCount.centerYAnchor.constraint(equalTo: frequencyView.centerYAnchor),
+            frequencyCount.heightAnchor.constraint(equalToConstant: frequencyView.frame.height / 3),
+            frequencyCount.trailingAnchor.constraint(equalTo: positiveButton.leadingAnchor, constant: -padding),
+            
+            positiveButton.leadingAnchor.constraint(equalTo: frequencyCount.trailingAnchor, constant: padding),
+            positiveButton.centerYAnchor.constraint(equalTo: frequencyCount.trailingAnchor, constant: padding)
+        ])
+        
+    }
+    
+    func configureReminderView() {
+        
+    }
+    
+    func configureReminderNoteView() {
+        
+    }
+    
+    func configureColorView() {
+        
+    }
+    
+    func configureDeleteView() {
+        
+    }
+    
     
     func configureColorButtons() {
         for button in colorButtons {
@@ -90,7 +172,7 @@ class AddHabitVC: UIViewController {
             habitNameTextField.text = HabitArray.Array[cellTag].habitName
             notesTextField.text = HabitArray.Array[cellTag].habitNote
                 //select correrct color button
-            dailyNumberTextField.text = HabitArray.Array[cellTag].completionCount
+            //dailyNumberTextField.text = HabitArray.Array[cellTag].completionCount
 
         }
     }
@@ -103,26 +185,11 @@ class AddHabitVC: UIViewController {
         navigationItem.rightBarButtonItem = saveButton
     }
     
-    func configureDatePicker() {
-
-        
-    }
-    
     private func configure() {
         view.backgroundColor = .systemBackground
         title = "Add Habit"
         
-        view.addSubview(habitNameLabel)
-        view.addSubview(notesLabel)
-        view.addSubview(colorLabel)
-        view.addSubview(dailyNumberLabel)
-        view.addSubview(reminderLabel)
-        view.addSubview(deleteButton)
-        view.addSubview(habitNameTextField)
-        view.addSubview(notesTextField)
-        view.addSubview(dailyNumberTextField)
-        view.addSubview(datePicker)
-        view.addSubview(dateSwitch)
+        
         
         
         datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
@@ -142,70 +209,16 @@ class AddHabitVC: UIViewController {
         deleteButton.backgroundColor = .systemRed
         deleteButton.setTitle("Delete Habit", for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteHabit), for: .touchUpInside)
-        dailyNumberTextField.keyboardType = .numberPad
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            habitNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-            habitNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            habitNameLabel.widthAnchor.constraint(equalToConstant: 80),
-            habitNameLabel.heightAnchor.constraint(equalToConstant: padding),
-            
-            notesLabel.topAnchor.constraint(equalTo: habitNameLabel.bottomAnchor, constant: padding),
-            notesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            notesLabel.widthAnchor.constraint(equalToConstant: 80),
-            notesLabel.heightAnchor.constraint(equalToConstant: padding),
-            
-            colorLabel.topAnchor.constraint(equalTo: notesLabel.bottomAnchor, constant: padding * 2),
-            colorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            colorLabel.widthAnchor.constraint(equalToConstant: 80),
-            colorLabel.heightAnchor.constraint(equalToConstant: padding),
-            
-            dailyNumberLabel.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: padding),
-            dailyNumberLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            dailyNumberLabel.widthAnchor.constraint(equalToConstant: 80),
-            dailyNumberLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            reminderLabel.topAnchor.constraint(equalTo: dailyNumberLabel.bottomAnchor, constant: padding * 2),
-            reminderLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            reminderLabel.widthAnchor.constraint(equalToConstant: 80),
-            reminderLabel.heightAnchor.constraint(equalToConstant: 30),
-            
-            colorButtons[0].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding),
-            colorButtons[1].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 3),
-            colorButtons[2].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 5),
-            colorButtons[3].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 7),
-            colorButtons[4].leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding * 9),
-            
-            habitNameTextField.topAnchor.constraint(equalTo: habitNameLabel.topAnchor),
-            habitNameTextField.leadingAnchor.constraint(equalTo: habitNameLabel.trailingAnchor, constant: padding),
-            habitNameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            habitNameTextField.heightAnchor.constraint(equalToConstant: 25),
-            
-            notesTextField.topAnchor.constraint(equalTo: notesLabel.topAnchor),
-            notesTextField.leadingAnchor.constraint(equalTo: notesLabel.trailingAnchor, constant: padding),
-            notesTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            notesTextField.heightAnchor.constraint(equalToConstant: padding * 2),
-            
-            dailyNumberTextField.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: padding),
-            dailyNumberTextField.leadingAnchor.constraint(equalTo: dailyNumberLabel.trailingAnchor, constant: padding),
-            dailyNumberTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            dailyNumberTextField.heightAnchor.constraint(equalToConstant: 25),
-            
+    
             deleteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             deleteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
             deleteButton.heightAnchor.constraint(equalToConstant: 30),
             
-           dateSwitch.leadingAnchor.constraint(equalTo: dailyNumberTextField.leadingAnchor),
-           dateSwitch.centerYAnchor.constraint(equalTo: reminderLabel.centerYAnchor),
-           dateSwitch.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-           dateSwitch.heightAnchor.constraint(equalTo: reminderLabel.heightAnchor),
-            
-            datePicker.leadingAnchor.constraint(equalTo: dateSwitch.leadingAnchor),
-            datePicker.topAnchor.constraint(equalTo: dateSwitch.bottomAnchor, constant: padding),
-            datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            datePicker.heightAnchor.constraint(equalToConstant: 200)
+    
         ])
     }
 
@@ -268,22 +281,17 @@ class AddHabitVC: UIViewController {
             habitNameTextField.layer.borderColor = UIColor.systemRed.cgColor
             //add if function hjere for color buttons to be selected. make them a horizonal stack first.
         }
-        if dailyNumberTextField.text == "" {
-            dailyNumberTextField.layer.borderWidth = 1
-            dailyNumberTextField.layer.borderColor = UIColor.systemRed.cgColor
-        }
+        
         
         // use guard statement instead
-        if habitNameTextField.text != "" && dailyNumberTextField.text != "" {
+        if habitNameTextField.text != "" {
             habitNameTextField.layer.borderWidth = 0
-            dailyNumberTextField.layer.borderWidth = 0
+           
             
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
-        habitData.completionCount = dailyNumberTextField.text ?? ""
         habitData.buttonColor = habitColor
-        habitData.currentDailyCount = 0
-        habitData.progressCount = 0.0
+            // make this an if statement
             userNotifications.scheduleNotification(title: habitNameTextField.text!, body: "TEST", hour: hour, minute: minute)
 
         if HabitArray.habitCreated == true {

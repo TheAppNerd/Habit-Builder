@@ -64,9 +64,9 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
-            HabitArray.Array[self.cellTag].dates.append(date)
-            HabitArray.habitDates.insert(HabitArray.Array[self.cellTag].dates, at: self.cellTag)
-            self.streak = self.getCurrentStreak()
+            //HabitArray.Array[self.cellTag].dates.append(date)
+            //HabitArray.habitDates.insert(HabitArray.Array[self.cellTag].dates, at: self.cellTag)
+            //self.streak = self.getCurrentStreak()
             self.updateStreaks()
             
         }))
@@ -82,9 +82,9 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.deselectDate(date)
-            HabitArray.Array[self.cellTag].dates.removeLast()
+            //HabitArray.Array[self.cellTag].dates.removeLast()
             HabitArray.habitDates.remove(at: self.cellTag)
-            self.streak = self.getCurrentStreak()
+            //self.streak = self.getCurrentStreak()
             self.updateStreaks()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
@@ -112,6 +112,7 @@ class HabitDetailsVC: UIViewController {
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.direction = .horizontal
         calendarView.style.locale = Locale.current
+        calendarView.backgroundColor = .clear
 
         let myStyle = CalendarView.Style()
         myStyle.cellBorderColor = .clear
@@ -124,7 +125,6 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
         myStyle.cellSelectedColor = HabitArray.Array[cellTag].buttonColor!
-        
         
     }
     
@@ -141,7 +141,8 @@ class HabitDetailsVC: UIViewController {
             calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            calendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400),
+            calendarView.heightAnchor.constraint(equalToConstant: view.frame.height / 3),
+           
             
             currentStreak.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: padding),
             currentStreak.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -162,29 +163,29 @@ class HabitDetailsVC: UIViewController {
 
     //move this to habitdata to save to coredata.
     //this doesnt work. redo it. use observers to update streaks as well
-    func getCurrentStreak() -> Int {
-        let startDate = calendarView.calendar.startOfDay(for: Date())
-        var streak = [Date]()
-        let array = HabitArray.Array[cellTag].dates
-        let sortedArray = array.sorted { $0.compare($1) == .orderedDescending }
-        var dateComponents = DateComponents()
-        dateComponents.day = -1
-        
-        for date in sortedArray {
-            if sortedArray.contains(calendarView.calendar.date(byAdding: dateComponents, to: date)!)  {
-                streak.append(date)
-                continue
-            } else {
-                if HabitArray.Array[cellTag].currentDailyCount == 0 {
-                    return streak.count
-                } else {
-                return streak.count + 1
-                }
-            }
-        }
-        return streak.count
-    }
-     
+//    func getCurrentStreak() -> Int {
+//        let startDate = calendarView.calendar.startOfDay(for: Date())
+//        var streak = [Date]()
+//        let array = HabitArray.Array[cellTag].dates
+//        let sortedArray = array.sorted { $0.compare($1) == .orderedDescending }
+//        var dateComponents = DateComponents()
+//        dateComponents.day = -1
+//
+//        for date in sortedArray {
+//            if sortedArray.contains(calendarView.calendar.date(byAdding: dateComponents, to: date)!)  {
+//                streak.append(date)
+//                continue
+//            } else {
+//                if HabitArray.Array[cellTag].currentDailyCount == 0 {
+//                    return streak.count
+//                } else {
+//                return streak.count + 1
+//                }
+//            }
+//        }
+//        return streak.count
+//    }
+//
     
     
     //need to start from today and count backwards. break if nothing.
