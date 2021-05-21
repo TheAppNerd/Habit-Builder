@@ -26,8 +26,9 @@ class ColorButton: UIButton {
     private func configure() {
 //        self.layer.borderWidth = 2
 //        self.layer.borderColor = UIColor.white.cgColor
-        self.layer.cornerRadius = self.frame.height / 2
         self.clipsToBounds = true
+        self.layer.cornerRadius = self.frame.height / 2
+        
         translatesAutoresizingMaskIntoConstraints = false
         
     }
