@@ -37,7 +37,11 @@ class UserNotifications {
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
+//        if OnOrOff == true {
         center.add(request)
+//        } else {
+//            center.removePendingNotificationRequests(withIdentifiers: [title])
+//        }
     }
 
     

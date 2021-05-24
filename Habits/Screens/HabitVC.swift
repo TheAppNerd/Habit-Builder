@@ -26,6 +26,7 @@ class HabitVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
+        
     }
     
     override func viewDidLoad() {
@@ -114,7 +115,7 @@ class HabitVC: UIViewController {
     @objc func dateButtonPressed(_ sender: UIButton) {
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
-        
+        generator.impactOccurred()
         if sender.backgroundColor == .clear {
             sender.backgroundColor = UIColor(cgColor: sender.layer.borderColor!)
             HabitArray.Array[tablePath].dates.insert(selectedDate)
@@ -160,7 +161,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             buttonCount += 1
         }
         cell.alarmButton.tintColor = dataIndex.buttonColor
-        
+        if dataIndex.weeklyFrequency == "7" {
+            cell.frequencyLabel.text = "Everyday"
+        } else if dataIndex.weeklyFrequency == "1" {
+        cell.frequencyLabel.text = "1 day a week"
+        } else {
+            cell.frequencyLabel.text = "\(dataIndex.weeklyFrequency!) days a week"
+        }
 //        cell.completionButton.tag = indexPath.row
 
         return cell

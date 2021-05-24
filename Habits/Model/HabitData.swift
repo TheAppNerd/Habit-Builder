@@ -22,5 +22,6 @@ struct HabitData {
     var streakCount: String?
     var buttonColor: UIColor?
     var dates = Set<Date>()
-
+    var weeklyFrequency: String?
+    var alarmBool: Bool?
 }

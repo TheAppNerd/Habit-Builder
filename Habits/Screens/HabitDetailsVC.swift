@@ -113,6 +113,7 @@ class HabitDetailsVC: UIViewController {
         calendarView.direction = .horizontal
         calendarView.style.locale = Locale.current
         calendarView.backgroundColor = .clear
+        
 
         let myStyle = CalendarView.Style()
         myStyle.cellBorderColor = .clear
@@ -125,6 +126,8 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
         myStyle.cellSelectedColor = HabitArray.Array[cellTag].buttonColor!
+        myStyle.firstWeekday = .sunday
+        myStyle.headerBackgroundColor = .red
         
     }
     
