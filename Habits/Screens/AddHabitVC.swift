@@ -19,16 +19,14 @@ class AddHabitVC: UIViewController {
     let colorView = DividerView()
     let deleteView = DividerView()
     let frequencyCount = BodyLabel(textInput: "1", textAlignment: .center, fontSize: 16)
-    var frequencyCounter = 0
+    var frequencyCounter = 1
     let habitNameTextField = HabitTextField()
     let notesTextField = HabitTextField()
     var bellImage = UIImageView(image: UIImage(systemName: "bell.slash"))
     let datePicker = DatePicker()
     let dateSwitch = DateSwitch()
-    var colorSelected = false
-    
     let padding: CGFloat = 10
-    
+    var colorTag = 0
     let deleteButton = UIButton()
 
     let userNotifications = UserNotifications()
@@ -39,7 +37,7 @@ class AddHabitVC: UIViewController {
     
     
     
-    var habitColor: UIColor = .clear
+    var habitColor: UIColor = .systemGreen
 
     let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemRed),
                                        ColorButton(backgroundColor: .systemBlue),
@@ -54,13 +52,13 @@ class AddHabitVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        loadPage()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         frequencyCount.text = habitData.weeklyFrequency ?? "1"
-        editTab()
+        
         configure()
         configureBarButtons()
         configureNameView()
@@ -72,16 +70,30 @@ class AddHabitVC: UIViewController {
     
     }
     
-    func editTab() {
+    func loadPage() {
         if HabitArray.habitCreated == true {
             habitNameTextField.text = HabitArray.Array[cellTag].habitName
             notesTextField.text = HabitArray.Array[cellTag].habitNote
-                //select correrct color button
-            //dailyNumberTextField.text = HabitArray.Array[cellTag].completionCount
+            colorButtons[HabitArray.Array[cellTag].colorTag!].sendActions(for: .touchUpInside)
+            
+            if HabitArray.Array[cellTag].alarmBool == true {
+                dateSwitch.isOn = true
+                bellImage.image = UIImage(systemName: "bell.fill")
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "HH:mm"
+                hour = HabitArray.Array[cellTag].reminderHour!
+                minute = HabitArray.Array[cellTag].reminderMinute!
+                if let time = dateFormatter.date(from: "\(hour):\(minute)") {
+                datePicker.date = time
+            }
+            }
+            
 
         }
     }
 
+    
+    
     private func configure() {
         view.backgroundColor = .systemBackground
         title = "Add Habit"
@@ -112,7 +124,6 @@ class AddHabitVC: UIViewController {
     private func configureBarButtons() {
          let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
          let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveHabit))
-         
          navigationItem.leftBarButtonItem = cancelButton
          navigationItem.rightBarButtonItem = saveButton
      }
@@ -250,11 +261,13 @@ class AddHabitVC: UIViewController {
         let colorStackView = UIStackView()
         colorView.addSubview(colorStackView)
         colorStackView.translatesAutoresizingMaskIntoConstraints = false
-
+        var buttonTag = 0
         colorStackView.axis = .horizontal
         colorStackView.distribution = .equalSpacing
         for button in colorButtons {
             colorStackView.addArrangedSubview(button)
+            button.tag = buttonTag
+            buttonTag += 1
             button.addTarget(self, action: #selector(colorTapped), for: .touchUpInside)
                     NSLayoutConstraint.activate([
                         button.topAnchor.constraint(equalTo: colorStackView.topAnchor),
@@ -305,6 +318,7 @@ class AddHabitVC: UIViewController {
         } else if dateSwitch.isOn == false {
             habitData.alarmBool = false
             bellImage.image = UIImage(systemName: "bell.slash")
+            userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute, onOrOff: false)
            
         }
     }
@@ -314,7 +328,7 @@ class AddHabitVC: UIViewController {
         sender.layer.borderWidth = 2
         sender.layer.borderColor = UIColor.systemGray2.cgColor
         habitColor = sender.backgroundColor ?? .clear
-        colorSelected = true
+        colorTag = sender.tag
     }
     
     func deselectButtons() {
@@ -337,8 +351,8 @@ class AddHabitVC: UIViewController {
         let time = twentyFourHourDate.components(separatedBy: ":")
         hour = Int(time[0])!
         minute = Int(time[1])!
-        print(hour)
-        print(minute)
+        
+        
     }
     
     
@@ -374,20 +388,21 @@ class AddHabitVC: UIViewController {
             //add if function hjere for color buttons to be selected. make them a horizonal stack first.
         }
         
-        if
+        
         
         // use guard statement instead
         if habitNameTextField.text != "" {
             habitNameTextField.layer.borderWidth = 0
-            
+            habitData.reminderHour = hour
+            habitData.reminderMinute = minute
         habitData.weeklyFrequency = "\(frequencyCounter)"
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
         habitData.buttonColor = habitColor
-           // if dateSwitch.isOn == true {
-                userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute)
-                print("notification set for \(hour) \(minute)")
-            //}
+            habitData.colorTag = colorTag
+           if dateSwitch.isOn == true {
+            userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute, onOrOff: true)
+           }
             
         if HabitArray.habitCreated == true {
             HabitArray.Array.insert(habitData, at: cellTag)

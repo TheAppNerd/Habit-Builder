@@ -123,17 +123,8 @@ class HabitVC: UIViewController {
             sender.backgroundColor = .clear
             HabitArray.Array[tablePath].dates.remove(selectedDate)
         }
-        
-        print(HabitArray.Array[tablePath].dates)
-        
-//        let today = calendarView.calendar.startOfDay(for: Date())
-//        if !HabitArray.Array[sender.tag].dates.contains(today) {
-//            HabitArray.Array[sender.tag].dates.append(today)
-//            HabitArray.habitDates.insert(HabitArray.Array[sender.tag].dates, at: sender.tag)
-//            print(HabitArray.Array[sender.tag].dates)
-//            print(HabitArray.habitDates)
-//        }
-//        }
+
+
     
 
 
@@ -160,6 +151,12 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             button.tag = buttonCount
             buttonCount += 1
         }
+    //bug here. bell icons wont change properly and different cells seems to interact with each other. 
+//        if dataIndex.alarmBool == true {
+//            cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+//        } else if dataIndex.alarmBool == false {
+//            cell.alarmButton.setImage(UIImage(systemName: "bell.slash"), for: .normal)
+//        }
         cell.alarmButton.tintColor = dataIndex.buttonColor
         if dataIndex.weeklyFrequency == "7" {
             cell.frequencyLabel.text = "Everyday"
@@ -168,8 +165,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.frequencyLabel.text = "\(dataIndex.weeklyFrequency!) days a week"
         }
-//        cell.completionButton.tag = indexPath.row
-
         return cell
     }
     

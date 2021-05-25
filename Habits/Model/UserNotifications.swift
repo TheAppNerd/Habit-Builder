@@ -23,7 +23,7 @@ class UserNotifications {
     }
     
     
-    func scheduleNotification(title: String, body: String, hour: Int, minute: Int) {
+    func scheduleNotification(title: String, body: String, hour: Int, minute: Int, onOrOff: Bool) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.title = title
@@ -37,11 +37,11 @@ class UserNotifications {
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
-//        if OnOrOff == true {
+        if onOrOff == true {
         center.add(request)
-//        } else {
-//            center.removePendingNotificationRequests(withIdentifiers: [title])
-//        }
+        } else {
+            center.removePendingNotificationRequests(withIdentifiers: [title])
+        }
     }
 
     
