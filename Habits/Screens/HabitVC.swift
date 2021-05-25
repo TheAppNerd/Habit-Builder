@@ -16,8 +16,6 @@ class HabitVC: UIViewController {
     let generator = UIImpactFeedbackGenerator(style: .medium)
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
-    var buttonCount = 0
-    var tablePath = 0
     var habitName: String = ""
     var dailyNumber: String = ""
     static var cellCount = 1
@@ -115,13 +113,18 @@ class HabitVC: UIViewController {
     @objc func dateButtonPressed(_ sender: UIButton) {
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
+        let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
+        guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
+        
         generator.impactOccurred()
         if sender.backgroundColor == .clear {
             sender.backgroundColor = UIColor(cgColor: sender.layer.borderColor!)
-            HabitArray.Array[tablePath].dates.insert(selectedDate)
+            //HabitArray.Array[tablePath].dates.insert(selectedDate)
+            HabitArray.habitDates[indexPath.row].insert(selectedDate)
         } else {
             sender.backgroundColor = .clear
-            HabitArray.Array[tablePath].dates.remove(selectedDate)
+            //HabitArray.Array[tablePath].dates.remove(selectedDate)
+            HabitArray.habitDates[indexPath.row].remove(selectedDate)
         }
 
 
@@ -141,9 +144,9 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
-        
+        var buttonCount = 0
         let dataIndex = HabitArray.Array[indexPath.row]
-        tablePath = indexPath.row
+        
         cell.habitName.text = dataIndex.habitName
         for button in cell.dayButton {
             button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
