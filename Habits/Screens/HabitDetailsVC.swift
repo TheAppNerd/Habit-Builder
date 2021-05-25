@@ -17,19 +17,18 @@ class HabitDetailsVC: UIViewController {
     let calendarView = CalendarView()
     let currentStreak = BodyLabel()
     let bestStreak = BodyLabel()
-    let noteLabel = BodyLabel()
+
     var streak: Int = 0
     var biggestStreak: Int = 0
- 
+    //var collectionView = UICollectionView()
+   
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let date = Date()
-        self.calendarView.setDisplayDate(date)
-        //            noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
+        self.calendarView.setDisplayDate(Date())
         updateDates()
         updateStreaks()
-      
+        //configureCollectionView()
     }
     
     override func viewDidLoad() {
@@ -39,12 +38,9 @@ class HabitDetailsVC: UIViewController {
         configureCalendarView()
         self.tabBarController?.tabBar.isHidden = true
         title = HabitArray.Array[cellTag].habitName
-        noteLabel.text = HabitArray.Array[cellTag].habitNote ?? ""
-        
     }
     
     func updateDates() {
-        
         //ensures that index doesnt = nil before calling dates
         if cellTag <= HabitArray.habitDates.count - 1 {
         for date in HabitArray.habitDates[cellTag] {
@@ -54,9 +50,23 @@ class HabitDetailsVC: UIViewController {
     }
     
     func updateStreaks() {
-        currentStreak.text = "Current Streak: \(streak)"
-        bestStreak.text = "Longest Streak: \(getBiggestStreak())"
+        currentStreak.text = "Current Weekly Streak: \(streak)"
+        bestStreak.text = "Longest Weekly Streak: \(getBiggestStreak())"
+        //totalDays.text = "Total days completed: \(getTotalDays())"
     }
+    
+    
+//    func configureCollectionView() {
+//        collectionView = UICollectionView(frame: coll, collectionViewLayout: <#T##UICollectionViewLayout#>)
+//        collectionView.register(BarChartCollectionViewCell.self, forCellWithReuseIdentifier: BarChartCollectionViewCell.reuseID)
+//        collectionView.dataSource = self
+//        collectionView.delegate = self
+//        let layout = UICollectionViewFlowLayout()
+//        layout.scrollDirection = .horizontal
+//
+//        collectionView.collectionViewLayout = layout
+//
+//    }
     
     
     func presentAlertToAddHabit(date: Date) {
@@ -136,8 +146,9 @@ class HabitDetailsVC: UIViewController {
         view.addSubview(calendarView)
         view.addSubview(currentStreak)
         view.addSubview(bestStreak)
-        view.addSubview(noteLabel)
+        //view.addSubview(collectionView)
         
+       //collectionView.translatesAutoresizingMaskIntoConstraints = false
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
@@ -157,10 +168,10 @@ class HabitDetailsVC: UIViewController {
             bestStreak.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             bestStreak.heightAnchor.constraint(equalToConstant: 20),
             
-            noteLabel.topAnchor.constraint(equalTo: bestStreak.bottomAnchor, constant: padding),
-            noteLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            noteLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            noteLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80)
+//            collectionView.topAnchor.constraint(equalTo: bestStreak.bottomAnchor, constant: 20),
+//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
@@ -217,15 +228,14 @@ class HabitDetailsVC: UIViewController {
     }
 }
 
+//MARK: - Calendar View
+
 extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     
-    
     func calendar(_ calendar: CalendarView, didScrollToMonth date: Date) {
-    
     }
     
     func calendar(_ calendar: CalendarView, didSelectDate date: Date, withEvents events: [CalendarEvent]) {
-        
     }
     
     func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
@@ -240,11 +250,9 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     }
     
     func calendar(_ calendar: CalendarView, didDeselectDate date: Date) {
-        
     }
     
     func calendar(_ calendar: CalendarView, didLongPressDate date: Date, withEvents events: [CalendarEvent]?) {
-     
     }
     
     func startDate() -> Date {
@@ -257,16 +265,31 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     
     func endDate() -> Date {
         var dateComponents = DateComponents()
-        dateComponents.year = 2
-        
+        dateComponents.month = 1
         let today = Date()
-        let twoYearsFromNow = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-        return twoYearsFromNow!
+        let oneMonthFromNow = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
+        return oneMonthFromNow!
     }
     
     func headerString(_ date: Date) -> String? {
         return nil
     }
+    
+    
+    
+}
+
+extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BarChartCollectionViewCell.reuseID, for: indexPath) as!BarChartCollectionViewCell
+        return cell
+    }
+    
     
     
     
