@@ -11,7 +11,7 @@ import UIKit
 struct HabitArray {
     static var Array: [HabitData] = []
     static var habitCreated: Bool?
-    static var habitDates: [[Date]] = []
+    static var habitDates: [Set<Date>] = []
    
 }
 

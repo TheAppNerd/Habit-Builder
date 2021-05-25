@@ -28,6 +28,7 @@ class AddHabitVC: UIViewController {
     let padding: CGFloat = 10
     var colorTag = 0
     let deleteButton = UIButton()
+    let dateSet = Set<Date>()
 
     let userNotifications = UserNotifications()
     var accessGranted = false
@@ -403,6 +404,7 @@ class AddHabitVC: UIViewController {
            if dateSwitch.isOn == true {
             userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute, onOrOff: true)
            }
+            HabitArray.habitDates.append(dateSet)
             
         if HabitArray.habitCreated == true {
             HabitArray.Array.insert(habitData, at: cellTag)

@@ -18,17 +18,16 @@ class HabitDetailsVC: UIViewController {
     let currentStreak = BodyLabel()
     let bestStreak = BodyLabel()
 
-    var streak: Int = 0
-    var biggestStreak: Int = 0
     //var collectionView = UICollectionView()
-   
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.calendarView.setDisplayDate(Date())
         updateDates()
-        updateStreaks()
+//        updateStreaks()
         //configureCollectionView()
+       
     }
     
     override func viewDidLoad() {
@@ -49,11 +48,11 @@ class HabitDetailsVC: UIViewController {
     }
     }
     
-    func updateStreaks() {
-        currentStreak.text = "Current Weekly Streak: \(streak)"
-        bestStreak.text = "Longest Weekly Streak: \(getBiggestStreak())"
-        //totalDays.text = "Total days completed: \(getTotalDays())"
-    }
+//    func updateStreaks() {
+//        currentStreak.text = "Current Weekly Streak: \(streak)"
+//        bestStreak.text = "Longest Weekly Streak: \(getBiggestStreak())"
+//        //totalDays.text = "Total days completed: \(getTotalDays())"
+//    }
     
     
 //    func configureCollectionView() {
@@ -70,18 +69,13 @@ class HabitDetailsVC: UIViewController {
     
     
     func presentAlertToAddHabit(date: Date) {
-        
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
-            //HabitArray.Array[self.cellTag].dates.append(date)
-            //HabitArray.habitDates.insert(HabitArray.Array[self.cellTag].dates, at: self.cellTag)
-            //self.streak = self.getCurrentStreak()
-            self.updateStreaks()
-            
+            //HabitArray.Array[self.cellTag].dates.insert(date)
+            HabitArray.habitDates[self.cellTag].insert(date)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
-            //self.calendarView.deselectDate(date)
             return
         }))
         present(alert, animated: true)
@@ -92,13 +86,10 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.deselectDate(date)
-            //HabitArray.Array[self.cellTag].dates.removeLast()
-            HabitArray.habitDates.remove(at: self.cellTag)
-            //self.streak = self.getCurrentStreak()
-            self.updateStreaks()
+            //HabitArray.Array[self.cellTag].dates.remove(date)
+            HabitArray.habitDates[self.cellTag].insert(date)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
-            //self.calendarView.selectDate(date)
             return
         }))
         present(alert, animated: true)
@@ -205,12 +196,6 @@ class HabitDetailsVC: UIViewController {
     //need to start from today and count backwards. break if nothing.
     
     //move this to habitdata to save to coredata. need to change this to take into account adding streaks manually to previous dates.
-    func getBiggestStreak() -> Int {
-        if streak > biggestStreak {
-            biggestStreak = streak
-        }
-        return biggestStreak
-    }
     
     @objc func goBack() {
         let destVC = UINavigationController(rootViewController: HabitVC())
@@ -257,7 +242,7 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     
     func startDate() -> Date {
         var dateComponents = DateComponents()
-        dateComponents.year = -2
+        dateComponents.year = -5
         let today = Date()
         let twoYearsAgo = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
         return twoYearsAgo!
@@ -274,9 +259,6 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     func headerString(_ date: Date) -> String? {
         return nil
     }
-    
-    
-    
 }
 
 extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
