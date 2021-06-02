@@ -36,7 +36,7 @@ class HabitDetailsVC: UIViewController {
         configureBarButtons()
         configureCalendarView()
         self.tabBarController?.tabBar.isHidden = true
-        title = HabitArray.Array[cellTag].habitName
+        title = HabitArray.array[cellTag].habitName
     }
     
     func updateDates() {
@@ -122,11 +122,11 @@ class HabitDetailsVC: UIViewController {
         self.calendarView.style = myStyle
         myStyle.cellShape = CalendarView.Style.CellShapeOptions.round
         myStyle.cellColorDefault = .secondaryLabel
-        myStyle.cellSelectedBorderColor = HabitArray.Array[cellTag].buttonColor!
+        myStyle.cellSelectedBorderColor = HabitArray.array[cellTag].buttonColor!
         myStyle.cellTextColorDefault = .label
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
-        myStyle.cellSelectedColor = HabitArray.Array[cellTag].buttonColor!
+        myStyle.cellSelectedColor = HabitArray.array[cellTag].buttonColor!
         myStyle.firstWeekday = .sunday
         myStyle.headerBackgroundColor = .red
         

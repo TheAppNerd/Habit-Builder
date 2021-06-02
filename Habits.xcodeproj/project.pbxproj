@@ -35,6 +35,9 @@
 		FAF4E6E8265616190029E50D /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E7265616190029E50D /* DividerView.swift */; };
 		FAF4E6EA265BC6260029E50D /* BarChartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E9265BC6250029E50D /* BarChartCollectionViewCell.swift */; };
 		FAF4E6EC265BCA560029E50D /* ChartCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6EB265BCA560029E50D /* ChartCollectionViewController.swift */; };
+		FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E713265F43270029E50D /* HelpScreenViewController.swift */; };
+		FAF4E716265F445E0029E50D /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E715265F445E0029E50D /* PageControl.swift */; };
+		FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E717265F456E0029E50D /* ScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +72,9 @@
 		FAF4E6E7265616190029E50D /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
 		FAF4E6E9265BC6250029E50D /* BarChartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAF4E6EB265BCA560029E50D /* ChartCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCollectionViewController.swift; sourceTree = "<group>"; };
+		FAF4E713265F43270029E50D /* HelpScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewController.swift; sourceTree = "<group>"; };
+		FAF4E715265F445E0029E50D /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
+		FAF4E717265F456E0029E50D /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		FB7F27FC05DA56D0BD8F3CE8 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				FA1C73232636406300E63CBE /* HabitVC.swift */,
+				FAF4E713265F43270029E50D /* HelpScreenViewController.swift */,
 				FA1C732B263656BC00E63CBE /* AddHabitVC.swift */,
 				FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */,
 				FAF4E6D7264A47B90029E50D /* MenuView.swift */,
@@ -206,6 +213,8 @@
 				FAF4E6CC26493FF50029E50D /* DateSwitch.swift */,
 				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
 				FAF4E6EB265BCA560029E50D /* ChartCollectionViewController.swift */,
+				FAF4E715265F445E0029E50D /* PageControl.swift */,
+				FAF4E717265F456E0029E50D /* ScrollView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -332,6 +341,7 @@
 			files = (
 				FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
+				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
@@ -351,10 +361,12 @@
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */,
 				FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */,
+				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
 				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
 				FAF4E6E8265616190029E50D /* DividerView.swift in Sources */,
+				FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */,
 				FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

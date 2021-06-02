@@ -18,11 +18,10 @@ static let reuseID = "HabitCell"
     let completionCount = TitleLabel(textAlignment: .center, fontSize: 10)
     let cellView = TableCellView()
     var calendarView = CalendarView()
-    var dateArray: [Date] = [] //add observer here to reset dates at end of week
+    var dateArray: [Date] = []
     var dayArray: [Int] = []
     let alarmButton = UIButton()
     let frequencyLabel = BodyLabel()
-   
     let labelStackView = UIStackView()
     let buttonStackView = UIStackView()
     
@@ -45,6 +44,12 @@ static let reuseID = "HabitCell"
        
     }
     
+    override func layoutSubviews() {
+            for button in dayButton {
+                button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        }
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -55,7 +60,7 @@ static let reuseID = "HabitCell"
                                       DayLabel(text: "Mon"),
                                       DayLabel(text: "Tue"),
                                       DayLabel(text: "Wed"),
-                                      DayLabel(text: "Thur"),
+                                      DayLabel(text: "Thu"),
                                       DayLabel(text: "Fri"),
                                       DayLabel(text: "Sat")
         ]
@@ -64,7 +69,7 @@ static let reuseID = "HabitCell"
         }
         labelStackView.axis = .horizontal
         labelStackView.spacing = 10
-        labelStackView.distribution = .fillEqually
+        labelStackView.distribution = .equalSpacing
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -73,14 +78,14 @@ static let reuseID = "HabitCell"
         var count = 0
         for button in dayButton {
             buttonStackView.addArrangedSubview(button)
-            buttonStackView.distribution = .fillEqually
-            button.layer.borderWidth = 1
+            buttonStackView.distribution = .equalSpacing
+            button.layer.borderWidth = 1.5
             button.setTitle("\(dayArray[count])", for: .normal)
             
             count += 1
         }
         buttonStackView.axis = .horizontal
-        buttonStackView.spacing = 10
+        buttonStackView.spacing = 10 
         buttonStackView.alignment = .center
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -183,10 +188,10 @@ static let reuseID = "HabitCell"
             labelStackView.heightAnchor.constraint(equalToConstant: padding),
             labelStackView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -10),
 
-            buttonStackView.heightAnchor.constraint(equalToConstant: padding),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 30),
             buttonStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
             buttonStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
-            buttonStackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -padding)
+            buttonStackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10)
        
         ])
         
