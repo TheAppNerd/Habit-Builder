@@ -68,22 +68,28 @@ class AddHabitVC: UIViewController {
         configureReminderNoteView()
         configureColorView()
         configureDeleteView()
-    
     }
+    
+    override func viewDidLayoutSubviews() {
+        for button in colorButtons {
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        }
+    }
+    
     
     func loadPage() {
         if HabitArray.habitCreated == true {
-            habitNameTextField.text = HabitArray.Array[cellTag].habitName
-            notesTextField.text = HabitArray.Array[cellTag].habitNote
-            colorButtons[HabitArray.Array[cellTag].colorTag!].sendActions(for: .touchUpInside)
+            habitNameTextField.text = HabitArray.array[cellTag].habitName
+            notesTextField.text = HabitArray.array[cellTag].habitNote
+            colorButtons[HabitArray.array[cellTag].colorTag!].sendActions(for: .touchUpInside)
             
-            if HabitArray.Array[cellTag].alarmBool == true {
+            if HabitArray.array[cellTag].alarmBool == true {
                 dateSwitch.isOn = true
                 bellImage.image = UIImage(systemName: "bell.fill")
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "HH:mm"
-                hour = HabitArray.Array[cellTag].reminderHour!
-                minute = HabitArray.Array[cellTag].reminderMinute!
+                hour = HabitArray.array[cellTag].reminderHour!
+                minute = HabitArray.array[cellTag].reminderMinute!
                 if let time = dateFormatter.date(from: "\(hour):\(minute)") {
                 datePicker.date = time
             }
@@ -369,7 +375,7 @@ class AddHabitVC: UIViewController {
         
         }))
         deleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { UIAlertAction in
-            HabitArray.Array.remove(at: self.cellTag)
+            HabitArray.array.remove(at: self.cellTag)
             HabitArray.habitCreated = false
             HabitVC.cellCount -= 1
             let destVC = UINavigationController(rootViewController: HabitVC())
@@ -407,13 +413,13 @@ class AddHabitVC: UIViewController {
             HabitArray.habitDates.append(dateSet)
             
         if HabitArray.habitCreated == true {
-            HabitArray.Array.insert(habitData, at: cellTag)
+            HabitArray.array.insert(habitData, at: cellTag)
             let destVC = UINavigationController(rootViewController: HabitDetailsVC())
             destVC.modalPresentationStyle = .fullScreen
             present(destVC, animated: true)
             HabitArray.habitCreated = false
         } else {
-        HabitArray.Array.append(habitData)
+        HabitArray.array.append(habitData)
             HabitVC.cellCount += 1
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen

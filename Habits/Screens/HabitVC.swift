@@ -63,10 +63,10 @@ class HabitVC: UIViewController {
     
     func showEmptyStateView() {
         let emptyStateView = EmptyStateView()
-        if HabitArray.Array.isEmpty {
+        if HabitArray.array.isEmpty {
             emptyStateView.frame = view.bounds
             view.addSubview(emptyStateView)
-        } else if !HabitArray.Array.isEmpty {
+        } else if !HabitArray.array.isEmpty {
             emptyStateView.removeFromSuperview()
         }
     }
@@ -97,11 +97,11 @@ class HabitVC: UIViewController {
         HabitArray.habitCreated = false
         
         navigationController?.pushViewController(AddHabitVC(), animated: true)
-
+        
     }
     
     @objc func helpButtonPressed() {
-        //enter functionality for help screen popup
+        navigationController?.pushViewController(HelpScreenViewController(), animated: true)
     }
     
     func startOfDay(date: Date) -> Date {
@@ -109,34 +109,28 @@ class HabitVC: UIViewController {
         return startDate
     }
     
-    //THESE ALL NEED TO RESET ON NEW WEEK. CLEAR THEM WITHOUT WIPING ARRAY
     @objc func dateButtonPressed(_ sender: UIButton) {
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
-        
         generator.impactOccurred()
         if sender.backgroundColor == .clear {
             sender.backgroundColor = UIColor(cgColor: sender.layer.borderColor!)
-            //HabitArray.Array[tablePath].dates.insert(selectedDate)
             HabitArray.habitDates[indexPath.row].insert(selectedDate)
         } else {
             sender.backgroundColor = .clear
-            //HabitArray.Array[tablePath].dates.remove(selectedDate)
             HabitArray.habitDates[indexPath.row].remove(selectedDate)
         }
+    }
 
-
-    
-
-
-    func refresh() {
-        tableView.reloadData()
+    func clearButtonPresses() {
+        let currentStartofWeek = HabitCell().dateArray[0]
+        print(currentStartofWeek)
     }
 
 }
-}
+
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return HabitVC.cellCount - 1
@@ -145,14 +139,15 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         var buttonCount = 0
-        let dataIndex = HabitArray.Array[indexPath.row]
-        
+        let dataIndex = HabitArray.array[indexPath.row]
         cell.habitName.text = dataIndex.habitName
         for button in cell.dayButton {
             button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.layer.borderColor = dataIndex.buttonColor?.cgColor
             button.tag = buttonCount
             buttonCount += 1
+           
+
         }
     //bug here. bell icons wont change properly and different cells seems to interact with each other. 
 //        if dataIndex.alarmBool == true {
@@ -168,7 +163,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.frequencyLabel.text = "\(dataIndex.weeklyFrequency!) days a week"
         }
+        
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
