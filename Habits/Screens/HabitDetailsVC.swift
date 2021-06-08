@@ -18,16 +18,14 @@ class HabitDetailsVC: UIViewController {
     let currentStreak = BodyLabel()
     let bestStreak = BodyLabel()
 
-    //var collectionView = UICollectionView()
-
+    let habitCountView = HabitCountView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.calendarView.setDisplayDate(Date())
         updateDates()
 //        updateStreaks()
-        //configureCollectionView()
-       
+        print(cellTag)
     }
     
     override func viewDidLoad() {
@@ -52,19 +50,6 @@ class HabitDetailsVC: UIViewController {
 //        currentStreak.text = "Current Weekly Streak: \(streak)"
 //        bestStreak.text = "Longest Weekly Streak: \(getBiggestStreak())"
 //        //totalDays.text = "Total days completed: \(getTotalDays())"
-//    }
-    
-    
-//    func configureCollectionView() {
-//        collectionView = UICollectionView(frame: coll, collectionViewLayout: <#T##UICollectionViewLayout#>)
-//        collectionView.register(BarChartCollectionViewCell.self, forCellWithReuseIdentifier: BarChartCollectionViewCell.reuseID)
-//        collectionView.dataSource = self
-//        collectionView.delegate = self
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//
-//        collectionView.collectionViewLayout = layout
-//
 //    }
     
     
@@ -137,9 +122,8 @@ class HabitDetailsVC: UIViewController {
         view.addSubview(calendarView)
         view.addSubview(currentStreak)
         view.addSubview(bestStreak)
-        //view.addSubview(collectionView)
+        view.addSubview(habitCountView)
         
-       //collectionView.translatesAutoresizingMaskIntoConstraints = false
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
@@ -148,7 +132,6 @@ class HabitDetailsVC: UIViewController {
             calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             calendarView.heightAnchor.constraint(equalToConstant: view.frame.height / 3),
            
-            
             currentStreak.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: padding),
             currentStreak.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             currentStreak.trailingAnchor.constraint(equalTo: bestStreak.leadingAnchor, constant: -padding),
@@ -159,10 +142,10 @@ class HabitDetailsVC: UIViewController {
             bestStreak.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             bestStreak.heightAnchor.constraint(equalToConstant: 20),
             
-//            collectionView.topAnchor.constraint(equalTo: bestStreak.bottomAnchor, constant: 20),
-//            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            habitCountView.topAnchor.constraint(equalTo: bestStreak.bottomAnchor, constant: padding),
+            habitCountView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            habitCountView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            habitCountView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding)
         ])
     }
 
@@ -200,16 +183,18 @@ class HabitDetailsVC: UIViewController {
     @objc func goBack() {
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
+        
         present(destVC, animated: true)
     }
     
     @objc func editHabit() {
-        
         HabitArray.habitCreated = true
+        let addHabitVC = AddHabitVC()
         addHabitVC.cellTag = cellTag
-        let destVC = UINavigationController(rootViewController: AddHabitVC())
-        destVC.modalPresentationStyle = .fullScreen
-        present(destVC, animated: true)
+        //let destVC = UINavigationController(rootViewController: AddHabitVC())
+        //destVC.modalPresentationStyle = .fullScreen
+        //present(destVC, animated: true)
+        navigationController?.pushViewController(addHabitVC, animated: true)
     }
 }
 

@@ -9,7 +9,7 @@ import UIKit
 
 class AddHabitVC: UIViewController {
     var habitData = HabitData()
-    var cellTag: Int = 0
+    var cellTag = Int()
     
     
     let nameView = DividerView()
@@ -53,7 +53,10 @@ class AddHabitVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        deleteButton.isHidden = true
+        deleteView.isHidden = true
         loadPage()
+        
     }
     
     override func viewDidLoad() {
@@ -68,6 +71,7 @@ class AddHabitVC: UIViewController {
         configureReminderNoteView()
         configureColorView()
         configureDeleteView()
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -78,10 +82,16 @@ class AddHabitVC: UIViewController {
     
     
     func loadPage() {
+       
         if HabitArray.habitCreated == true {
             habitNameTextField.text = HabitArray.array[cellTag].habitName
             notesTextField.text = HabitArray.array[cellTag].habitNote
             colorButtons[HabitArray.array[cellTag].colorTag!].sendActions(for: .touchUpInside)
+                deleteView.isHidden = false
+                deleteButton.isHidden = false
+            
+                
+            
             
             if HabitArray.array[cellTag].alarmBool == true {
                 dateSwitch.isOn = true
@@ -125,7 +135,7 @@ class AddHabitVC: UIViewController {
             
             colorView.topAnchor.constraint(equalTo: reminderNoteView.bottomAnchor, constant: padding),
            
-            deleteView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            deleteView.topAnchor.constraint(equalTo: colorView.bottomAnchor, constant: padding),
         ])}
     
     private func configureBarButtons() {
@@ -297,19 +307,12 @@ class AddHabitVC: UIViewController {
     
     func configureDeleteView() {
         deleteView.addSubview(deleteButton)
-        deleteButton.layer.cornerRadius = 10
-            
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.backgroundColor = .systemRed
         deleteButton.setTitle("Delete Habit", for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteHabit), for: .touchUpInside)
-        
-        deleteView.isHidden = true
-        if HabitArray.habitCreated == true {
-            deleteView.isHidden = false
-        } else {
-            deleteView.isHidden = true
-        }
+        deleteButton.layer.cornerRadius = 10
+
         NSLayoutConstraint.activate([
             deleteButton.leadingAnchor.constraint(equalTo: deleteView.leadingAnchor),
             deleteButton.trailingAnchor.constraint(equalTo: deleteView.trailingAnchor),
@@ -317,6 +320,8 @@ class AddHabitVC: UIViewController {
             deleteButton.bottomAnchor.constraint(equalTo: deleteView.bottomAnchor)
         ])
     }
+    
+    
     
     @objc func dateSwitchPressed() {
         if dateSwitch.isOn == true {
@@ -376,15 +381,13 @@ class AddHabitVC: UIViewController {
         }))
         deleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { UIAlertAction in
             HabitArray.array.remove(at: self.cellTag)
-            HabitArray.habitCreated = false
             HabitVC.cellCount -= 1
             let destVC = UINavigationController(rootViewController: HabitVC())
             destVC.modalPresentationStyle = .fullScreen
             self.present(destVC, animated: true)
         }))
-        if HabitArray.habitCreated == true {
         present(deleteAlert, animated: true, completion: nil)
-        }
+        
     }
     
     @objc func saveHabit() {
@@ -409,22 +412,25 @@ class AddHabitVC: UIViewController {
             habitData.colorTag = colorTag
            if dateSwitch.isOn == true {
             userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute, onOrOff: true)
+            habitData.habitNumber = cellTag
            }
             HabitArray.habitDates.append(dateSet)
             
-        if HabitArray.habitCreated == true {
-            HabitArray.array.insert(habitData, at: cellTag)
-            let destVC = UINavigationController(rootViewController: HabitDetailsVC())
+            if HabitArray.habitCreated == true {
+                HabitArray.array[cellTag] = habitData
+                print("Habit created is true and inserted")
+                print(HabitArray.array)
+            let destVC = UINavigationController(rootViewController: HabitVC())
             destVC.modalPresentationStyle = .fullScreen
             present(destVC, animated: true)
-            HabitArray.habitCreated = false
         } else {
         HabitArray.array.append(habitData)
+            print("habit created false and appended")
+            print(HabitArray.array)
             HabitVC.cellCount += 1
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
         present(destVC, animated: true)
-            HabitArray.habitCreated = false
         }
         }
     }

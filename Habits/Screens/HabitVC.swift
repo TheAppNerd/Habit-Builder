@@ -21,10 +21,12 @@ class HabitVC: UIViewController {
     static var cellCount = 1
     var habitData = HabitData()
     
+    let emptyStateView = EmptyStateView()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        
+        print(HabitArray.array.count)
     }
     
     override func viewDidLoad() {
@@ -35,7 +37,7 @@ class HabitVC: UIViewController {
         menuView.pinMenuTo(view, with: slideInMenuPadding)
         tableView.edgeTo(view)
         generator.prepare()
-
+        
     }
     
     func configureViewController() {
@@ -92,16 +94,21 @@ class HabitVC: UIViewController {
         }
 
     }
+  
     
     @objc func addHabitPressed() {
         HabitArray.habitCreated = false
-        
-        navigationController?.pushViewController(AddHabitVC(), animated: true)
-        
+        let addHabitVC = AddHabitVC()
+        addHabitVC.cellTag = HabitVC.cellCount - 1
+        navigationController?.pushViewController(addHabitVC, animated: true)
     }
     
     @objc func helpButtonPressed() {
-        navigationController?.pushViewController(HelpScreenViewController(), animated: true)
+        //navigationController?.pushViewController(HelpScreenViewController(), animated: true)
+        HelpScreenViewController().modalPresentationStyle = .popover
+        HelpScreenViewController().popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: self.view.frame.height - 100)
+        present(HelpScreenViewController(), animated: true)
+       
     }
     
     func startOfDay(date: Date) -> Date {
@@ -126,7 +133,7 @@ class HabitVC: UIViewController {
 
     func clearButtonPresses() {
         let currentStartofWeek = HabitCell().dateArray[0]
-        print(currentStartofWeek)
+        //print(currentStartofWeek)
     }
 
 }
@@ -177,5 +184,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
 
 
