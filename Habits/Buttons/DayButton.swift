@@ -23,7 +23,7 @@ class DayButton: UIButton {
        
         self.clipsToBounds = true
         self.backgroundColor = .clear
-    
+        self.setTitleColor(.label, for: .normal)
         translatesAutoresizingMaskIntoConstraints = false
     }
     
