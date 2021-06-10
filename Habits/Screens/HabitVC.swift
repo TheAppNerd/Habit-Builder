@@ -21,12 +21,13 @@ class HabitVC: UIViewController {
     static var cellCount = 1
     var habitData = HabitData()
     
+    
+    
     let emptyStateView = EmptyStateView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        print(HabitArray.array.count)
     }
     
     override func viewDidLoad() {
@@ -38,6 +39,7 @@ class HabitVC: UIViewController {
         tableView.edgeTo(view)
         generator.prepare()
         
+    
     }
     
     func configureViewController() {
@@ -66,9 +68,9 @@ class HabitVC: UIViewController {
     func showEmptyStateView() {
         let emptyStateView = EmptyStateView()
         if HabitArray.array.isEmpty {
-            emptyStateView.frame = view.bounds
             view.addSubview(emptyStateView)
-        } else if !HabitArray.array.isEmpty {
+            emptyStateView.frame = view.bounds
+        } else {
             emptyStateView.removeFromSuperview()
         }
     }
@@ -86,10 +88,10 @@ class HabitVC: UIViewController {
     }
     
     @objc func menuBarButtonPressed() {
+    
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut) {
             self.tableView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
         } completion: { (finished) in
-            print("animation finished: \(finished)")
             self.isSlideInMenuPressed.toggle()
         }
 
@@ -174,6 +176,32 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         return cell
         
         
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let tableViewFooter = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
+            let addHabitButton = UIButton()
+        addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
+        addHabitButton.layer.borderWidth = 1
+        addHabitButton.layer.borderColor = UIColor.systemGreen.cgColor
+        addHabitButton.layer.cornerRadius = 10
+        addHabitButton.setTitle("Add Habit", for: .normal)
+        addHabitButton.setTitleColor(.systemGreen, for: .normal)
+        tableViewFooter.addSubview(addHabitButton)
+        NSLayoutConstraint.activate([
+            addHabitButton.centerYAnchor.constraint(equalTo: tableViewFooter.centerYAnchor),
+            addHabitButton.centerXAnchor.constraint(equalTo: tableViewFooter.centerXAnchor),
+            addHabitButton.widthAnchor.constraint(equalToConstant: 200),
+            addHabitButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        if HabitVC.cellCount == 1 {
+            tableViewFooter.isHidden = true
+        } else {
+            tableViewFooter.isHidden = false
+        }
+        return tableViewFooter
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

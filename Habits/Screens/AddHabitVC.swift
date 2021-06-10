@@ -71,6 +71,8 @@ class AddHabitVC: UIViewController {
         configureReminderNoteView()
         configureColorView()
         configureDeleteView()
+        habitNameTextField.delegate = self
+        notesTextField.delegate = self
         
     }
     
@@ -436,3 +438,13 @@ class AddHabitVC: UIViewController {
     }
 }
 
+extension AddHabitVC: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        habitNameTextField.resignFirstResponder()
+        notesTextField.resignFirstResponder()   
+        return true
+    }
+    
+    
+}
