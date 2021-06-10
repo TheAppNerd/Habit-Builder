@@ -61,7 +61,7 @@ class EmptyStateView: UIView {
     }
     
     @objc func addHabitPressed() {
-        (superview?.next as? UIViewController)?.navigationController?.pushViewController(AddHabitVC(), animated: true)
+        (superview?.next as? UIViewController)?.navigationController!.pushViewController(AddHabitVC(), animated: true)
     
     }
     
