@@ -73,7 +73,7 @@ class AddHabitVC: UIViewController {
         configureDeleteView()
         habitNameTextField.delegate = self
         notesTextField.delegate = self
-        
+        dimissKeyboard()
     }
     
     override func viewDidLayoutSubviews() {
@@ -82,6 +82,11 @@ class AddHabitVC: UIViewController {
         }
     }
     
+    func dimissKeyboard() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
     
     func loadPage() {
        
@@ -411,6 +416,7 @@ class AddHabitVC: UIViewController {
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
         habitData.buttonColor = habitColor
+            habitData.dayBool = ([false, false, false, false, false, false, false])
             habitData.colorTag = colorTag
            if dateSwitch.isOn == true {
             userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute, onOrOff: true)
@@ -442,7 +448,7 @@ extension AddHabitVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         habitNameTextField.resignFirstResponder()
-        notesTextField.resignFirstResponder()   
+        notesTextField.resignFirstResponder()
         return true
     }
     

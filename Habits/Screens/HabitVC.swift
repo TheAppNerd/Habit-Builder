@@ -23,13 +23,17 @@ class HabitVC: UIViewController {
     
     
     
+    
+    
     let emptyStateView = EmptyStateView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
+        tableView.reloadData()
+        
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -39,6 +43,8 @@ class HabitVC: UIViewController {
         tableView.edgeTo(view)
         generator.prepare()
         
+        let defaults = UserDefaults.standard
+        defaults.setValue(Date(), forKey: "Date")
     
     }
     
@@ -51,6 +57,8 @@ class HabitVC: UIViewController {
         navigationItem.rightBarButtonItems = [addButton, helpButton]
         
     }
+    
+    
     
     lazy var menuView: UIView = {
         let view = UIView()
@@ -75,6 +83,12 @@ class HabitVC: UIViewController {
         }
     }
     
+    func getDayOfWeek() -> Int {
+        let myCalendar = Calendar(identifier: .gregorian)
+        let today = myCalendar.startOfDay(for: Date())
+        let weekDay = myCalendar.component(.weekday, from: today)
+        return weekDay
+    }
     
     func configureTableView() {
         view.addSubview(tableView)
@@ -96,6 +110,21 @@ class HabitVC: UIViewController {
         }
 
     }
+    
+    func resetHabits() { //implement bool so this is only changed once every sunday. have yet to implement functionality where the buttons stay illuminated when navigating away from the page. this func is where id put in the func to clear them all. build that first.
+        var dayChecker = 0
+        if getDayOfWeek() == 1 {
+            if dayChecker == 0 {
+                //reset here
+                dayChecker += 1
+            }
+        } else if getDayOfWeek() != 1 {
+            dayChecker = 0
+        }
+        
+    }
+    
+
   
     
     @objc func addHabitPressed() {
@@ -121,23 +150,24 @@ class HabitVC: UIViewController {
     @objc func dateButtonPressed(_ sender: UIButton) {
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
+        
+        
+        
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
+        HabitArray.array[indexPath.row].dayBool![sender.tag] = true
         generator.impactOccurred()
         if sender.backgroundColor == .clear {
             sender.backgroundColor = UIColor(cgColor: sender.layer.borderColor!)
             HabitArray.habitDates[indexPath.row].insert(selectedDate)
+            
         } else {
             sender.backgroundColor = .clear
             HabitArray.habitDates[indexPath.row].remove(selectedDate)
+            HabitArray.array[indexPath.row].dayBool![sender.tag] = false
+
         }
     }
-
-    func clearButtonPresses() {
-        let currentStartofWeek = HabitCell().dateArray[0]
-        //print(currentStartofWeek)
-    }
-
 }
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
@@ -151,9 +181,12 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let dataIndex = HabitArray.array[indexPath.row]
         cell.habitName.text = dataIndex.habitName
         for button in cell.dayButton {
-            button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
+                        button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.layer.borderColor = dataIndex.buttonColor?.cgColor
             button.tag = buttonCount
+            if HabitArray.array[indexPath.row].dayBool![buttonCount] == true {
+                button.backgroundColor = UIColor(cgColor: button.layer.borderColor!)
+            }
             buttonCount += 1
            
 
@@ -189,6 +222,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         addHabitButton.layer.cornerRadius = 10
         addHabitButton.setTitle("Add Habit", for: .normal)
         addHabitButton.setTitleColor(.systemGreen, for: .normal)
+        
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
             addHabitButton.centerYAnchor.constraint(equalTo: tableViewFooter.centerYAnchor),

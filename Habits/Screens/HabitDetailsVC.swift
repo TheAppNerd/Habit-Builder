@@ -51,14 +51,23 @@ class HabitDetailsVC: UIViewController {
 //        bestStreak.text = "Longest Weekly Streak: \(getBiggestStreak())"
 //        //totalDays.text = "Total days completed: \(getTotalDays())"
 //    }
-    
+    func getDayOfWeek(date: Date) -> Int {
+        let myCalendar = Calendar(identifier: .gregorian)
+        let today = myCalendar.startOfDay(for: date)
+        let weekDay = myCalendar.component(.weekday, from: today)
+        print(weekDay)
+        return weekDay
+    }
     
     func presentAlertToAddHabit(date: Date) {
+        let day = getDayOfWeek(date: date)
+        
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
             //HabitArray.Array[self.cellTag].dates.insert(date)
             HabitArray.habitDates[self.cellTag].insert(date)
+            HabitArray.array[self.cellTag].dayBool![day - 1] = true
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -99,12 +108,12 @@ class HabitDetailsVC: UIViewController {
         calendarView.direction = .horizontal
         calendarView.style.locale = Locale.current
         calendarView.backgroundColor = .clear
-        
-
+        calendarView.style.firstWeekday = .sunday
         let myStyle = CalendarView.Style()
+        self.calendarView.style = myStyle
         myStyle.cellBorderColor = .clear
         myStyle.cellBorderWidth = 1
-        self.calendarView.style = myStyle
+        myStyle.firstWeekday = .sunday
         myStyle.cellShape = CalendarView.Style.CellShapeOptions.round
         myStyle.cellColorDefault = .secondaryLabel
         myStyle.cellSelectedBorderColor = HabitArray.array[cellTag].buttonColor!
@@ -112,8 +121,8 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
         myStyle.cellSelectedColor = HabitArray.array[cellTag].buttonColor!
-        myStyle.firstWeekday = .sunday
-        myStyle.headerBackgroundColor = .red
+      
+        //myStyle.headerBackgroundColor = .red
         
     }
     
