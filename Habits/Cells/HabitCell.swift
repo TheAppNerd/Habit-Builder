@@ -138,6 +138,7 @@ static let reuseID = "HabitCell"
         let myCalendar = Calendar(identifier: .gregorian)
         let today = myCalendar.startOfDay(for: Date())
         let weekDay = myCalendar.component(.weekday, from: today)
+        print(weekDay)
         return weekDay
     }
     func viewWillLayoutSubviews() {

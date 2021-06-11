@@ -67,7 +67,7 @@ extension CalendarView {
         //Common
         public var cellShape                 = CellShapeOptions.bevel(4.0)
         
-        public var firstWeekday              = FirstWeekdayOptions.monday
+        public var firstWeekday              = FirstWeekdayOptions.sunday
         public var showAdjacentDays          = false
         
         //Default Style
