@@ -25,13 +25,13 @@ class HabitVC: UIViewController {
     
     
     
+    
     let emptyStateView = EmptyStateView()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
         tableView.reloadData()
-        
     }
 
     override func viewDidLoad() {

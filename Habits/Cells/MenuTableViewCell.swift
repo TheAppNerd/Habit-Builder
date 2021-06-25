@@ -13,6 +13,7 @@ class MenuTableViewCell: UITableViewCell {
     
     let cellImage = UIImageView()
     let cellLabel = TitleLabel(textAlignment: .left, fontSize: 20)
+    var cellSwitch = UISwitch()
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,28 +25,46 @@ class MenuTableViewCell: UITableViewCell {
     }
     
     private func configure() {
-        self.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled = true
+        cellSwitch.isHidden = true
         addSubview(cellImage)
         addSubview(cellLabel)
+        addSubview(cellSwitch)
+        cellSwitch.addTarget(self, action: #selector(setDarkMode), for: .valueChanged)
+        
         self.backgroundColor = .secondarySystemBackground
         cellLabel.textColor = .label
         cellImage.tintColor = .label
         cellImage.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
-        let padding: CGFloat = 20
+        cellSwitch.translatesAutoresizingMaskIntoConstraints = false
+        let padding: CGFloat = 10
         NSLayoutConstraint.activate([
             
             cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding),
             cellImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            cellImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            cellImage.heightAnchor.constraint(equalToConstant: 20),
             cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
-            cellImage.widthAnchor.constraint(equalToConstant: 30),
+            cellImage.widthAnchor.constraint(equalToConstant: 20),
             
             cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            cellLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding)
+            cellLabel.trailingAnchor.constraint(equalTo: cellSwitch.leadingAnchor, constant: -padding),
+            
+            cellSwitch.leadingAnchor.constraint(equalTo: cellLabel.trailingAnchor, constant: padding),
+            cellSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            cellSwitch.heightAnchor.constraint(equalToConstant: 20),
         ])
-        
+    }
+    
+    
+    //move this func to model
+   @objc func setDarkMode() {
+    if cellSwitch.isOn == true {
+        (superview?.next as? UIViewController)?.navigationController!.overrideUserInterfaceStyle = .light
+    } else {
+        (superview?.next as? UIViewController)?.navigationController!.overrideUserInterfaceStyle = .dark
         
     }
+   }
 }
