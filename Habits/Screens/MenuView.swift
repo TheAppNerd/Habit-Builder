@@ -9,6 +9,7 @@ import UIKit
 
 class MenuView: UIViewController {
 let tableView = UITableView()
+    let mySwitch = UISwitch()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,9 @@ let tableView = UITableView()
         tableView.separatorStyle = .none
         
     }
-
+    
+    
+    
 }
 
 extension MenuView: UITableViewDelegate, UITableViewDataSource {
@@ -44,6 +47,12 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuTableViewCell.reuseID) as! MenuTableViewCell
         cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])
         cell.cellLabel.text = menuItems[indexPath.row]
+        let label = UILabel()
+        label.text = "Test"
+        if indexPath.row == 4 {
+            cell.cellSwitch.isHidden = false
+
+        }
         return cell
     }
     
