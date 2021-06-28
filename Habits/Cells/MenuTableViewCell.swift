@@ -30,7 +30,6 @@ class MenuTableViewCell: UITableViewCell {
         addSubview(cellImage)
         addSubview(cellLabel)
         addSubview(cellSwitch)
-        cellSwitch.addTarget(self, action: #selector(setDarkMode), for: .valueChanged)
         
         self.backgroundColor = .secondarySystemBackground
         cellLabel.textColor = .label
@@ -58,13 +57,5 @@ class MenuTableViewCell: UITableViewCell {
     }
     
     
-    //move this func to model
-   @objc func setDarkMode() {
-    if cellSwitch.isOn == true {
-        (superview?.next as? UIViewController)?.navigationController!.overrideUserInterfaceStyle = .light
-    } else {
-        (superview?.next as? UIViewController)?.navigationController!.overrideUserInterfaceStyle = .dark
-        
-    }
-   }
+   
 }
