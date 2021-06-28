@@ -58,7 +58,9 @@ class HabitVC: UIViewController {
         
     }
     
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+       menuBarButtonPressed()
+    }
     
     lazy var menuView: UIView = {
         let view = UIView()
@@ -74,10 +76,10 @@ class HabitVC: UIViewController {
     }()
     
     func showEmptyStateView() {
-        let emptyStateView = EmptyStateView()
+       
         if HabitArray.array.isEmpty {
             view.addSubview(emptyStateView)
-            emptyStateView.frame = view.bounds
+            emptyStateView.frame = tableView.frame
         } else {
             emptyStateView.removeFromSuperview()
         }
@@ -104,10 +106,12 @@ class HabitVC: UIViewController {
     @objc func menuBarButtonPressed() {
     
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .curveEaseInOut) {
+            self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
             self.tableView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
         } completion: { (finished) in
             self.isSlideInMenuPressed.toggle()
         }
+        
 
     }
     
@@ -135,11 +139,11 @@ class HabitVC: UIViewController {
     }
     
     @objc func helpButtonPressed() {
-        //navigationController?.pushViewController(HelpScreenViewController(), animated: true)
+        
         HelpScreenViewController().modalPresentationStyle = .popover
         HelpScreenViewController().popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: self.view.frame.height - 100)
         present(HelpScreenViewController(), animated: true)
-       
+        
     }
     
     func startOfDay(date: Date) -> Date {
@@ -227,8 +231,8 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         NSLayoutConstraint.activate([
             addHabitButton.centerYAnchor.constraint(equalTo: tableViewFooter.centerYAnchor),
             addHabitButton.centerXAnchor.constraint(equalTo: tableViewFooter.centerXAnchor),
-            addHabitButton.widthAnchor.constraint(equalToConstant: 200),
-            addHabitButton.heightAnchor.constraint(equalToConstant: 50)
+            addHabitButton.widthAnchor.constraint(equalTo: tableViewFooter.widthAnchor, constant: -20),
+            addHabitButton.heightAnchor.constraint(equalTo: tableViewFooter.heightAnchor)
         ])
         if HabitVC.cellCount == 1 {
             tableViewFooter.isHidden = true

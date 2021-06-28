@@ -34,8 +34,18 @@ let tableView = UITableView()
         
     }
     
-    
-    
+    //move this func to model
+    @objc func darkModePressed(_ sender: UISwitch) {
+    if sender.isOn == true {
+        UIApplication.shared.windows.forEach { window in
+            window.overrideUserInterfaceStyle = .dark
+        }
+    } else {
+        UIApplication.shared.windows.forEach { window in
+            window.overrideUserInterfaceStyle = .light
+        }
+   }
+    }
 }
 
 extension MenuView: UITableViewDelegate, UITableViewDataSource {
@@ -47,15 +57,12 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuTableViewCell.reuseID) as! MenuTableViewCell
         cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])
         cell.cellLabel.text = menuItems[indexPath.row]
-        let label = UILabel()
-        label.text = "Test"
         if indexPath.row == 4 {
             cell.cellSwitch.isHidden = false
 
         }
+        cell.cellSwitch.addTarget(self, action: #selector(darkModePressed), for: .valueChanged)
         return cell
     }
-    
-    
-    
+
 }
