@@ -20,11 +20,7 @@ class HabitVC: UIViewController {
     var dailyNumber: String = ""
     static var cellCount = 1
     var habitData = HabitData()
-    
-    
-    
-    
-    
+    var habitBool = false
     
     let emptyStateView = EmptyStateView()
     
@@ -32,7 +28,7 @@ class HabitVC: UIViewController {
         super.viewWillAppear(animated)
         showEmptyStateView()
         tableView.reloadData()
-    }
+            }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,10 +38,7 @@ class HabitVC: UIViewController {
         menuView.pinMenuTo(view, with: slideInMenuPadding)
         tableView.edgeTo(view)
         generator.prepare()
-        
-        let defaults = UserDefaults.standard
-        defaults.setValue(Date(), forKey: "Date")
-    
+        resetHabits() //need to test this works when setting up core data
     }
     
     func configureViewController() {
@@ -85,11 +78,34 @@ class HabitVC: UIViewController {
         }
     }
     
+    //make these extensions
     func getDayOfWeek() -> Int {
         let myCalendar = Calendar(identifier: .gregorian)
         let today = myCalendar.startOfDay(for: Date())
         let weekDay = myCalendar.component(.weekday, from: today)
         return weekDay
+    }
+    
+    func getStartofWeek() -> Date {
+        let today = Date()
+            let gregorian = Calendar(identifier: .gregorian)
+            let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))
+        return gregorian.date(byAdding: .day, value: 1, to: sunday!)!
+    }
+    
+    func setStartOfWeek() {
+        let startOfWeek = getStartofWeek()
+        HabitArray.startOfWeek = startOfWeek
+    }
+    
+    func resetHabits() {
+        if getStartofWeek() != HabitArray.startOfWeek {
+            habitBool = true
+            tableView.reloadData()
+            setStartOfWeek()
+            habitBool = false
+            
+        }
     }
     
     func configureTableView() {
@@ -115,18 +131,7 @@ class HabitVC: UIViewController {
 
     }
     
-    func resetHabits() { //implement bool so this is only changed once every sunday. have yet to implement functionality where the buttons stay illuminated when navigating away from the page. this func is where id put in the func to clear them all. build that first.
-        var dayChecker = 0
-        if getDayOfWeek() == 1 {
-            if dayChecker == 0 {
-                //reset here
-                dayChecker += 1
-            }
-        } else if getDayOfWeek() != 1 {
-            dayChecker = 0
-        }
-        
-    }
+   
     
 
   
@@ -226,6 +231,9 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         addHabitButton.layer.cornerRadius = 10
         addHabitButton.setTitle("Add Habit", for: .normal)
         addHabitButton.setTitleColor(.systemGreen, for: .normal)
+        if habitBool == true {
+        addHabitButton.backgroundColor = .clear
+        }
         
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
