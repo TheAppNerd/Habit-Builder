@@ -20,7 +20,7 @@ class HabitVC: UIViewController {
     var dailyNumber: String = ""
     static var cellCount = 1
     var habitData = HabitData()
-    var habitBool = false
+    static var habitBool = false
     
     let emptyStateView = EmptyStateView()
     
@@ -28,6 +28,7 @@ class HabitVC: UIViewController {
         super.viewWillAppear(animated)
         showEmptyStateView()
         tableView.reloadData()
+      resetHabits()
             }
 
     override func viewDidLoad() {
@@ -38,7 +39,7 @@ class HabitVC: UIViewController {
         menuView.pinMenuTo(view, with: slideInMenuPadding)
         tableView.edgeTo(view)
         generator.prepare()
-        resetHabits() //need to test this works when setting up core data
+       // resetHabits() //need to test this works when setting up core data
     }
     
     func configureViewController() {
@@ -100,11 +101,10 @@ class HabitVC: UIViewController {
     
     func resetHabits() {
         if getStartofWeek() != HabitArray.startOfWeek {
-            habitBool = true
+            HabitVC.habitBool = true
             tableView.reloadData()
             setStartOfWeek()
-            habitBool = false
-            
+            HabitVC.habitBool = false
         }
     }
     
@@ -193,9 +193,15 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.layer.borderColor = dataIndex.buttonColor?.cgColor
             button.tag = buttonCount
+            
+            //test this once data retention implemented. this is to reset habits
+            if HabitVC.habitBool == true {
+                HabitArray.array[indexPath.row].dayBool![buttonCount] = false
+            }
             if HabitArray.array[indexPath.row].dayBool![buttonCount] == true {
                 button.backgroundColor = UIColor(cgColor: button.layer.borderColor!)
             }
+            
             buttonCount += 1
            
 
@@ -231,9 +237,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         addHabitButton.layer.cornerRadius = 10
         addHabitButton.setTitle("Add Habit", for: .normal)
         addHabitButton.setTitleColor(.systemGreen, for: .normal)
-        if habitBool == true {
-        addHabitButton.backgroundColor = .clear
-        }
         
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
