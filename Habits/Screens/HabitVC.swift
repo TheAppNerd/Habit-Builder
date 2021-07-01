@@ -160,8 +160,6 @@ class HabitVC: UIViewController {
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
         
-        
-        
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         HabitArray.array[indexPath.row].dayBool![sender.tag] = true
