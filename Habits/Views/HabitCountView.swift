@@ -11,18 +11,18 @@ class HabitCountView: UIView {
 
     var stackArray: [UIStackView] = []
     let monthArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",]
-    let monthCount = [1,20,5,15,11,3,6,9,1,5,5,3,]
+    var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-   configure()
-    }
+            configureStackView()
     
+    }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
+     func configureStackView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         
     let stackView = UIStackView()
@@ -44,17 +44,19 @@ class HabitCountView: UIView {
             countLabel.translatesAutoresizingMaskIntoConstraints = false
             countLabel.text = "\(monthCount[stack])"
             vStackView.addArrangedSubview(countLabel)
-            
+          
             for number in 0...30 {
                 let count = UIView()
                 count.translatesAutoresizingMaskIntoConstraints = false
                 let reverseNumber = 31 - monthCount[stack]
                 if number < reverseNumber {
-                    count.backgroundColor = .black
+                    count.backgroundColor = .clear
                 } else {
+                    //add each of these counts to an array to then have each count go from clear to correct color from top to bottom
+                        count.alpha = 1
                         count.backgroundColor = .blue
-                    }
-                
+                    
+                }
                 vStackView.addArrangedSubview(count)
             }
             let monthLabel = UILabel()
@@ -62,10 +64,10 @@ class HabitCountView: UIView {
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
             monthLabel.text = monthArray[stack]
             vStackView.addArrangedSubview(monthLabel)
-            
+
             stackView.addArrangedSubview(vStackView)
         }
- 
+       
         self.addSubview(stackView)
         
         NSLayoutConstraint.activate([

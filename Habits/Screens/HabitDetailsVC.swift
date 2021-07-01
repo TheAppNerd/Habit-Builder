@@ -25,7 +25,7 @@ class HabitDetailsVC: UIViewController {
         self.calendarView.setDisplayDate(Date())
         updateDates()
 //        updateStreaks()
-        print(cellTag)
+        updateChart()
     }
     
     override func viewDidLoad() {
@@ -55,7 +55,8 @@ class HabitDetailsVC: UIViewController {
         let myCalendar = Calendar(identifier: .gregorian)
         let today = myCalendar.startOfDay(for: date)
         let weekDay = myCalendar.component(.weekday, from: today)
-        print(weekDay)
+        
+        
         return weekDay
     }
     
@@ -68,6 +69,7 @@ class HabitDetailsVC: UIViewController {
             //HabitArray.Array[self.cellTag].dates.insert(date)
             HabitArray.habitDates[self.cellTag].insert(date)
             HabitArray.array[self.cellTag].dayBool![day - 1] = true
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -82,6 +84,7 @@ class HabitDetailsVC: UIViewController {
             self.calendarView.deselectDate(date)
             //HabitArray.Array[self.cellTag].dates.remove(date)
             HabitArray.habitDates[self.cellTag].insert(date)
+
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -205,6 +208,20 @@ class HabitDetailsVC: UIViewController {
         //present(destVC, animated: true)
         navigationController?.pushViewController(addHabitVC, animated: true)
     }
+    
+    func updateChart() {
+        //HabitArray.habitDates[cellTag]
+        //habitCountView.monthCount
+        
+        let calendar = Calendar(identifier: .gregorian)
+        for date in HabitArray.habitDates[cellTag] {
+            let monthCalc = calendar.dateComponents([.month], from: date)
+            let month = monthCalc.month! - 1
+            habitCountView.monthCount[month] += 1
+            habitCountView.configureStackView()
+        }
+     
+}
 }
 
 //MARK: - Calendar View
@@ -255,6 +272,7 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     }
 }
 
+//MARK: - collectionview
 extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

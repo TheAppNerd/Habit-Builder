@@ -31,3 +31,5 @@ struct HabitData {
     var dayBool: [Bool]?
 
 }
+
+
