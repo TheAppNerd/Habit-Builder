@@ -9,7 +9,6 @@ import UIKit
 
 class HabitCountView: UIView {
 
-    var stackArray: [UIStackView] = []
     let monthArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",]
     var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0]
     
@@ -32,6 +31,20 @@ class HabitCountView: UIView {
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         
+        let countStack = UIStackView()
+            countStack.translatesAutoresizingMaskIntoConstraints = false
+        countStack.axis = .horizontal
+        countStack.alignment = .fill
+        countStack.distribution = .fillEqually
+        countStack.spacing = 10
+        
+        let monthStack = UIStackView()
+            monthStack.translatesAutoresizingMaskIntoConstraints = false
+        monthStack.axis = .horizontal
+        monthStack.alignment = .fill
+        monthStack.distribution = .fillEqually
+        monthStack.spacing = 10
+        
         for stack in 0...11 {
             let vStackView = UIStackView()
             vStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,13 +55,13 @@ class HabitCountView: UIView {
             
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
-            
             countLabel.text = "\(monthCount[stack])"
-            vStackView.addArrangedSubview(countLabel)
+            countStack.addArrangedSubview(countLabel)
           
             for number in 0...30 {
                 let count = UIView()
                 count.translatesAutoresizingMaskIntoConstraints = false
+                
                 let reverseNumber = 31 - monthCount[stack]
                 if number < reverseNumber {
                     count.backgroundColor = .clear
@@ -64,18 +77,32 @@ class HabitCountView: UIView {
             monthLabel.adjustsFontSizeToFitWidth = true
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
             monthLabel.text = monthArray[stack]
-            vStackView.addArrangedSubview(monthLabel)
+            monthStack.addArrangedSubview(monthLabel)
 
             stackView.addArrangedSubview(vStackView)
         }
        
-        self.addSubview(stackView)
+        addSubview(stackView)
+        addSubview(monthStack)
+        addSubview(countStack)
         
         NSLayoutConstraint.activate([
+            countStack.topAnchor.constraint(equalTo: self.topAnchor),
+            countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            countStack.bottomAnchor.constraint(equalTo: stackView.topAnchor),
+            countStack.heightAnchor.constraint(equalToConstant: 30),
+            
+            stackView.topAnchor.constraint(equalTo: countStack.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            stackView.bottomAnchor.constraint(equalTo: monthStack.topAnchor),
+            
+            monthStack.topAnchor.constraint(equalTo: stackView.bottomAnchor),
+            monthStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            monthStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            monthStack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            monthStack.heightAnchor.constraint(equalToConstant: 30)
         ])
 }
     

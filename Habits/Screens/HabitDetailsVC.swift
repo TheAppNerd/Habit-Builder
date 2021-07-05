@@ -18,9 +18,9 @@ class HabitDetailsVC: UIViewController {
     let currentStreak = BodyLabel()
     let bestStreak = BodyLabel()
     
-    let chartView = UIView()
+  
     let habitCountView = HabitCountView()
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,27 +36,13 @@ class HabitDetailsVC: UIViewController {
         configureViewController()
         configureBarButtons()
         configureCalendarView()
-        configureCollectionView()
+     
         
         self.tabBarController?.tabBar.isHidden = true
         title = HabitArray.array[cellTag].habitName
     }
     
-    
-    private func configureCollectionView() {
-        collectionView.register(ChartCollectionViewCell.self, forCellWithReuseIdentifier: ChartCollectionViewCell.reuseID)
-        collectionView.backgroundColor = .red
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.isScrollEnabled = true
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: collectionView.frame.size.width, height: collectionView.frame.size.height)
-        
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    }
+
     
     
     func updateDates() {
@@ -156,7 +142,7 @@ class HabitDetailsVC: UIViewController {
         view.addSubview(calendarView)
         view.addSubview(currentStreak)
         view.addSubview(bestStreak)
-        view.addSubview(collectionView)
+        view.addSubview(habitCountView)
       
         
         let padding: CGFloat = 10
@@ -177,10 +163,10 @@ class HabitDetailsVC: UIViewController {
             bestStreak.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             bestStreak.heightAnchor.constraint(equalToConstant: 20),
             
-            collectionView.topAnchor.constraint(equalTo: bestStreak.bottomAnchor, constant: padding),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding)
+            habitCountView.topAnchor.constraint(equalTo: bestStreak.bottomAnchor, constant: 300),
+            habitCountView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            habitCountView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            habitCountView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding)
         ])
     }
 
@@ -295,21 +281,4 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     }
 }
 
-//MARK: - collectionview
-extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ChartCell", for: indexPath) as! ChartCollectionViewCell
-        let color = [UIColor.red, UIColor.green, UIColor.blue]
-        cell.backgroundColor = color[indexPath.row]
-        return cell
-    }
-    
-    
-    
-    
-}
+
