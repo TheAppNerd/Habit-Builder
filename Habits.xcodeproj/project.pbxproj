@@ -23,6 +23,7 @@
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
 		FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C5726450A9300BFDA3F /* Gradients.swift */; };
+		FAEE7A1A2692B3070064D06E /* ChartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE7A192692B3070064D06E /* ChartCollectionViewCell.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CC26493FF50029E50D /* DateSwitch.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
@@ -33,8 +34,6 @@
 		FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E326549DDC0029E50D /* DayButton.swift */; };
 		FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E5265608830029E50D /* EmptyStateView.swift */; };
 		FAF4E6E8265616190029E50D /* DividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E7265616190029E50D /* DividerView.swift */; };
-		FAF4E6EA265BC6260029E50D /* BarChartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E9265BC6250029E50D /* BarChartCollectionViewCell.swift */; };
-		FAF4E6EC265BCA560029E50D /* ChartCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6EB265BCA560029E50D /* ChartCollectionViewController.swift */; };
 		FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E713265F43270029E50D /* HelpScreenViewController.swift */; };
 		FAF4E716265F445E0029E50D /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E715265F445E0029E50D /* PageControl.swift */; };
 		FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E717265F456E0029E50D /* ScrollView.swift */; };
@@ -62,6 +61,7 @@
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 		FA212C5726450A9300BFDA3F /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
+		FAEE7A192692B3070064D06E /* ChartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6CC26493FF50029E50D /* DateSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSwitch.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
@@ -72,8 +72,6 @@
 		FAF4E6E326549DDC0029E50D /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		FAF4E6E5265608830029E50D /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		FAF4E6E7265616190029E50D /* DividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerView.swift; sourceTree = "<group>"; };
-		FAF4E6E9265BC6250029E50D /* BarChartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartCollectionViewCell.swift; sourceTree = "<group>"; };
-		FAF4E6EB265BCA560029E50D /* ChartCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCollectionViewController.swift; sourceTree = "<group>"; };
 		FAF4E713265F43270029E50D /* HelpScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewController.swift; sourceTree = "<group>"; };
 		FAF4E715265F445E0029E50D /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		FAF4E717265F456E0029E50D /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
@@ -167,7 +165,7 @@
 			children = (
 				FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */,
 				FA1C73282636491A00E63CBE /* HabitCell.swift */,
-				FAF4E6E9265BC6250029E50D /* BarChartCollectionViewCell.swift */,
+				FAEE7A192692B3070064D06E /* ChartCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -218,7 +216,6 @@
 				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
 				FAF4E6CC26493FF50029E50D /* DateSwitch.swift */,
 				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
-				FAF4E6EB265BCA560029E50D /* ChartCollectionViewController.swift */,
 				FAF4E715265F445E0029E50D /* PageControl.swift */,
 				FAF4E717265F456E0029E50D /* ScrollView.swift */,
 			);
@@ -353,16 +350,15 @@
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
 				FA1C73242636406300E63CBE /* HabitVC.swift in Sources */,
-				FAF4E6EC265BCA560029E50D /* ChartCollectionViewController.swift in Sources */,
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
 				FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */,
 				FA1C730A263636D800E63CBE /* ViewController.swift in Sources */,
 				FAF4E72126689C750029E50D /* HabitCountView.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
 				FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */,
-				FAF4E6EA265BC6260029E50D /* BarChartCollectionViewCell.swift in Sources */,
 				FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */,
 				FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */,
+				FAEE7A1A2692B3070064D06E /* ChartCollectionViewCell.swift in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
