@@ -15,7 +15,7 @@ class HabitCountView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-            configureStackView()
+            
     
     }
     required init?(coder: NSCoder) {
@@ -42,6 +42,7 @@ class HabitCountView: UIView {
             
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
+            
             countLabel.text = "\(monthCount[stack])"
             vStackView.addArrangedSubview(countLabel)
           
@@ -77,4 +78,6 @@ class HabitCountView: UIView {
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
 }
+    
+    
 }
