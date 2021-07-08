@@ -11,6 +11,7 @@ class HabitCountView: UIView {
 
     let monthArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",]
     var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0]
+    var color: UIColor?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,10 +68,12 @@ class HabitCountView: UIView {
                     count.backgroundColor = .clear
                 } else {
                     //add each of these counts to an array to then have each count go from clear to correct color from top to bottom
+                        count.backgroundColor = color
+                    if stack % 2 == 0 {
                         count.alpha = 1
-                        count.backgroundColor = .blue
-                    
-                }
+                    } else {
+                        count.alpha = 0.7
+                    }
                 vStackView.addArrangedSubview(count)
             }
             let monthLabel = UILabel()
@@ -87,11 +90,11 @@ class HabitCountView: UIView {
         addSubview(countStack)
         
         NSLayoutConstraint.activate([
-            countStack.topAnchor.constraint(equalTo: self.topAnchor),
+            countStack.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             countStack.bottomAnchor.constraint(equalTo: stackView.topAnchor),
-            countStack.heightAnchor.constraint(equalToConstant: 30),
+            //countStack.heightAnchor.constraint(equalToConstant: 30),
             
             stackView.topAnchor.constraint(equalTo: countStack.bottomAnchor),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -107,4 +110,5 @@ class HabitCountView: UIView {
 }
     
     
+}
 }

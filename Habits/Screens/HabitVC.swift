@@ -43,6 +43,7 @@ class HabitVC: UIViewController {
     }
     
     func configureViewController() {
+        title = "Habits"
         view.backgroundColor = .systemBackground
         let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitPressed))
@@ -228,12 +229,19 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let tableViewFooter = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
             let addHabitButton = UIButton()
+     
+        //this code is to add an image to text but it isnt working. fix later
+//        let plusIcon = NSTextAttachment()
+//        plusIcon.image = UIImage(systemName: "plus.app")
+//        let plusString = NSAttributedString(attachment: plusIcon)
+//        let fullString = NSMutableAttributedString(attachment: plusString)
+//        fullString.append(NSAttributedString(string: "Add a new habit"))
         addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         addHabitButton.translatesAutoresizingMaskIntoConstraints = false
         addHabitButton.layer.borderWidth = 1
         addHabitButton.layer.borderColor = UIColor.systemGreen.cgColor
         addHabitButton.layer.cornerRadius = 10
-        addHabitButton.setTitle("Add Habit", for: .normal)
+        addHabitButton.setTitle("Add a new habit", for: .normal)
         addHabitButton.setTitleColor(.systemGreen, for: .normal)
         
         tableViewFooter.addSubview(addHabitButton)
