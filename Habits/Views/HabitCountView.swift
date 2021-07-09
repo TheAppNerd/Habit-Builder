@@ -74,8 +74,9 @@ class HabitCountView: UIView {
                     } else {
                         count.alpha = 0.7
                     }
+                }
                 vStackView.addArrangedSubview(count)
-            }
+            
             let monthLabel = UILabel()
             monthLabel.adjustsFontSizeToFitWidth = true
             monthLabel.translatesAutoresizingMaskIntoConstraints = false

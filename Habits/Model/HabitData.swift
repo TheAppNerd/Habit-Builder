@@ -29,7 +29,7 @@ struct HabitData {
     var reminderMinute: Int?
     var colorTag: Int?
     var dayBool: [Bool]?
-    var year: [Int: [Int]]?
+    var year: [Int: [Int]] = [:]
 }
 
 

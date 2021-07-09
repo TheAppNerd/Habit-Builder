@@ -56,6 +56,7 @@ class AddHabitVC: UIViewController {
         deleteButton.isHidden = true
         deleteView.isHidden = true
         loadPage()
+      
         
     }
     
@@ -74,6 +75,7 @@ class AddHabitVC: UIViewController {
         habitNameTextField.delegate = self
         notesTextField.delegate = self
         dimissKeyboard()
+        setYearArray()
     }
     
     override func viewDidLayoutSubviews() {
@@ -397,6 +399,21 @@ class AddHabitVC: UIViewController {
         
     }
     
+    func getYear() -> Int {
+        let today = Date()
+        let calendar = Calendar(identifier: .gregorian)
+        let year = calendar.component(.year, from: today)
+      
+        return year
+    }
+    
+    func setYearArray() {
+       habitData.year[getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
+       habitData.year[getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
+        print(habitData.year)
+  
+    }
+    
     @objc func saveHabit() {
         
         if habitNameTextField.text == "" {
@@ -412,6 +429,7 @@ class AddHabitVC: UIViewController {
             habitNameTextField.layer.borderWidth = 0
             habitData.reminderHour = hour
             habitData.reminderMinute = minute
+            setYearArray()
         habitData.weeklyFrequency = "\(frequencyCounter)"
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
