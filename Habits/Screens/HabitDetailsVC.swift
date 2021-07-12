@@ -30,6 +30,7 @@ class HabitDetailsVC: UIViewController {
         updateDates()
 //        updateStreaks()
         updateChart()
+        addNewYear()
 
     }
     
@@ -130,7 +131,7 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellBorderWidth = 1
         myStyle.firstWeekday = .sunday
         myStyle.cellShape = CalendarView.Style.CellShapeOptions.round
-        myStyle.cellColorDefault = .secondaryLabel
+        myStyle.cellColorDefault = .clear
         myStyle.cellSelectedBorderColor = HabitArray.array[cellTag].buttonColor!
         myStyle.cellTextColorDefault = .label
         myStyle.cellTextColorWeekend = .label
@@ -238,6 +239,27 @@ class HabitDetailsVC: UIViewController {
         habitCountView.configureStackView()
 }
     
+    func getYear() -> Int { //this is used several times. move to one location for all views.
+        let today = Date()
+        let calendar = Calendar(identifier: .gregorian)
+        let year = calendar.component(.year, from: today)
+      
+        return year
+    }
+    
+    func addNewYear() {
+        //loop through dict keys to get highest value. if current year != highest value append new dict with current year
+        let latestYear = HabitArray.array[cellTag].year.keys.max()
+        let currentYear = getYear()
+        
+        //test this
+        if currentYear != latestYear {
+            HabitArray.array[cellTag].year[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
+        }
+    }
+    
+  
+    
     
     func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
@@ -321,7 +343,9 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
 extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+      
+        return HabitArray.array[cellTag].year.count
+     
     }
     
     
