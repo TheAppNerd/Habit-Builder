@@ -9,9 +9,10 @@ import UIKit
 
 class HabitCountView: UIView {
 
-    let monthArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",]
+    let monthArray = ["01","02","03","04","05","06","07","08","09","10","11","12",]
     var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0]
     var color: UIColor?
+    var year: Int?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,7 +24,7 @@ class HabitCountView: UIView {
     }
     
      func configureStackView() {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        self.translatesAutoresizingMaskIntoConstraints = true
         
     let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,6 +46,11 @@ class HabitCountView: UIView {
         monthStack.alignment = .fill
         monthStack.distribution = .fillEqually
         monthStack.spacing = 10
+        
+        let yearLabel = UILabel()
+        yearLabel.translatesAutoresizingMaskIntoConstraints = false
+        yearLabel.textAlignment = .left
+        yearLabel.text = "\(year!)"
         
         for stack in 0...11 {
             let vStackView = UIStackView()
@@ -77,39 +83,51 @@ class HabitCountView: UIView {
                 }
                 vStackView.addArrangedSubview(count)
             
+            
+
+            stackView.addArrangedSubview(vStackView)
+        }
+       
             let monthLabel = UILabel()
             monthLabel.adjustsFontSizeToFitWidth = true
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
             monthLabel.text = monthArray[stack]
             monthStack.addArrangedSubview(monthLabel)
-
-            stackView.addArrangedSubview(vStackView)
+            
         }
-       
         addSubview(stackView)
         addSubview(monthStack)
         addSubview(countStack)
+        addSubview(yearLabel)
+        
+        let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            countStack.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            countStack.topAnchor.constraint(equalTo: self.topAnchor),
+            countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             countStack.bottomAnchor.constraint(equalTo: stackView.topAnchor),
-            //countStack.heightAnchor.constraint(equalToConstant: 30),
+            countStack.heightAnchor.constraint(equalToConstant: 30),
             
             stackView.topAnchor.constraint(equalTo: countStack.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             stackView.bottomAnchor.constraint(equalTo: monthStack.topAnchor),
             
             monthStack.topAnchor.constraint(equalTo: stackView.bottomAnchor),
-            monthStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            monthStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            monthStack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            monthStack.heightAnchor.constraint(equalToConstant: 30)
+            monthStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            monthStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            monthStack.bottomAnchor.constraint(equalTo: yearLabel.topAnchor),
+            monthStack.heightAnchor.constraint(equalToConstant: 30),
+            
+            yearLabel.topAnchor.constraint(equalTo: monthStack.bottomAnchor),
+            yearLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            yearLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            yearLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            yearLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
 }
     
     
 }
-}
+

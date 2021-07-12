@@ -29,8 +29,9 @@ class HabitDetailsVC: UIViewController {
         self.calendarView.setDisplayDate(Date())
         updateDates()
 //        updateStreaks()
-        updateChart()
+    
         addNewYear()
+        collectionView.reloadData()
 
     }
     
@@ -40,7 +41,7 @@ class HabitDetailsVC: UIViewController {
         configureViewController()
         configureBarButtons()
         configureCalendarView()
-        
+        addNewYear()
       
         
         self.tabBarController?.tabBar.isHidden = true
@@ -82,7 +83,7 @@ class HabitDetailsVC: UIViewController {
             //HabitArray.Array[self.cellTag].dates.insert(date)
             HabitArray.habitDates[self.cellTag].insert(date)
             HabitArray.array[self.cellTag].dayBool![day - 1] = true
-            
+            self.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -97,7 +98,7 @@ class HabitDetailsVC: UIViewController {
             self.calendarView.deselectDate(date)
             //HabitArray.Array[self.cellTag].dates.remove(date)
             HabitArray.habitDates[self.cellTag].insert(date)
-
+            self.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -173,7 +174,7 @@ class HabitDetailsVC: UIViewController {
             collectionView.heightAnchor.constraint(equalToConstant: 200),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
         ])
     }
 
@@ -225,19 +226,27 @@ class HabitDetailsVC: UIViewController {
         navigationController?.pushViewController(addHabitVC, animated: true)
     }
     
-    func updateChart() {
-        //HabitArray.habitDates[cellTag]
-        //habitCountView.monthCount
-        
+    func updateChart(habitView: HabitCountView) {
+        //had to create a seperate array to insert dates into only if they hadnt already been added. stopped dates being counted twice.
         let calendar = Calendar(identifier: .gregorian)
         for date in HabitArray.habitDates[cellTag] {
+            
             let monthCalc = calendar.dateComponents([.month], from: date)
+            let yearCalc = calendar.dateComponents([.year], from: date)
+            let year = yearCalc.year!
             let month = monthCalc.month! - 1
-            habitCountView.monthCount[month] += 1
+            
+            //this code loops through all saved dates and assigns them to dict by going through year and then month and adding 1 to the count
+            if !HabitArray.chartDates.contains(date) {
+            HabitArray.array[cellTag].year[year]![month] += 1
+                HabitArray.chartDates.append(date)
+            }
         }
-        habitCountView.color = HabitArray.array[cellTag].buttonColor!
-        habitCountView.configureStackView()
+        
+        habitView.color = HabitArray.array[cellTag].buttonColor!
+        habitView.configureStackView()
 }
+    
     
     func getYear() -> Int { //this is used several times. move to one location for all views.
         let today = Date()
@@ -277,16 +286,6 @@ class HabitDetailsVC: UIViewController {
         
     }
     
-    func addSubView(view: UIView, subView: UIView) {
-        view.addSubview(subView)
-        
-        NSLayoutConstraint.activate([
-            subView.topAnchor.constraint(equalTo: view.topAnchor),
-            subView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            subView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            subView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
     
 }
 
@@ -345,19 +344,23 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
         return HabitArray.array[cellTag].year.count
-     
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCell.reuseID, for: indexPath) as! ChartCell
-        for _ in 0...9 {
-            let habitView = habitCountView
-            addSubView(view: cell.cellView, subView: habitView)
-        }
+       
+    let earliestYear = HabitArray.array[cellTag].year.keys.min()
+        let year = earliestYear! + indexPath.row
+        cell.habitView.year = year
+        cell.habitView.monthCount = HabitArray.array[cellTag].year[year]!
+        updateChart(habitView: cell.habitView)
+        cell.habitView.backgroundColor = .secondarySystemBackground
         
         return cell
     }
+    
+    
     
     
 }

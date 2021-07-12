@@ -37,7 +37,6 @@
 		FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E713265F43270029E50D /* HelpScreenViewController.swift */; };
 		FAF4E716265F445E0029E50D /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E715265F445E0029E50D /* PageControl.swift */; };
 		FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E717265F456E0029E50D /* ScrollView.swift */; };
-		FAF4E71F26689A5A0029E50D /* Daily HabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E71E26689A5A0029E50D /* Daily HabitView.swift */; };
 		FAF4E72126689C750029E50D /* HabitCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E72026689C750029E50D /* HabitCountView.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,7 +74,6 @@
 		FAF4E713265F43270029E50D /* HelpScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewController.swift; sourceTree = "<group>"; };
 		FAF4E715265F445E0029E50D /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		FAF4E717265F456E0029E50D /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
-		FAF4E71E26689A5A0029E50D /* Daily HabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Daily HabitView.swift"; sourceTree = "<group>"; };
 		FAF4E72026689C750029E50D /* HabitCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCountView.swift; sourceTree = "<group>"; };
 		FB7F27FC05DA56D0BD8F3CE8 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,7 +192,6 @@
 			children = (
 				FA1C73422637CD3E00E63CBE /* TableCellView.swift */,
 				FAF4E6E7265616190029E50D /* DividerView.swift */,
-				FAF4E71E26689A5A0029E50D /* Daily HabitView.swift */,
 				FAF4E72026689C750029E50D /* HabitCountView.swift */,
 			);
 			path = Views;
@@ -368,7 +365,6 @@
 				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
-				FAF4E71F26689A5A0029E50D /* Daily HabitView.swift in Sources */,
 				FAF4E6E8265616190029E50D /* DividerView.swift in Sources */,
 				FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */,
 				FA212C5826450A9300BFDA3F /* Gradients.swift in Sources */,
