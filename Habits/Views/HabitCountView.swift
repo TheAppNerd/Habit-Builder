@@ -58,7 +58,8 @@ class HabitCountView: UIView {
             vStackView.axis = .vertical
             vStackView.alignment = .fill
             vStackView.distribution = .fillEqually
-            vStackView.spacing = 1
+           vStackView.spacing = 1
+            //vStackView.setCustomSpacing(1, after: vStackView.subviews[5])
             
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false

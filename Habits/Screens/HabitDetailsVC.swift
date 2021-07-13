@@ -22,14 +22,12 @@ class HabitDetailsVC: UIViewController {
     let habitCountView = HabitCountView()
     
    
-    
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.calendarView.setDisplayDate(Date())
         updateDates()
-//        updateStreaks()
-    
         addNewYear()
         collectionView.reloadData()
 
@@ -42,10 +40,9 @@ class HabitDetailsVC: UIViewController {
         configureBarButtons()
         configureCalendarView()
         addNewYear()
-      
-        
         self.tabBarController?.tabBar.isHidden = true
         title = HabitArray.array[cellTag].habitName
+ 
     }
     
 
@@ -60,11 +57,7 @@ class HabitDetailsVC: UIViewController {
     }
     }
     
-//    func updateStreaks() {
-//        currentStreak.text = "Current Weekly Streak: \(streak)"
-//        bestStreak.text = "Longest Weekly Streak: \(getBiggestStreak())"
-//        //totalDays.text = "Total days completed: \(getTotalDays())"
-//    }
+
     func getDayOfWeek(date: Date) -> Int {
         let myCalendar = Calendar(identifier: .gregorian)
         let today = myCalendar.startOfDay(for: date)
@@ -80,10 +73,9 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
-            //HabitArray.Array[self.cellTag].dates.insert(date)
             HabitArray.habitDates[self.cellTag].insert(date)
             HabitArray.array[self.cellTag].dayBool![day - 1] = true
-            self.collectionView.reloadData()
+            self.viewDidLoad()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -91,14 +83,16 @@ class HabitDetailsVC: UIViewController {
         present(alert, animated: true)
     }
 
+  
     
     func presentAlertToRemoveHabit(date: Date) {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.deselectDate(date)
-            //HabitArray.Array[self.cellTag].dates.remove(date)
-            HabitArray.habitDates[self.cellTag].insert(date)
-            self.collectionView.reloadData()
+            HabitArray.habitDates[self.cellTag].remove(date)
+            HabitArray.array[self.cellTag].chartDates = HabitArray.array[self.cellTag].chartDates.filter{$0 != date}
+        
+            self.viewDidLoad()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -138,9 +132,6 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
         myStyle.cellSelectedColor = HabitArray.array[cellTag].buttonColor!
-      
-        //myStyle.headerBackgroundColor = .red
-        
     }
     
     private func configureViewController() {
@@ -178,36 +169,7 @@ class HabitDetailsVC: UIViewController {
         ])
     }
 
-    //move this to habitdata to save to coredata.
-    //this doesnt work. redo it. use observers to update streaks as well
-//    func getCurrentStreak() -> Int {
-//        let startDate = calendarView.calendar.startOfDay(for: Date())
-//        var streak = [Date]()
-//        let array = HabitArray.Array[cellTag].dates
-//        let sortedArray = array.sorted { $0.compare($1) == .orderedDescending }
-//        var dateComponents = DateComponents()
-//        dateComponents.day = -1
-//
-//        for date in sortedArray {
-//            if sortedArray.contains(calendarView.calendar.date(byAdding: dateComponents, to: date)!)  {
-//                streak.append(date)
-//                continue
-//            } else {
-//                if HabitArray.Array[cellTag].currentDailyCount == 0 {
-//                    return streak.count
-//                } else {
-//                return streak.count + 1
-//                }
-//            }
-//        }
-//        return streak.count
-//    }
-//
-    
-    
-    //need to start from today and count backwards. break if nothing.
-    
-    //move this to habitdata to save to coredata. need to change this to take into account adding streaks manually to previous dates.
+
     
     @objc func goBack() {
         let destVC = UINavigationController(rootViewController: HabitVC())
@@ -220,9 +182,7 @@ class HabitDetailsVC: UIViewController {
         HabitArray.habitCreated = true
         let addHabitVC = AddHabitVC()
         addHabitVC.cellTag = cellTag
-        //let destVC = UINavigationController(rootViewController: AddHabitVC())
-        //destVC.modalPresentationStyle = .fullScreen
-        //present(destVC, animated: true)
+       
         navigationController?.pushViewController(addHabitVC, animated: true)
     }
     
@@ -237,9 +197,9 @@ class HabitDetailsVC: UIViewController {
             let month = monthCalc.month! - 1
             
             //this code loops through all saved dates and assigns them to dict by going through year and then month and adding 1 to the count
-            if !HabitArray.chartDates.contains(date) {
+            if !HabitArray.array[cellTag].chartDates.contains(date) {
             HabitArray.array[cellTag].year[year]![month] += 1
-                HabitArray.chartDates.append(date)
+                HabitArray.array[cellTag].chartDates.append(date)
             }
         }
         
@@ -260,7 +220,6 @@ class HabitDetailsVC: UIViewController {
         //loop through dict keys to get highest value. if current year != highest value append new dict with current year
         let latestYear = HabitArray.array[cellTag].year.keys.max()
         let currentYear = getYear()
-        
         //test this
         if currentYear != latestYear {
             HabitArray.array[cellTag].year[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
@@ -268,6 +227,15 @@ class HabitDetailsVC: UIViewController {
     }
     
   
+    func getTotalDays() {
+        var totalAmount = 0
+        for year in HabitArray.array[cellTag].year {
+            let yearTotal = year.value.reduce(0, +)
+            totalAmount += yearTotal
+        }
+        print(totalAmount)
+    }
+   
     
     
     func configureCollectionView() {
@@ -356,7 +324,7 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.habitView.monthCount = HabitArray.array[cellTag].year[year]!
         updateChart(habitView: cell.habitView)
         cell.habitView.backgroundColor = .secondarySystemBackground
-        
+        getTotalDays() // why does this only work from here? figure out how to update year dict properly. 
         return cell
     }
     
