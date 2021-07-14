@@ -167,10 +167,12 @@ class HabitVC: UIViewController {
         generator.impactOccurred()
         if sender.backgroundColor == .clear {
             sender.backgroundColor = UIColor(cgColor: sender.layer.borderColor!)
+            sender.setTitleColor(.white, for: .normal)
             HabitArray.habitDates[indexPath.row].insert(selectedDate)
             
         } else {
             sender.backgroundColor = .clear
+            sender.setTitleColor(UIColor(cgColor: sender.layer.borderColor!), for: .normal)
             HabitArray.habitDates[indexPath.row].remove(selectedDate)
             HabitArray.array[indexPath.row].dayBool![sender.tag] = false
 
@@ -191,6 +193,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         for button in cell.dayButton {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.layer.borderColor = dataIndex.buttonColor?.cgColor
+            button.setTitleColor(dataIndex.buttonColor, for: .normal) //use diff states to effect changes?
             button.tag = buttonCount
             
             //test this once data retention implemented. this is to reset habits
@@ -203,7 +206,9 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             
             buttonCount += 1
            
-
+            if button.backgroundColor != .clear {
+                button.setTitleColor(.white, for: .normal)
+            }
         }
     //bug here. bell icons wont change properly and different cells seems to interact with each other. 
 //        if dataIndex.alarmBool == true {
