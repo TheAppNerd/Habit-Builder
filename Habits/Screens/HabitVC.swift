@@ -168,10 +168,12 @@ class HabitVC: UIViewController {
         generator.impactOccurred()
         if sender.backgroundColor == .clear {
             sender.backgroundColor = UIColor(cgColor: sender.layer.borderColor!)
+            sender.setTitleColor(.white, for: .normal)
             HabitArray.habitDates[indexPath.row].insert(selectedDate)
             
         } else {
             sender.backgroundColor = .clear
+            sender.setTitleColor(UIColor(cgColor: sender.layer.borderColor!), for: .normal)
             HabitArray.habitDates[indexPath.row].remove(selectedDate)
             HabitArray.array[indexPath.row].dayBool![sender.tag] = false
 
@@ -192,6 +194,9 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         for button in cell.dayButton {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.layer.borderColor = dataIndex.buttonColor?.cgColor
+           
+            button.setTitleColor(dataIndex.buttonColor, for: .normal)
+            
             button.tag = buttonCount
             if HabitArray.array[indexPath.row].dayBool![buttonCount] == true {
                 button.backgroundColor = UIColor(cgColor: button.layer.borderColor!)
@@ -226,14 +231,18 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             let addHabitButton = UIButton()
         addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         addHabitButton.translatesAutoresizingMaskIntoConstraints = false
-        addHabitButton.layer.borderWidth = 1
-        addHabitButton.layer.borderColor = UIColor.systemGreen.cgColor
+        
         addHabitButton.layer.cornerRadius = 10
+
         addHabitButton.setTitle("Add Habit", for: .normal)
         addHabitButton.setTitleColor(.systemGreen, for: .normal)
         if habitBool == true {
         addHabitButton.backgroundColor = .clear
         }
+
+        addHabitButton.setTitle("Add a new habit", for: .normal)
+        addHabitButton.setTitleColor(.systemBlue, for: .normal)
+
         
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
