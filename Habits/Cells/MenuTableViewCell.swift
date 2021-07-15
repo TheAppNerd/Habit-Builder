@@ -53,6 +53,7 @@ class MenuTableViewCell: UITableViewCell {
             cellSwitch.leadingAnchor.constraint(equalTo: cellLabel.trailingAnchor, constant: padding),
             cellSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             cellSwitch.heightAnchor.constraint(equalToConstant: 20),
+
         ])
     }
     
