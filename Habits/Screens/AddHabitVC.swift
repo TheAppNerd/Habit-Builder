@@ -56,7 +56,6 @@ class AddHabitVC: UIViewController {
         deleteButton.isHidden = true
         deleteView.isHidden = true
         loadPage()
-      
         
     }
     
@@ -81,6 +80,7 @@ class AddHabitVC: UIViewController {
     override func viewDidLayoutSubviews() {
         for button in colorButtons {
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
+            button.addGradient(colorOne: button.backgroundColor!, colorTwo: .white)
         }
     }
     
@@ -130,7 +130,7 @@ class AddHabitVC: UIViewController {
             NSLayoutConstraint.activate([
                 subview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
                 subview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-                subview.heightAnchor.constraint(equalToConstant: view.frame.height / 18)
+                subview.heightAnchor.constraint(equalToConstant: view.frame.height / 16)
             ])}
         
         NSLayoutConstraint.activate([
@@ -285,11 +285,13 @@ class AddHabitVC: UIViewController {
         let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .left, fontSize: 16)
         colorView.addSubview(colorLabel)
         let colorStackView = UIStackView()
+        colorStackView.spacing = 2
         colorView.addSubview(colorStackView)
         colorStackView.translatesAutoresizingMaskIntoConstraints = false
         var buttonTag = 0
         colorStackView.axis = .horizontal
         colorStackView.distribution = .equalSpacing
+        
         for button in colorButtons {
             colorStackView.addArrangedSubview(button)
             button.tag = buttonTag

@@ -28,7 +28,6 @@ class EmptyStateView: UIView {
         addSubview(message)
         addSubview(imageView)
         addSubview(addHabitButton)
-    
         message.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addHabitButton.translatesAutoresizingMaskIntoConstraints = false

@@ -23,6 +23,9 @@ class HabitVC: UIViewController {
     static var habitBool = false
     
     let emptyStateView = EmptyStateView()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,7 +47,7 @@ class HabitVC: UIViewController {
     
     func configureViewController() {
         title = "Habits"
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemBackground
         let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitPressed))
         let helpButton = UIBarButtonItem(image: UIImage(systemName: "questionmark"), style: .plain, target: self, action: #selector(helpButtonPressed))
@@ -244,7 +247,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         addHabitButton.translatesAutoresizingMaskIntoConstraints = false
         addHabitButton.layer.borderWidth = 1
-        addHabitButton.layer.borderColor = UIColor.systemGreen.cgColor
         addHabitButton.layer.cornerRadius = 10
         addHabitButton.setTitle("Add a new habit", for: .normal)
         addHabitButton.setTitleColor(.systemGreen, for: .normal)

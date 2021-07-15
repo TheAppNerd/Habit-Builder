@@ -21,7 +21,7 @@ class DividerView: UIView {
     
     private func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = .tertiarySystemBackground
         self.layer.cornerRadius = 10
         
     }

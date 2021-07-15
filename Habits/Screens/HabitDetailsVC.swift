@@ -18,6 +18,8 @@ class HabitDetailsVC: UIViewController {
     let currentStreak = BodyLabel()
     let bestStreak = BodyLabel()
     
+    //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
+    
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let habitCountView = HabitCountView()
     
@@ -132,12 +134,13 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
         myStyle.cellSelectedColor = HabitArray.array[cellTag].buttonColor!
+        
     }
     
     private func configureViewController() {
         
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemBackground //change overall system background in assetts rather than here.
         view.addSubview(calendarView)
         view.addSubview(currentStreak)
         view.addSubview(bestStreak)
@@ -150,19 +153,14 @@ class HabitDetailsVC: UIViewController {
             calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            calendarView.heightAnchor.constraint(equalToConstant: view.frame.height / 3),
+            calendarView.heightAnchor.constraint(equalToConstant: view.frame.height / 2.5),
            
             currentStreak.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: padding),
             currentStreak.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            currentStreak.trailingAnchor.constraint(equalTo: bestStreak.leadingAnchor, constant: -padding),
-            currentStreak.heightAnchor.constraint(equalToConstant: 20),
+            currentStreak.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            currentStreak.bottomAnchor.constraint(equalTo: collectionView.topAnchor),
             
-            bestStreak.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: padding),
-            bestStreak.leadingAnchor.constraint(equalTo: currentStreak.trailingAnchor, constant: padding),
-            bestStreak.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            bestStreak.heightAnchor.constraint(equalToConstant: 20),
-            
-            collectionView.heightAnchor.constraint(equalToConstant: 200),
+            collectionView.heightAnchor.constraint(equalToConstant: view.frame.height / 2.5),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
@@ -241,7 +239,7 @@ class HabitDetailsVC: UIViewController {
     func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: view.frame.width - 30, height: 200)
+        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height / 2.5) // make this into a variable that also goes into nslayout constraint
         layout.scrollDirection = .horizontal
         
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
@@ -323,7 +321,7 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.habitView.year = year
         cell.habitView.monthCount = HabitArray.array[cellTag].year[year]!
         updateChart(habitView: cell.habitView)
-        cell.habitView.backgroundColor = .secondarySystemBackground
+        cell.habitView.backgroundColor = .tertiarySystemBackground
         getTotalDays() // why does this only work from here? figure out how to update year dict properly. 
         return cell
     }
