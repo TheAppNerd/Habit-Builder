@@ -16,8 +16,11 @@ class HabitDetailsVC: UIViewController {
     var addHabitVC = AddHabitVC()
     let calendarView = CalendarView()
     let currentStreak = BodyLabel()
-    let bestStreak = BodyLabel()
+   
     
+    let calendarBackgound = DividerView()
+    let streakBackground = DividerView()
+    let collectionBackground = DividerView()
     //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
     
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
@@ -41,13 +44,39 @@ class HabitDetailsVC: UIViewController {
         configureViewController()
         configureBarButtons()
         configureCalendarView()
+        configureStreakView()
         addNewYear()
-        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true // is this needed?
         title = HabitArray.array[cellTag].habitName
- 
+
     }
     
-
+    func configureStreakView() {
+        let streakImage = UIImageView(image: UIImage(systemName: "flame.fill"))
+        streakImage.translatesAutoresizingMaskIntoConstraints = false
+        let streakLabel = UILabel()
+        streakLabel.translatesAutoresizingMaskIntoConstraints = false
+        streakLabel.text = "Total Days Completed: 100"
+        streakLabel.textAlignment = .left
+        
+        streakBackground.addSubviews(streakImage, streakLabel)
+        let padding: CGFloat = 20
+        NSLayoutConstraint.activate([
+        
+            streakImage.leadingAnchor.constraint(equalTo: streakBackground.leadingAnchor, constant: padding * 2),
+            streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -20),
+            streakImage.topAnchor.constraint(equalTo: streakBackground.topAnchor, constant: padding),
+            streakImage.bottomAnchor.constraint(equalTo: streakBackground.bottomAnchor, constant: -padding),
+            streakImage.widthAnchor.constraint(equalTo: streakImage.heightAnchor),
+            
+            streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: padding),
+            streakLabel.topAnchor.constraint(equalTo: streakBackground.topAnchor, constant: padding),
+            streakLabel.bottomAnchor.constraint(equalTo: streakBackground.bottomAnchor, constant: -padding),
+            streakLabel.trailingAnchor.constraint(equalTo: streakBackground.trailingAnchor, constant: padding)
+        
+        
+        ])
+    }
     
     
     func updateDates() {
@@ -141,29 +170,37 @@ class HabitDetailsVC: UIViewController {
         
         
         view.backgroundColor = .secondarySystemBackground //change overall system background in assetts rather than here.
-        view.addSubview(calendarView)
-        view.addSubview(currentStreak)
-        view.addSubview(bestStreak)
-        view.addSubview(collectionView)
-      
+        view.addSubview(calendarBackgound)
+        view.addSubview(streakBackground)
+        view.addSubview(collectionBackground)
+        
+        calendarBackgound.backgroundColor = .tertiarySystemBackground
+        streakBackground.backgroundColor = .tertiarySystemBackground
+        collectionBackground.backgroundColor = .tertiarySystemBackground
+
+        
+        calendarView.edgeTo(calendarBackgound, padding: 20)
+        currentStreak.edgeTo(streakBackground, padding: 20)
+        collectionView.edgeTo(collectionBackground, padding: 20)
         
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
-            calendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            calendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            calendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            calendarView.heightAnchor.constraint(equalToConstant: view.frame.height / 2.5),
+           calendarBackgound.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+           calendarBackgound.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+           calendarBackgound.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+           calendarBackgound.heightAnchor.constraint(equalToConstant: view.frame.height / 2.8),
            
-            currentStreak.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: padding),
-            currentStreak.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            currentStreak.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            currentStreak.bottomAnchor.constraint(equalTo: collectionView.topAnchor),
+            streakBackground.topAnchor.constraint(equalTo: calendarBackgound.bottomAnchor, constant: padding),
+            streakBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            streakBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            streakBackground.bottomAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: -padding),
             
-            collectionView.heightAnchor.constraint(equalToConstant: view.frame.height / 2.5),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50)
+            
+            collectionBackground.heightAnchor.constraint(equalToConstant: view.frame.height / 2.8 + 30),
+            collectionBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            collectionBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            collectionBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 2)
         ])
     }
 
@@ -239,7 +276,7 @@ class HabitDetailsVC: UIViewController {
     func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: view.frame.width, height: view.frame.height / 2.5) // make this into a variable that also goes into nslayout constraint
+        layout.itemSize = CGSize(width: view.frame.width - 40, height: view.frame.height / 2.8) // make this into a variable that also goes into nslayout constraint
         layout.scrollDirection = .horizontal
         
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
@@ -305,7 +342,7 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
 
 //MARK: - collectionview
 
-extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
@@ -325,9 +362,6 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource {
         getTotalDays() // why does this only work from here? figure out how to update year dict properly. 
         return cell
     }
-    
-    
-    
     
 }
 
