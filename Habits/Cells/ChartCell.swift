@@ -28,5 +28,4 @@ class ChartCell: UICollectionViewCell {
         habitView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
-    
 }

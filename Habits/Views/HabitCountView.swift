@@ -25,7 +25,6 @@ class HabitCountView: UIView {
     
      func configureStackView() {
         self.translatesAutoresizingMaskIntoConstraints = true
-        
     let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
