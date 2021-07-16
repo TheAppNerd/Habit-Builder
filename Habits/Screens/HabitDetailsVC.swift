@@ -35,7 +35,7 @@ class HabitDetailsVC: UIViewController {
         updateDates()
         addNewYear()
         collectionView.reloadData()
-
+        
     }
     
     override func viewDidLoad() {
@@ -48,15 +48,28 @@ class HabitDetailsVC: UIViewController {
         addNewYear()
         self.tabBarController?.tabBar.isHidden = true // is this needed?
         title = HabitArray.array[cellTag].habitName
-        
+    setupCollectionArea()
+        setupCalendarArea()
     }
+    
+    
+    func getTotalDays() -> Int {
+        var totalAmount = 0
+        for year in HabitArray.array[cellTag].year {
+            let value = year.value.reduce(0, +)
+            totalAmount += value
+        }
+        return totalAmount
+    }
+
+    
     
     func configureStreakView() {
         let streakImage = UIImageView(image: UIImage(systemName: "flame.fill"))
         streakImage.translatesAutoresizingMaskIntoConstraints = false
         let streakLabel = UILabel()
         streakLabel.translatesAutoresizingMaskIntoConstraints = false
-        streakLabel.text = "Total Days Completed: 100"
+        streakLabel.text = "Total Days Completed: \(getTotalDays())"
         streakLabel.textAlignment = .left
         
         streakBackground.addSubviews(streakImage, streakLabel)
@@ -132,8 +145,8 @@ class HabitDetailsVC: UIViewController {
     }
     
     private func configureBarButtons() {
-        let backButton = UIBarButtonItem(barButtonSystemItem: .rewind, target: self, action: #selector(goBack))
-        let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editHabit))
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
+        let editButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(editHabit))
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = editButton
@@ -178,10 +191,9 @@ class HabitDetailsVC: UIViewController {
         streakBackground.backgroundColor = .tertiarySystemBackground
         collectionBackground.backgroundColor = .tertiarySystemBackground
 
-        
-        calendarView.edgeTo(calendarBackgound, padding: 20)
+        //calendarView.edgeTo(calendarBackgound, padding: 20)
         currentStreak.edgeTo(streakBackground, padding: 20)
-        collectionView.edgeTo(collectionBackground, padding: 20)
+//        collectionView.edgeTo(collectionBackground, padding: 20)
         
         let padding: CGFloat = 10
         
@@ -204,6 +216,75 @@ class HabitDetailsVC: UIViewController {
         ])
     }
 
+    //MARK: - collection view layout
+    func setupCollectionArea() {
+        
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = .white
+        
+    let collectionLabel = TitleLabel(textAlignment: .left, fontSize: 20)
+    collectionLabel.text = "Monthly Count"
+    let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
+    
+    collectionBackground.addSubviews(collectionLabel, infoLabel, collectionView, line)
+    let padding2: CGFloat = 20
+    NSLayoutConstraint.activate([
+        collectionLabel.leadingAnchor.constraint(equalTo: collectionBackground.leadingAnchor, constant: padding2),
+        collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),
+        collectionLabel.topAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: padding2),
+        collectionLabel.heightAnchor.constraint(equalToConstant: 40),
+        
+        infoLabel.leadingAnchor.constraint(equalTo: collectionLabel.trailingAnchor, constant: padding2),
+        infoLabel.trailingAnchor.constraint(equalTo: collectionBackground.trailingAnchor, constant: -20),
+        infoLabel.topAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: padding2),
+        infoLabel.heightAnchor.constraint(equalToConstant: 40),
+        
+        line.leadingAnchor.constraint(equalTo: collectionLabel.leadingAnchor),
+        line.topAnchor.constraint(equalTo: collectionLabel.bottomAnchor, constant: 5),
+        line.trailingAnchor.constraint(equalTo: infoLabel.trailingAnchor),
+        line.heightAnchor.constraint(equalToConstant: 1),
+        
+        collectionView.leadingAnchor.constraint(equalTo: collectionBackground.leadingAnchor, constant: padding2),
+        collectionView.trailingAnchor.constraint(equalTo: collectionBackground.trailingAnchor, constant: -padding2),
+        collectionView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
+        collectionView.bottomAnchor.constraint(equalTo: collectionBackground.bottomAnchor, constant: -20)
+    ])
+    }
+    //MARK: - calendarview layout
+    func setupCalendarArea() {
+    let line = UIView()
+    line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = UIColor.white
+    
+        let collectionLabel = TitleLabel(textAlignment: .left, fontSize: 20)
+        collectionLabel.text = "Habits Calendar"
+        let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
+        
+        calendarBackgound.addSubviews(collectionLabel, infoLabel, calendarView, line)
+        let padding2: CGFloat = 20
+        NSLayoutConstraint.activate([
+            collectionLabel.leadingAnchor.constraint(equalTo: calendarBackgound.leadingAnchor, constant: padding2),
+            collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),
+            collectionLabel.topAnchor.constraint(equalTo: calendarBackgound.topAnchor, constant: padding2),
+            collectionLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            infoLabel.leadingAnchor.constraint(equalTo: collectionLabel.trailingAnchor, constant: padding2),
+            infoLabel.trailingAnchor.constraint(equalTo: calendarBackgound.trailingAnchor, constant: -20),
+            infoLabel.topAnchor.constraint(equalTo: calendarBackgound.topAnchor, constant: padding2),
+            infoLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            line.leadingAnchor.constraint(equalTo: collectionLabel.leadingAnchor),
+            line.topAnchor.constraint(equalTo: collectionLabel.bottomAnchor, constant: 5),
+            line.trailingAnchor.constraint(equalTo: infoLabel.trailingAnchor),
+            line.heightAnchor.constraint(equalToConstant: 1),
+            
+            calendarView.leadingAnchor.constraint(equalTo: calendarBackgound.leadingAnchor, constant: padding2),
+            calendarView.trailingAnchor.constraint(equalTo: calendarBackgound.trailingAnchor, constant: -padding2),
+            calendarView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 10),
+            calendarView.bottomAnchor.constraint(equalTo: calendarBackgound.bottomAnchor)
+        ])
+    }
 
     
     @objc func goBack() {
@@ -262,21 +343,14 @@ class HabitDetailsVC: UIViewController {
     }
     
   
-    func getTotalDays() {
-        var totalAmount = 0
-        for year in HabitArray.array[cellTag].year {
-            let yearTotal = year.value.reduce(0, +)
-            totalAmount += yearTotal
-        }
-        print(totalAmount)
-    }
+
    
     
     
     func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: view.frame.width - 40, height: view.frame.height / 2.8) // make this into a variable that also goes into nslayout constraint
+        layout.itemSize = CGSize(width: view.frame.width - 40, height: view.frame.height / 3.5) // make this into a variable that also goes into nslayout constraint
         layout.scrollDirection = .horizontal
         
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
@@ -359,7 +433,6 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.habitView.monthCount = HabitArray.array[cellTag].year[year]!
         updateChart(habitView: cell.habitView)
         cell.habitView.backgroundColor = .tertiarySystemBackground
-        getTotalDays() // why does this only work from here? figure out how to update year dict properly. 
         return cell
         
     }

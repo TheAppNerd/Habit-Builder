@@ -54,14 +54,14 @@ extension CalendarView {
         public var headerHeight: CGFloat     = 80.0
         public var headerTopMargin: CGFloat  = 5.0
         public var headerTextColor           = UIColor.white
-        public var headerBackgroundColor     = UIColor.gray
+        public var headerBackgroundColor     = UIColor.clear
         public var headerFont                = UIFont.systemFont(ofSize: 20) // Used for the month
         
         public var weekdaysTopMargin: CGFloat     = 5.0
         public var weekdaysBottomMargin: CGFloat  = 5.0
         public var weekdaysHeight: CGFloat        = 35.0
         public var weekdaysTextColor              = UIColor.white
-        public var weekdaysBackgroundColor        = UIColor.gray
+        public var weekdaysBackgroundColor        = UIColor.clear
         public var weekdaysFont                   = UIFont.systemFont(ofSize: 14) // Used for days of the week
         
         //Common

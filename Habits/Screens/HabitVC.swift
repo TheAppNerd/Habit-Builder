@@ -124,6 +124,8 @@ class HabitVC: UIViewController {
 
     }
     
+  
+    
     @objc func menuBarButtonPressed() {
     
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
@@ -249,8 +251,11 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         addHabitButton.translatesAutoresizingMaskIntoConstraints = false
         addHabitButton.layer.borderWidth = 1
         addHabitButton.layer.cornerRadius = 10
-        addHabitButton.setTitle("Add a new habit", for: .normal)
+        addHabitButton.tintColor = .systemGreen
+        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
+        addHabitButton.setTitle(" Add a new habit", for: .normal)
         addHabitButton.setTitleColor(.systemGreen, for: .normal)
+        
         
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
