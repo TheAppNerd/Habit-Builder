@@ -23,6 +23,11 @@ class HabitCountView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func timerFired(view: UIView) {
+        view.alpha = 1.0
+    }
+    
+    
      func configureStackView() {
         self.translatesAutoresizingMaskIntoConstraints = true
     let stackView = UIStackView()
@@ -57,24 +62,33 @@ class HabitCountView: UIView {
             vStackView.axis = .vertical
             vStackView.alignment = .fill
             vStackView.distribution = .fillEqually
-           vStackView.spacing = 1
+           
             //vStackView.setCustomSpacing(1, after: vStackView.subviews[5])
             
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
             countLabel.text = "\(monthCount[stack])"
             countStack.addArrangedSubview(countLabel)
-          
+            
+            var time = 2.0
             for number in 0...30 {
                 let count = UIView()
+
                 count.translatesAutoresizingMaskIntoConstraints = false
-                
+                count.alpha = 0.0
+
                 let reverseNumber = 31 - monthCount[stack]
                 if number < reverseNumber {
                     count.backgroundColor = .clear
                 } else {
+                    count.backgroundColor = color
+
+                    UIView.animate(withDuration: time) {
+                        count.alpha = 1.0
+                        time -= 0.2
+                    }
                     //add each of these counts to an array to then have each count go from clear to correct color from top to bottom
-                        count.backgroundColor = color
+
                     if stack % 2 == 0 {
                         count.alpha = 1
                     } else {
@@ -82,12 +96,10 @@ class HabitCountView: UIView {
                     }
                 }
                 vStackView.addArrangedSubview(count)
-            
-            
+        }
 
             stackView.addArrangedSubview(vStackView)
-        }
-       
+            
             let monthLabel = UILabel()
             monthLabel.adjustsFontSizeToFitWidth = true
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
