@@ -62,14 +62,12 @@ class HabitCountView: UIView {
             vStackView.axis = .vertical
             vStackView.alignment = .fill
             vStackView.distribution = .fillEqually
-           
-            //vStackView.setCustomSpacing(1, after: vStackView.subviews[5])
-            
+         
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
             countLabel.text = "\(monthCount[stack])"
             countStack.addArrangedSubview(countLabel)
-            
+
             var time = 2.0
             for number in 0...30 {
                 let count = UIView()
@@ -82,13 +80,10 @@ class HabitCountView: UIView {
                     count.backgroundColor = .clear
                 } else {
                     count.backgroundColor = color
-
                     UIView.animate(withDuration: time) {
                         count.alpha = 1.0
                         time -= 0.2
                     }
-                    //add each of these counts to an array to then have each count go from clear to correct color from top to bottom
-
                     if stack % 2 == 0 {
                         count.alpha = 1
                     } else {

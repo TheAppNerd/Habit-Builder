@@ -13,9 +13,7 @@ class HabitCell: UITableViewCell {
 static let reuseID = "HabitCell"
     var habitdata = HabitData()
     
-    let habitName = TitleLabel(textAlignment: .left, fontSize: 16)
-    let streakCount = TitleLabel(textAlignment: .left, fontSize: 10)
-    let completionCount = TitleLabel(textAlignment: .center, fontSize: 10)
+    let habitName = TitleLabel(textAlignment: .left, fontSize: 25)
     let cellView = TableCellView()
     var calendarView = CalendarView()
     var dateArray: [Date] = []
@@ -86,7 +84,7 @@ static let reuseID = "HabitCell"
         }
         buttonStackView.axis = .horizontal
         buttonStackView.spacing = 10 
-        buttonStackView.alignment = .center
+        //buttonStackView.alignment = .center
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -156,7 +154,7 @@ static let reuseID = "HabitCell"
         alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
         alarmButton.translatesAutoresizingMaskIntoConstraints = false
         
-        frequencyLabel.text = "Everyday"
+        //frequencyLabel.text = "Everyday"
         
         
         let padding: CGFloat = 20
