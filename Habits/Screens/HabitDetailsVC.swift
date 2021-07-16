@@ -48,7 +48,7 @@ class HabitDetailsVC: UIViewController {
         addNewYear()
         self.tabBarController?.tabBar.isHidden = true // is this needed?
         title = HabitArray.array[cellTag].habitName
-
+        
     }
     
     func configureStreakView() {
@@ -361,6 +361,7 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.habitView.backgroundColor = .tertiarySystemBackground
         getTotalDays() // why does this only work from here? figure out how to update year dict properly. 
         return cell
+        
     }
     
 }
