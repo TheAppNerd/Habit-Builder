@@ -13,7 +13,7 @@ class HabitCell: UITableViewCell {
 static let reuseID = "HabitCell"
     var habitdata = HabitData()
     
-    let habitName = TitleLabel(textAlignment: .left, fontSize: 25)
+    let habitName = TitleLabel(textInput: "", textAlignment: .left, fontSize: 25)
     let cellView = TableCellView()
     var calendarView = CalendarView()
     var dateArray: [Date] = []
@@ -67,8 +67,14 @@ static let reuseID = "HabitCell"
         }
         labelStackView.axis = .horizontal
         labelStackView.spacing = 10
-        labelStackView.distribution = .equalSpacing
+        labelStackView.alignment = .fill
+        labelStackView.distribution = .equalCentering
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        dayLabels[getDayOfWeek()-1].textColor = .label
+        dayLabels[getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)
+
+        
     }
     
     func configureButtonStackView() {
@@ -76,15 +82,15 @@ static let reuseID = "HabitCell"
         var count = 0
         for button in dayButton {
             buttonStackView.addArrangedSubview(button)
-            buttonStackView.distribution = .equalSpacing
             button.layer.borderWidth = 1.5
             button.setTitle("\(dayArray[count])", for: .normal)
             
             count += 1
         }
         buttonStackView.axis = .horizontal
-        buttonStackView.spacing = 10 
-        //buttonStackView.alignment = .center
+        buttonStackView.spacing = 10
+        buttonStackView.distribution = .equalCentering
+        buttonStackView.alignment = .fill
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -151,6 +157,7 @@ static let reuseID = "HabitCell"
         addSubview(alarmButton)
         addSubview(frequencyLabel)
         
+        cellView.layer.cornerRadius = 10
         alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
         alarmButton.translatesAutoresizingMaskIntoConstraints = false
         

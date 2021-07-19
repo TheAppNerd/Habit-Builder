@@ -251,10 +251,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         addHabitButton.translatesAutoresizingMaskIntoConstraints = false
         addHabitButton.layer.borderWidth = 1
         addHabitButton.layer.cornerRadius = 10
-        addHabitButton.tintColor = .systemGreen
+        addHabitButton.tintColor = .systemBlue
         addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
         addHabitButton.setTitle(" Add a new habit", for: .normal)
-        addHabitButton.setTitleColor(.systemGreen, for: .normal)
+        addHabitButton.setTitleColor(.systemBlue, for: .normal)
         
         
         tableViewFooter.addSubview(addHabitButton)

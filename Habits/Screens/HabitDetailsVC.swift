@@ -119,7 +119,7 @@ class HabitDetailsVC: UIViewController {
             self.calendarView.selectDate(date)
             HabitArray.habitDates[self.cellTag].insert(date)
             HabitArray.array[self.cellTag].dayBool![day - 1] = true
-            self.viewDidLoad()
+            //self.viewDidLoad()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -136,7 +136,7 @@ class HabitDetailsVC: UIViewController {
             HabitArray.habitDates[self.cellTag].remove(date)
             HabitArray.array[self.cellTag].chartDates = HabitArray.array[self.cellTag].chartDates.filter{$0 != date}
         
-            self.viewDidLoad()
+            //self.viewDidLoad()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -146,7 +146,7 @@ class HabitDetailsVC: UIViewController {
     
     private func configureBarButtons() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
-        let editButton = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(editHabit))
+        let editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(editHabit))
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = editButton
@@ -223,14 +223,27 @@ class HabitDetailsVC: UIViewController {
         line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = .white
         
-    let collectionLabel = TitleLabel(textAlignment: .left, fontSize: 20)
-    collectionLabel.text = "Monthly Count"
+        
+        let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis"))
+        collectionImage.layer.cornerRadius = 10
+        collectionImage.tintColor = HabitArray.array[cellTag].buttonColor!
+        collectionImage.backgroundColor = . clear
+        collectionImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        let collectionLabel = TitleLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
     let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
     
-    collectionBackground.addSubviews(collectionLabel, infoLabel, collectionView, line)
+    collectionBackground.addSubviews(collectionImage, collectionLabel, infoLabel, collectionView, line)
     let padding2: CGFloat = 20
     NSLayoutConstraint.activate([
-        collectionLabel.leadingAnchor.constraint(equalTo: collectionBackground.leadingAnchor, constant: padding2),
+        
+        collectionImage.leadingAnchor.constraint(equalTo: collectionBackground.leadingAnchor, constant: padding2),
+        collectionImage.topAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: padding2),
+        collectionImage.trailingAnchor.constraint(equalTo: collectionLabel.leadingAnchor, constant: -5),
+        collectionImage.heightAnchor.constraint(equalToConstant: 40),
+        collectionImage.widthAnchor.constraint(equalToConstant: 40),
+        
+        collectionLabel.leadingAnchor.constraint(equalTo: collectionImage.trailingAnchor, constant: 5),
         collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),
         collectionLabel.topAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: padding2),
         collectionLabel.heightAnchor.constraint(equalToConstant: 40),
@@ -240,7 +253,7 @@ class HabitDetailsVC: UIViewController {
         infoLabel.topAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: padding2),
         infoLabel.heightAnchor.constraint(equalToConstant: 40),
         
-        line.leadingAnchor.constraint(equalTo: collectionLabel.leadingAnchor),
+        line.leadingAnchor.constraint(equalTo: collectionImage.leadingAnchor),
         line.topAnchor.constraint(equalTo: collectionLabel.bottomAnchor, constant: 5),
         line.trailingAnchor.constraint(equalTo: infoLabel.trailingAnchor),
         line.heightAnchor.constraint(equalToConstant: 1),
@@ -257,25 +270,38 @@ class HabitDetailsVC: UIViewController {
     line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = UIColor.white
     
-        let collectionLabel = TitleLabel(textAlignment: .left, fontSize: 20)
-        collectionLabel.text = "Habits Calendar"
+        let calendarLabel = TitleLabel(textInput: "Habits Calendar", textAlignment: .left, fontSize: 18)
+
         let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
         
-        calendarBackgound.addSubviews(collectionLabel, infoLabel, calendarView, line)
+        let calendarImage = UIImageView(image: UIImage(systemName: "calendar"))
+        calendarImage.layer.cornerRadius = 10
+        calendarImage.tintColor = HabitArray.array[cellTag].buttonColor!
+        calendarImage.backgroundColor = . clear
+        calendarImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        calendarBackgound.addSubviews(calendarImage, calendarLabel, infoLabel, calendarView, line)
         let padding2: CGFloat = 20
         NSLayoutConstraint.activate([
-            collectionLabel.leadingAnchor.constraint(equalTo: calendarBackgound.leadingAnchor, constant: padding2),
-            collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),
-            collectionLabel.topAnchor.constraint(equalTo: calendarBackgound.topAnchor, constant: padding2),
-            collectionLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            infoLabel.leadingAnchor.constraint(equalTo: collectionLabel.trailingAnchor, constant: padding2),
-            infoLabel.trailingAnchor.constraint(equalTo: calendarBackgound.trailingAnchor, constant: -20),
+            calendarImage.leadingAnchor.constraint(equalTo: calendarBackgound.leadingAnchor, constant: padding2),
+            calendarImage.topAnchor.constraint(equalTo: calendarBackgound.topAnchor, constant: padding2),
+            calendarImage.trailingAnchor.constraint(equalTo: calendarLabel.leadingAnchor, constant: -5),
+            calendarImage.heightAnchor.constraint(equalToConstant: 40),
+            calendarImage.widthAnchor.constraint(equalToConstant: 40),
+            
+            calendarLabel.leadingAnchor.constraint(equalTo: calendarImage.trailingAnchor, constant: 5),
+            calendarLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),
+            calendarLabel.topAnchor.constraint(equalTo: calendarBackgound.topAnchor, constant: padding2),
+            calendarLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            infoLabel.leadingAnchor.constraint(equalTo: calendarLabel.trailingAnchor, constant: padding2),
+            infoLabel.trailingAnchor.constraint(equalTo: calendarBackgound.trailingAnchor, constant: -padding2),
             infoLabel.topAnchor.constraint(equalTo: calendarBackgound.topAnchor, constant: padding2),
             infoLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            line.leadingAnchor.constraint(equalTo: collectionLabel.leadingAnchor),
-            line.topAnchor.constraint(equalTo: collectionLabel.bottomAnchor, constant: 5),
+            line.leadingAnchor.constraint(equalTo: calendarImage.leadingAnchor),
+            line.topAnchor.constraint(equalTo: calendarLabel.bottomAnchor, constant: 5),
             line.trailingAnchor.constraint(equalTo: infoLabel.trailingAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),
             
@@ -395,18 +421,18 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     
     func startDate() -> Date {
         var dateComponents = DateComponents()
-        dateComponents.year = -5
+        dateComponents.year = -10
         let today = Date()
-        let twoYearsAgo = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-        return twoYearsAgo!
+        let pastEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
+        return pastEndDate!
     }
     
     func endDate() -> Date {
         var dateComponents = DateComponents()
-        dateComponents.month = 1
+        dateComponents.year = 10
         let today = Date()
-        let oneMonthFromNow = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-        return oneMonthFromNow!
+        let futureEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
+        return futureEndDate!
     }
     
     func headerString(_ date: Date) -> String? {

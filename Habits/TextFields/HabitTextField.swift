@@ -28,8 +28,8 @@ class HabitTextField: UITextField {
         font = UIFont.preferredFont(forTextStyle: .title2)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
-        
-        backgroundColor = .tertiarySystemBackground
+        layer.cornerRadius = 10
+        backgroundColor = .secondarySystemBackground
         autocorrectionType = .no
         returnKeyType = .go
         clearButtonMode = .whileEditing
