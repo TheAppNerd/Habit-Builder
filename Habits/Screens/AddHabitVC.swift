@@ -37,7 +37,7 @@ class AddHabitVC: UIViewController {
     var minute: Int = 0
     
     
-    
+    //create singular items for all of these. single text field, simple buttons, etc
     var habitColor: UIColor = .systemGreen
 
     let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemRed),
@@ -155,7 +155,7 @@ class AddHabitVC: UIViewController {
      }
     
     func configureNameView() {
-        let habitNameLabel = BodyLabel(textInput: "Name:", textAlignment: .left, fontSize: 16)
+        let habitNameLabel = TitleLabel(textInput: "Name:", textAlignment: .left, fontSize: 16)
         habitNameTextField.placeholder = "Eg. Workout"
         nameView.addSubviews(habitNameLabel, habitNameTextField)
         
@@ -187,14 +187,22 @@ class AddHabitVC: UIViewController {
     }
     
     func configureFrequencyView() {
-        let frequencyLabel = BodyLabel(textInput: "Frequency", textAlignment: .left, fontSize: 16)
+        let frequencyLabel = TitleLabel(textInput: "Frequency", textAlignment: .left, fontSize: 16)
         let timesAWeekLabel = BodyLabel(textInput: "Times a week:", textAlignment: .right, fontSize: 16)
         let negativeButton = UIButton()
         let positiveButton = UIButton()
         negativeButton.setImage(UIImage(systemName: "minus"), for: .normal)
         positiveButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        negativeButton.backgroundColor = .blue
-        positiveButton.backgroundColor = .blue
+        negativeButton.backgroundColor = .systemBlue
+        positiveButton.backgroundColor = .systemBlue
+        positiveButton.layer.cornerRadius = 10
+        negativeButton.layer.cornerRadius = 10
+        frequencyCount.layer.cornerRadius = 10
+        frequencyCount.layer.masksToBounds = true
+        
+        frequencyCount.backgroundColor = .secondarySystemBackground
+        frequencyCount.textColor = .white
+        
         
         negativeButton.addTarget(self, action: #selector(negativeButtonPressed), for: .touchUpInside)
         positiveButton.addTarget(self, action: #selector(positiveButtonPressed), for: .touchUpInside)
@@ -216,20 +224,24 @@ class AddHabitVC: UIViewController {
             timesAWeekLabel.trailingAnchor.constraint(equalTo: negativeButton.leadingAnchor, constant: -padding),
             
             negativeButton.leadingAnchor.constraint(equalTo: timesAWeekLabel.trailingAnchor, constant: padding),
-            negativeButton.trailingAnchor.constraint(equalTo: frequencyCount.leadingAnchor, constant: -padding),
+            negativeButton.trailingAnchor.constraint(equalTo: frequencyCount.leadingAnchor),
+            negativeButton.widthAnchor.constraint(equalTo: negativeButton.heightAnchor),
             
             frequencyCount.leadingAnchor.constraint(equalTo: negativeButton.trailingAnchor, constant: padding),
-            frequencyCount.trailingAnchor.constraint(equalTo: positiveButton.leadingAnchor, constant: -padding),
+            frequencyCount.trailingAnchor.constraint(equalTo: positiveButton.leadingAnchor),
+            frequencyCount.widthAnchor.constraint(equalTo: frequencyCount.heightAnchor),
             
-            positiveButton.leadingAnchor.constraint(equalTo: frequencyCount.trailingAnchor, constant: padding),
-            positiveButton.trailingAnchor.constraint(equalTo: frequencyView.trailingAnchor, constant: -padding * 2)
+            positiveButton.leadingAnchor.constraint(equalTo: frequencyCount.trailingAnchor),
+            positiveButton.trailingAnchor.constraint(equalTo: frequencyView.trailingAnchor, constant: -padding * 2),
+            positiveButton.widthAnchor.constraint(equalTo: positiveButton.heightAnchor)
         ])
     }
     
     
     func configureReminderView() {
-        let reminderLabel = BodyLabel(textInput: "Reminder", textAlignment: .left, fontSize: 16)
-        
+        let reminderLabel = TitleLabel(textInput: "Reminder", textAlignment: .left, fontSize: 16)
+        dateSwitch.onTintColor = .systemBlue
+        bellImage.tintColor = .systemBlue
         datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
         dateSwitch.addTarget(self, action: #selector(dateSwitchPressed), for: .valueChanged)
         
@@ -241,7 +253,6 @@ class AddHabitVC: UIViewController {
         
         NSLayoutConstraint.activate([
             reminderLabel.leadingAnchor.constraint(equalTo: reminderView.leadingAnchor, constant: padding),
-            reminderLabel.widthAnchor.constraint(equalToConstant: 70),
             reminderLabel.trailingAnchor.constraint(equalTo: datePicker.leadingAnchor, constant: -padding),
             reminderLabel.topAnchor.constraint(equalTo: reminderView.topAnchor, constant: padding),
             reminderLabel.bottomAnchor.constraint(equalTo: reminderView.bottomAnchor, constant: -padding),
@@ -262,7 +273,7 @@ class AddHabitVC: UIViewController {
     
     
     func configureReminderNoteView() {
-        let notesLabel = BodyLabel(textInput: "Reminder Note:", textAlignment: .left, fontSize: 16)
+        let notesLabel = TitleLabel(textInput: "Reminder Note:", textAlignment: .left, fontSize: 16)
         reminderNoteView.addSubviews(notesLabel, notesTextField)
         
         for subview in reminderNoteView.subviews {
@@ -282,7 +293,7 @@ class AddHabitVC: UIViewController {
     
     func configureColorView() {
         //add extra row of colors
-        let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .left, fontSize: 16)
+        let colorLabel = TitleLabel(textInput: "Color:", textAlignment: .left, fontSize: 16)
         colorView.addSubview(colorLabel)
         let colorStackView = UIStackView()
         colorStackView.spacing = 2
@@ -349,7 +360,7 @@ class AddHabitVC: UIViewController {
     @objc func colorTapped(_ sender: UIButton) {
         deselectButtons()
         sender.layer.borderWidth = 2
-        sender.layer.borderColor = UIColor.systemGray2.cgColor
+        sender.layer.borderColor = UIColor.white.cgColor
         habitColor = sender.backgroundColor ?? .clear
         colorTag = sender.tag
     }

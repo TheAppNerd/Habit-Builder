@@ -62,7 +62,7 @@ class HabitCountView: UIView {
             vStackView.axis = .vertical
             vStackView.alignment = .fill
             vStackView.distribution = .fillEqually
-         
+
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
             countLabel.text = "\(monthCount[stack])"
@@ -92,6 +92,12 @@ class HabitCountView: UIView {
                 }
                 vStackView.addArrangedSubview(count)
         }
+            
+//            let progress = UIProgressView()
+//            progress.progress = 0.5
+//            progress.tintColor = .red
+//            progress.translatesAutoresizingMaskIntoConstraints = false
+//            progress.transform = CGAffineTransform(rotationAngle: .pi / -2)
 
             stackView.addArrangedSubview(vStackView)
             

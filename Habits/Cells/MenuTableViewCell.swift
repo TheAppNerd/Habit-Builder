@@ -12,8 +12,7 @@ class MenuTableViewCell: UITableViewCell {
     static let reuseID = "MenuCell"
     
     let cellImage = UIImageView()
-    let cellLabel = TitleLabel(textAlignment: .left, fontSize: 20)
-    var cellSwitch = UISwitch()
+    let cellLabel = TitleLabel(textInput: "", textAlignment: .left, fontSize: 20)
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,17 +25,14 @@ class MenuTableViewCell: UITableViewCell {
     
     private func configure() {
         contentView.isUserInteractionEnabled = true
-        cellSwitch.isHidden = true
         addSubview(cellImage)
         addSubview(cellLabel)
-        addSubview(cellSwitch)
-        
         self.backgroundColor = .secondarySystemBackground
+      
         cellLabel.textColor = .label
-        cellImage.tintColor = .label
         cellImage.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
-        cellSwitch.translatesAutoresizingMaskIntoConstraints = false
+
         let padding: CGFloat = 10
         NSLayoutConstraint.activate([
             
@@ -48,12 +44,7 @@ class MenuTableViewCell: UITableViewCell {
             
             cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            cellLabel.trailingAnchor.constraint(equalTo: cellSwitch.leadingAnchor, constant: -padding),
-            
-            cellSwitch.leadingAnchor.constraint(equalTo: cellLabel.trailingAnchor, constant: padding),
-            cellSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            cellSwitch.heightAnchor.constraint(equalToConstant: 20),
-
+            cellLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
         ])
     }
     

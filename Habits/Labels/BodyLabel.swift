@@ -18,6 +18,7 @@ class BodyLabel: UILabel {
         self.init(frame: .zero)
         self.textAlignment = textAlignment
         self.text = textInput
+        self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
     
     required init?(coder: NSCoder) {
