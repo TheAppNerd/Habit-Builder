@@ -16,8 +16,8 @@ class MenuView: UIViewController {
         configureTableView()
     }
     
-    let menuItems = ["Contact Us", "Share App", "Leave Rating", "Privacy", "Dark Mode", "Go Pro"]
-    var menuImages = ["envelope.fill", "square.and.arrow.up.fill", "hand.thumbsup.fill", "scroll.fill", "moon.fill", "star.fill"]
+    let menuItems = ["Contact Us", "Share App", "Leave Rating", "Privacy", "Dark Mode", "How it Works", "Save to icloud"]
+    var menuImages = ["envelope", "square.and.arrow.up", "heart.text.square", "scroll", "moon", "questionmark.circle", "icloud.circle"]
     
     
     func configureTableView() {
@@ -33,7 +33,6 @@ class MenuView: UIViewController {
     
 }
 
-
 extension MenuView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuItems.count
@@ -48,7 +47,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 4 {
-            
+            //make this an enum/switch for each row
             if #available(iOS 13.0, *) {
                 if traitCollection.userInterfaceStyle == .dark {
                     UIApplication.shared.windows.forEach { window in
@@ -62,9 +61,19 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
                             tableView.reloadData()
                         }
                     }
-                
+                }
             }
-            
+        
+        if indexPath.row == 5 {
+            //change this to non popover
+            let vc = HelpScreenViewController()
+        vc.modalPresentationStyle = .popover
+        vc.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: self.view.frame.height - 100)
+        present(HelpScreenViewController(), animated: true)
         }
+    }
+    @objc func done() {
+        dismiss(animated: true, completion: nil)
+        
     }
 }

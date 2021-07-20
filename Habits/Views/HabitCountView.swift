@@ -66,6 +66,11 @@ class HabitCountView: UIView {
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
             countLabel.text = "\(monthCount[stack])"
+            if monthCount[stack] == 0 {
+                countLabel.alpha = 0
+            } else {
+                countLabel.alpha = 1.0
+            }
             countStack.addArrangedSubview(countLabel)
 
             var time = 2.0

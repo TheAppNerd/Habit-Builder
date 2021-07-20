@@ -16,7 +16,9 @@ class HelpScreenViewController: UIViewController {
         super.viewDidLoad()
       configureLayout()
         scrollView.delegate = self
+    
 }
+    
     
     func configureLayout() {
         view.addSubview(pageControl)

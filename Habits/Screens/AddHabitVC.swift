@@ -55,6 +55,7 @@ class AddHabitVC: UIViewController {
         super.viewWillAppear(animated)
         deleteButton.isHidden = true
         deleteView.isHidden = true
+        colorButtons[cellTag].sendActions(for: .touchUpInside)
         loadPage()
         
     }
@@ -80,7 +81,6 @@ class AddHabitVC: UIViewController {
     override func viewDidLayoutSubviews() {
         for button in colorButtons {
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
-            button.addGradient(colorOne: button.backgroundColor!, colorTwo: .white)
         }
     }
     
@@ -301,7 +301,8 @@ class AddHabitVC: UIViewController {
         colorStackView.translatesAutoresizingMaskIntoConstraints = false
         var buttonTag = 0
         colorStackView.axis = .horizontal
-        colorStackView.distribution = .equalSpacing
+        colorStackView.distribution = .fillEqually
+        
         
         for button in colorButtons {
             colorStackView.addArrangedSubview(button)
@@ -357,10 +358,11 @@ class AddHabitVC: UIViewController {
         }
     }
   
+  
     @objc func colorTapped(_ sender: UIButton) {
         deselectButtons()
         sender.layer.borderWidth = 2
-        sender.layer.borderColor = UIColor.white.cgColor
+        sender.layer.borderColor = UIColor.label.cgColor
         habitColor = sender.backgroundColor ?? .clear
         colorTag = sender.tag
     }
