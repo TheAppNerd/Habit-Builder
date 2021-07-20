@@ -36,15 +36,16 @@ class MenuTableViewCell: UITableViewCell {
         let padding: CGFloat = 10
         NSLayoutConstraint.activate([
             
-            cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding),
-            cellImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            cellImage.heightAnchor.constraint(equalToConstant: 20),
+            cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding * 2),
+            cellImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
-            cellImage.widthAnchor.constraint(equalToConstant: 20),
+            cellImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            cellImage.widthAnchor.constraint(equalTo: cellImage.heightAnchor, constant: 5),
             
             cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
-            cellLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            cellLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             cellLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            cellLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
         ])
     }
     

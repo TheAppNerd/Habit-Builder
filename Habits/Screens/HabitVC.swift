@@ -43,6 +43,9 @@ class HabitVC: UIViewController {
         tableView.edgeTo(view, padding: 0)
         generator.prepare()
        // resetHabits() //need to test this works when setting up core data
+        
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
     }
     
     func configureViewController() {
@@ -51,9 +54,8 @@ class HabitVC: UIViewController {
         view.backgroundColor = .secondarySystemBackground
         let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitPressed))
-        let helpButton = UIBarButtonItem(image: UIImage(systemName: "questionmark"), style: .plain, target: self, action: #selector(helpButtonPressed))
         navigationItem.setLeftBarButton(menuButton, animated: true)
-        navigationItem.rightBarButtonItems = [addButton, helpButton]
+        navigationItem.rightBarButtonItems = [addButton]
         
     }
     
@@ -150,14 +152,6 @@ class HabitVC: UIViewController {
         navigationController?.pushViewController(addHabitVC, animated: true)
     }
     
-    @objc func helpButtonPressed() {
-        
-        HelpScreenViewController().modalPresentationStyle = .popover
-        HelpScreenViewController().popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: self.view.frame.height - 100)
-        present(HelpScreenViewController(), animated: true)
-        
-    }
-    
     func startOfDay(date: Date) -> Date {
         let startDate = calendarView.calendar.startOfDay(for: date)
         return startDate
@@ -223,6 +217,11 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
 //            cell.alarmButton.setImage(UIImage(systemName: "bell.slash"), for: .normal)
 //        }
         cell.alarmButton.tintColor = dataIndex.buttonColor
+        if dataIndex.alarmBool == true {
+            cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+        } else {
+            cell.alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
+        }
         if dataIndex.weeklyFrequency == "7" {
             cell.frequencyLabel.text = "Everyday"
         } else if dataIndex.weeklyFrequency == "1" {

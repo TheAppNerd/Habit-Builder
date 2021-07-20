@@ -50,6 +50,7 @@ class HabitDetailsVC: UIViewController {
         title = HabitArray.array[cellTag].habitName
     setupCollectionArea()
         setupCalendarArea()
+       
     }
     
     
@@ -92,6 +93,13 @@ class HabitDetailsVC: UIViewController {
     }
     
     
+    override func viewDidLayoutSubviews() {
+        let section = 0
+        let lastItemIndex = self.collectionView.numberOfItems(inSection: section) - 1
+        let indexPath = IndexPath(item: lastItemIndex, section: section)
+        self.collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+    }
+    
     func updateDates() {
         //ensures that index doesnt = nil before calling dates
         if cellTag <= HabitArray.habitDates.count - 1 {
@@ -126,8 +134,6 @@ class HabitDetailsVC: UIViewController {
         }))
         present(alert, animated: true)
     }
-
-  
     
     func presentAlertToRemoveHabit(date: Date) {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
