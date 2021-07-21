@@ -21,6 +21,7 @@ class HabitVC: UIViewController {
     static var cellCount = 1
     var habitData = HabitData()
     static var habitBool = false
+    let tableViewFooter = UIView()
     
     let emptyStateView = EmptyStateView()
     override func viewDidAppear(_ animated: Bool) {
@@ -43,7 +44,7 @@ class HabitVC: UIViewController {
         tableView.edgeTo(view, padding: 0)
         generator.prepare()
        // resetHabits() //need to test this works when setting up core data
-        
+        configureTableViewFooter()
         
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
     }
@@ -51,7 +52,7 @@ class HabitVC: UIViewController {
     func configureViewController() {
         title = "Habits"
         
-        view.backgroundColor = .secondarySystemBackground
+        tableView.backgroundColor = .systemGray4
         let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitPressed))
         navigationItem.setLeftBarButton(menuButton, animated: true)
@@ -235,26 +236,18 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let tableViewFooter = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
-            let addHabitButton = UIButton()
-     
-        //this code is to add an image to text but it isnt working. fix later
-//        let plusIcon = NSTextAttachment()
-//        plusIcon.image = UIImage(systemName: "plus.app")
-//        let plusString = NSAttributedString(attachment: plusIcon)
-//        let fullString = NSMutableAttributedString(attachment: plusString)
-//        fullString.append(NSAttributedString(string: "Add a new habit"))
-        addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
-        addHabitButton.layer.borderWidth = 1
-        addHabitButton.layer.cornerRadius = 10
-        addHabitButton.tintColor = .systemBlue
-        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        addHabitButton.setTitle(" Add a new habit", for: .normal)
-        addHabitButton.setTitleColor(.systemBlue, for: .normal)
-        
+    func configureTableViewFooter() {
+        tableView.tableFooterView = tableViewFooter
+        let addHabitButton = UIButton()
+ 
+    addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+    addHabitButton.translatesAutoresizingMaskIntoConstraints = false
+    addHabitButton.layer.borderWidth = 1
+    addHabitButton.layer.cornerRadius = 10
+    addHabitButton.tintColor = .systemBlue
+    addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
+    addHabitButton.setTitle(" Add a new habit", for: .normal)
+    addHabitButton.setTitleColor(.systemBlue, for: .normal)
         
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
@@ -268,8 +261,37 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             tableViewFooter.isHidden = false
         }
-        return tableViewFooter
     }
+    
+    
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        let tableViewFooter = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
+//            let addHabitButton = UIButton()
+//
+//        addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+//        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
+//        addHabitButton.layer.borderWidth = 1
+//        addHabitButton.layer.cornerRadius = 10
+//        addHabitButton.tintColor = .systemBlue
+//        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
+//        addHabitButton.setTitle(" Add a new habit", for: .normal)
+//        addHabitButton.setTitleColor(.systemBlue, for: .normal)
+//
+//
+//        tableViewFooter.addSubview(addHabitButton)
+//        NSLayoutConstraint.activate([
+//            addHabitButton.centerYAnchor.constraint(equalTo: tableViewFooter.centerYAnchor),
+//            addHabitButton.centerXAnchor.constraint(equalTo: tableViewFooter.centerXAnchor),
+//            addHabitButton.widthAnchor.constraint(equalTo: tableViewFooter.widthAnchor, constant: -20),
+//            addHabitButton.heightAnchor.constraint(equalTo: tableViewFooter.heightAnchor)
+//        ])
+//        if HabitVC.cellCount == 1 {
+//            tableViewFooter.isHidden = true
+//        } else {
+//            tableViewFooter.isHidden = false
+//        }
+//        return tableViewFooter
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
