@@ -8,8 +8,10 @@
 import UIKit
 import KDCalendar
 
-class HabitVC: UIViewController {
+class HabitVC: UIViewController, SettingsPush {
+ 
     
+
     let tableView = UITableView()
     let menu = MenuView()
     let calendarView = CalendarView()
@@ -24,15 +26,14 @@ class HabitVC: UIViewController {
     let tableViewFooter = UIView()
     
     let emptyStateView = EmptyStateView()
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
+  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
         tableView.reloadData()
       resetHabits()
+        menu.delegate = self
             }
 
     override func viewDidLoad() {
@@ -54,7 +55,7 @@ class HabitVC: UIViewController {
         
         tableView.backgroundColor = .systemGray4
         let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addHabitPressed))
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.app"), style: .plain, target: self, action: #selector(addHabitPressed))
         navigationItem.setLeftBarButton(menuButton, animated: true)
         navigationItem.rightBarButtonItems = [addButton]
         
@@ -126,9 +127,20 @@ class HabitVC: UIViewController {
         tableView.separatorStyle = .none
 
     }
+    func pushSettings(row: Int) {
+        switch row {
+        case 0:
+            let vc = SettingsTableViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        case 5: let vc = HelpScreenViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        default:
+            print("Error")
+        }
+        
+    }
     
-  
-    
+
     @objc func menuBarButtonPressed() {
     
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {

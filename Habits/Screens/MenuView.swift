@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol SettingsPush {
+    func pushSettings(row: Int)
+}
+
 class MenuView: UIViewController {
+    
     let tableView = UITableView()
+    var delegate: SettingsPush?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,8 +22,8 @@ class MenuView: UIViewController {
         configureTableView()
     }
     
-    let menuItems = ["Contact Us", "Share App", "Leave Rating", "Privacy", "Dark Mode", "How it Works", "Save to icloud"]
-    var menuImages = ["envelope", "square.and.arrow.up", "heart.text.square", "scroll", "moon", "questionmark.circle", "icloud.circle"]
+    let menuItems = ["Settings", "Contact Us", "Share App", "Leave Rating", "Privacy", "Dark Mode", "How it Works", "Save to icloud"]
+    var menuImages = ["gearshape", "envelope", "square.and.arrow.up", "heart.text.square", "scroll", "moon", "questionmark.circle", "icloud.circle"]
     
     
     func configureTableView() {
@@ -65,15 +71,10 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
             }
         
         if indexPath.row == 5 {
-            //change this to non popover
-            let vc = HelpScreenViewController()
-        vc.modalPresentationStyle = .popover
-       vc.popoverPresentationController?.sourceRect = CGRect(x: 0, y: 0, width: self.view.frame.width - 100, height: self.view.frame.height - 100)
-//        present(HelpScreenViewController(), animated: true)
-            present(SettingsTableViewController(), animated: true)
+            delegate?.pushSettings(row: 5)
         }
         if indexPath.row == 0 {
-        //create a delegate to present setting page from main view controller
+            delegate?.pushSettings(row: 0)
         }
        
     }
