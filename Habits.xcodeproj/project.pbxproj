@@ -26,6 +26,7 @@
 		FA62CF0026A699A600FE0A22 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */; };
 		FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */; };
 		FA62CF0626A7CB1100FE0A22 /* VisualsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */; };
+		FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */; };
 		FAEE7A1E269405F60064D06E /* ChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE7A1D269405F60064D06E /* ChartCell.swift */; };
 		FAEE7A20269FD8BC0064D06E /* UIButton + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE7A1F269FD8BC0064D06E /* UIButton + Ext.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
@@ -67,6 +68,7 @@
 		FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeCell.swift; sourceTree = "<group>"; };
 		FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualsCell.swift; sourceTree = "<group>"; };
+		FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettingsTableViewController.swift; sourceTree = "<group>"; };
 		FAEE7A1D269405F60064D06E /* ChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCell.swift; sourceTree = "<group>"; };
 		FAEE7A1F269FD8BC0064D06E /* UIButton + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				FAF4E6D7264A47B90029E50D /* MenuView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 				FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */,
+				FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
+				FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */,
 				FAF4E6E8265616190029E50D /* DividerView.swift in Sources */,
 				FAEE7A20269FD8BC0064D06E /* UIButton + Ext.swift in Sources */,
 				FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */,

@@ -321,6 +321,7 @@ class AddHabitVC: UIViewController {
             colorLabel.widthAnchor.constraint(equalToConstant: 70),
             colorLabel.bottomAnchor.constraint(equalTo: colorView.bottomAnchor, constant: -padding),
             
+            
             colorStackView.leadingAnchor.constraint(equalTo: colorLabel.trailingAnchor, constant: padding),
             colorStackView.topAnchor.constraint(equalTo: colorView.topAnchor, constant: padding),
             colorStackView.trailingAnchor.constraint(equalTo: colorView.trailingAnchor, constant: -padding),

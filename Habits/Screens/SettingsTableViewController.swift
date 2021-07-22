@@ -11,20 +11,16 @@ class SettingsTableViewController: UITableViewController {
 
     static let reuseIdentifier = "reuseID"
     
-    let text = ["Change tint color", "Change app icon", "Change Font", "change color scheme"]
-    let images = ["paintbrush", "paperplane.circle", "textformat", "paintpalette"]
+    let text = ["Change tint color", "Change app icon", "Change font"]
+    let images = ["paintbrush", "paperplane.circle", "textformat", ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Appearance"
         tableView.register(DarkModeCell.self, forCellReuseIdentifier: DarkModeCell.reuseID)
         tableView.register(VisualsCell.self, forCellReuseIdentifier: VisualsCell.reuseID)
-        tableView.rowHeight = UITableView.automaticDimension
+ 
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
-        tableView.isUserInteractionEnabled = true
-//tint, dark mode, app icon, color scheme, eg / neon, pastel, etc, font
-
     }
 
     
@@ -53,7 +49,7 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 4
+        case 1: return 3
         default:
             return 0
         }
@@ -88,5 +84,12 @@ class SettingsTableViewController: UITableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+        let ViewSettings = ViewSettingsTableViewController()
+            ViewSettings.direction = indexPath.row
+        navigationController?.pushViewController(ViewSettings, animated: true)
+        }
+    }
  
 }
