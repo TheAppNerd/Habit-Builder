@@ -22,8 +22,8 @@ class MenuView: UIViewController {
         configureTableView()
     }
     
-    let menuItems = ["Settings", "Contact Us", "Share App", "Leave Rating", "Privacy", "Dark Mode", "How it Works", "Save to icloud"]
-    var menuImages = ["gearshape", "envelope", "square.and.arrow.up", "heart.text.square", "scroll", "moon", "questionmark.circle", "icloud.circle"]
+    let menuItems = [ "Share App", "Leave Rating", "Contact Us", "Save to icloud", "How it Works", "Settings"]
+    var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "icloud.circle", "questionmark.circle", "gearshape"]
     
     
     func configureTableView() {
@@ -52,29 +52,12 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
         if indexPath.row == 4 {
-            //make this an enum/switch for each row
-            if #available(iOS 13.0, *) {
-                if traitCollection.userInterfaceStyle == .dark {
-                    UIApplication.shared.windows.forEach { window in
-                        window.overrideUserInterfaceStyle = .light
-                        menuImages[4] = "moon"
-                        tableView.reloadData()
-                    } } else {
-                        UIApplication.shared.windows.forEach { window in
-                            window.overrideUserInterfaceStyle = .dark
-                            menuImages[4] = "moon.fill"
-                            tableView.reloadData()
-                        }
-                    }
-                }
-            }
-        
+            delegate?.pushSettings(row: 4)
+        }
         if indexPath.row == 5 {
             delegate?.pushSettings(row: 5)
-        }
-        if indexPath.row == 0 {
-            delegate?.pushSettings(row: 0)
         }
        
     }

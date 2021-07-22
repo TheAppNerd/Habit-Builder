@@ -129,10 +129,10 @@ class HabitVC: UIViewController, SettingsPush {
     }
     func pushSettings(row: Int) {
         switch row {
-        case 0:
+        case 5:
             let vc = SettingsTableViewController()
             navigationController?.pushViewController(vc, animated: true)
-        case 5: let vc = HelpScreenViewController()
+        case 4: let vc = HelpScreenViewController()
             navigationController?.pushViewController(vc, animated: true)
         default:
             print("Error")
