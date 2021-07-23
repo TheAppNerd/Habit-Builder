@@ -15,7 +15,7 @@ class AddHabitVC: UIViewController {
     let nameView = DividerView()
     let frequencyView = DividerView()
     let reminderView = DividerView()
-    let reminderNoteView = DividerView()
+    let reminderDayView = DividerView()
     let colorView = DividerView()
     let deleteView = DividerView()
     let frequencyCount = BodyLabel(textInput: "1", textAlignment: .center, fontSize: 16)
@@ -42,7 +42,7 @@ class AddHabitVC: UIViewController {
 
     let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemRed),
                                        ColorButton(backgroundColor: .systemBlue),
-                                       ColorButton(backgroundColor: .systemYellow),
+                                       ColorButton(backgroundColor: .systemPink),
                                        ColorButton(backgroundColor: .systemGreen),
                                        ColorButton(backgroundColor: .systemPurple),
                                        ColorButton(backgroundColor: .systemOrange),
@@ -50,6 +50,8 @@ class AddHabitVC: UIViewController {
                                        ColorButton(backgroundColor: .systemTeal)
     ]
   
+    let reminderButtons: [DayButton] = [DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton()]
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -69,7 +71,7 @@ class AddHabitVC: UIViewController {
         configureNameView()
         configureFrequencyView()
         configureReminderView()
-        configureReminderNoteView()
+        configureReminderDays()
         configureColorView()
         configureDeleteView()
         habitNameTextField.delegate = self
@@ -80,6 +82,10 @@ class AddHabitVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         for button in colorButtons {
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        }
+        
+        for button in reminderButtons {
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
     }
@@ -123,7 +129,7 @@ class AddHabitVC: UIViewController {
     private func configure() {
         view.backgroundColor = .systemBackground
         title = "Add Habit"
-        view.addSubviews(nameView, frequencyView, reminderView, reminderNoteView, colorView, deleteView)
+        view.addSubviews(nameView, frequencyView, reminderView, reminderDayView, colorView, deleteView)
         self.tabBarController?.tabBar.isHidden = true
         
         for subview in view.subviews {
@@ -140,9 +146,9 @@ class AddHabitVC: UIViewController {
         
             reminderView.topAnchor.constraint(equalTo: frequencyView.bottomAnchor, constant: padding),
           
-            reminderNoteView.topAnchor.constraint(equalTo: reminderView.bottomAnchor, constant: padding),
+            reminderDayView.topAnchor.constraint(equalTo: reminderView.bottomAnchor, constant: padding),
             
-            colorView.topAnchor.constraint(equalTo: reminderNoteView.bottomAnchor, constant: padding),
+            colorView.topAnchor.constraint(equalTo: reminderDayView.bottomAnchor, constant: padding),
            
             deleteView.topAnchor.constraint(equalTo: colorView.bottomAnchor, constant: padding),
         ])}
@@ -155,7 +161,7 @@ class AddHabitVC: UIViewController {
      }
     
     func configureNameView() {
-        let habitNameLabel = TitleLabel(textInput: "Name:", textAlignment: .left, fontSize: 16)
+        let habitNameLabel = BodyLabel(textInput: "Name:", textAlignment: .left, fontSize: 16)
         habitNameTextField.placeholder = "Eg. Workout"
         nameView.addSubviews(habitNameLabel, habitNameTextField)
         
@@ -187,7 +193,7 @@ class AddHabitVC: UIViewController {
     }
     
     func configureFrequencyView() {
-        let frequencyLabel = TitleLabel(textInput: "Frequency", textAlignment: .left, fontSize: 16)
+        let frequencyLabel = BodyLabel(textInput: "Frequency", textAlignment: .left, fontSize: 16)
         let timesAWeekLabel = BodyLabel(textInput: "Times a week:", textAlignment: .right, fontSize: 16)
         let negativeButton = UIButton()
         let positiveButton = UIButton()
@@ -201,7 +207,7 @@ class AddHabitVC: UIViewController {
         frequencyCount.layer.masksToBounds = true
         
         frequencyCount.backgroundColor = .secondarySystemBackground
-        frequencyCount.textColor = .white
+       //frequencyCount.textColor = .label
         
         
         negativeButton.addTarget(self, action: #selector(negativeButtonPressed), for: .touchUpInside)
@@ -239,7 +245,7 @@ class AddHabitVC: UIViewController {
     
     
     func configureReminderView() {
-        let reminderLabel = TitleLabel(textInput: "Reminder", textAlignment: .left, fontSize: 16)
+        let reminderLabel = BodyLabel(textInput: "Reminder", textAlignment: .left, fontSize: 16)
         dateSwitch.onTintColor = .systemBlue
         bellImage.tintColor = .systemBlue
         datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
@@ -272,31 +278,64 @@ class AddHabitVC: UIViewController {
         ])}
     
     
-    func configureReminderNoteView() {
-        let notesLabel = TitleLabel(textInput: "Reminder Note:", textAlignment: .left, fontSize: 16)
-        reminderNoteView.addSubviews(notesLabel, notesTextField)
+    func configureReminderDays() {
+        let reminderDayLabel = BodyLabel(textInput: "Reminder Days:", textAlignment: .left, fontSize: 16) //set font sizes as a let in constants page to keep consistency
         
-        for subview in reminderNoteView.subviews {
-            NSLayoutConstraint.activate([
-                subview.topAnchor.constraint(equalTo: reminderNoteView.topAnchor, constant: padding),
-                subview.bottomAnchor.constraint(equalTo: reminderNoteView.bottomAnchor, constant: -padding)
-            ])}
+        let reminderButtonText = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        
+        let reminderStackView = UIStackView()
+        reminderStackView.spacing = 2
+        reminderDayView.addSubviews(reminderDayLabel, reminderStackView)
+        reminderStackView.translatesAutoresizingMaskIntoConstraints = false
+        var buttonTag = 0
+        reminderStackView.axis = .horizontal
+        reminderStackView.distribution = .fillEqually
+        
+        
+        for button in reminderButtons {
+            reminderStackView.addArrangedSubview(button)
+            button.setTitle(reminderButtonText[buttonTag], for: .normal)
+            button.tag = buttonTag
+            buttonTag += 1
+            button.backgroundColor = .systemBlue
+            button.addTarget(self, action: #selector(dayTapped), for: .touchUpInside)
+                    NSLayoutConstraint.activate([
+                        button.topAnchor.constraint(equalTo: reminderStackView.topAnchor),
+                        button.widthAnchor.constraint(equalTo: button.heightAnchor),
+                        button.bottomAnchor.constraint(equalTo: reminderStackView.bottomAnchor)
+                    ])
+    }
         NSLayoutConstraint.activate([
-            notesLabel.leadingAnchor.constraint(equalTo: reminderNoteView.leadingAnchor, constant: padding),
-            notesLabel.widthAnchor.constraint(equalToConstant: 100),
-        
-            notesTextField.leadingAnchor.constraint(equalTo: notesLabel.trailingAnchor, constant: padding),
-            notesTextField.trailingAnchor.constraint(equalTo: reminderNoteView.trailingAnchor, constant: -padding),
+            reminderDayLabel.leadingAnchor.constraint(equalTo: reminderDayView.leadingAnchor, constant: padding),
+            reminderDayLabel.topAnchor.constraint(equalTo: reminderDayView.topAnchor, constant: padding),
+            reminderDayLabel.widthAnchor.constraint(equalToConstant: 70),
+            reminderDayLabel.bottomAnchor.constraint(equalTo: reminderDayView.bottomAnchor, constant: -padding),
+            
+            
+            reminderStackView.leadingAnchor.constraint(equalTo: reminderDayLabel.trailingAnchor, constant: padding),
+            reminderStackView.topAnchor.constraint(equalTo: reminderDayView.topAnchor, constant: padding),
+            reminderStackView.trailingAnchor.constraint(equalTo: reminderDayView.trailingAnchor, constant: -padding),
+            reminderStackView.bottomAnchor.constraint(equalTo: reminderDayView.bottomAnchor, constant: -padding)
         ])
+    }
+        
+    @objc func dayTapped(sender: UIButton) {
+        sender.isSelected.toggle()
+        sender.layer.borderColor = UIColor.label.cgColor
+        if sender.isSelected == true {
+        sender.layer.borderWidth = 2
+        } else {
+            sender.layer.borderWidth = 0
+        }
         
     }
     
     func configureColorView() {
         //add extra row of colors
-        let colorLabel = TitleLabel(textInput: "Color:", textAlignment: .left, fontSize: 16)
+        let colorLabel = BodyLabel(textInput: "Color:", textAlignment: .left, fontSize: 16)
         colorView.addSubview(colorLabel)
         let colorStackView = UIStackView()
-        colorStackView.spacing = 2
+        colorStackView.spacing = 6
         colorView.addSubview(colorStackView)
         colorStackView.translatesAutoresizingMaskIntoConstraints = false
         var buttonTag = 0
@@ -354,7 +393,7 @@ class AddHabitVC: UIViewController {
         } else if dateSwitch.isOn == false {
             habitData.alarmBool = false
             bellImage.image = UIImage(systemName: "bell.slash")
-            userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute, onOrOff: false)
+            userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: false)
            
         }
     }
@@ -426,8 +465,6 @@ class AddHabitVC: UIViewController {
     func setYearArray() {
        habitData.year[getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
        habitData.year[getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
-        print(habitData.year)
-  
     }
     
     @objc func saveHabit() {
@@ -453,22 +490,19 @@ class AddHabitVC: UIViewController {
             habitData.dayBool = ([false, false, false, false, false, false, false])
             habitData.colorTag = colorTag
            if dateSwitch.isOn == true {
-            userNotifications.scheduleNotification(title: habitNameTextField.text!, body: notesTextField.text ?? "", hour: hour, minute: minute, onOrOff: true)
+            userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: true)
             habitData.habitNumber = cellTag
            }
             HabitArray.habitDates.append(dateSet)
             
             if HabitArray.habitCreated == true {
                 HabitArray.array[cellTag] = habitData
-                print("Habit created is true and inserted")
-                print(HabitArray.array)
+
             let destVC = UINavigationController(rootViewController: HabitVC())
             destVC.modalPresentationStyle = .fullScreen
             present(destVC, animated: true)
         } else {
         HabitArray.array.append(habitData)
-            print("habit created false and appended")
-            print(HabitArray.array)
             HabitVC.cellCount += 1
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen

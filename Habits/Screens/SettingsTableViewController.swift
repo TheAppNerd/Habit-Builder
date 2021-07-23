@@ -20,10 +20,10 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Appearance"
+        title = "Settings"
         tableView.register(DarkModeCell.self, forCellReuseIdentifier: DarkModeCell.reuseID)
         tableView.register(VisualsCell.self, forCellReuseIdentifier: VisualsCell.reuseID)
- 
+        tableView.rowHeight = 70
         tableView.separatorStyle = .none
     }
 
@@ -65,7 +65,7 @@ class SettingsTableViewController: UITableViewController {
         
         switch indexPath.section {
         
-        case 0:
+        case 0: //change these cases to names for clarity
             let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeCell.reuseID, for: indexPath) as! DarkModeCell
             cell.darkModeSegment.addTarget(self, action: #selector(darkModeValueChanged), for: .valueChanged)
             return cell
@@ -101,6 +101,7 @@ class SettingsTableViewController: UITableViewController {
         if indexPath.section == 1 {
         let ViewSettings = ViewSettingsTableViewController()
             ViewSettings.direction = indexPath.row
+            ViewSettings.titleString = oneText[indexPath.row]
         navigationController?.pushViewController(ViewSettings, animated: true)
         }
     }

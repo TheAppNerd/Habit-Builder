@@ -236,7 +236,7 @@ class HabitDetailsVC: UIViewController {
         collectionImage.backgroundColor = . clear
         collectionImage.translatesAutoresizingMaskIntoConstraints = false
         
-        let collectionLabel = TitleLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
+        let collectionLabel = BodyLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
     let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
     
     collectionBackground.addSubviews(collectionImage, collectionLabel, infoLabel, collectionView, line)
@@ -276,7 +276,7 @@ class HabitDetailsVC: UIViewController {
     line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = UIColor.white
     
-        let calendarLabel = TitleLabel(textInput: "Habits Calendar", textAlignment: .left, fontSize: 18)
+        let calendarLabel = BodyLabel(textInput: "Habits Calendar", textAlignment: .left, fontSize: 18)
 
         let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
         
