@@ -23,11 +23,11 @@ class UserNotifications {
     }
     
     
-    func scheduleNotification(title: String, body: String, hour: Int, minute: Int, onOrOff: Bool) {
+    func scheduleNotification(title: String, hour: Int, minute: Int, onOrOff: Bool) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.title = title
-        content.body = body
+       // content.body = body //update this for habit count left
         content.categoryIdentifier = "alarm"
         content.sound = UNNotificationSound.default
         

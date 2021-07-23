@@ -24,7 +24,6 @@ class HabitVC: UIViewController, SettingsPush {
     var habitData = HabitData()
     static var habitBool = false
     let tableViewFooter = UIView()
-    
     let emptyStateView = EmptyStateView()
   
     
@@ -53,7 +52,7 @@ class HabitVC: UIViewController, SettingsPush {
     func configureViewController() {
         title = "Habits"
         
-        tableView.backgroundColor = .systemGray4
+        tableView.backgroundColor = .systemBackground
         let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.app"), style: .plain, target: self, action: #selector(addHabitPressed))
         navigationItem.setLeftBarButton(menuButton, animated: true)
@@ -129,10 +128,10 @@ class HabitVC: UIViewController, SettingsPush {
     }
     func pushSettings(row: Int) {
         switch row {
-        case 0:
+        case 5:
             let vc = SettingsTableViewController()
             navigationController?.pushViewController(vc, animated: true)
-        case 5: let vc = HelpScreenViewController()
+        case 4: let vc = HelpScreenViewController()
             navigationController?.pushViewController(vc, animated: true)
         default:
             print("Error")
@@ -179,18 +178,21 @@ class HabitVC: UIViewController, SettingsPush {
         HabitArray.array[indexPath.row].dayBool![sender.tag] = true
         generator.impactOccurred()
         if sender.backgroundColor == .clear {
-            sender.backgroundColor = UIColor(cgColor: sender.layer.borderColor!)
-            sender.setTitleColor(.white, for: .normal)
+            sender.layer.borderColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)?.cgColor
+            sender.backgroundColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)
             HabitArray.habitDates[indexPath.row].insert(selectedDate)
-            
+            tableView.reloadData()
         } else {
             sender.backgroundColor = .clear
-            sender.setTitleColor(UIColor(cgColor: sender.layer.borderColor!), for: .normal)
+            sender.layer.borderColor = UIColor.white.cgColor
             HabitArray.habitDates[indexPath.row].remove(selectedDate)
             HabitArray.array[indexPath.row].dayBool![sender.tag] = false
 
         }
     }
+    
+
+    
 }
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
@@ -205,8 +207,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         cell.habitName.text = dataIndex.habitName
         for button in cell.dayButton {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
-            button.layer.borderColor = dataIndex.buttonColor?.cgColor
-            button.setTitleColor(dataIndex.buttonColor, for: .normal) //use diff states to effect changes?
+            button.backgroundColor = .clear
             button.tag = buttonCount
             
             //test this once data retention implemented. this is to reset habits
@@ -214,22 +215,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
                 HabitArray.array[indexPath.row].dayBool![buttonCount] = false
             }
             if HabitArray.array[indexPath.row].dayBool![buttonCount] == true {
-                button.backgroundColor = UIColor(cgColor: button.layer.borderColor!)
+                
+                button.backgroundColor = dataIndex.buttonColor?.darker(by: 30)
             }
             
             buttonCount += 1
-           
-            if button.backgroundColor != .clear {
-                button.setTitleColor(.white, for: .normal)
-            }
         }
-    //bug here. bell icons wont change properly and different cells seems to interact with each other. 
-//        if dataIndex.alarmBool == true {
-//            cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
-//        } else if dataIndex.alarmBool == false {
-//            cell.alarmButton.setImage(UIImage(systemName: "bell.slash"), for: .normal)
-//        }
-        cell.alarmButton.tintColor = dataIndex.buttonColor
+        
         if dataIndex.alarmBool == true {
             cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
         } else {
@@ -243,6 +235,21 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             cell.frequencyLabel.text = "\(dataIndex.weeklyFrequency!) days a week"
         }
         
+        cell.cellView.backgroundColor = dataIndex.buttonColor
+        // Way to determine if target met. need to find a way to ensure it only occurrs once.
+//        var truth = 0
+//        for bool in HabitArray.array[indexPath.row].dayBool! {
+//            if bool == true {
+//                truth += 1
+//            }
+//        }
+//        if truth >= Int(HabitArray.array[indexPath.row].weeklyFrequency!)! {
+//                cell.cellView.layer.borderWidth = 2
+//                cell.cellView.layer.borderColor = dataIndex.buttonColor?.cgColor
+//
+//
+//        }
+        
         return cell
         
         
@@ -250,8 +257,8 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     
     func configureTableViewFooter() {
         tableView.tableFooterView = tableViewFooter
+        tableViewFooter.frame.size = .init(width: tableView.frame.size.width, height: tableView.frame.size.width / 10)
         let addHabitButton = UIButton()
- 
     addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
     addHabitButton.translatesAutoresizingMaskIntoConstraints = false
     addHabitButton.layer.borderWidth = 1
@@ -276,42 +283,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let tableViewFooter = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
-//            let addHabitButton = UIButton()
-//
-//        addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-//        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
-//        addHabitButton.layer.borderWidth = 1
-//        addHabitButton.layer.cornerRadius = 10
-//        addHabitButton.tintColor = .systemBlue
-//        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
-//        addHabitButton.setTitle(" Add a new habit", for: .normal)
-//        addHabitButton.setTitleColor(.systemBlue, for: .normal)
-//
-//
-//        tableViewFooter.addSubview(addHabitButton)
-//        NSLayoutConstraint.activate([
-//            addHabitButton.centerYAnchor.constraint(equalTo: tableViewFooter.centerYAnchor),
-//            addHabitButton.centerXAnchor.constraint(equalTo: tableViewFooter.centerXAnchor),
-//            addHabitButton.widthAnchor.constraint(equalTo: tableViewFooter.widthAnchor, constant: -20),
-//            addHabitButton.heightAnchor.constraint(equalTo: tableViewFooter.heightAnchor)
-//        ])
-//        if HabitVC.cellCount == 1 {
-//            tableViewFooter.isHidden = true
-//        } else {
-//            tableViewFooter.isHidden = false
-//        }
-//        return tableViewFooter
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
         vc.cellTag = indexPath.row
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
-    
+   
 }
 
 

@@ -13,7 +13,7 @@ class HabitCell: UITableViewCell {
 static let reuseID = "HabitCell"
     var habitdata = HabitData()
     
-    let habitName = TitleLabel(textInput: "", textAlignment: .left, fontSize: 25)
+    let habitName = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
     let cellView = TableCellView()
     var calendarView = CalendarView()
     var dateArray: [Date] = []
@@ -71,7 +71,7 @@ static let reuseID = "HabitCell"
         labelStackView.distribution = .equalCentering
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        dayLabels[getDayOfWeek()-1].textColor = .label
+        dayLabels[getDayOfWeek()-1].textColor = .white
         dayLabels[getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)
 
         
@@ -82,6 +82,8 @@ static let reuseID = "HabitCell"
         var count = 0
         for button in dayButton {
             buttonStackView.addArrangedSubview(button)
+            button.setTitleColor(.white, for: .normal)
+            button.layer.borderColor = UIColor.white.cgColor
             button.layer.borderWidth = 1.5
             button.setTitle("\(dayArray[count])", for: .normal)
             
@@ -142,7 +144,7 @@ static let reuseID = "HabitCell"
         let myCalendar = Calendar(identifier: .gregorian)
         let today = myCalendar.startOfDay(for: Date())
         let weekDay = myCalendar.component(.weekday, from: today)
-        print(weekDay)
+
         return weekDay
     }
     func viewWillLayoutSubviews() {
@@ -158,6 +160,7 @@ static let reuseID = "HabitCell"
         addSubview(frequencyLabel)
         
         cellView.layer.cornerRadius = 10
+        alarmButton.tintColor = .white
         alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
         alarmButton.translatesAutoresizingMaskIntoConstraints = false
         

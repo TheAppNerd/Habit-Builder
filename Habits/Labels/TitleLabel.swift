@@ -27,7 +27,7 @@ class TitleLabel: UILabel {
     
     
     private func configure() {
-        textColor = .label
+        textColor = .white
         adjustsFontSizeToFitWidth = true
         
         minimumScaleFactor = 0.9

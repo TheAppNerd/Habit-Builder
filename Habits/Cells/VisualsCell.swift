@@ -28,7 +28,7 @@ class VisualsCell: UITableViewCell {
        
         self.accessoryType = .disclosureIndicator
         addSubviews(cellImage, cellLabel)
-        let padding: CGFloat = 5
+        let padding: CGFloat = 10
         cellImage.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
         
