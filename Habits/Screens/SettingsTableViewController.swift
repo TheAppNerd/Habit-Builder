@@ -47,7 +47,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,6 +55,7 @@ class SettingsTableViewController: UITableViewController {
         case 0: return 1
         case 1: return 3
         case 2: return 2
+        case 3: return 2
         default:
             return 0
         }
@@ -80,6 +81,10 @@ class SettingsTableViewController: UITableViewController {
                 cell.cellImage.image = UIImage(systemName: twoImages[indexPath.row])
                 cell.cellLabel.text = twoText[indexPath.row]
                 return cell
+        case 3: let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
+            cell.textLabel?.textAlignment = .center //enter app details here.
+            cell.textLabel?.text = "test"
+            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeCell.reuseID, for: indexPath)
             return cell

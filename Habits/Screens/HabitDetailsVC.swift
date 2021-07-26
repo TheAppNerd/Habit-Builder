@@ -368,7 +368,6 @@ class HabitDetailsVC: UIViewController {
         //loop through dict keys to get highest value. if current year != highest value append new dict with current year
         let latestYear = HabitArray.array[cellTag].year.keys.max()
         let currentYear = getYear()
-        //test this
         if currentYear != latestYear {
             HabitArray.array[cellTag].year[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
         }
