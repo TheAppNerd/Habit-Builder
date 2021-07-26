@@ -22,8 +22,8 @@ class MenuView: UIViewController {
         configureTableView()
     }
     
-    let menuItems = [ "Share App", "Leave Rating", "Contact Us", "Save to icloud", "How it Works", "Settings"]
-    var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "icloud.circle", "questionmark.circle", "gearshape"]
+    let menuItems = [ "Share App", "Leave Rating", "Contact Us", "Save to icloud", "How it Works","Donate to Creator", "Settings"]
+    var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "icloud.circle", "questionmark.circle", "dollarsign.circle", "gearshape"]
     
     
     func configureTableView() {

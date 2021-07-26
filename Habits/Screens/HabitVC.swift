@@ -180,12 +180,12 @@ class HabitVC: UIViewController, SettingsPush {
         if sender.backgroundColor == .clear {
             sender.layer.borderColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)?.cgColor
             sender.backgroundColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)
-            HabitArray.habitDates[indexPath.row].insert(selectedDate)
+            HabitArray.array[indexPath.row].habitDates.insert(selectedDate)
             tableView.reloadData()
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
-            HabitArray.habitDates[indexPath.row].remove(selectedDate)
+            HabitArray.array[indexPath.row].habitDates.remove(selectedDate)
             HabitArray.array[indexPath.row].dayBool![sender.tag] = false
 
         }

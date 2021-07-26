@@ -28,7 +28,6 @@ class AddHabitVC: UIViewController {
     let padding: CGFloat = 10
     var colorTag = 0
     let deleteButton = UIButton()
-    let dateSet = Set<Date>()
 
     let userNotifications = UserNotifications()
     var accessGranted = false
@@ -436,7 +435,7 @@ class AddHabitVC: UIViewController {
         formatter.dateFormat = "HH:mm"
         
         let twentyFourHourDate = formatter.string(from: date!)
-        
+        HabitArray.array.remove(at: cellTag)
         let time = twentyFourHourDate.components(separatedBy: ":")
         hour = Int(time[0])!
         minute = Int(time[1])!
@@ -461,7 +460,9 @@ class AddHabitVC: UIViewController {
             HabitVC.cellCount -= 1
             let destVC = UINavigationController(rootViewController: HabitVC())
             destVC.modalPresentationStyle = .fullScreen
+            
             self.present(destVC, animated: true)
+            
         }))
         present(deleteAlert, animated: true, completion: nil)
         
@@ -506,7 +507,6 @@ class AddHabitVC: UIViewController {
             userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: true)
             habitData.habitNumber = cellTag
            }
-            HabitArray.habitDates.append(dateSet)
             
             if HabitArray.habitCreated == true {
                 HabitArray.array[cellTag] = habitData

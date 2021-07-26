@@ -16,8 +16,7 @@ class HabitDetailsVC: UIViewController {
     var addHabitVC = AddHabitVC()
     let calendarView = CalendarView()
     let currentStreak = BodyLabel()
-   
-    
+    let streakLabel = UILabel()
     let calendarBackgound = DividerView()
     let streakBackground = DividerView()
     let collectionBackground = DividerView()
@@ -34,13 +33,12 @@ class HabitDetailsVC: UIViewController {
         self.calendarView.setDisplayDate(Date())
         updateDates()
         addNewYear()
-        collectionView.reloadData()
-        
+    
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureCollectionView()
+    viewDidLoadlayout()
         configureViewController()
         configureBarButtons()
         configureCalendarView()
@@ -48,9 +46,16 @@ class HabitDetailsVC: UIViewController {
         addNewYear()
         self.tabBarController?.tabBar.isHidden = true // is this needed?
         title = HabitArray.array[cellTag].habitName
-    setupCollectionArea()
         setupCalendarArea()
-       
+    }
+    
+    func viewDidLoadlayout() {
+        configureCollectionView()
+        
+    setupCollectionArea()
+        
+        
+        
     }
     
     
@@ -60,17 +65,15 @@ class HabitDetailsVC: UIViewController {
             let value = year.value.reduce(0, +)
             totalAmount += value
         }
+        print("\(totalAmount) testing")
         return totalAmount
     }
-
-    
     
     func configureStreakView() {
         let streakImage = UIImageView(image: UIImage(systemName: "flame.fill"))
         streakImage.translatesAutoresizingMaskIntoConstraints = false
-        let streakLabel = UILabel()
-        streakLabel.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.text = "Total Days Completed: \(getTotalDays())"
+        streakLabel.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.textAlignment = .left
         
         streakBackground.addSubviews(streakImage, streakLabel)
@@ -97,13 +100,13 @@ class HabitDetailsVC: UIViewController {
         let section = 0
         let lastItemIndex = self.collectionView.numberOfItems(inSection: section) - 1
         let indexPath = IndexPath(item: lastItemIndex, section: section)
-        self.collectionView.scrollToItem(at: indexPath, at: .right, animated: true)
+        self.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
     }
     
     func updateDates() {
         //ensures that index doesnt = nil before calling dates
-        if cellTag <= HabitArray.habitDates.count - 1 {
-        for date in HabitArray.habitDates[cellTag] {
+        if cellTag <= HabitArray.array.count - 1 {
+            for date in HabitArray.array[cellTag].habitDates {
         calendarView.selectDate(date)
         }
     }
@@ -125,9 +128,10 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
-            HabitArray.habitDates[self.cellTag].insert(date)
+            HabitArray.array[self.cellTag].habitDates.insert(date)
             HabitArray.array[self.cellTag].dayBool![day - 1] = true
-            //self.viewDidLoad()
+            self.viewDidLoadlayout()
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -139,10 +143,9 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.deselectDate(date)
-            HabitArray.habitDates[self.cellTag].remove(date)
+            HabitArray.array[self.cellTag].habitDates.remove(date)
             HabitArray.array[self.cellTag].chartDates = HabitArray.array[self.cellTag].chartDates.filter{$0 != date}
-        
-            //self.viewDidLoad()
+            self.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -337,7 +340,7 @@ class HabitDetailsVC: UIViewController {
     func updateChart(habitView: HabitCountView) {
         //had to create a seperate array to insert dates into only if they hadnt already been added. stopped dates being counted twice.
         let calendar = Calendar(identifier: .gregorian)
-        for date in HabitArray.habitDates[cellTag] {
+        for date in HabitArray.array[cellTag].habitDates {
             
             let monthCalc = calendar.dateComponents([.month], from: date)
             let yearCalc = calendar.dateComponents([.year], from: date)
@@ -350,9 +353,12 @@ class HabitDetailsVC: UIViewController {
                 HabitArray.array[cellTag].chartDates.append(date)
             }
         }
-        
+
         habitView.color = HabitArray.array[cellTag].buttonColor!
         habitView.configureStackView()
+        
+        streakLabel.text = "Total Days Completed: \(getTotalDays())"
+        
 }
     
     
@@ -457,7 +463,6 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCell.reuseID, for: indexPath) as! ChartCell
-       
     let earliestYear = HabitArray.array[cellTag].year.keys.min()
         let year = earliestYear! + indexPath.row
         cell.habitView.year = year

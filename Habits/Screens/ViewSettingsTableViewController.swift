@@ -14,7 +14,7 @@ class ViewSettingsTableViewController: UITableViewController {
     
     let colors = [UIColor.label, .systemRed, .systemBlue, .systemYellow, .systemGreen, .systemPurple, .systemOrange, .systemIndigo, .systemTeal, .systemPink]
     let colorName = ["Black / White (Default)", "Red","Blue","Yellow","Green","Purple","Orange", "Indigo", "Teal", "Pink"]
-    let font = ["System","Helveltica Neue", "Chalkduster", "Arial", "Futara", "Papyrus", "Times New Roman"]
+   
     
     
 
@@ -41,8 +41,6 @@ class ViewSettingsTableViewController: UITableViewController {
         
         case 1: return 0
         
-        case 2: return font.count
-        
         default:
             return 0
         }
@@ -60,9 +58,6 @@ class ViewSettingsTableViewController: UITableViewController {
         
         case 1: print("hi")
             
-        case 2: cell.cellLabel.text = font[indexPath.row]
-            cell.cellLabel.font = UIFont(name: font[indexPath.row], size: 16)
-                //cell.cellImage.backgroundColor = colors[indexPath.row]
         default:
             print("error")
         }
@@ -80,8 +75,6 @@ class ViewSettingsTableViewController: UITableViewController {
         }
         case 1: print("hi")
         
-        case 2: HabitArray.font = UIFont(name: font[indexPath.row], size: 16)
-            //determine a way to make this global.
         default:
             print("error")
         
