@@ -81,12 +81,13 @@ class AddHabitVC: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         for button in colorButtons {
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
         
         for button in reminderButtons {
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.layer.cornerRadius = 3
         }
     }
     
@@ -299,6 +300,16 @@ class AddHabitVC: UIViewController {
             buttonTag += 1
             button.backgroundColor = .systemBlue
             button.addTarget(self, action: #selector(dayTapped), for: .touchUpInside)
+            
+            if button.isSelected == true {
+                button.alpha = 1.0
+                button.layer.borderWidth = 2
+                button.layer.borderColor = UIColor.label.cgColor
+            } else {
+                button.layer.borderWidth = 0
+                button.alpha = 0.5
+                
+            }
                     NSLayoutConstraint.activate([
                         button.topAnchor.constraint(equalTo: reminderStackView.topAnchor),
                         button.widthAnchor.constraint(equalTo: button.heightAnchor),
@@ -321,13 +332,15 @@ class AddHabitVC: UIViewController {
         
     @objc func dayTapped(sender: UIButton) {
         sender.isSelected.toggle()
-        sender.layer.borderColor = UIColor.label.cgColor
         if sender.isSelected == true {
-        sender.layer.borderWidth = 2
+            sender.alpha = 1.0
+            sender.layer.borderWidth = 2
+            sender.layer.borderColor = UIColor.label.cgColor
         } else {
             sender.layer.borderWidth = 0
+            sender.alpha = 0.5
+            
         }
-        
     }
     
     func configureColorView() {

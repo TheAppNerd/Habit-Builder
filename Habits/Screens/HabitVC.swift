@@ -261,12 +261,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let addHabitButton = UIButton()
     addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
     addHabitButton.translatesAutoresizingMaskIntoConstraints = false
-    addHabitButton.layer.borderWidth = 1
-    addHabitButton.layer.cornerRadius = 10
-    addHabitButton.tintColor = .systemBlue
+    addHabitButton.tintColor = .systemGreen
     addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
     addHabitButton.setTitle(" Add a new habit", for: .normal)
-    addHabitButton.setTitleColor(.systemBlue, for: .normal)
+    addHabitButton.setTitleColor(.systemGreen, for: .normal)
         
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
