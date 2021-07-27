@@ -129,7 +129,6 @@ class HabitDetailsVC: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
             HabitArray.array[self.cellTag].habitDates.insert(date)
-            HabitArray.array[self.cellTag].dayBool![day - 1] = true
             self.viewDidLoadlayout()
             
         }))
@@ -143,9 +142,8 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.deselectDate(date)
-            HabitArray.array[self.cellTag].habitDates.remove(date)
-            HabitArray.array[self.cellTag].chartDates = HabitArray.array[self.cellTag].chartDates.filter{$0 != date}
-            self.collectionView.reloadData()
+            self.removeDate(date)
+            self.viewDidLoadlayout()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             return
@@ -337,6 +335,19 @@ class HabitDetailsVC: UIViewController {
         navigationController?.pushViewController(addHabitVC, animated: true)
     }
     
+    func removeDate(_ date: Date) {
+        let calendar = Calendar(identifier: .gregorian)
+        let monthCalc = calendar.dateComponents([.month], from: date)
+        let yearCalc = calendar.dateComponents([.year], from: date)
+        let year = yearCalc.year!
+        let month = monthCalc.month! - 1
+       
+        HabitArray.array[cellTag].year[year]![month] -= 1
+        HabitArray.array[self.cellTag].habitDates.remove(date)
+        HabitArray.array[self.cellTag].chartDates = HabitArray.array[self.cellTag].chartDates.filter{$0 != date}
+    }
+    
+    
     func updateChart(habitView: HabitCountView) {
         //had to create a seperate array to insert dates into only if they hadnt already been added. stopped dates being counted twice.
         let calendar = Calendar(identifier: .gregorian)
@@ -351,6 +362,7 @@ class HabitDetailsVC: UIViewController {
             if !HabitArray.array[cellTag].chartDates.contains(date) {
             HabitArray.array[cellTag].year[year]![month] += 1
                 HabitArray.array[cellTag].chartDates.append(date)
+                
             }
         }
 
@@ -414,7 +426,8 @@ extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
     }
     
     func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
-        if date < Date() {
+        if date < Date()
+{
             if calendarView.selectedDates.contains(date) {
             presentAlertToRemoveHabit(date: date)
             } else {

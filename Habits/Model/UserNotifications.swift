@@ -10,6 +10,9 @@ import UserNotifications
 
 class UserNotifications {
     
+    //build functionality where if user declines authorisation, if they try to turn alarms on again they get a prompt to allow in settings. (Can I link to settings with button press in alert?)
+    
+    
     func requestUserAuthorisation() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in

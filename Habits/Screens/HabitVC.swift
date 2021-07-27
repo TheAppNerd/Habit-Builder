@@ -172,22 +172,20 @@ class HabitVC: UIViewController, SettingsPush {
     @objc func dateButtonPressed(_ sender: UIButton) {
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
-        
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
-        HabitArray.array[indexPath.row].dayBool![sender.tag] = true
         generator.impactOccurred()
+        
+        //change below to a bool func which toggles on or off. 
+        
         if sender.backgroundColor == .clear {
             sender.layer.borderColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)?.cgColor
             sender.backgroundColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)
             HabitArray.array[indexPath.row].habitDates.insert(selectedDate)
-            tableView.reloadData()
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
             HabitArray.array[indexPath.row].habitDates.remove(selectedDate)
-            HabitArray.array[indexPath.row].dayBool![sender.tag] = false
-
         }
     }
     
@@ -210,15 +208,14 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             button.backgroundColor = .clear
             button.tag = buttonCount
             
-            //test this once data retention implemented. this is to reset habits
-            if HabitVC.habitBool == true {
-                HabitArray.array[indexPath.row].dayBool![buttonCount] = false
-            }
-            if HabitArray.array[indexPath.row].dayBool![buttonCount] == true {
-                
+            let selectedDate = startOfDay(date: cell.dateArray[buttonCount])
+        
+            //tese that this resets when next week loads up after data retention added
+            if dataIndex.habitDates.contains(selectedDate) {
                 button.backgroundColor = dataIndex.buttonColor?.darker(by: 30)
+            } else {
+                button.backgroundColor = .clear
             }
-            
             buttonCount += 1
         }
         

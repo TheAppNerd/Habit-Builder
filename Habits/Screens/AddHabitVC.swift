@@ -39,14 +39,15 @@ class AddHabitVC: UIViewController {
     //create singular items for all of these. single text field, simple buttons, etc
     var habitColor: UIColor = .systemGreen
 
-    let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemRed),
+    let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemPurple),
                                        ColorButton(backgroundColor: .systemBlue),
                                        ColorButton(backgroundColor: .systemPink),
                                        ColorButton(backgroundColor: .systemGreen),
-                                       ColorButton(backgroundColor: .systemPurple),
+                                       ColorButton(backgroundColor: .systemRed),
+                                       ColorButton(backgroundColor: .systemTeal),
                                        ColorButton(backgroundColor: .systemOrange),
-                                       ColorButton(backgroundColor: .systemIndigo),
-                                       ColorButton(backgroundColor: .systemTeal)
+                                       ColorButton(backgroundColor: .systemIndigo)
+                                       
     ]
   
     let reminderButtons: [DayButton] = [DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton()]
@@ -56,7 +57,7 @@ class AddHabitVC: UIViewController {
         super.viewWillAppear(animated)
         deleteButton.isHidden = true
         deleteView.isHidden = true
-        colorButtons[cellTag].sendActions(for: .touchUpInside)
+        colorButtons[cellTag].sendActions(for: .touchUpInside) //fix this bug to reset back to color 1 when max colors reached.
         loadPage()
         
     }
@@ -292,9 +293,11 @@ class AddHabitVC: UIViewController {
         reminderStackView.distribution = .fillEqually
         
         
+        
         for button in reminderButtons {
             reminderStackView.addArrangedSubview(button)
             button.setTitle(reminderButtonText[buttonTag], for: .normal)
+
             button.tag = buttonTag
             buttonTag += 1
             button.backgroundColor = .systemBlue
@@ -317,9 +320,9 @@ class AddHabitVC: UIViewController {
     }
         NSLayoutConstraint.activate([
             reminderDayLabel.leadingAnchor.constraint(equalTo: reminderDayView.leadingAnchor, constant: padding),
-            reminderDayLabel.topAnchor.constraint(equalTo: reminderDayView.topAnchor, constant: padding),
-            reminderDayLabel.widthAnchor.constraint(equalToConstant: 70),
-            reminderDayLabel.bottomAnchor.constraint(equalTo: reminderDayView.bottomAnchor, constant: -padding),
+            reminderDayLabel.topAnchor.constraint(equalTo: reminderDayView.topAnchor, constant: padding * 2),
+            //reminderDayLabel.widthAnchor.constraint(equalToConstant: 70),
+            reminderDayLabel.bottomAnchor.constraint(equalTo: reminderDayView.bottomAnchor, constant: -padding * 2),
             
             
             reminderStackView.leadingAnchor.constraint(equalTo: reminderDayLabel.trailingAnchor, constant: padding),
@@ -501,7 +504,6 @@ class AddHabitVC: UIViewController {
         habitData.habitName = habitNameTextField.text ?? ""
         habitData.habitNote = notesTextField.text ?? ""
         habitData.buttonColor = habitColor
-            habitData.dayBool = ([false, false, false, false, false, false, false])
             habitData.colorTag = colorTag
            if dateSwitch.isOn == true {
             userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: true)

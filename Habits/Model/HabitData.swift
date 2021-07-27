@@ -9,6 +9,8 @@ import UIKit
 
 
 struct HabitArray {
+    
+    //no static vars for anything.
     static var array: [HabitData] = []
     static var habitCreated: Bool?
     static var startOfWeek: Date?
