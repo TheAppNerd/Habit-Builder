@@ -213,8 +213,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             //tese that this resets when next week loads up after data retention added
             if dataIndex.habitDates.contains(selectedDate) {
                 button.backgroundColor = dataIndex.buttonColor?.darker(by: 30)
+                button.layer.borderColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)?.cgColor
             } else {
                 button.backgroundColor = .clear
+                button.layer.borderColor = UIColor.white.cgColor
             }
             buttonCount += 1
         }

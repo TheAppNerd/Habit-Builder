@@ -101,7 +101,6 @@ class AddHabitVC: UIViewController {
        
         if HabitArray.habitCreated == true {
             habitNameTextField.text = HabitArray.array[cellTag].habitName
-            notesTextField.text = HabitArray.array[cellTag].habitNote
             colorButtons[HabitArray.array[cellTag].colorTag!].sendActions(for: .touchUpInside)
                 deleteView.isHidden = false
                 deleteButton.isHidden = false
@@ -502,8 +501,7 @@ class AddHabitVC: UIViewController {
             setYearArray()
         habitData.weeklyFrequency = "\(frequencyCounter)"
         habitData.habitName = habitNameTextField.text ?? ""
-        habitData.habitNote = notesTextField.text ?? ""
-        habitData.buttonColor = habitColor
+                habitData.buttonColor = habitColor
             habitData.colorTag = colorTag
            if dateSwitch.isOn == true {
             userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: true)
