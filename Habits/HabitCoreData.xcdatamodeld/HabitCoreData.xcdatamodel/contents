@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class"/>
     <entity name="HabitCoreData" representedClassName="HabitCoreData" syncable="YES" codeGenerationType="class">
-        <attribute name="attribute" optional="YES"/>
+        <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="habitColor" optional="YES" attributeType="String"/>
+        <attribute name="habitDates" optional="YES" attributeType="Transformable" customClassName="NSMutableSet">
+            <userInfo>
+                <entry key="key" value="value"/>
+            </userInfo>
+        </attribute>
+        <attribute name="habitName" optional="YES" attributeType="String"/>
+        <relationship name="years" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Year" inverseName="parentYears" inverseEntity="Year"/>
+    </entity>
+    <entity name="Year" representedClassName="Year" syncable="YES" codeGenerationType="class">
+        <attribute name="monthCount" optional="YES" attributeType="Transformable"/>
+        <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="parentYears" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HabitCoreData" inverseName="years" inverseEntity="HabitCoreData"/>
     </entity>
     <elements>
-        <element name="HabitCoreData" positionX="-283.196044921875" positionY="-17.13568115234375" width="128" height="58"/>
-        <element name="Entity" positionX="-63" positionY="0" width="128" height="43"/>
+        <element name="HabitCoreData" positionX="-342.2675781250001" positionY="-29.28433227539062" width="138.14111328125" height="118"/>
+        <element name="Year" positionX="-63" positionY="0" width="128" height="88"/>
     </elements>
 </model>

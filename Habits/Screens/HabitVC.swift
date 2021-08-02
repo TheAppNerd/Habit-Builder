@@ -7,16 +7,20 @@
 
 import UIKit
 import KDCalendar
+import CoreData
 
 class HabitVC: UIViewController, SettingsPush {
  
+    var habitArray = [HabitCoreData]()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     
 
     let tableView = UITableView()
     let menu = MenuView()
-    let calendarView = CalendarView()
     let generator = UIImpactFeedbackGenerator(style: .medium)
     var isSlideInMenuPressed = false
+    
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
     var habitName: String = ""
     var dailyNumber: String = ""
@@ -30,39 +34,49 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
+        resetHabits()
         tableView.reloadData()
-      resetHabits()
-        menu.delegate = self
             }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadCoreData()
         configureViewController()
         configureTableView()
-        self.tabBarController?.tabBar.isHidden = false
-        menuView.pinMenuTo(view, with: slideInMenuPadding)
-        tableView.edgeTo(view, padding: 0)
-        generator.prepare()
-       // resetHabits() //need to test this works when setting up core data
         configureTableViewFooter()
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
     }
     
     func configureViewController() {
         title = "Habits"
-        
-        tableView.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
+        self.tabBarController?.tabBar.isHidden = false
+        menuView.pinMenuTo(view, with: slideInMenuPadding)
+        tableView.edgeTo(view, padding: 0)
+        generator.prepare()
+        menu.delegate = self
         let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.app"), style: .plain, target: self, action: #selector(addHabitPressed))
         navigationItem.setLeftBarButton(menuButton, animated: true)
         navigationItem.rightBarButtonItems = [addButton]
-        
     }
+    
+    func configureTableView() {
+        view.addSubview(tableView)
+        tableView.backgroundColor = .systemBackground
+        tableView.frame = view.bounds
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = tableView.frame.height / 6
+        tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
+        tableView.separatorStyle = .none
+
+    }
+    
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
        menuBarButtonPressed()
     }
+    
     
     lazy var menuView: UIView = {
         let view = UIView()
@@ -78,7 +92,6 @@ class HabitVC: UIViewController, SettingsPush {
     }()
     
     func showEmptyStateView() {
-       
         if HabitArray.array.isEmpty {
             view.addSubview(emptyStateView)
             emptyStateView.frame = tableView.frame
@@ -116,16 +129,7 @@ class HabitVC: UIViewController, SettingsPush {
         }
     }
     
-    func configureTableView() {
-        view.addSubview(tableView)
-        tableView.frame = view.bounds
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = tableView.frame.height / 6
-        tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
-        tableView.separatorStyle = .none
-
-    }
+   
     func pushSettings(row: Int) {
         switch row {
         case 5:
@@ -136,27 +140,21 @@ class HabitVC: UIViewController, SettingsPush {
         default:
             print("Error")
         }
-        
     }
     
 
     @objc func menuBarButtonPressed() {
-    
+       
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
             self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
             self.tableView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
         } completion: { (finished) in
             self.isSlideInMenuPressed.toggle()
         }
-        
 
     }
     
    
-    
-
-  
-    
     @objc func addHabitPressed() {
         HabitArray.habitCreated = false
         let addHabitVC = AddHabitVC()
@@ -165,6 +163,7 @@ class HabitVC: UIViewController, SettingsPush {
     }
     
     func startOfDay(date: Date) -> Date {
+        let calendarView = CalendarView()
         let startDate = calendarView.calendar.startOfDay(for: date)
         return startDate
     }
@@ -181,17 +180,40 @@ class HabitVC: UIViewController, SettingsPush {
         if sender.backgroundColor == .clear {
             sender.layer.borderColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)?.cgColor
             sender.backgroundColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)
-            HabitArray.array[indexPath.row].habitDates.insert(selectedDate)
+            habitArray[indexPath.row].habitDates?.adding(selectedDate)
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
-            HabitArray.array[indexPath.row].habitDates.remove(selectedDate)
+            habitArray[indexPath.row].habitDates?.remove(selectedDate)
         }
     }
     
+    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
+        
+        do {
+            let array = try context.fetch(request)
+            if array.count != 0 {
+                habitArray = array
+            }
+        } catch {
+            print("error loading context: \(error)")
+        }
+        tableView.reloadData()
+    }
+    
+    func saveCoreData() {
+        do {
+            try context.save()
+        } catch {
+            print("error saving context: \(error)")
+        }
+        tableView.reloadData()
+    }
 
     
 }
+
+//MARK: - TableViewDelegate, TableViewDataSource
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -250,8 +272,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
 //        }
         
         return cell
-        
-        
     }
     
     func configureTableViewFooter() {

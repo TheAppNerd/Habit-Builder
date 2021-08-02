@@ -6,8 +6,16 @@
 //
 
 import UIKit
+import CoreData
 
 class AddHabitVC: UIViewController {
+    
+    var habitArray = [HabitCoreData]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
+    
     var habitData = HabitData()
     var cellTag = Int()
     
@@ -26,8 +34,10 @@ class AddHabitVC: UIViewController {
     let datePicker = DatePicker()
     let dateSwitch = DateSwitch()
     let padding: CGFloat = 10
-    var colorTag = 0
+    
     let deleteButton = UIButton()
+    
+    var selectedColor: UIColor?
 
     let userNotifications = UserNotifications()
     var accessGranted = false
@@ -41,9 +51,9 @@ class AddHabitVC: UIViewController {
 
     let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemPurple),
                                        ColorButton(backgroundColor: .systemBlue),
-                                       ColorButton(backgroundColor: .systemPink),
-                                       ColorButton(backgroundColor: .systemGreen),
                                        ColorButton(backgroundColor: .systemRed),
+                                       ColorButton(backgroundColor: .systemGreen),
+                                       ColorButton(backgroundColor: .brown),
                                        ColorButton(backgroundColor: .systemTeal),
                                        ColorButton(backgroundColor: .systemOrange),
                                        ColorButton(backgroundColor: .systemIndigo)
@@ -57,6 +67,7 @@ class AddHabitVC: UIViewController {
         super.viewWillAppear(animated)
         deleteButton.isHidden = true
         deleteView.isHidden = true
+        
         colorButtons[cellTag].sendActions(for: .touchUpInside) //fix this bug to reset back to color 1 when max colors reached.
         loadPage()
         
@@ -64,7 +75,10 @@ class AddHabitVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        frequencyCount.text = habitData.weeklyFrequency ?? "1"
+        loadCoreData()
+        loadPage()
+        
+    
         
         configure()
         configureBarButtons()
@@ -91,6 +105,26 @@ class AddHabitVC: UIViewController {
         }
     }
     
+    
+    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
+        
+        do {
+            habitArray = try context.fetch(request)
+        } catch {
+            print("error loading context: \(error)")
+        }
+      
+    }
+    
+    func saveCoreData() {
+        do {
+            try context.save()
+        } catch {
+            print("error saving context: \(error)")
+        }
+    }
+    
+    
     func dimissKeyboard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
@@ -98,12 +132,21 @@ class AddHabitVC: UIViewController {
     }
     
     func loadPage() {
-       
+        habitNameTextField.text = habitArray[cellTag].habitName
+        frequencyCount.text = String(habitArray[cellTag].frequency)
+        
+        //implement core data extension to encode UIcolor
+//        for button in colorButtons {
+//            if button.backgroundColor == habitArray[cellTag].habitColor as! UIColor {
+//                button.sendActions(for: .touchUpInside)
+//            }
+//        }
+        
         if HabitArray.habitCreated == true {
-            habitNameTextField.text = HabitArray.array[cellTag].habitName
-            colorButtons[HabitArray.array[cellTag].colorTag!].sendActions(for: .touchUpInside)
-                deleteView.isHidden = false
-                deleteButton.isHidden = false
+            deleteView.isHidden = false
+            deleteButton.isHidden = false
+//            colorButtons[HabitArray.array[cellTag].colorTag!].sendActions(for: .touchUpInside)
+                
             
                 
             
@@ -417,8 +460,9 @@ class AddHabitVC: UIViewController {
         deselectButtons()
         sender.layer.borderWidth = 2
         sender.layer.borderColor = UIColor.label.cgColor
+        selectedColor = sender.backgroundColor
         habitColor = sender.backgroundColor ?? .clear
-        colorTag = sender.tag
+       
     }
     
     func deselectButtons() {
@@ -488,21 +532,25 @@ class AddHabitVC: UIViewController {
         if habitNameTextField.text == "" {
             habitNameTextField.layer.borderWidth = 1
             habitNameTextField.layer.borderColor = UIColor.systemRed.cgColor
-            //add if function hjere for color buttons to be selected. make them a horizonal stack first.
         }
         
+     
         
-        
-        // use guard statement instead
         if habitNameTextField.text != "" {
             habitNameTextField.layer.borderWidth = 0
+            
+            let newHabit = HabitCoreData(context: self.context)
+            //newHabit.habitColor = habitColor
+            newHabit.habitName = habitNameTextField.text
+            newHabit.frequency = Int16(frequencyCounter)
+            habitArray[cellTag] = newHabit
+            saveCoreData()
+            
+            
+            setYearArray()
+            
             habitData.reminderHour = hour
             habitData.reminderMinute = minute
-            setYearArray()
-        habitData.weeklyFrequency = "\(frequencyCounter)"
-        habitData.habitName = habitNameTextField.text ?? ""
-                habitData.buttonColor = habitColor
-            habitData.colorTag = colorTag
            if dateSwitch.isOn == true {
             userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: true)
             habitData.habitNumber = cellTag
