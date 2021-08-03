@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="HabitCoreData" representedClassName="HabitCoreData" syncable="YES" codeGenerationType="class">
+    <entity name="HabitCoreData" representedClassName=".HabitCoreData" syncable="YES" codeGenerationType="class">
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="habitColor" optional="YES" attributeType="Binary"/>
-        <attribute name="habitDates" optional="YES" attributeType="Transformable" customClassName="NSMutableSet">
+        <attribute name="habitDates" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".NSMutableArray">
             <userInfo>
                 <entry key="key" value="value"/>
             </userInfo>
@@ -17,7 +17,7 @@
         <relationship name="parentYears" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HabitCoreData" inverseName="years" inverseEntity="HabitCoreData"/>
     </entity>
     <elements>
-        <element name="HabitCoreData" positionX="-342.2675781250001" positionY="-29.28433227539062" width="138.14111328125" height="118"/>
+        <element name="HabitCoreData" positionX="-339.9364013671876" positionY="-29.28433227539062" width="138.14111328125" height="118"/>
         <element name="Year" positionX="-63" positionY="0" width="128" height="88"/>
     </elements>
 </model>

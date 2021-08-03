@@ -543,6 +543,7 @@ class AddHabitVC: UIViewController {
             newHabit.habitColor = colorData
             newHabit.habitName = habitNameTextField.text
             newHabit.frequency = Int16(frequencyCounter)
+            newHabit.habitDates = []
             if habitArray.count > cellTag {
                 habitArray[cellTag] = newHabit
             } else {

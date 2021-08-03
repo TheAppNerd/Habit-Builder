@@ -175,20 +175,26 @@ class HabitVC: UIViewController, SettingsPush {
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
-        //change below to a bool func which toggles on or off. 
+        //change below to a bool func which toggles on or off.
+        
+
+        
         let decodedColor = habitArray[indexPath.row].habitColor?.decode()
         if sender.backgroundColor == .clear {
             sender.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
         sender.backgroundColor = decodedColor?.darker(by: 20)
             habitArray[indexPath.row].habitDates?.add(selectedDate)
+            print(habitArray[indexPath.row])
             saveCoreData()
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
             habitArray[indexPath.row].habitDates?.remove(selectedDate)
+            print(habitArray[indexPath.row])
             saveCoreData()
+            
         }
-        print(habitArray[indexPath.row].habitDates)
+      
     }
     
     func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
@@ -236,15 +242,15 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             let selectedDate = startOfDay(date: cell.dateArray[buttonCount])
         
             //tese that this resets when next week loads up after data retention added
-            if let dates = dataIndex.habitDates {
-            if dates.contains(selectedDate) {
-                button.backgroundColor = decodedColor?.darker(by: 30)
-                button.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
-            } else {
-                button.backgroundColor = decodedColor
-                button.layer.borderColor = UIColor.white.cgColor
-            }
-            }
+//            if let dates = dataIndex.habitDates {
+//            if dates.contains(selectedDate) {
+//                button.backgroundColor = decodedColor?.darker(by: 30)
+//                button.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
+//            } else {
+//                button.backgroundColor = decodedColor
+//                button.layer.borderColor = UIColor.white.cgColor
+//            }
+//            }
             buttonCount += 1
         }
         
