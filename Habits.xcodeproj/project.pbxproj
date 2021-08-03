@@ -28,6 +28,7 @@
 		FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */; };
 		FAA5915826A9923F0084C0D9 /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */; };
 		FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAACA40326B4160B00B85A74 /* HabitCoreData.xcdatamodeld */; };
+		FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */; };
 		FAEE7A1E269405F60064D06E /* ChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE7A1D269405F60064D06E /* ChartCell.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CC26493FF50029E50D /* DateSwitch.swift */; };
@@ -70,6 +71,7 @@
 		FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettingsTableViewController.swift; sourceTree = "<group>"; };
 		FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		FAACA40426B4160B00B85A74 /* HabitCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitCoreData.xcdatamodel; sourceTree = "<group>"; };
+		FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data + Ext.swift"; sourceTree = "<group>"; };
 		FAEE7A1D269405F60064D06E /* ChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCell.swift; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6CC26493FF50029E50D /* DateSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSwitch.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			children = (
 				FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */,
 				FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */,
+				FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
+				FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */,
 				FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */,
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */,

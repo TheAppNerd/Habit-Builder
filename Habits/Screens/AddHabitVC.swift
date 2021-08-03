@@ -77,9 +77,6 @@ class AddHabitVC: UIViewController {
         super.viewDidLoad()
         loadCoreData()
         loadPage()
-        
-    
-        
         configure()
         configureBarButtons()
         configureNameView()
@@ -92,6 +89,7 @@ class AddHabitVC: UIViewController {
         notesTextField.delegate = self
         dimissKeyboard()
         setYearArray()
+        print("celltag \(cellTag)")
     }
     
     override func viewDidLayoutSubviews() {
@@ -132,16 +130,17 @@ class AddHabitVC: UIViewController {
     }
     
     func loadPage() {
+        if habitArray.count != 0 {
         habitNameTextField.text = habitArray[cellTag].habitName
         frequencyCount.text = String(habitArray[cellTag].frequency)
         
-        //implement core data extension to encode UIcolor
-//        for button in colorButtons {
-//            if button.backgroundColor == habitArray[cellTag].habitColor as! UIColor {
-//                button.sendActions(for: .touchUpInside)
-//            }
-//        }
-        
+        let decodedColor = habitArray[cellTag].habitColor?.decode()
+        for button in colorButtons {
+            if button.backgroundColor == decodedColor {
+                button.sendActions(for: .touchUpInside)
+            }
+        }
+        }
         if HabitArray.habitCreated == true {
             deleteView.isHidden = false
             deleteButton.isHidden = false
@@ -540,10 +539,15 @@ class AddHabitVC: UIViewController {
             habitNameTextField.layer.borderWidth = 0
             
             let newHabit = HabitCoreData(context: self.context)
-            //newHabit.habitColor = habitColor
+            let colorData = habitColor.encode()
+            newHabit.habitColor = colorData
             newHabit.habitName = habitNameTextField.text
             newHabit.frequency = Int16(frequencyCounter)
-            habitArray[cellTag] = newHabit
+            if habitArray.count > cellTag {
+                habitArray[cellTag] = newHabit
+            } else {
+                habitArray.append(newHabit)
+            }
             saveCoreData()
             
             

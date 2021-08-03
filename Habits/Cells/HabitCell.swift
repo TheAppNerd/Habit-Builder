@@ -11,7 +11,6 @@ import KDCalendar
 class HabitCell: UITableViewCell {
 
 static let reuseID = "HabitCell"
-    var habitdata = HabitData()
     
     let habitName = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
     let cellView = TableCellView()
@@ -84,6 +83,7 @@ static let reuseID = "HabitCell"
             buttonStackView.addArrangedSubview(button)
             button.setTitleColor(.white, for: .normal)
             button.layer.borderColor = UIColor.white.cgColor
+            button.backgroundColor = .clear
             button.layer.borderWidth = 1.5
             button.setTitle("\(dayArray[count])", for: .normal)
             

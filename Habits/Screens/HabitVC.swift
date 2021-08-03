@@ -34,16 +34,17 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        resetHabits()
-        tableView.reloadData()
+        
             }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
+        resetHabits()
         configureViewController()
         configureTableView()
         configureTableViewFooter()
+        tableView.reloadData()
     }
     
     func configureViewController() {
@@ -92,7 +93,7 @@ class HabitVC: UIViewController, SettingsPush {
     }()
     
     func showEmptyStateView() {
-        if HabitArray.array.isEmpty {
+        if habitArray.isEmpty {
             view.addSubview(emptyStateView)
             emptyStateView.frame = tableView.frame
         } else {
@@ -174,18 +175,20 @@ class HabitVC: UIViewController, SettingsPush {
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
-        
         //change below to a bool func which toggles on or off. 
-        
+        let decodedColor = habitArray[indexPath.row].habitColor?.decode()
         if sender.backgroundColor == .clear {
-            sender.layer.borderColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)?.cgColor
-            sender.backgroundColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)
-            habitArray[indexPath.row].habitDates?.adding(selectedDate)
+            sender.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
+        sender.backgroundColor = decodedColor?.darker(by: 20)
+            habitArray[indexPath.row].habitDates?.add(selectedDate)
+            saveCoreData()
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
             habitArray[indexPath.row].habitDates?.remove(selectedDate)
+            saveCoreData()
         }
+        print(habitArray[indexPath.row].habitDates)
     }
     
     func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
@@ -217,46 +220,48 @@ class HabitVC: UIViewController, SettingsPush {
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return HabitVC.cellCount - 1
+        return habitArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         var buttonCount = 0
-        let dataIndex = HabitArray.array[indexPath.row]
+        let dataIndex = habitArray[indexPath.row]
+        let decodedColor = dataIndex.habitColor?.decode()
         cell.habitName.text = dataIndex.habitName
         for button in cell.dayButton {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
-            button.backgroundColor = .clear
             button.tag = buttonCount
             
             let selectedDate = startOfDay(date: cell.dateArray[buttonCount])
         
             //tese that this resets when next week loads up after data retention added
-            if dataIndex.habitDates.contains(selectedDate) {
-                button.backgroundColor = dataIndex.buttonColor?.darker(by: 30)
-                button.layer.borderColor = HabitArray.array[indexPath.row].buttonColor?.darker(by: 20)?.cgColor
+            if let dates = dataIndex.habitDates {
+            if dates.contains(selectedDate) {
+                button.backgroundColor = decodedColor?.darker(by: 30)
+                button.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
             } else {
-                button.backgroundColor = .clear
+                button.backgroundColor = decodedColor
                 button.layer.borderColor = UIColor.white.cgColor
+            }
             }
             buttonCount += 1
         }
         
-        if dataIndex.alarmBool == true {
-            cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
-        } else {
-            cell.alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
-        }
-        if dataIndex.weeklyFrequency == "7" {
+//        if dataIndex.alarmBool == true {
+//            cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
+//        } else {
+//            cell.alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
+//        }
+        if dataIndex.frequency == 7 {
             cell.frequencyLabel.text = "Everyday"
-        } else if dataIndex.weeklyFrequency == "1" {
+        } else if dataIndex.frequency == 1 {
         cell.frequencyLabel.text = "1 day a week"
         } else {
-            cell.frequencyLabel.text = "\(dataIndex.weeklyFrequency!) days a week"
+            cell.frequencyLabel.text = "\(dataIndex.frequency) days a week"
         }
         
-        cell.cellView.backgroundColor = dataIndex.buttonColor
+        cell.cellView.backgroundColor = decodedColor
         // Way to determine if target met. need to find a way to ensure it only occurrs once.
 //        var truth = 0
 //        for bool in HabitArray.array[indexPath.row].dayBool! {

@@ -28,6 +28,15 @@ extension UIColor {
                 return nil
             }
         }
+    
+
+    func encode() -> Data? {
+        return try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
+    }
+    
+  
+    
+    
     }
     
 
