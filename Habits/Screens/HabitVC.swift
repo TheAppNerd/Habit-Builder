@@ -224,7 +224,7 @@ class HabitVC: UIViewController, SettingsPush {
                     print("error")
                 }
                 saveCoreData()
-                print(object.year)
+             
             }
         }
         }
