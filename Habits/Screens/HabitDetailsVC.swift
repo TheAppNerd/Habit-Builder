@@ -7,9 +7,17 @@
 
 import UIKit
 import KDCalendar
+import CoreData
 
 class HabitDetailsVC: UIViewController {
 
+    var habitArray = [HabitCoreData]()
+    var yearArray = [HabitCoreYear]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var decodedColor: UIColor?
+
+    
     
     var cellTag: Int = 0
     var habitData = HabitData()
@@ -24,21 +32,21 @@ class HabitDetailsVC: UIViewController {
     
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let habitCountView = HabitCountView()
-    
+   
    
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.calendarView.setDisplayDate(Date())
+        loadCoreData()
         updateDates()
         addNewYear()
-    
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    viewDidLoadlayout()
+        viewDidLoadlayout()
         configureViewController()
         configureBarButtons()
         configureCalendarView()
@@ -47,24 +55,47 @@ class HabitDetailsVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = true // is this needed?
         title = HabitArray.array[cellTag].habitName
         setupCalendarArea()
+       
     }
     
     func viewDidLoadlayout() {
         configureCollectionView()
-        
     setupCollectionArea()
-        
-        
-        
     }
     
     
+    private func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
+        
+        do {
+            let array = try context.fetch(request)
+            if array.count != 0 {
+                habitArray = array
+                let yearSet = habitArray[cellTag].years as! Set<HabitCoreYear>
+                yearArray = yearSet.sorted(by: { $0.year < $1.year})
+                    
+            }
+        } catch {
+            print("error loading context: \(error)")
+        }
+        decodedColor = habitArray[cellTag].habitColor?.decode()
+    }
+    
+    private func saveCoreData() {
+        do {
+            try context.save()
+        } catch {
+            print("error saving context: \(error)")
+        }
+    }
+    
+
     func getTotalDays() -> Int {
         var totalAmount = 0
-        for year in HabitArray.array[cellTag].year {
-            let value = year.value.reduce(0, +)
-            totalAmount += value
-        }
+//        for year in yearSet {
+//            let value = year.monthCount as! Array<Int>
+//            let total = value.reduce(0, +)
+//            totalAmount += total
+//        }
         print("\(totalAmount) testing")
         return totalAmount
     }
@@ -97,6 +128,7 @@ class HabitDetailsVC: UIViewController {
     
     
     override func viewDidLayoutSubviews() {
+        //loads the collection view as current year
         let section = 0
         let lastItemIndex = self.collectionView.numberOfItems(inSection: section) - 1
         let indexPath = IndexPath(item: lastItemIndex, section: section)
@@ -105,9 +137,9 @@ class HabitDetailsVC: UIViewController {
     
     func updateDates() {
         //ensures that index doesnt = nil before calling dates
-        if cellTag <= HabitArray.array.count - 1 {
-            for date in HabitArray.array[cellTag].habitDates {
-        calendarView.selectDate(date)
+        if cellTag <= habitArray.count - 1 {
+            for date in habitArray[cellTag].habitDates! {
+                calendarView.selectDate(date as! Date)
         }
     }
     }
@@ -128,7 +160,8 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
-            HabitArray.array[self.cellTag].habitDates.insert(date)
+            self.habitArray[self.cellTag].habitDates?.add(date)
+            self.saveCoreData()
             self.viewDidLoadlayout()
             
         }))
@@ -178,11 +211,11 @@ class HabitDetailsVC: UIViewController {
         myStyle.firstWeekday = .sunday
         myStyle.cellShape = CalendarView.Style.CellShapeOptions.round
         myStyle.cellColorDefault = .clear
-        myStyle.cellSelectedBorderColor = HabitArray.array[cellTag].buttonColor!
+        myStyle.cellSelectedBorderColor = decodedColor ?? .clear
         myStyle.cellTextColorDefault = .label
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
-        myStyle.cellSelectedColor = HabitArray.array[cellTag].buttonColor!
+        myStyle.cellSelectedColor = decodedColor ?? .clear
         
     }
     
@@ -233,7 +266,7 @@ class HabitDetailsVC: UIViewController {
         
         let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis"))
         collectionImage.layer.cornerRadius = 10
-        collectionImage.tintColor = HabitArray.array[cellTag].buttonColor!
+        collectionImage.tintColor = decodedColor
         collectionImage.backgroundColor = . clear
         collectionImage.translatesAutoresizingMaskIntoConstraints = false
         
@@ -283,7 +316,7 @@ class HabitDetailsVC: UIViewController {
         
         let calendarImage = UIImageView(image: UIImage(systemName: "calendar"))
         calendarImage.layer.cornerRadius = 10
-        calendarImage.tintColor = HabitArray.array[cellTag].buttonColor!
+        calendarImage.tintColor = decodedColor
         calendarImage.backgroundColor = . clear
         calendarImage.translatesAutoresizingMaskIntoConstraints = false
         
@@ -335,7 +368,7 @@ class HabitDetailsVC: UIViewController {
         navigationController?.pushViewController(addHabitVC, animated: true)
     }
     
-    func removeDate(_ date: Date) {
+    func removeDate(_ date: Date) { // core data here
         let calendar = Calendar(identifier: .gregorian)
         let monthCalc = calendar.dateComponents([.month], from: date)
         let yearCalc = calendar.dateComponents([.year], from: date)
@@ -351,22 +384,30 @@ class HabitDetailsVC: UIViewController {
     func updateChart(habitView: HabitCountView) {
         //had to create a seperate array to insert dates into only if they hadnt already been added. stopped dates being counted twice.
         let calendar = Calendar(identifier: .gregorian)
-        for date in HabitArray.array[cellTag].habitDates {
-            
-            let monthCalc = calendar.dateComponents([.month], from: date)
-            let yearCalc = calendar.dateComponents([.year], from: date)
+        for date in habitArray[cellTag].habitDates! {
+
+            let monthCalc = calendar.dateComponents([.month], from: date as! Date)
+            let yearCalc = calendar.dateComponents([.year], from: date as! Date)
             let year = yearCalc.year!
             let month = monthCalc.month! - 1
             
+            
             //this code loops through all saved dates and assigns them to dict by going through year and then month and adding 1 to the count
-            if !HabitArray.array[cellTag].chartDates.contains(date) {
-            HabitArray.array[cellTag].year[year]![month] += 1
-                HabitArray.array[cellTag].chartDates.append(date)
-                
+//            HabitArray.array[cellTag].year[year]![month] += 1
+//                HabitArray.array[cellTag].chartDates.append(date as! Date)
+//
+            
+//            for item in yearArray {
+//                if item.year == year {
+//                    item.monthCount?[month] += Int16(1)
+//                    item.attrib
+//                }
+//            }
+        
             }
-        }
+        
 
-        habitView.color = HabitArray.array[cellTag].buttonColor!
+        habitView.color = decodedColor
         habitView.configureStackView()
         
         streakLabel.text = "Total Days Completed: \(getTotalDays())"
@@ -384,10 +425,26 @@ class HabitDetailsVC: UIViewController {
     
     func addNewYear() {
         //loop through dict keys to get highest value. if current year != highest value append new dict with current year
-        let latestYear = HabitArray.array[cellTag].year.keys.max()
+        let latestYear = (yearArray.last?.year)!
         let currentYear = getYear()
         if currentYear != latestYear {
-            HabitArray.array[cellTag].year[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
+            let newYear = HabitCoreYear(context: self.context)
+            newYear.year = Int16(currentYear)
+            newYear.january = []
+            newYear.february = []
+            newYear.march = []
+            newYear.april = []
+            newYear.may = []
+            newYear.june = []
+            newYear.july = []
+            newYear.august = []
+            newYear.september = []
+            newYear.october = []
+            newYear.november = []
+            newYear.december = []
+            yearArray.append(newYear)
+            saveCoreData()
+            //test this
         }
     }
     
@@ -470,16 +527,15 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
-        return HabitArray.array[cellTag].year.count
+        return yearArray.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCell.reuseID, for: indexPath) as! ChartCell
-    let earliestYear = HabitArray.array[cellTag].year.keys.min()
-        let year = earliestYear! + indexPath.row
-        cell.habitView.year = year
-        cell.habitView.monthCount = HabitArray.array[cellTag].year[year]!
+    
+        cell.habitView.year = Int(yearArray[indexPath.row].year)
+        cell.habitView.monthCount = yearArray[indexPath.row].monthCount as! [Int]
         updateChart(habitView: cell.habitView)
         cell.habitView.backgroundColor = .tertiarySystemBackground
         return cell

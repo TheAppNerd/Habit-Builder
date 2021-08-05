@@ -12,6 +12,8 @@ import CoreData
 class HabitVC: UIViewController, SettingsPush {
  
     var habitArray = [HabitCoreData]()
+    var yearArray = [HabitCoreYear]()
+
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
@@ -35,11 +37,13 @@ class HabitVC: UIViewController, SettingsPush {
         super.viewWillAppear(animated)
         showEmptyStateView()
         
-            }
+                    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
+        loadCoreDataYears()
+        print(habitArray)
         resetHabits()
         configureViewController()
         configureTableView()
@@ -169,6 +173,94 @@ class HabitVC: UIViewController, SettingsPush {
         return startDate
     }
     
+    func setupCoreDataArrays() {
+        //find a bettersoluttion to implement these
+        for object in yearArray {
+            if object.january == nil { object.january = [] }
+            if object.february == nil { object.january = [] }
+            if object.march == nil { object.january = [] }
+            if object.april == nil { object.january = [] }
+            if object.may == nil { object.january = [] }
+            if object.june == nil { object.january = [] }
+            if object.july == nil { object.january = [] }
+            if object.august == nil { object.january = [] }
+            if object.september == nil { object.january = [] }
+            if object.october == nil { object.january = [] }
+            if object.november == nil { object.january = [] }
+            if object.december == nil { object.january = [] }
+            }
+            
+    }
+    
+    func addDate(date: Date, indexPath: IndexPath) {
+        let calendar = Calendar(identifier: .gregorian)
+        let monthCalc = calendar.dateComponents([.month], from: date)
+        let yearCalc = calendar.dateComponents([.year], from: date)
+        let year =  Int16(yearCalc.year!)
+        let month = monthCalc.month
+
+        let id = habitArray[indexPath.row].id
+            
+        for object in yearArray {
+            if object.parentYears?.id == id {
+            if object.year == year {
+                
+                switch month {
+                case 1: if object.january == nil {object.january = []}
+                           object.january?.append(date)
+                case 2: object.february?.append(date)
+                case 3: object.march?.append(date)
+                case 4: object.april?.append(date)
+                case 5: object.may?.append(date)
+                case 6: object.june?.append(date)
+                case 7: object.july?.append(date)
+                case 8: if object.august == nil {object.august = []}
+                            object.august?.append(date)
+                case 9: object.september?.append(date)
+                case 10: object.october?.append(date)
+                case 11: object.november?.append(date)
+                case 12: object.december?.append(date)
+                default:
+                    print("error")
+                }
+                saveCoreData()
+                print(object.year)
+            }
+        }
+        }
+    }
+    
+//    func removeDate(date: Date, indexPath: IndexPath) {
+//        let calendar = Calendar(identifier: .gregorian)
+//        let monthCalc = calendar.dateComponents([.month], from: date)
+//        let yearCalc = calendar.dateComponents([.year], from: date)
+//        let year =  Int16(yearCalc.year!)
+//        let month = monthCalc.month
+//
+//        let currentHabit = habitArray[indexPath.row]
+//        for yearObject in currentHabit.years?.allObjects as! [HabitCoreYear] {
+//            if yearObject.year == year {
+//
+//                switch month {
+//                case 1: yearObject.january?.remove(date)
+//                case 2: yearObject.february?.remove(date)
+//                case 3: yearObject.march?.remove(date)
+//                case 4: yearObject.april?.remove(date)
+//                case 5: yearObject.may?.remove(date)
+//                case 6: yearObject.june?.remove(date)
+//                case 7: yearObject.july?.remove(date)
+//                case 8: yearObject.august?.remove(date)
+//                case 9: yearObject.september?.remove(date)
+//                case 10: yearObject.october?.remove(date)
+//                case 11: yearObject.november?.remove(date)
+//                case 12: yearObject.december?.remove(date)
+//                default:
+//                    print("error")
+//                }
+//            }
+//        }
+//    }
+    
     @objc func dateButtonPressed(_ sender: UIButton) {
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
@@ -176,33 +268,44 @@ class HabitVC: UIViewController, SettingsPush {
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
         //change below to a bool func which toggles on or off.
-        
-
-        
+                
         let decodedColor = habitArray[indexPath.row].habitColor?.decode()
         if sender.backgroundColor == .clear {
             sender.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
         sender.backgroundColor = decodedColor?.darker(by: 20)
-            habitArray[indexPath.row].habitDates?.add(selectedDate)
-            print(habitArray[indexPath.row])
-            saveCoreData()
+           
+            addDate(date: selectedDate, indexPath: indexPath)
+        
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
             habitArray[indexPath.row].habitDates?.remove(selectedDate)
-            print(habitArray[indexPath.row])
+           // print(habitArray[indexPath.row])
             saveCoreData()
             
         }
       
     }
     
+    func loadCoreDataYears(with request: NSFetchRequest<HabitCoreYear> = HabitCoreYear.fetchRequest()) {
+        
+        do {
+            let coreDataArray = try context.fetch(request)
+            if coreDataArray.count != 0 {
+                yearArray = coreDataArray
+            }
+        } catch {
+            print("error loading context: \(error)")
+        }
+        tableView.reloadData()
+    }
+    
     func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
         
         do {
-            let array = try context.fetch(request)
-            if array.count != 0 {
-                habitArray = array
+            let coreDataArray = try context.fetch(request)
+            if coreDataArray.count != 0 {
+                habitArray = coreDataArray
             }
         } catch {
             print("error loading context: \(error)")
@@ -218,8 +321,6 @@ class HabitVC: UIViewController, SettingsPush {
         }
         tableView.reloadData()
     }
-
-    
 }
 
 //MARK: - TableViewDelegate, TableViewDataSource

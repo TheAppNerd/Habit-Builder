@@ -22,6 +22,7 @@
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
+		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA62CF0026A699A600FE0A22 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */; };
 		FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */; };
 		FA62CF0626A7CB1100FE0A22 /* VisualsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */; };
@@ -65,6 +66,7 @@
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
+		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
 		FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeCell.swift; sourceTree = "<group>"; };
 		FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualsCell.swift; sourceTree = "<group>"; };
@@ -162,9 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				FA1C73232636406300E63CBE /* HabitVC.swift */,
-				FAF4E713265F43270029E50D /* HelpScreenViewController.swift */,
 				FA1C732B263656BC00E63CBE /* AddHabitVC.swift */,
 				FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */,
+				FAF4E713265F43270029E50D /* HelpScreenViewController.swift */,
 				FAF4E6D7264A47B90029E50D /* MenuView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 				FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */,
@@ -231,6 +233,7 @@
 				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
 				FAF4E715265F445E0029E50D /* PageControl.swift */,
 				FAF4E717265F456E0029E50D /* ScrollView.swift */,
+				FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
+				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FAEE7A1E269405F60064D06E /* ChartCell.swift in Sources */,

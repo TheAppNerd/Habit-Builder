@@ -69,14 +69,14 @@ class AddHabitVC: UIViewController {
         deleteView.isHidden = true
         
         colorButtons[cellTag].sendActions(for: .touchUpInside) //fix this bug to reset back to color 1 when max colors reached.
-        loadPage()
+        
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
-        loadPage()
+        //loadPage()
         configure()
         configureBarButtons()
         configureNameView()
@@ -88,7 +88,6 @@ class AddHabitVC: UIViewController {
         habitNameTextField.delegate = self
         notesTextField.delegate = self
         dimissKeyboard()
-        setYearArray()
         print("celltag \(cellTag)")
     }
     
@@ -521,11 +520,8 @@ class AddHabitVC: UIViewController {
         return year
     }
     
-    func setYearArray() {
-       habitData.year[getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
-       habitData.year[getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
-    }
     
+
     @objc func saveHabit() {
         
         if habitNameTextField.text == "" {
@@ -533,8 +529,7 @@ class AddHabitVC: UIViewController {
             habitNameTextField.layer.borderColor = UIColor.systemRed.cgColor
         }
         
-     
-        
+
         if habitNameTextField.text != "" {
             habitNameTextField.layer.borderWidth = 0
             
@@ -543,7 +538,17 @@ class AddHabitVC: UIViewController {
             newHabit.habitColor = colorData
             newHabit.habitName = habitNameTextField.text
             newHabit.frequency = Int16(frequencyCounter)
-            newHabit.habitDates = []
+            
+            let newYear = HabitCoreYear(context: self.context)
+            newYear.year = Int16(getYear())
+            newYear.parentYears = newHabit
+            newHabit.addToYears(newYear)
+            
+            let newYear2 = HabitCoreYear(context: self.context)
+            newYear2.year = Int16(getYear()-1)
+            newYear.parentYears = newHabit
+            newHabit.addToYears(newYear2)
+            
             if habitArray.count > cellTag {
                 habitArray[cellTag] = newHabit
             } else {
@@ -552,7 +557,6 @@ class AddHabitVC: UIViewController {
             saveCoreData()
             
             
-            setYearArray()
             
             habitData.reminderHour = hour
             habitData.reminderMinute = minute
