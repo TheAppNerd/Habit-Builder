@@ -14,6 +14,8 @@ class HabitDetailsVC: UIViewController {
     var habitArray = [HabitCoreData]()
     var yearArray = [HabitCoreYear]()
     
+    var habitCoreData: HabitCoreData?
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var decodedColor: UIColor?
 
@@ -33,15 +35,12 @@ class HabitDetailsVC: UIViewController {
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let habitCountView = HabitCountView()
    
-   
 
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.calendarView.setDisplayDate(Date())
-        loadCoreData()
+       loadYearsData()
         updateDates()
-        addNewYear()
     }
     
     override func viewDidLoad() {
@@ -51,9 +50,9 @@ class HabitDetailsVC: UIViewController {
         configureBarButtons()
         configureCalendarView()
         configureStreakView()
-        addNewYear()
+        //addNewYear()
         self.tabBarController?.tabBar.isHidden = true // is this needed?
-        title = HabitArray.array[cellTag].habitName
+        title = habitCoreData?.habitName
         setupCalendarArea()
        
     }
@@ -63,22 +62,27 @@ class HabitDetailsVC: UIViewController {
     setupCollectionArea()
     }
     
-    
-    private func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
+    func loadYearsData() {
+        let yearSet = habitCoreData!.years as! Set<HabitCoreYear>
+        yearArray = yearSet.sorted(by: { $0.year < $1.year})
         
-        do {
-            let array = try context.fetch(request)
-            if array.count != 0 {
-                habitArray = array
-                let yearSet = habitArray[cellTag].years as! Set<HabitCoreYear>
-                yearArray = yearSet.sorted(by: { $0.year < $1.year})
-                    
-            }
-        } catch {
-            print("error loading context: \(error)")
-        }
-        decodedColor = habitArray[cellTag].habitColor?.decode()
     }
+    
+//    private func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
+//
+//        do {
+//            let array = try context.fetch(request)
+//            if array.count != 0 {
+//                habitArray = array
+//                let yearSet = habitCoreData!.years as! Set<HabitCoreYear>
+//                yearArray = yearSet.sorted(by: { $0.year < $1.year})
+//
+//            }
+//        } catch {
+//            print("error loading context: \(error)")
+//        }
+//        decodedColor = habitArray[cellTag].habitColor?.decode()
+//    }
     
     private func saveCoreData() {
         do {
@@ -87,23 +91,11 @@ class HabitDetailsVC: UIViewController {
             print("error saving context: \(error)")
         }
     }
-    
-
-    func getTotalDays() -> Int {
-        var totalAmount = 0
-//        for year in yearSet {
-//            let value = year.monthCount as! Array<Int>
-//            let total = value.reduce(0, +)
-//            totalAmount += total
-//        }
-        print("\(totalAmount) testing")
-        return totalAmount
-    }
-    
+        
     func configureStreakView() {
         let streakImage = UIImageView(image: UIImage(systemName: "flame.fill"))
         streakImage.translatesAutoresizingMaskIntoConstraints = false
-        streakLabel.text = "Total Days Completed: \(getTotalDays())"
+        streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count)"
         streakLabel.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.textAlignment = .left
         
@@ -136,32 +128,28 @@ class HabitDetailsVC: UIViewController {
     }
     
     func updateDates() {
-        //ensures that index doesnt = nil before calling dates
-        if cellTag <= habitArray.count - 1 {
-            for date in habitArray[cellTag].habitDates! {
-                calendarView.selectDate(date as! Date)
+        for date in habitCoreData!.habitDates! {
+            calendarView.selectDate(date)
         }
     }
-    }
     
-
-    func getDayOfWeek(date: Date) -> Int {
-        let myCalendar = Calendar(identifier: .gregorian)
-        let today = myCalendar.startOfDay(for: date)
-        let weekDay = myCalendar.component(.weekday, from: today)
-        
-        
-        return weekDay
-    }
+//delete?
+//    func getDayOfWeek(date: Date) -> Int {
+//        let myCalendar = Calendar(identifier: .gregorian)
+//        let today = myCalendar.startOfDay(for: date)
+//        let weekDay = myCalendar.component(.weekday, from: today)
+//        return weekDay
+//    }
     
     func presentAlertToAddHabit(date: Date) {
-        let day = getDayOfWeek(date: date)
+       // let day = getDayOfWeek(date: date)
         
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
-            self.habitArray[self.cellTag].habitDates?.add(date)
-            self.saveCoreData()
+            //replace the 2 lines below with a func to add it to correct year and month, as well as the date set. and then save data
+           // self.habitArray[self.cellTag].habitDates?.add(date)
+//            self.saveCoreData()
             self.viewDidLoadlayout()
             
         }))

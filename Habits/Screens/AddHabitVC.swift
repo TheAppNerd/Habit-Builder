@@ -76,7 +76,7 @@ class AddHabitVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
-        //loadPage()
+        loadPage()
         configure()
         configureBarButtons()
         configureNameView()
@@ -89,6 +89,7 @@ class AddHabitVC: UIViewController {
         notesTextField.delegate = self
         dimissKeyboard()
         print("celltag \(cellTag)")
+        print("habitarry \(habitArray.count)")
     }
     
     override func viewDidLayoutSubviews() {
@@ -129,7 +130,7 @@ class AddHabitVC: UIViewController {
     }
     
     func loadPage() {
-        if habitArray.count != 0 {
+        if cellTag < habitArray.count {
         habitNameTextField.text = habitArray[cellTag].habitName
         frequencyCount.text = String(habitArray[cellTag].frequency)
         
@@ -538,6 +539,7 @@ class AddHabitVC: UIViewController {
             newHabit.habitColor = colorData
             newHabit.habitName = habitNameTextField.text
             newHabit.frequency = Int16(frequencyCounter)
+            
             
             let newYear = HabitCoreYear(context: self.context)
             newYear.year = Int16(getYear())
