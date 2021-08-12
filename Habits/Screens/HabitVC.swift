@@ -205,7 +205,6 @@ class HabitVC: UIViewController, SettingsPush {
         for object in yearArray {
             if object.parentYears?.id == id {
             if object.year == year {
-                
                 switch month {
                 case 1: if object.january == nil {object.january = []}
                            object.january?.append(date)

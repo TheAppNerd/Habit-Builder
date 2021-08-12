@@ -11,9 +11,7 @@ import CoreData
 
 class HabitDetailsVC: UIViewController {
 
-    var habitArray = [HabitCoreData]()
     var yearArray = [HabitCoreYear]()
-    
     var habitCoreData: HabitCoreData?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -41,6 +39,7 @@ class HabitDetailsVC: UIViewController {
         self.calendarView.setDisplayDate(Date())
        loadYearsData()
         updateDates()
+     
     }
     
     override func viewDidLoad() {
@@ -68,21 +67,6 @@ class HabitDetailsVC: UIViewController {
         
     }
     
-//    private func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
-//
-//        do {
-//            let array = try context.fetch(request)
-//            if array.count != 0 {
-//                habitArray = array
-//                let yearSet = habitCoreData!.years as! Set<HabitCoreYear>
-//                yearArray = yearSet.sorted(by: { $0.year < $1.year})
-//
-//            }
-//        } catch {
-//            print("error loading context: \(error)")
-//        }
-//        decodedColor = habitArray[cellTag].habitColor?.decode()
-//    }
     
     private func saveCoreData() {
         do {
@@ -369,38 +353,16 @@ class HabitDetailsVC: UIViewController {
     }
     
     
-    func updateChart(habitView: HabitCountView) {
-        //had to create a seperate array to insert dates into only if they hadnt already been added. stopped dates being counted twice.
-        let calendar = Calendar(identifier: .gregorian)
-        for date in habitArray[cellTag].habitDates! {
-
-            let monthCalc = calendar.dateComponents([.month], from: date as! Date)
-            let yearCalc = calendar.dateComponents([.year], from: date as! Date)
-            let year = yearCalc.year!
-            let month = monthCalc.month! - 1
-            
-            
-            //this code loops through all saved dates and assigns them to dict by going through year and then month and adding 1 to the count
-//            HabitArray.array[cellTag].year[year]![month] += 1
-//                HabitArray.array[cellTag].chartDates.append(date as! Date)
+//    func updateChart(habitView: HabitCountView) {
+//        let year: Int
+//        let monthArray: Int = []
 //
-            
-//            for item in yearArray {
-//                if item.year == year {
-//                    item.monthCount?[month] += Int16(1)
-//                    item.attrib
-//                }
-//            }
-        
-            }
-        
-
-        habitView.color = decodedColor
-        habitView.configureStackView()
-        
-        streakLabel.text = "Total Days Completed: \(getTotalDays())"
-        
-}
+//        habitView.color = decodedColor
+//        habitView.configureStackView()
+//
+//        streakLabel.text = "Total Days Completed: \(getTotalDays())"
+//
+//}
     
     
     func getYear() -> Int { //this is used several times. move to one location for all views.
@@ -521,10 +483,12 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCell.reuseID, for: indexPath) as! ChartCell
-    
-        cell.habitView.year = Int(yearArray[indexPath.row].year)
-        cell.habitView.monthCount = yearArray[indexPath.row].monthCount as! [Int]
-        updateChart(habitView: cell.habitView)
+        
+        let year = yearArray[indexPath.row]
+        cell.habitView.color = decodedColor
+        cell.habitView.year = Int(year.year)
+        cell.habitView.monthCount = [year.january!.count, year.february!.count, year.march!.count, year.april!.count, year.may!.count, year.june!.count, year.july!.count, year.august!.count, year.september!.count, year.october!.count, year.november!.count, year.december!.count]
+        cell.habitView.configureStackView()
         cell.habitView.backgroundColor = .tertiarySystemBackground
         return cell
         
