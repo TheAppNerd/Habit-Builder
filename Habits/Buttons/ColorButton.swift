@@ -21,6 +21,7 @@ class ColorButton: UIButton {
     convenience init(backgroundColor: UIColor) {
         self.init(frame: .zero)
         self.backgroundColor = backgroundColor
+        
     }
     
     private func configure() {
