@@ -21,6 +21,7 @@ static let reuseID = "HabitCell"
     let frequencyLabel = BodyLabel()
     let labelStackView = UIStackView()
     let buttonStackView = UIStackView()
+    var gradientColors = [CGColor]()
     
     let dayButton: [DayButton] = [ DayButton(),
                                    DayButton(),
@@ -30,6 +31,8 @@ static let reuseID = "HabitCell"
                                    DayButton(),
                                    DayButton()
     ]
+    var gradientLayer: CAGradientLayer = CAGradientLayer()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,14 +41,23 @@ static let reuseID = "HabitCell"
         getDay()
         configureLabelStackView()
         configureButtonStackView()
-       
+    
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
             for button in dayButton {
                 button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
+        gradientLayer.frame = cellView.bounds
+        gradientLayer.cornerRadius = cellView.layer.cornerRadius
+        gradientLayer.colors = gradientColors
+        cellView.layer.insertSublayer(gradientLayer, at: 0)
+        
     }
+    
+    
+    
     
     
     required init?(coder: NSCoder) {

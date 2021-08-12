@@ -49,7 +49,8 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableView()
         configureTableViewFooter()
         tableView.reloadData()
-       
+        
+   
     }
     
     func configureViewController() {
@@ -385,9 +386,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             }
             buttonCount += 1
         }
-        print(habitArray[indexPath.row].habitDates)
         
+        let gradientArray = [Gradients().blueGradient, Gradients().greenGradient, Gradients().orangeGradient, Gradients().pinkGradient,Gradients().purpleGradient]
         
+
+        cell.gradientColors = gradientArray[indexPath.row]
+        
+      
         
 //        if dataIndex.alarmBool == true {
 //            cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
@@ -401,8 +406,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.frequencyLabel.text = "\(dataIndex.frequency) days a week"
         }
-        
-        cell.cellView.backgroundColor = decodedColor
+        //cell.cellView.backgroundColor = decodedColor
         // Way to determine if target met. need to find a way to ensure it only occurrs once.
 //        var truth = 0
 //        for bool in HabitArray.array[indexPath.row].dayBool! {

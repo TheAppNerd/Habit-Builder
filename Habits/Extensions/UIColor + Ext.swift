@@ -7,7 +7,11 @@
 
 import UIKit
 
+
+
 extension UIColor {
+    
+   
 
         func lighter(by percentage: CGFloat = 30.0) -> UIColor? {
             return self.adjust(by: abs(percentage) )
@@ -33,8 +37,6 @@ extension UIColor {
     func encode() -> Data? {
         return try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
     }
-    
-  
     
     
     }

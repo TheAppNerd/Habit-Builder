@@ -49,14 +49,12 @@ class AddHabitVC: UIViewController {
     //create singular items for all of these. single text field, simple buttons, etc
     var habitColor: UIColor = .systemGreen
 
-    let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemPurple),
-                                       ColorButton(backgroundColor: .systemBlue),
-                                       ColorButton(backgroundColor: .systemRed),
-                                       ColorButton(backgroundColor: .systemGreen),
-                                       ColorButton(backgroundColor: .brown),
-                                       ColorButton(backgroundColor: .systemTeal),
+    let colorButtons: [ColorButton] = [ColorButton(backgroundColor: .systemBlue),
                                        ColorButton(backgroundColor: .systemOrange),
-                                       ColorButton(backgroundColor: .systemIndigo)
+                                       ColorButton(backgroundColor: .systemPink),
+                                       ColorButton(backgroundColor: .systemGreen),
+                                       ColorButton(backgroundColor: .systemPurple),
+                                       
                                        
     ]
   
@@ -94,6 +92,7 @@ class AddHabitVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+       
         for button in colorButtons {
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
@@ -138,6 +137,7 @@ class AddHabitVC: UIViewController {
         for button in colorButtons {
             if button.backgroundColor == decodedColor {
                 button.sendActions(for: .touchUpInside)
+
             }
         }
         }
@@ -241,8 +241,9 @@ class AddHabitVC: UIViewController {
         let positiveButton = UIButton()
         negativeButton.setImage(UIImage(systemName: "minus"), for: .normal)
         positiveButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        negativeButton.backgroundColor = .systemBlue
-        positiveButton.backgroundColor = .systemBlue
+//        negativeButton.backgroundColor = .systemBlue
+//        positiveButton.backgroundColor = .systemBlue
+        
         positiveButton.layer.cornerRadius = 10
         negativeButton.layer.cornerRadius = 10
         frequencyCount.layer.cornerRadius = 10
