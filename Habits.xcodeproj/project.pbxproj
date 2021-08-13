@@ -23,6 +23,13 @@
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
 		FA360BED26C4C86300884B90 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEC26C4C86300884B90 /* Gradients.swift */; };
+		FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEE26C603F400884B90 /* NewHabitVC.swift */; };
+		FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF126C605C300884B90 /* HabitNameCell.swift */; };
+		FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */; };
+		FA360BF626C6120100884B90 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF526C6120100884B90 /* IconCell.swift */; };
+		FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF726C6151600884B90 /* ReminderCell.swift */; };
+		FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* ColorCell.swift */; };
+		FA360BFC26C62E5A00884B90 /* DeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BFB26C62E5A00884B90 /* DeleteCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA62CF0026A699A600FE0A22 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */; };
 		FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */; };
@@ -68,6 +75,13 @@
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 		FA360BEC26C4C86300884B90 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
+		FA360BEE26C603F400884B90 /* NewHabitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitVC.swift; sourceTree = "<group>"; };
+		FA360BF126C605C300884B90 /* HabitNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitNameCell.swift; sourceTree = "<group>"; };
+		FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFrequencyCell.swift; sourceTree = "<group>"; };
+		FA360BF526C6120100884B90 /* IconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
+		FA360BF726C6151600884B90 /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
+		FA360BF926C62C6A00884B90 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		FA360BFB26C62E5A00884B90 /* DeleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCell.swift; sourceTree = "<group>"; };
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
 		FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeCell.swift; sourceTree = "<group>"; };
@@ -151,6 +165,7 @@
 				FA1C733626379DC900E63CBE /* Buttons */,
 				FA1C732E263659D100E63CBE /* Labels */,
 				FA1C7327263648F400E63CBE /* Cells */,
+				FA360BF026C6058500884B90 /* NewHabitCells */,
 				FA1C73222636404500E63CBE /* Screens */,
 				FA1C7305263636D800E63CBE /* AppDelegate.swift */,
 				FAACA40326B4160B00B85A74 /* HabitCoreData.xcdatamodeld */,
@@ -173,6 +188,7 @@
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 				FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */,
 				FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */,
+				FA360BEE26C603F400884B90 /* NewHabitVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -239,6 +255,19 @@
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FA360BF026C6058500884B90 /* NewHabitCells */ = {
+			isa = PBXGroup;
+			children = (
+				FA360BF126C605C300884B90 /* HabitNameCell.swift */,
+				FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */,
+				FA360BF926C62C6A00884B90 /* ColorCell.swift */,
+				FA360BF526C6120100884B90 /* IconCell.swift */,
+				FA360BF726C6151600884B90 /* ReminderCell.swift */,
+				FA360BFB26C62E5A00884B90 /* DeleteCell.swift */,
+			);
+			path = NewHabitCells;
 			sourceTree = "<group>";
 		};
 		FAF4E6D0264A309E0029E50D /* Extensions */ = {
@@ -366,7 +395,9 @@
 				FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
+				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
+				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
@@ -378,6 +409,7 @@
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
 				FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */,
 				FA1C730A263636D800E63CBE /* ViewController.swift in Sources */,
+				FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */,
 				FAF4E72126689C750029E50D /* HabitCountView.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
 				FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */,
@@ -386,17 +418,21 @@
 				FA62CF0026A699A600FE0A22 /* SettingsTableViewController.swift in Sources */,
 				FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
+				FA360BFC26C62E5A00884B90 /* DeleteCell.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */,
 				FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */,
+				FA360BF626C6120100884B90 /* IconCell.swift in Sources */,
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA1C732C263656BC00E63CBE /* AddHabitVC.swift in Sources */,
+				FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */,
 				FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */,
 				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
 				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
 				FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */,
+				FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */,
 				FAF4E6E8265616190029E50D /* DividerView.swift in Sources */,
 				FAA5915826A9923F0084C0D9 /* UIColor + Ext.swift in Sources */,
 				FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */,

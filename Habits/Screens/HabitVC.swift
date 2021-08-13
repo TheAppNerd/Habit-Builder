@@ -49,7 +49,6 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableView()
         configureTableViewFooter()
         tableView.reloadData()
-        
    
     }
     
@@ -203,6 +202,7 @@ class HabitVC: UIViewController, SettingsPush {
 
         let id = habitArray[indexPath.row].id
             
+       
         for object in yearArray {
             if object.parentYears?.id == id {
             if object.year == year {
@@ -234,9 +234,7 @@ class HabitVC: UIViewController, SettingsPush {
                 default:
                     print("error")
                 }
-//                if object.parentYears!.chartDates == nil {
-//                    object.parentYears!.chartDates = []
-//                }
+       
                 if !object.parentYears!.habitDates!.contains(date) {
                     object.parentYears?.habitDates!.append(date)
 
@@ -368,6 +366,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         var buttonCount = 0
         let dataIndex = habitArray[indexPath.row]
+        print(dataIndex.habitDates)
         let decodedColor = dataIndex.habitColor?.decode()
         cell.habitName.text = dataIndex.habitName
         for button in cell.dayButton {

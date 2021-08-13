@@ -22,6 +22,7 @@ static let reuseID = "HabitCell"
     let labelStackView = UIStackView()
     let buttonStackView = UIStackView()
     var gradientColors = [CGColor]()
+    let iconImage = UIImageView()
     
     let dayButton: [DayButton] = [ DayButton(),
                                    DayButton(),
@@ -50,6 +51,8 @@ static let reuseID = "HabitCell"
                 button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
         gradientLayer.frame = cellView.bounds
+        gradientLayer.startPoint = CGPoint(x: 1, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         gradientLayer.cornerRadius = cellView.layer.cornerRadius
         gradientLayer.colors = gradientColors
         cellView.layer.insertSublayer(gradientLayer, at: 0)
@@ -164,12 +167,19 @@ static let reuseID = "HabitCell"
     }
     private func configure() {
         contentView.isUserInteractionEnabled = true
+        addSubview(iconImage)
         addSubview(cellView)
         addSubview(habitName)
         addSubview(labelStackView)
         addSubview(buttonStackView)
         addSubview(alarmButton)
         addSubview(frequencyLabel)
+        
+        iconImage.translatesAutoresizingMaskIntoConstraints = false
+        iconImage.image = UIImage(named: "settingImage")
+        iconImage.tintColor = .white
+        frequencyLabel.textColor = .white
+      
         
         cellView.layer.cornerRadius = 10
         alarmButton.tintColor = .white
@@ -189,19 +199,25 @@ static let reuseID = "HabitCell"
             cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             cellView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
 
+            iconImage.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
+            iconImage.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
+            iconImage.trailingAnchor.constraint(equalTo: habitName.leadingAnchor, constant: -10),
+            iconImage.heightAnchor.constraint(equalToConstant: padding * 1.5),
+            iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor),
+            
             habitName.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
-            habitName.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
+            habitName.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor, constant: padding),
             habitName.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -cellView.frame.width / 3),
-            habitName.heightAnchor.constraint(equalToConstant: padding),
+            habitName.heightAnchor.constraint(equalToConstant: padding * 1.5),
             
             frequencyLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             frequencyLabel.trailingAnchor.constraint(equalTo: alarmButton.leadingAnchor, constant: -10),
-            frequencyLabel.heightAnchor.constraint(equalToConstant: padding),
+            frequencyLabel.heightAnchor.constraint(equalToConstant: padding * 1.5),
 
             alarmButton.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             alarmButton.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
-            alarmButton.heightAnchor.constraint(equalToConstant: padding),
-            alarmButton.widthAnchor.constraint(equalToConstant: padding),
+            alarmButton.heightAnchor.constraint(equalToConstant: padding * 1.5),
+            alarmButton.widthAnchor.constraint(equalToConstant: padding * 1.5),
           
 
             labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
