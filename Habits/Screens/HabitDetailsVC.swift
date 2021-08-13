@@ -79,7 +79,7 @@ class HabitDetailsVC: UIViewController {
     func configureStreakView() {
         let streakImage = UIImageView(image: UIImage(systemName: "flame.fill"))
         streakImage.translatesAutoresizingMaskIntoConstraints = false
-        streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count)"
+        streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
         streakLabel.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.textAlignment = .left
         
@@ -117,13 +117,64 @@ class HabitDetailsVC: UIViewController {
         }
     }
     
-//delete?
-//    func getDayOfWeek(date: Date) -> Int {
-//        let myCalendar = Calendar(identifier: .gregorian)
-//        let today = myCalendar.startOfDay(for: date)
-//        let weekDay = myCalendar.component(.weekday, from: today)
-//        return weekDay
-//    }
+    
+    func addDate(date: Date) {
+        let calendar = Calendar(identifier: .gregorian)
+        let monthCalc = calendar.dateComponents([.month], from: date)
+        let yearCalc = calendar.dateComponents([.year], from: date)
+        let year =  Int16(yearCalc.year!)
+        let month = monthCalc.month
+        habitCoreData?.habitDates?.append(date)
+        for item in yearArray {
+            if item.year == year {
+                switch month {
+                case 1: item.january?.append(date)
+                case 2: item.february?.append(date)
+                case 3: item.march?.append(date)
+                case 4: item.april?.append(date)
+                case 5: item.may?.append(date)
+                case 6: item.june?.append(date)
+                case 7: item.july?.append(date)
+                case 8: item.august?.append(date)
+                case 9: item.september?.append(date)
+                case 10: item.october?.append(date)
+                case 11: item.november?.append(date)
+                case 12: item.december?.append(date)
+                default:
+                    print("error")
+                }
+            }
+        }
+    }
+    
+    func removeDate(date: Date) {
+        let calendar = Calendar(identifier: .gregorian)
+        let monthCalc = calendar.dateComponents([.month], from: date)
+        let yearCalc = calendar.dateComponents([.year], from: date)
+        let year =  Int16(yearCalc.year!)
+        let month = monthCalc.month
+        habitCoreData?.habitDates = habitCoreData?.habitDates?.filter {$0 != date}
+        for item in yearArray {
+            if item.year == year {
+                switch month {
+                case 1: item.january = item.january!.filter {$0 != date }
+                case 2: item.february = item.february!.filter {$0 != date }
+                case 3: item.march = item.march!.filter {$0 != date }
+                case 4: item.april = item.april!.filter {$0 != date }
+                case 5: item.may = item.may!.filter {$0 != date }
+                case 6: item.june = item.june!.filter {$0 != date }
+                case 7: item.july = item.july!.filter {$0 != date }
+                case 8: item.august = item.august!.filter {$0 != date }
+                case 9: item.september = item.september!.filter {$0 != date }
+                case 10: item.october = item.october!.filter {$0 != date }
+                case 11: item.november = item.november!.filter {$0 != date }
+                case 12: item.december = item.december!.filter {$0 != date }
+                default:
+                    print("error")
+                }
+            }
+        }
+    }
     
     func presentAlertToAddHabit(date: Date) {
        // let day = getDayOfWeek(date: date)
@@ -131,9 +182,8 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.selectDate(date)
-            //replace the 2 lines below with a func to add it to correct year and month, as well as the date set. and then save data
-           // self.habitArray[self.cellTag].habitDates?.add(date)
-//            self.saveCoreData()
+            self.addDate(date: date)
+            self.saveCoreData()
             self.viewDidLoadlayout()
             
         }))
@@ -147,7 +197,7 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.calendarView.deselectDate(date)
-            self.removeDate(date)
+            self.removeDate(date: date)
             self.viewDidLoadlayout()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
@@ -333,36 +383,12 @@ class HabitDetailsVC: UIViewController {
     }
     
     @objc func editHabit() {
-        HabitArray.habitCreated = true
         let addHabitVC = AddHabitVC()
         addHabitVC.cellTag = cellTag
-       
         navigationController?.pushViewController(addHabitVC, animated: true)
     }
     
-    func removeDate(_ date: Date) { // core data here
-        let calendar = Calendar(identifier: .gregorian)
-        let monthCalc = calendar.dateComponents([.month], from: date)
-        let yearCalc = calendar.dateComponents([.year], from: date)
-        let year = yearCalc.year!
-        let month = monthCalc.month! - 1
-       
-        HabitArray.array[cellTag].year[year]![month] -= 1
-        HabitArray.array[self.cellTag].habitDates.remove(date)
-        HabitArray.array[self.cellTag].chartDates = HabitArray.array[self.cellTag].chartDates.filter{$0 != date}
-    }
     
-    
-//    func updateChart(habitView: HabitCountView) {
-//        let year: Int
-//        let monthArray: Int = []
-//
-//        habitView.color = decodedColor
-//        habitView.configureStackView()
-//
-//        streakLabel.text = "Total Days Completed: \(getTotalDays())"
-//
-//}
     
     
     func getYear() -> Int { //this is used several times. move to one location for all views.

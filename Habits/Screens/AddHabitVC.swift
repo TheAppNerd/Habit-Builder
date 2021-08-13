@@ -14,17 +14,15 @@ class AddHabitVC: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
-    
     var habitData = HabitData()
     var cellTag = Int()
-    
     
     let nameView = DividerView()
     let frequencyView = DividerView()
     let reminderView = DividerView()
     let reminderDayView = DividerView()
     let colorView = DividerView()
+    let iconView = DividerView()
     let deleteView = DividerView()
     let frequencyCount = BodyLabel(textInput: "1", textAlignment: .center, fontSize: 16)
     var frequencyCounter = 1
@@ -86,8 +84,7 @@ class AddHabitVC: UIViewController {
         habitNameTextField.delegate = self
         notesTextField.delegate = self
         dimissKeyboard()
-        print("celltag \(cellTag)")
-        print("habitarry \(habitArray.count)")
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -140,31 +137,23 @@ class AddHabitVC: UIViewController {
 
             }
         }
-        }
-        if HabitArray.habitCreated == true {
             deleteView.isHidden = false
             deleteButton.isHidden = false
-//            colorButtons[HabitArray.array[cellTag].colorTag!].sendActions(for: .touchUpInside)
-                
-            
-                
-            
-            
-            if HabitArray.array[cellTag].alarmBool == true {
-                dateSwitch.isOn = true
-                bellImage.image = UIImage(systemName: "bell.fill")
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "HH:mm"
-                hour = HabitArray.array[cellTag].reminderHour!
-                minute = HabitArray.array[cellTag].reminderMinute!
-                if let time = dateFormatter.date(from: "\(hour):\(minute)") {
-                datePicker.date = time
-            }
-            }
-            
-
         }
-    }
+
+//
+//            if HabitArray.array[cellTag].alarmBool == true {
+//                dateSwitch.isOn = true
+//                bellImage.image = UIImage(systemName: "bell.fill")
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "HH:mm"
+//                hour = HabitArray.array[cellTag].reminderHour!
+//                minute = HabitArray.array[cellTag].reminderMinute!
+//                if let time = dateFormatter.date(from: "\(hour):\(minute)") {
+//                datePicker.date = time
+            }
+            
+            
 
     
     
@@ -178,15 +167,23 @@ class AddHabitVC: UIViewController {
             NSLayoutConstraint.activate([
                 subview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
                 subview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-                subview.heightAnchor.constraint(equalToConstant: view.frame.height / 16)
+                subview.heightAnchor.constraint(equalToConstant: view.frame.height / 18)
             ])}
+        
+        view.addSubview(iconView)
+        iconView.backgroundColor = .red
         
         NSLayoutConstraint.activate([
             nameView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
         
             frequencyView.topAnchor.constraint(equalTo: nameView.bottomAnchor, constant: padding),
         
-            reminderView.topAnchor.constraint(equalTo: frequencyView.bottomAnchor, constant: padding),
+            iconView.topAnchor.constraint(equalTo: frequencyView.bottomAnchor, constant: padding),
+            iconView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            iconView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            iconView.heightAnchor.constraint(equalToConstant: view.frame.height / 6),
+            
+            reminderView.topAnchor.constraint(equalTo: iconView.bottomAnchor, constant: padding),
           
             reminderDayView.topAnchor.constraint(equalTo: reminderView.bottomAnchor, constant: padding),
             
@@ -286,6 +283,10 @@ class AddHabitVC: UIViewController {
         ])
     }
     
+    
+    func configureIconView() {
+        
+    }
     
     func configureReminderView() {
         let reminderLabel = BodyLabel(textInput: "Reminder", textAlignment: .left, fontSize: 16)
