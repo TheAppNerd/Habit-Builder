@@ -40,6 +40,8 @@ class HabitFrequencyCell: UITableViewCell {
         frequencyLabel.textAlignment = .center
         negativeButton.backgroundColor = .systemBlue
         positiveButton.backgroundColor = .systemBlue
+        negativeButton.layer.cornerRadius = 10
+        positiveButton.layer.cornerRadius = 10
         
         
         contentView.addSubviews(timesAWeekLabel, negativeButton, positiveButton, frequencyLabel)
@@ -50,21 +52,22 @@ class HabitFrequencyCell: UITableViewCell {
             timesAWeekLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             timesAWeekLabel.trailingAnchor.constraint(equalTo: negativeButton.leadingAnchor, constant: padding),
             timesAWeekLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
+            timesAWeekLabel.heightAnchor.constraint(equalToConstant: 40),
          
            
             negativeButton.leadingAnchor.constraint(equalTo: timesAWeekLabel.trailingAnchor, constant: padding),
             negativeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            negativeButton.trailingAnchor.constraint(equalTo: frequencyLabel.leadingAnchor, constant: -padding),
+            negativeButton.trailingAnchor.constraint(equalTo: frequencyLabel.leadingAnchor),
             negativeButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             negativeButton.widthAnchor.constraint(equalTo: negativeButton.heightAnchor),
             
-            frequencyLabel.leadingAnchor.constraint(equalTo: negativeButton.trailingAnchor, constant: padding),
+            frequencyLabel.leadingAnchor.constraint(equalTo: negativeButton.trailingAnchor),
             frequencyLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            frequencyLabel.trailingAnchor.constraint(equalTo: positiveButton.leadingAnchor, constant: -padding),
+            frequencyLabel.trailingAnchor.constraint(equalTo: positiveButton.leadingAnchor),
             frequencyLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             frequencyLabel.widthAnchor.constraint(equalTo: frequencyLabel.heightAnchor),
             
-            positiveButton.leadingAnchor.constraint(equalTo: frequencyLabel.trailingAnchor, constant: padding),
+            positiveButton.leadingAnchor.constraint(equalTo: frequencyLabel.trailingAnchor),
             positiveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             positiveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             positiveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),

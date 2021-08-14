@@ -15,7 +15,6 @@ class NewHabitVC: UITableViewController {
         configure()
     }
 
-    
     func registerCells() {
         tableView.register(HabitNameCell.self, forCellReuseIdentifier: HabitNameCell.reuseID)
         tableView.register(HabitFrequencyCell.self, forCellReuseIdentifier: HabitFrequencyCell.reuseID)
@@ -26,9 +25,7 @@ class NewHabitVC: UITableViewController {
     }
     
     private func configure() {
-       
-//        tableView.estimatedRowHeight = 60
-//        tableView.rowHeight = UITableView.automaticDimension
+        tableView.allowsSelection = false
         title = "Add Habit"
         tableView.separatorStyle = .none
     }
@@ -54,10 +51,6 @@ class NewHabitVC: UITableViewController {
             return ""
         }
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
   
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //use enums
@@ -69,9 +62,11 @@ class NewHabitVC: UITableViewController {
             return cell
             
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
+            
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
+            print(cell.paths)
             return cell
             
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: ReminderCell.reuseID, for: indexPath) as! ReminderCell
@@ -84,5 +79,4 @@ class NewHabitVC: UITableViewController {
                 return cell
         }
     }
-    
 }
