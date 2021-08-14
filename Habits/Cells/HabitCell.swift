@@ -32,7 +32,7 @@ static let reuseID = "HabitCell"
                                    DayButton(),
                                    DayButton()
     ]
-    var gradientLayer: CAGradientLayer = CAGradientLayer()
+    
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -42,7 +42,7 @@ static let reuseID = "HabitCell"
         getDay()
         configureLabelStackView()
         configureButtonStackView()
-    
+   
     }
     
     override func layoutSubviews() {
@@ -50,15 +50,18 @@ static let reuseID = "HabitCell"
             for button in dayButton {
                 button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
+       layoutGradient()
+    }
+    
+    func layoutGradient() {
+        let gradientLayer: CAGradientLayer = CAGradientLayer()
         gradientLayer.frame = cellView.bounds
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         gradientLayer.cornerRadius = cellView.layer.cornerRadius
         gradientLayer.colors = gradientColors
         cellView.layer.insertSublayer(gradientLayer, at: 0)
-        
     }
-    
     
     
     

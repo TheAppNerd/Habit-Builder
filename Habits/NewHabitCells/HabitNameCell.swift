@@ -34,7 +34,8 @@ class HabitNameCell: UITableViewCell {
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            nameTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
+            nameTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
+            nameTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     

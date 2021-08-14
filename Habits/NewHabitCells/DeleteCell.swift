@@ -26,16 +26,19 @@ static let reuseID = "DeleteCell"
         deleteLabel.translatesAutoresizingMaskIntoConstraints = false
         deleteLabel.text = "Delete Habit"
         deleteLabel.textAlignment = .center
-        
-        contentView.backgroundColor = .red
+        deleteLabel.layer.masksToBounds = true
+        deleteLabel.layer.cornerRadius = 10
+        deleteLabel.backgroundColor = .red
         contentView.addSubview(deleteLabel)
         
+        let padding: CGFloat = 10
+        
         NSLayoutConstraint.activate([
-            deleteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            deleteLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            deleteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            deleteLabel.bottomAnchor.constraint(equalTo: deleteLabel.bottomAnchor),
-            deleteLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            deleteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            deleteLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            deleteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            deleteLabel.bottomAnchor.constraint(equalTo: deleteLabel.bottomAnchor, constant: -padding),
+            deleteLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }
