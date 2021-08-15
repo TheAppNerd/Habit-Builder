@@ -11,7 +11,7 @@ class DeleteCell: UITableViewCell {
 
 static let reuseID = "DeleteCell"
     
-    let deleteLabel = UILabel()
+    let deleteButton = GradientButton(colors: Gradients().redGradient)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,22 +23,19 @@ static let reuseID = "DeleteCell"
     }
     
     private func configure() {
-        deleteLabel.translatesAutoresizingMaskIntoConstraints = false
-        deleteLabel.text = "Delete Habit"
-        deleteLabel.textAlignment = .center
-        deleteLabel.layer.masksToBounds = true
-        deleteLabel.layer.cornerRadius = 10
-        deleteLabel.backgroundColor = .red
-        contentView.addSubview(deleteLabel)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.setTitle("Delete Habit", for: .normal)
+        deleteButton.layer.cornerRadius = 10
+        contentView.addSubview(deleteButton)
         
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
-            deleteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            deleteLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            deleteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            deleteLabel.bottomAnchor.constraint(equalTo: deleteLabel.bottomAnchor, constant: -padding),
-            deleteLabel.heightAnchor.constraint(equalToConstant: 40)
+            deleteButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            deleteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            deleteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            deleteButton.bottomAnchor.constraint(equalTo: deleteButton.bottomAnchor, constant: -padding),
+            deleteButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 }

@@ -12,8 +12,8 @@ class HabitFrequencyCell: UITableViewCell {
     static let reuseID = "HabitFrequencyCell"
     
     let timesAWeekLabel = UILabel()
-    let negativeButton = UIButton()
-    let positiveButton = UIButton()
+    let negativeButton = GradientButton(colors: Gradients().blueGradient)
+    let positiveButton = GradientButton(colors: Gradients().blueGradient)
     let frequencyLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
