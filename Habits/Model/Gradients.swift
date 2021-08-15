@@ -19,15 +19,20 @@ let pinkGradient = [ UIColor(red: 255/255.0, green: 159/255.0, blue: 140/255.0, 
 
 let greenGradient = [ UIColor(red: 148/255.0, green: 251/255.0, blue: 171/255.0, alpha: 1).cgColor, UIColor(red: 31/255.0, green: 196/255.0, blue: 159/255.0, alpha: 1).cgColor]
 
-    let purpleGradient = [ UIColor(red: 250/255.0, green: 125/255.0, blue: 255/255.0, alpha: 1).cgColor, UIColor(red: 176/255.0, green: 64/255.0, blue: 255/255.0, alpha: 1).cgColor]
+    let purpleGradient = [ UIColor(red: 250/255.0, green: 125/255.0, blue: 255/255.0, alpha: 1.0).cgColor, UIColor(red: 176/255.0, green: 64/255.0, blue: 255/255.0, alpha: 1.0).cgColor]
 
+    let redGradient = [UIColor(red: 237/255.0, green: 33/255.0, blue: 58/255.0, alpha: 1.0).cgColor, UIColor(red: 147/255.0, green: 41/255.0, blue: 30/255.0, alpha: 1.0).cgColor]
+    
+    let darkGreen = [UIColor(red: 23/255.0, green: 177/255.0, blue: 105/255.0, alpha: 1.0).cgColor, UIColor(red: 0/255.0, green: 106/255.0, blue: 78/255.0, alpha: 1.0).cgColor]
+    
 }
 
 extension UIButton {
     func applyGradient(colors: [CGColor]) {
-        self.backgroundColor = nil
+        //self.backgroundColor = nil
         self.layoutIfNeeded()
         let gradientLayer = CAGradientLayer()
+        gradientLayer.name = "gradient"
         gradientLayer.colors = colors
         gradientLayer.cornerRadius = 10
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)

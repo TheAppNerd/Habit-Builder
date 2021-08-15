@@ -12,8 +12,8 @@ class EmptyStateView: UIView {
 
     let message = TitleLabel(textInput: "", textAlignment: .center, fontSize: 16)
     let imageView = UIImageView()
-    let addHabitButton = UIButton()
-    let howToUseButton = UIButton()
+    let addHabitButton = GradientButton(colors: Gradients().blueGradient)
+    let howToUseButton = GradientButton(colors: Gradients().darkGreen)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,11 +41,9 @@ class EmptyStateView: UIView {
         howToUseButton.layer.cornerRadius = 10
         
         addHabitButton.setTitle("Add Habit", for: .normal)
-        addHabitButton.backgroundColor = .systemGreen
         addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         
         howToUseButton.setTitle("How to Use", for: .normal)
-        howToUseButton.backgroundColor = .systemPurple
         howToUseButton.addTarget(self, action: #selector(howToUsePressed), for: .touchUpInside)
         
         NSLayoutConstraint.activate([

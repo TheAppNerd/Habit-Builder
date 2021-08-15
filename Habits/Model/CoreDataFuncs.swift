@@ -7,3 +7,21 @@
 
 import UIKit
 
+struct CoreDataFuncs {
+    
+static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    public func saveData() {
+        
+    }
+    
+    public func loadData() {
+        
+    }
+    
+    
+    
+    
+    
+    
+}

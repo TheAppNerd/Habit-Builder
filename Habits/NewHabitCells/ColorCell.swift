@@ -7,9 +7,14 @@
 
 import UIKit
 
+
 class ColorCell: UITableViewCell {
 
     static let reuseID = "ColorCell"
+ 
+   
+    let gradientArray = [Gradients().blueGradient, Gradients().greenGradient, Gradients().orangeGradient, Gradients().pinkGradient, Gradients().purpleGradient, Gradients().redGradient, Gradients().darkGreen]
+    
     
     let stackView = UIStackView()
     var buttonArray = [UIButton]()
@@ -27,13 +32,14 @@ class ColorCell: UITableViewCell {
     
     
     private func configure() {
+     
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 6
         
-        for _ in 0...6 {
-            let colorButton = GradientButton(colors: Gradients().blueGradient)
+        for num in 0...6 {
+            let colorButton = GradientButton(colors: gradientArray[num])
             colorButton.layer.cornerRadius = 10
             colorButton.addTarget(self, action: #selector(colorButtonPressed), for: .touchUpInside)
             
@@ -54,7 +60,9 @@ class ColorCell: UITableViewCell {
     @objc func colorButtonPressed(_ sender: UIButton) {
         for item in buttonArray {
             item.layer.borderWidth = 0
+            item.isSelected = false
         }
+        sender.isSelected = true
         sender.layer.borderWidth = 1
         sender.layer.borderColor = UIColor.label.cgColor
     }

@@ -16,7 +16,10 @@ static let reuseID = "IconCell"
     let stackViewThree = UIStackView()
     let stackViewFour = UIStackView()
     
-    var buttonArray = [UIButton]()
+    var colors = [CGColor]()
+    var noColors = [UIColor.clear.cgColor, UIColor.clear.cgColor]
+    
+    var buttonArray = [GradientButton]()
     var iconArray = ["bicycle", "blender", "deadline", "desktopcomputer", "dumbbell", "guitar", "hammer", "jogging", "kettlebell", "meditation", "notebook", "painting", "pills", "plantpot", "reading", "refund", "shower", "taoism", "tea", "tooth", "vegetable", "washingmachine", "water", "watermelon", "alarmclock", "music", "pillow", "laughing"]
     
     let paths = Bundle.main.paths(forResourcesOfType: "png", inDirectory: nil)
@@ -41,7 +44,7 @@ static let reuseID = "IconCell"
             stack.spacing = 6
             
             for _ in 0...6 {
-                let iconButton = UIButton()
+                let iconButton = GradientButton()
                 iconButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
                 iconButton.layer.cornerRadius = 10
                 iconButton.backgroundColor = .tertiarySystemBackground
@@ -86,14 +89,19 @@ static let reuseID = "IconCell"
         ])
     }
     
-    @objc func iconButtonPressed(_ sender: UIButton) {
+    @objc func iconButtonPressed(_ sender: GradientButton) {
         for item in buttonArray {
                 item.tintColor = .secondaryLabel
             item.layer.borderWidth = 0
+            item.backgroundColor = .systemBackground
+
+            item.gradientLayer.colors = noColors
             }
+            
         sender.tintColor = .label
         sender.layer.borderWidth = 1
         sender.layer.borderColor = UIColor.label.cgColor
+        sender.colors = colors
         }
    
     }

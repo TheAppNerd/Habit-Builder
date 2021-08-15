@@ -193,7 +193,7 @@ class AddHabitVC: UIViewController {
         ])}
     
     private func configureBarButtons() {
-         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
+let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
          let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveHabit))
          navigationItem.leftBarButtonItem = cancelButton
          navigationItem.rightBarButtonItem = saveButton

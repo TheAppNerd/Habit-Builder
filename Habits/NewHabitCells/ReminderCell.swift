@@ -17,7 +17,11 @@ class ReminderCell: UITableViewCell {
     let stackView = UIStackView()
     
     let weekArray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    var buttonArray = [UIButton]()
+    var buttonArray = [GradientButton]()
+    
+    var colors = [CGColor]()
+    
+    var noColors = [UIColor.clear.cgColor, UIColor.clear.cgColor]
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -46,9 +50,9 @@ class ReminderCell: UITableViewCell {
         stackView.spacing = 6
         
         for button in 0...6 {
-            let dayButton = UIButton()
+            let dayButton = GradientButton()
             dayButton.setTitle(weekArray[button], for: .normal)
-            dayButton.backgroundColor = .tertiarySystemBackground
+            dayButton.backgroundColor = .secondarySystemBackground
             dayButton.layer.cornerRadius = 10
             dayButton.setTitleColor(.secondaryLabel, for: .normal)
             dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
@@ -86,16 +90,23 @@ class ReminderCell: UITableViewCell {
             stackView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    @objc func dayButtonpressed(_ sender: UIButton) {
+    @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.isSelected.toggle()
         
         if sender.isSelected == true {
         sender.setTitleColor(.label, for: .normal)
         sender.layer.borderWidth = 1
         sender.layer.borderColor = UIColor.label.cgColor
+            sender.colors = colors
         } else {
             sender.layer.borderWidth = 0
             sender.setTitleColor(.secondaryLabel, for: .normal)
+            sender.gradientLayer.colors = noColors
+        }
+        for item in buttonArray {
+            if item.isSelected == false {
+                item.gradientLayer.colors = noColors
+            }
         }
     }
 }
