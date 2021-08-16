@@ -7,16 +7,17 @@
 
 import UIKit
 
-class NewHabitVC: UITableViewController {
+class NewHabitVC: UITableViewController, reloadTableViewDelegate {
     
     var textFieldArray = [UITextField]()
+    var frequency = 1
     var colors = [CGColor]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
         configure()
-        
+        configureBarButtons()
     }
 
     private func registerCells() {
@@ -25,7 +26,7 @@ class NewHabitVC: UITableViewController {
         tableView.register(IconCell.self, forCellReuseIdentifier: IconCell.reuseID)
         tableView.register(ReminderCell.self, forCellReuseIdentifier: ReminderCell.reuseID)
         tableView.register(ColorCell.self, forCellReuseIdentifier: ColorCell.reuseID)
-        tableView.register(DeleteCell.self, forCellReuseIdentifier: DeleteCell.reuseID)
+        tableView.register(SaveCell.self, forCellReuseIdentifier: SaveCell.reuseID)
     }
     
     private func configure() {
@@ -35,14 +36,12 @@ class NewHabitVC: UITableViewController {
     }
     
     func reloadTableView() {
-        reloadTableView()
+        tableView.reloadData()
     }
     
     private func configureBarButtons() {
-         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
-//         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveHabit))
-         navigationItem.leftBarButtonItem = cancelButton
-//         navigationItem.rightBarButtonItem = saveButton
+        let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: .done, target: self, action: #selector(deleteHabit))
+         navigationItem.rightBarButtonItem = deleteButton
      }
     
     @objc func dismissVC() {
@@ -55,6 +54,65 @@ class NewHabitVC: UITableViewController {
         
         
     }
+    
+    @objc func deleteHabit() {
+        let deleteAlert = UIAlertController(title: "Delete Habit?", message: "Are you sure you want to delete this? It cannot be recovered.", preferredStyle: .alert)
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { UIAlertAction in
+        
+        }))
+        deleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { UIAlertAction in
+           //where do i need to delete. core data here.
+            let destVC = UINavigationController(rootViewController: HabitVC())
+            destVC.modalPresentationStyle = .fullScreen
+            
+            self.present(destVC, animated: true)
+            
+        }))
+        present(deleteAlert, animated: true, completion: nil)
+        
+    }
+    
+    func saveCoreDataHabit() {
+        let newHabit = HabitCoreData(context: CoreDataFuncs.context)
+        newHabit.habitName = textFieldArray[0].text
+        newHabit.frequency = Int16(frequency)
+        
+        
+    }
+    
+    @objc func saveButtonPressed() {
+      
+        guard textFieldArray[0].text != "" else {
+            textFieldArray[0].layer.borderWidth = 2
+            return
+        }
+        
+        textFieldArray[0].layer.borderWidth = 0
+        
+        
+        
+    }
+    
+    @objc func positiveButtonPressed() {
+        if frequency < 7 {
+            frequency += 1
+        }
+        UIView.performWithoutAnimation {
+            self.tableView.reloadSections([1], with: .none)
+          
+        }
+    }
+    
+    @objc func negativeButtonPressed() {
+        if frequency > 1 {
+            frequency -= 1
+        }
+        UIView.performWithoutAnimation {
+            self.tableView.reloadSections([1], with: .none)
+        
+        }
+    }
+    
 
     
     // MARK: - Table view data source
@@ -87,29 +145,45 @@ class NewHabitVC: UITableViewController {
             return cell
             
         case 1: let cell = tableView.dequeueReusableCell(withIdentifier: HabitFrequencyCell.reuseID, for: indexPath) as! HabitFrequencyCell
+            cell.frequencyLabel.text = "\(frequency)"
+            cell.negativeButton.addTarget(self, action: #selector(negativeButtonPressed), for: .touchUpInside)
+            cell.positiveButton.addTarget(self, action: #selector(positiveButtonPressed), for: .touchUpInside)
             return cell
             
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
-            cell.buttonArray[0].sendActions(for: .touchUpInside)
-            for (index, button) in cell.buttonArray.enumerated() {
-                if button.isSelected == true {
-                    colors = cell.gradientArray[index]
-                    button.sendActions(for: .touchUpInside)
-                }
-            }
+            cell.delegate = self
+            colors = cell.color
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
             cell.colors = colors
+            
+            for button in cell.buttonArray {
+                if button.isSelected == true {
+                    button.colors = colors
+                    button.sendActions(for: .touchUpInside)
+                }
+            }
+            
             return cell
         
             
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: ReminderCell.reuseID, for: indexPath) as! ReminderCell
             cell.colors = colors
+            for button in cell.buttonArray {
+                if button.isSelected == true {
+                    button.colors = colors
+                    button.sendActions(for: .touchUpInside)
+                    button.sendActions(for: .touchUpInside)
+                }
+            }
+            cell.colors = colors
+            return cell
+      
+        case 5: let cell = tableView.dequeueReusableCell(withIdentifier: SaveCell.reuseID, for: indexPath) as! SaveCell
+            cell.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
             return cell
             
-        case 5: let cell = tableView.dequeueReusableCell(withIdentifier: DeleteCell.reuseID, for: indexPath) as! DeleteCell
-            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
                 return cell
@@ -123,5 +197,9 @@ extension NewHabitVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textFieldArray[0].resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textFieldArray[0].layer.borderWidth = 0
     }
 }

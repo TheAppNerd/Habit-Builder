@@ -74,7 +74,7 @@ class AddHabitVC: UIViewController {
         loadCoreData()
         loadPage()
         configure()
-        configureBarButtons()
+       //configureBarButtons()
         configureNameView()
         configureFrequencyView()
         configureReminderView()
@@ -192,12 +192,12 @@ class AddHabitVC: UIViewController {
             deleteView.topAnchor.constraint(equalTo: colorView.bottomAnchor, constant: padding),
         ])}
     
-    private func configureBarButtons() {
-let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss))
-         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveHabit))
-         navigationItem.leftBarButtonItem = cancelButton
-         navigationItem.rightBarButtonItem = saveButton
-     }
+//    private func configureBarButtons() {
+//    let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismiss())
+//         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveHabit))
+//         navigationItem.leftBarButtonItem = cancelButton
+//         navigationItem.rightBarButtonItem = saveButton
+//     }
     
     func configureNameView() {
         let habitNameLabel = BodyLabel(textInput: "Name:", textAlignment: .left, fontSize: 16)
@@ -543,7 +543,7 @@ let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, a
             newHabit.frequency = Int16(frequencyCounter)
             
             
-            let newYear = HabitCoreYear(context: self.context)
+            let newYear = HabitCoreYear(context: CoreDataFuncs.context)
             newYear.year = Int16(getYear())
             newYear.parentYears = newHabit
             newYear.january = []
@@ -562,7 +562,7 @@ let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, a
             newHabit.addToYears(newYear)
             
             
-            let newYear2 = HabitCoreYear(context: self.context)
+            let newYear2 = HabitCoreYear(context: CoreDataFuncs.context)
             newYear2.year = Int16(getYear()-1)
             newYear2.parentYears = newHabit
            newYear2.january = []
@@ -619,6 +619,8 @@ extension AddHabitVC: UITextFieldDelegate {
         notesTextField.resignFirstResponder()
         return true
     }
+    
+    
     
     
 }

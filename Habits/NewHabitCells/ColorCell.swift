@@ -7,17 +7,21 @@
 
 import UIKit
 
+protocol reloadTableViewDelegate: AnyObject {
+    func reloadTableView()
+}
 
 class ColorCell: UITableViewCell {
 
     static let reuseID = "ColorCell"
- 
-   
+    weak var delegate: reloadTableViewDelegate?
+   var color = [CGColor]()
+    
     let gradientArray = [Gradients().blueGradient, Gradients().greenGradient, Gradients().orangeGradient, Gradients().pinkGradient, Gradients().purpleGradient, Gradients().redGradient, Gradients().darkGreen]
     
     
     let stackView = UIStackView()
-    var buttonArray = [UIButton]()
+    var buttonArray = [GradientButton]()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,7 +36,7 @@ class ColorCell: UITableViewCell {
     
     
     private func configure() {
-     
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -41,6 +45,7 @@ class ColorCell: UITableViewCell {
         for num in 0...6 {
             let colorButton = GradientButton(colors: gradientArray[num])
             colorButton.layer.cornerRadius = 10
+            colorButton.layer.borderColor = UIColor.label.cgColor
             colorButton.addTarget(self, action: #selector(colorButtonPressed), for: .touchUpInside)
             
             stackView.addArrangedSubview(colorButton)
@@ -57,13 +62,15 @@ class ColorCell: UITableViewCell {
         ])
     }
     
-    @objc func colorButtonPressed(_ sender: UIButton) {
+    @objc func colorButtonPressed(_ sender: GradientButton) {
         for item in buttonArray {
             item.layer.borderWidth = 0
             item.isSelected = false
         }
         sender.isSelected = true
-        sender.layer.borderWidth = 1
+        sender.layer.borderWidth = 2
         sender.layer.borderColor = UIColor.label.cgColor
+        color = sender.colors
+        delegate?.reloadTableView()
     }
 }

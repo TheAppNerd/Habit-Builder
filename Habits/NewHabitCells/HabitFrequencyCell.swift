@@ -28,23 +28,24 @@ class HabitFrequencyCell: UITableViewCell {
     
     private func configure() {
         timesAWeekLabel.translatesAutoresizingMaskIntoConstraints = false
-        negativeButton.translatesAutoresizingMaskIntoConstraints = false
-        positiveButton.translatesAutoresizingMaskIntoConstraints = false
-        frequencyLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         timesAWeekLabel.textAlignment = .left
         timesAWeekLabel.text = "Times a week:"
-        negativeButton.setImage(UIImage(systemName: "minus"), for: .normal)
-        positiveButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        frequencyLabel.text = "7"
-        frequencyLabel.textAlignment = .center
-        negativeButton.backgroundColor = .systemBlue
-        positiveButton.backgroundColor = .systemBlue
-        negativeButton.layer.cornerRadius = 10
-        positiveButton.layer.cornerRadius = 10
         
+        negativeButton.translatesAutoresizingMaskIntoConstraints = false
+        negativeButton.setImage(UIImage(systemName: "minus"), for: .normal)
+        negativeButton.layer.cornerRadius = 10
+     
+
+        frequencyLabel.translatesAutoresizingMaskIntoConstraints = false
+        frequencyLabel.textAlignment = .center
+        
+        positiveButton.translatesAutoresizingMaskIntoConstraints = false
+        positiveButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        positiveButton.layer.cornerRadius = 10
+
         
         contentView.addSubviews(timesAWeekLabel, negativeButton, positiveButton, frequencyLabel)
+        
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
@@ -73,6 +74,5 @@ class HabitFrequencyCell: UITableViewCell {
             positiveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             positiveButton.widthAnchor.constraint(equalTo: positiveButton.heightAnchor),
         ])
-        
     }
 }

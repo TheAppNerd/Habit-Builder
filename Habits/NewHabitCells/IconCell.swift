@@ -92,16 +92,14 @@ static let reuseID = "IconCell"
     @objc func iconButtonPressed(_ sender: GradientButton) {
         for item in buttonArray {
                 item.tintColor = .secondaryLabel
-            item.layer.borderWidth = 0
             item.backgroundColor = .systemBackground
-
-            item.gradientLayer.colors = noColors
+            item.isSelected = false
+            item.colors = noColors
             }
             
         sender.tintColor = .label
-        sender.layer.borderWidth = 1
-        sender.layer.borderColor = UIColor.label.cgColor
         sender.colors = colors
+        sender.isSelected = true
         }
    
     }

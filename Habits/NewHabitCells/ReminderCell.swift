@@ -12,9 +12,11 @@ class ReminderCell: UITableViewCell {
  static let reuseID = "ReminderCell"
     
     let datePicker = UIDatePicker()
-    let dateSwitch = UISwitch()
-    let bellImage = UIImageView()
+    let dateSegment = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
     let stackView = UIStackView()
+    
+    var hour = Int()
+    var minute = Int()
     
     let weekArray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     var buttonArray = [GradientButton]()
@@ -32,17 +34,41 @@ class ReminderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func timeChanged() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        let dateAsString = formatter.string(from: datePicker.date)
+
+        let date = formatter.date(from: dateAsString)
+        formatter.dateFormat = "HH:mm"
+
+        let twentyFourHourDate = formatter.string(from: date!)
+        let time = twentyFourHourDate.components(separatedBy: ":")
+        hour = Int(time[0])!
+        minute = Int(time[1])!
+    }
+    
+    @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
+//        if dateSwitch.isOn == true {
+//            habitData.alarmBool = true
+//            bellImage.image = UIImage(systemName: "bell.fill")
+//        } else if dateSwitch.isOn == false {
+//            habitData.alarmBool = false
+//            bellImage.image = UIImage(systemName: "bell.slash")
+//            userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: false)
+//
+    }
+    
     private func configure() {
-        
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .inline
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         
-        dateSwitch.preferredStyle = .sliding
-        dateSwitch.translatesAutoresizingMaskIntoConstraints = false
-        
-        bellImage.translatesAutoresizingMaskIntoConstraints = false
-        bellImage.image = UIImage(systemName: "bell")
+        dateSegment.layer.cornerRadius = 10
+        dateSegment.translatesAutoresizingMaskIntoConstraints = false
+        dateSegment.selectedSegmentTintColor = .systemBlue
+        dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -60,29 +86,27 @@ class ReminderCell: UITableViewCell {
             buttonArray.append(dayButton)
         }
         
-        contentView.addSubviews(datePicker, dateSwitch, bellImage, stackView)
+        contentView.addSubviews(datePicker, stackView, dateSegment)
         
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
             
-            datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             datePicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            //datePicker.trailingAnchor.constraint(equalTo: dateSwitch.leadingAnchor, constant: -padding),
             datePicker.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
+//            datePicker.trailingAnchor.constraint(equalTo: dateSegment.leadingAnchor),
             datePicker.heightAnchor.constraint(equalToConstant: 40),
+            datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
             
-            //dateSwitch.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
-            dateSwitch.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 1.5),
-            dateSwitch.trailingAnchor.constraint(equalTo: bellImage.leadingAnchor, constant: -padding),
-            dateSwitch.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
             
-            bellImage.leadingAnchor.constraint(equalTo: dateSwitch.trailingAnchor, constant: padding),
-            bellImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            bellImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            bellImage.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
-            bellImage.widthAnchor.constraint(equalTo: bellImage.heightAnchor),
+//            dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor),
+            dateSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            dateSegment.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
+            dateSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            dateSegment.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
             
+           
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             stackView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
@@ -92,21 +116,17 @@ class ReminderCell: UITableViewCell {
     }
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.isSelected.toggle()
-        
-        if sender.isSelected == true {
-        sender.setTitleColor(.label, for: .normal)
-        sender.layer.borderWidth = 1
-        sender.layer.borderColor = UIColor.label.cgColor
-            sender.colors = colors
-        } else {
-            sender.layer.borderWidth = 0
-            sender.setTitleColor(.secondaryLabel, for: .normal)
-            sender.gradientLayer.colors = noColors
-        }
         for item in buttonArray {
             if item.isSelected == false {
-                item.gradientLayer.colors = noColors
+                item.setTitleColor(.secondaryLabel, for: .normal)
+                item.colors = noColors
             }
         }
+        if sender.isSelected == true {
+        sender.setTitleColor(.label, for: .normal)
+            sender.colors = colors
+        }
+        
+        
     }
 }

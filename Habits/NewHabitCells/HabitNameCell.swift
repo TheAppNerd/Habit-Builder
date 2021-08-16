@@ -26,7 +26,12 @@ class HabitNameCell: UITableViewCell {
         
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.placeholder = "Eg. Workout, meditate, etc"
+        nameTextField.layer.borderColor = UIColor.red.cgColor
+        nameTextField.text = ""
+        contentView.layer.cornerRadius = 10
+        
         let padding: CGFloat = 10
+        
         
         contentView.addSubview(nameTextField)
         
