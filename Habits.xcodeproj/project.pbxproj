@@ -29,7 +29,6 @@
 		FA360BF626C6120100884B90 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF526C6120100884B90 /* IconCell.swift */; };
 		FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF726C6151600884B90 /* ReminderCell.swift */; };
 		FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* ColorCell.swift */; };
-		FA360BFC26C62E5A00884B90 /* DeleteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BFB26C62E5A00884B90 /* DeleteCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA62CF0026A699A600FE0A22 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */; };
 		FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */; };
@@ -39,6 +38,7 @@
 		FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAACA40326B4160B00B85A74 /* HabitCoreData.xcdatamodeld */; };
 		FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */; };
 		FABA380A26C7DF650088254C /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380926C7DF650088254C /* GradientButton.swift */; };
+		FABA380D26C9F1E00088254C /* SaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* SaveCell.swift */; };
 		FAEE7A1E269405F60064D06E /* ChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE7A1D269405F60064D06E /* ChartCell.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CC26493FF50029E50D /* DateSwitch.swift */; };
@@ -82,7 +82,6 @@
 		FA360BF526C6120100884B90 /* IconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
 		FA360BF726C6151600884B90 /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
 		FA360BF926C62C6A00884B90 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
-		FA360BFB26C62E5A00884B90 /* DeleteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteCell.swift; sourceTree = "<group>"; };
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
 		FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		FA62CF0126A7CA8900FE0A22 /* DarkModeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeCell.swift; sourceTree = "<group>"; };
@@ -92,6 +91,7 @@
 		FAACA40426B4160B00B85A74 /* HabitCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitCoreData.xcdatamodel; sourceTree = "<group>"; };
 		FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data + Ext.swift"; sourceTree = "<group>"; };
 		FABA380926C7DF650088254C /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		FABA380C26C9F1E00088254C /* SaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCell.swift; sourceTree = "<group>"; };
 		FAEE7A1D269405F60064D06E /* ChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCell.swift; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6CC26493FF50029E50D /* DateSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSwitch.swift; sourceTree = "<group>"; };
@@ -189,8 +189,8 @@
 				FAF4E6D7264A47B90029E50D /* MenuView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 				FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */,
-				FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */,
 				FA360BEE26C603F400884B90 /* NewHabitVC.swift */,
+				FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -268,7 +268,7 @@
 				FA360BF926C62C6A00884B90 /* ColorCell.swift */,
 				FA360BF526C6120100884B90 /* IconCell.swift */,
 				FA360BF726C6151600884B90 /* ReminderCell.swift */,
-				FA360BFB26C62E5A00884B90 /* DeleteCell.swift */,
+				FABA380C26C9F1E00088254C /* SaveCell.swift */,
 			);
 			path = NewHabitCells;
 			sourceTree = "<group>";
@@ -403,6 +403,7 @@
 				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
+				FABA380D26C9F1E00088254C /* SaveCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FAEE7A1E269405F60064D06E /* ChartCell.swift in Sources */,
 				FA360BED26C4C86300884B90 /* Gradients.swift in Sources */,
@@ -421,7 +422,6 @@
 				FA62CF0026A699A600FE0A22 /* SettingsTableViewController.swift in Sources */,
 				FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
-				FA360BFC26C62E5A00884B90 /* DeleteCell.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */,
 				FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */,
