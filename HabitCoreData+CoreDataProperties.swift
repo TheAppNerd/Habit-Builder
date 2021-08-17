@@ -24,19 +24,4 @@ extension HabitCoreData {
 
 }
 
-// MARK: Generated accessors for years
-extension HabitCoreData {
 
-    @objc(addYearsObject:)
-    @NSManaged public func addToYears(_ value: Year)
-
-    @objc(removeYearsObject:)
-    @NSManaged public func removeFromYears(_ value: Year)
-
-    @objc(addYears:)
-    @NSManaged public func addToYears(_ values: NSSet)
-
-    @objc(removeYears:)
-    @NSManaged public func removeFromYears(_ values: NSSet)
-
-}

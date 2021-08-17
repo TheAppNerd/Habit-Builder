@@ -61,7 +61,7 @@ class ReminderCell: UITableViewCell {
     
     private func configure() {
         datePicker.datePickerMode = .time
-        datePicker.preferredDatePickerStyle = .inline
+        datePicker.preferredDatePickerStyle = .wheels
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         
@@ -95,16 +95,16 @@ class ReminderCell: UITableViewCell {
             datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             datePicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             datePicker.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
-//            datePicker.trailingAnchor.constraint(equalTo: dateSegment.leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: dateSegment.leadingAnchor, constant: -padding),
             datePicker.heightAnchor.constraint(equalToConstant: 40),
-            datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+            //datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
             
             
-//            dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor),
+            dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
             dateSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             dateSegment.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
-            dateSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            dateSegment.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
+            dateSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+           // dateSegment.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
             
            
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),

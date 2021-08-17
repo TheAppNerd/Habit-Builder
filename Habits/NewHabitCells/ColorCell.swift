@@ -17,8 +17,7 @@ class ColorCell: UITableViewCell {
     weak var delegate: reloadTableViewDelegate?
    var color = [CGColor]()
     
-    let gradientArray = [Gradients().blueGradient, Gradients().greenGradient, Gradients().orangeGradient, Gradients().pinkGradient, Gradients().purpleGradient, Gradients().redGradient, Gradients().darkGreen]
-    
+   
     
     let stackView = UIStackView()
     var buttonArray = [GradientButton]()
@@ -43,7 +42,8 @@ class ColorCell: UITableViewCell {
         stackView.spacing = 6
         
         for num in 0...6 {
-            let colorButton = GradientButton(colors: gradientArray[num])
+            let colorButton = GradientButton(colors: GradientArray.array[num])
+
             colorButton.layer.cornerRadius = 10
             colorButton.layer.borderColor = UIColor.label.cgColor
             colorButton.addTarget(self, action: #selector(colorButtonPressed), for: .touchUpInside)
@@ -68,7 +68,7 @@ class ColorCell: UITableViewCell {
             item.isSelected = false
         }
         sender.isSelected = true
-        sender.layer.borderWidth = 2
+        sender.layer.borderWidth = 1
         sender.layer.borderColor = UIColor.label.cgColor
         color = sender.colors
         delegate?.reloadTableView()

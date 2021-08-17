@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol reloadTableViewDelegateFromIcon: AnyObject {
+    func reloadTableView()
+}
+
 class IconCell: UITableViewCell {
 
 static let reuseID = "IconCell"
+    weak var delegate: reloadTableViewDelegateFromIcon?
     
     let stackViewOne = UIStackView()
     let stackViewTwo = UIStackView()
@@ -47,7 +52,6 @@ static let reuseID = "IconCell"
                 let iconButton = GradientButton()
                 iconButton.imageEdgeInsets = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
                 iconButton.layer.cornerRadius = 10
-                iconButton.backgroundColor = .tertiarySystemBackground
                 iconButton.tintColor = .secondaryLabel
                 iconButton.addTarget(self, action: #selector(iconButtonPressed), for: .touchUpInside)
                 stack.addArrangedSubview(iconButton)
@@ -92,7 +96,7 @@ static let reuseID = "IconCell"
     @objc func iconButtonPressed(_ sender: GradientButton) {
         for item in buttonArray {
                 item.tintColor = .secondaryLabel
-            item.backgroundColor = .systemBackground
+            //item.backgroundColor = .systemBackground
             item.isSelected = false
             item.colors = noColors
             }
@@ -100,6 +104,7 @@ static let reuseID = "IconCell"
         sender.tintColor = .label
         sender.colors = colors
         sender.isSelected = true
+        //delegate?.reloadTableView()
         }
    
     }

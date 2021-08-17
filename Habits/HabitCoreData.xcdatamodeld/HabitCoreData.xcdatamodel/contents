@@ -2,33 +2,16 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HabitCoreData" representedClassName=".HabitCoreData" syncable="YES" codeGenerationType="class">
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="habitColor" optional="YES" attributeType="Binary"/>
         <attribute name="habitDates" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]">
             <userInfo>
                 <entry key="key" value="value"/>
             </userInfo>
         </attribute>
+        <attribute name="habitGradientIndex" optional="YES" attributeType="Integer 16" valueTransformerName="NSSecureUnarchiveFromData" defaultValueString="0" usesScalarValueType="YES" customClassName=".UIColor"/>
         <attribute name="habitName" optional="YES" attributeType="String"/>
-        <relationship name="years" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HabitCoreYear" inverseName="parentYears" inverseEntity="HabitCoreYear"/>
-    </entity>
-    <entity name="HabitCoreYear" representedClassName="HabitCoreYear" syncable="YES" codeGenerationType="class">
-        <attribute name="april" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="august" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="december" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="february" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="january" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="july" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="june" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="march" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="may" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="november" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="october" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="september" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]"/>
-        <attribute name="year" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="parentYears" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HabitCoreData" inverseName="years" inverseEntity="HabitCoreData"/>
+        <attribute name="iconString" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="HabitCoreData" positionX="-336.6909179687501" positionY="-29.51290893554687" width="138.14111328125" height="118"/>
-        <element name="HabitCoreYear" positionX="-121.1520690917969" positionY="-19.74725341796875" width="128" height="253"/>
     </elements>
 </model>
