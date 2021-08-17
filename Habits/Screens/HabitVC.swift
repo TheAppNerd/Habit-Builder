@@ -12,7 +12,6 @@ import CoreData
 class HabitVC: UIViewController, SettingsPush {
  
     var habitArray = [HabitCoreData]()
-    var yearArray = [HabitCoreYear]()
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -42,8 +41,6 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
-        loadCoreDataYears()
-        print(habitArray)
         resetHabits()
         configureViewController()
         configureTableView()
@@ -163,9 +160,9 @@ class HabitVC: UIViewController, SettingsPush {
    
     @objc func addHabitPressed() {
         HabitArray.habitCreated = false
-        let addHabitVC = AddHabitVC()
-        addHabitVC.cellTag = habitArray.count
-        navigationController?.pushViewController(addHabitVC, animated: true)
+        let newHabitVC = NewHabitVC()
+        //newHabitVC.cellTag = habitArray.count
+        navigationController?.pushViewController(newHabitVC, animated: true)
     }
     
     func startOfDay(date: Date) -> Date {
@@ -174,127 +171,6 @@ class HabitVC: UIViewController, SettingsPush {
         return startDate
     }
     
-    func setupCoreDataArrays() {
-        //find a bettersoluttion to implement these
-        for object in yearArray {
-            if object.january == nil { object.january = [] }
-            if object.february == nil { object.january = [] }
-            if object.march == nil { object.january = [] }
-            if object.april == nil { object.january = [] }
-            if object.may == nil { object.january = [] }
-            if object.june == nil { object.january = [] }
-            if object.july == nil { object.january = [] }
-            if object.august == nil { object.january = [] }
-            if object.september == nil { object.january = [] }
-            if object.october == nil { object.january = [] }
-            if object.november == nil { object.january = [] }
-            if object.december == nil { object.january = [] }
-            }
-            
-    }
-    
-    func addDate(date: Date, indexPath: IndexPath) {
-        let calendar = Calendar(identifier: .gregorian)
-        let monthCalc = calendar.dateComponents([.month], from: date)
-        let yearCalc = calendar.dateComponents([.year], from: date)
-        let year =  Int16(yearCalc.year!)
-        let month = monthCalc.month
-
-        let id = habitArray[indexPath.row].id
-            
-       
-        for object in yearArray {
-            if object.parentYears?.id == id {
-            if object.year == year {
-                switch month {
-                case 1: if object.january == nil {object.january = []}
-                           object.january?.append(date)
-                case 2: if object.february == nil {object.january = []}
-                    object.february?.append(date)
-                case 3: if object.march == nil {object.january = []}
-                    object.march?.append(date)
-                case 4: if object.april == nil {object.january = []}
-                    object.april?.append(date)
-                case 5: if object.may == nil {object.january = []}
-                    object.may?.append(date)
-                case 6: if object.june == nil {object.january = []}
-                    object.june?.append(date)
-                case 7: if object.july == nil {object.january = []}
-                    object.july?.append(date)
-                case 8: if object.august == nil {object.august = []}
-                            object.august?.append(date)
-                case 9: if object.september == nil {object.january = []}
-                    object.september?.append(date)
-                case 10: if object.october == nil {object.january = []}
-                    object.october?.append(date)
-                case 11: if object.november == nil {object.january = []}
-                    object.november?.append(date)
-                case 12: if object.december == nil {object.january = []}
-                    object.december?.append(date)
-                default:
-                    print("error")
-                }
-       
-                if !object.parentYears!.habitDates!.contains(date) {
-                    object.parentYears?.habitDates!.append(date)
-
-                }
-                saveCoreData()
-            }
-        }
-        }
-    }
-    
-    func removeDate(date: Date, indexPath: IndexPath) {
-        let calendar = Calendar(identifier: .gregorian)
-        let monthCalc = calendar.dateComponents([.month], from: date)
-        let yearCalc = calendar.dateComponents([.year], from: date)
-        let year =  Int16(yearCalc.year!)
-        let month = monthCalc.month
-
-        let id = habitArray[indexPath.row].id
-            
-        for object in yearArray {
-            if object.parentYears?.id == id {
-            if object.year == year {
-                
-                switch month {
-                case 1: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 2: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 3: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 4: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 5: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 6: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 7: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 8: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 9: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 10: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 11: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                case 12: if object.january!.contains(date) {
-                    object.january! = object.january!.filter {$0 != date }}
-                default:
-                    print("error")
-                }
-                object.parentYears!.habitDates! = object.parentYears!.habitDates!.filter {$0 != date }
-                saveCoreData()
-               
-            }
-        }
-        }
-    }
-    
-
     
     @objc func dateButtonPressed(_ sender: UIButton) {
         let habitCell = HabitCell()
@@ -302,35 +178,24 @@ class HabitVC: UIViewController, SettingsPush {
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
-        //change below to a bool func which toggles on or off.
-                
-        let decodedColor = habitArray[indexPath.row].habitColor?.decode()
+        //change below to a switch or a toggle
+        habitArray[indexPath.row].habitDates?.append(selectedDate)
+        saveCoreData()
+      
         if sender.backgroundColor == .clear {
-            sender.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
-        sender.backgroundColor = decodedColor?.darker(by: 20)
+//            sender.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
+       // sender.backgroundColor = decodedColor?.darker(by: 20)
            
-            addDate(date: selectedDate, indexPath: indexPath)
         
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
-           removeDate(date: selectedDate, indexPath: indexPath)
+            habitArray[indexPath.row].habitDates = habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
+            saveCoreData()
         }
       
     }
     
-    func loadCoreDataYears(with request: NSFetchRequest<HabitCoreYear> = HabitCoreYear.fetchRequest()) {
-        
-        do {
-            let coreDataArray = try context.fetch(request)
-            if coreDataArray.count != 0 {
-                yearArray = coreDataArray
-            }
-        } catch {
-            print("error loading context: \(error)")
-        }
-        tableView.reloadData()
-    }
     
     func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
         
@@ -365,10 +230,11 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         var buttonCount = 0
-        let dataIndex = habitArray[indexPath.row]
-        print(dataIndex.habitDates)
-        let decodedColor = dataIndex.habitColor?.decode()
-        cell.habitName.text = dataIndex.habitName
+        let habit = habitArray[indexPath.row]
+       
+        cell.habitName.text = habit.habitName
+        cell.gradientColors = GradientArray.array[Int(habit.habitGradientIndex)]
+        
         for button in cell.dayButton {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.tag = buttonCount
@@ -380,17 +246,12 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
                 habitArray[indexPath.row].habitDates = []
             }
             if habitArray[indexPath.row].habitDates!.contains(selectedDate) {
-                button.backgroundColor = decodedColor?.darker(by: 30)
-                button.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
+                button.backgroundColor = .black
+                button.layer.borderColor = UIColor.black.cgColor
             }
             buttonCount += 1
         }
-        
-        let gradientArray = [Gradients().blueGradient, Gradients().greenGradient, Gradients().orangeGradient, Gradients().pinkGradient,Gradients().purpleGradient]
-        
 
-        cell.gradientColors = gradientArray[indexPath.row]
-        
       
         
 //        if dataIndex.alarmBool == true {
@@ -398,27 +259,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
 //        } else {
 //            cell.alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
 //        }
-        if dataIndex.frequency == 7 {
+        if habit.frequency == 7 {
             cell.frequencyLabel.text = "Everyday"
-        } else if dataIndex.frequency == 1 {
+        } else if habit.frequency == 1 {
         cell.frequencyLabel.text = "1 day a week"
         } else {
-            cell.frequencyLabel.text = "\(dataIndex.frequency) days a week"
+            cell.frequencyLabel.text = "\(habit.frequency) days a week"
         }
-        //cell.cellView.backgroundColor = decodedColor
-        // Way to determine if target met. need to find a way to ensure it only occurrs once.
-//        var truth = 0
-//        for bool in HabitArray.array[indexPath.row].dayBool! {
-//            if bool == true {
-//                truth += 1
-//            }
-//        }
-//        if truth >= Int(HabitArray.array[indexPath.row].weeklyFrequency!)! {
-//                cell.cellView.layer.borderWidth = 2
-//                cell.cellView.layer.borderColor = dataIndex.buttonColor?.cgColor
-//
-//
-//        }
         
         return cell
     }
@@ -452,7 +299,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
         vc.cellTag = indexPath.row
-        vc.decodedColor = habitArray[indexPath.row].habitColor?.decode()
         vc.habitCoreData = habitArray[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
         

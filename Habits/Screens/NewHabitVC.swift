@@ -6,15 +6,22 @@
 //
 
 import UIKit
+import CoreData
 
-class NewHabitVC: UITableViewController, reloadTableViewDelegate {
+class NewHabitVC: UITableViewController  {
+    
+    var habitArray = [HabitCoreData]()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var textFieldArray = [UITextField]()
     var frequency = 1
     var colors = [CGColor]()
+    var colorIndex = Int()
+    var iconString = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadCoreData()
         registerCells()
         configure()
         configureBarButtons()
@@ -33,10 +40,6 @@ class NewHabitVC: UITableViewController, reloadTableViewDelegate {
         tableView.allowsSelection = false
         title = "Add Habit"
         tableView.separatorStyle = .none
-    }
-    
-    func reloadTableView() {
-        tableView.reloadData()
     }
     
     private func configureBarButtons() {
@@ -69,15 +72,15 @@ class NewHabitVC: UITableViewController, reloadTableViewDelegate {
             
         }))
         present(deleteAlert, animated: true, completion: nil)
-        
     }
     
-    func saveCoreDataHabit() {
-        let newHabit = HabitCoreData(context: CoreDataFuncs.context)
+    func createCoreDataHabit() {
+        let newHabit = HabitCoreData(context: context)
         newHabit.habitName = textFieldArray[0].text
         newHabit.frequency = Int16(frequency)
-        
-        
+        newHabit.iconString = iconString
+        newHabit.habitGradientIndex = Int16(colorIndex)
+        habitArray.append(newHabit)
     }
     
     @objc func saveButtonPressed() {
@@ -86,11 +89,9 @@ class NewHabitVC: UITableViewController, reloadTableViewDelegate {
             textFieldArray[0].layer.borderWidth = 2
             return
         }
-        
         textFieldArray[0].layer.borderWidth = 0
-        
-        
-        
+        createCoreDataHabit()
+        saveCoreData()
     }
     
     @objc func positiveButtonPressed() {
@@ -113,10 +114,26 @@ class NewHabitVC: UITableViewController, reloadTableViewDelegate {
         }
     }
     
+    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
+        
+        do {
+            habitArray = try context.fetch(request)
+        } catch {
+            print("error loading context: \(error)")
+        }
+    }
+    
+    func saveCoreData() {
+        do {
+            try context.save()
+        } catch {
+            print("error saving context: \(error)")
+        }
+    }
+    
 
     
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 6
     }
@@ -152,21 +169,27 @@ class NewHabitVC: UITableViewController, reloadTableViewDelegate {
             
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
             cell.delegate = self
+            for (index, button) in cell.buttonArray.enumerated() {
+                if button.isSelected == true {
+                colorIndex = index
+                    print(index)
+                }
+            }
             colors = cell.color
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
-            cell.colors = colors
             
-            for button in cell.buttonArray {
+            cell.colors = colors
+            cell.delegate = self
+            for (index, button) in cell.buttonArray.enumerated() {
                 if button.isSelected == true {
-                    button.colors = colors
                     button.sendActions(for: .touchUpInside)
+                    button.colors = colors
+                    iconString = cell.iconArray[index]
                 }
             }
-            
             return cell
-        
             
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: ReminderCell.reuseID, for: indexPath) as! ReminderCell
             cell.colors = colors
@@ -203,3 +226,13 @@ extension NewHabitVC: UITextFieldDelegate {
         textFieldArray[0].layer.borderWidth = 0
     }
 }
+
+//MARK: - Protocol Extension
+
+extension NewHabitVC: reloadTableViewDelegate, reloadTableViewDelegateFromIcon {
+    
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+}
+

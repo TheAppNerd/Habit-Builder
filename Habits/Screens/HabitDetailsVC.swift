@@ -11,7 +11,6 @@ import CoreData
 
 class HabitDetailsVC: UIViewController {
 
-    var yearArray = [HabitCoreYear]()
     var habitCoreData: HabitCoreData?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -21,7 +20,6 @@ class HabitDetailsVC: UIViewController {
     
     var cellTag: Int = 0
     var habitData = HabitData()
-    var addHabitVC = AddHabitVC()
     let calendarView = CalendarView()
     let currentStreak = BodyLabel()
     let streakLabel = UILabel()
@@ -37,7 +35,6 @@ class HabitDetailsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.calendarView.setDisplayDate(Date())
-       loadYearsData()
         updateDates()
      
     }
@@ -61,11 +58,6 @@ class HabitDetailsVC: UIViewController {
     setupCollectionArea()
     }
     
-    func loadYearsData() {
-        let yearSet = habitCoreData!.years as! Set<HabitCoreYear>
-        yearArray = yearSet.sorted(by: { $0.year < $1.year})
-        
-    }
     
     
     private func saveCoreData() {
@@ -125,27 +117,8 @@ class HabitDetailsVC: UIViewController {
         let year =  Int16(yearCalc.year!)
         let month = monthCalc.month
         habitCoreData?.habitDates?.append(date)
-        for item in yearArray {
-            if item.year == year {
-                switch month {
-                case 1: item.january?.append(date)
-                case 2: item.february?.append(date)
-                case 3: item.march?.append(date)
-                case 4: item.april?.append(date)
-                case 5: item.may?.append(date)
-                case 6: item.june?.append(date)
-                case 7: item.july?.append(date)
-                case 8: item.august?.append(date)
-                case 9: item.september?.append(date)
-                case 10: item.october?.append(date)
-                case 11: item.november?.append(date)
-                case 12: item.december?.append(date)
-                default:
-                    print("error")
-                }
-            }
         }
-    }
+    
     
     func removeDate(date: Date) {
         let calendar = Calendar(identifier: .gregorian)
@@ -154,26 +127,6 @@ class HabitDetailsVC: UIViewController {
         let year =  Int16(yearCalc.year!)
         let month = monthCalc.month
         habitCoreData?.habitDates = habitCoreData?.habitDates?.filter {$0 != date}
-        for item in yearArray {
-            if item.year == year {
-                switch month {
-                case 1: item.january = item.january!.filter {$0 != date }
-                case 2: item.february = item.february!.filter {$0 != date }
-                case 3: item.march = item.march!.filter {$0 != date }
-                case 4: item.april = item.april!.filter {$0 != date }
-                case 5: item.may = item.may!.filter {$0 != date }
-                case 6: item.june = item.june!.filter {$0 != date }
-                case 7: item.july = item.july!.filter {$0 != date }
-                case 8: item.august = item.august!.filter {$0 != date }
-                case 9: item.september = item.september!.filter {$0 != date }
-                case 10: item.october = item.october!.filter {$0 != date }
-                case 11: item.november = item.november!.filter {$0 != date }
-                case 12: item.december = item.december!.filter {$0 != date }
-                default:
-                    print("error")
-                }
-            }
-        }
     }
     
     func presentAlertToAddHabit(date: Date) {
@@ -383,9 +336,8 @@ class HabitDetailsVC: UIViewController {
     }
     
     @objc func editHabit() {
-        let addHabitVC = AddHabitVC()
-        addHabitVC.cellTag = cellTag
-        navigationController?.pushViewController(addHabitVC, animated: true)
+        let newHabitVC = NewHabitVC()
+        navigationController?.pushViewController(newHabitVC, animated: true)
     }
     
     
@@ -398,36 +350,6 @@ class HabitDetailsVC: UIViewController {
       
         return year
     }
-    
-    func addNewYear() {
-        //loop through dict keys to get highest value. if current year != highest value append new dict with current year
-        let latestYear = (yearArray.last?.year)!
-        let currentYear = getYear()
-        if currentYear != latestYear {
-            let newYear = HabitCoreYear(context: self.context)
-            newYear.year = Int16(currentYear)
-            newYear.january = []
-            newYear.february = []
-            newYear.march = []
-            newYear.april = []
-            newYear.may = []
-            newYear.june = []
-            newYear.july = []
-            newYear.august = []
-            newYear.september = []
-            newYear.october = []
-            newYear.november = []
-            newYear.december = []
-            yearArray.append(newYear)
-            saveCoreData()
-            //test this
-        }
-    }
-    
-  
-
-   
-    
     
     func configureCollectionView() {
         let layout = UICollectionViewFlowLayout()
@@ -503,17 +425,14 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
-        return yearArray.count
+        return 1
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCell.reuseID, for: indexPath) as! ChartCell
         
-        let year = yearArray[indexPath.row]
         cell.habitView.color = decodedColor
-        cell.habitView.year = Int(year.year)
-        cell.habitView.monthCount = [year.january!.count, year.february!.count, year.march!.count, year.april!.count, year.may!.count, year.june!.count, year.july!.count, year.august!.count, year.september!.count, year.october!.count, year.november!.count, year.december!.count]
         cell.habitView.configureStackView()
         cell.habitView.backgroundColor = .tertiarySystemBackground
         return cell
