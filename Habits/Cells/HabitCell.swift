@@ -33,7 +33,9 @@ static let reuseID = "HabitCell"
                                    DayButton()
     ]
     
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -179,7 +181,6 @@ static let reuseID = "HabitCell"
         addSubview(frequencyLabel)
         
         iconImage.translatesAutoresizingMaskIntoConstraints = false
-        iconImage.image = UIImage(named: "settingImage")
         iconImage.tintColor = .white
         frequencyLabel.textColor = .white
       

@@ -53,10 +53,6 @@ class NewHabitVC: UITableViewController  {
         present(destVC, animated: true)
     }
     
-    func saveHabit() {
-        
-        
-    }
     
     @objc func deleteHabit() {
         let deleteAlert = UIAlertController(title: "Delete Habit?", message: "Are you sure you want to delete this? It cannot be recovered.", preferredStyle: .alert)
@@ -83,6 +79,15 @@ class NewHabitVC: UITableViewController  {
         habitArray.append(newHabit)
     }
     
+    
+//    func getYear() -> Int {
+//        let today = Date()
+//        let calendar = Calendar(identifier: .gregorian)
+//        let year = calendar.component(.year, from: today)
+//
+//        return year
+//    }
+    
     @objc func saveButtonPressed() {
       
         guard textFieldArray[0].text != "" else {
@@ -92,6 +97,11 @@ class NewHabitVC: UITableViewController  {
         textFieldArray[0].layer.borderWidth = 0
         createCoreDataHabit()
         saveCoreData()
+//        HabitDetailsVC.chartYears[getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
+//        HabitDetailsVC.chartYears[getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
+        let destVC = UINavigationController(rootViewController: HabitVC())
+                destVC.modalPresentationStyle = .fullScreen
+                present(destVC, animated: true)
     }
     
     @objc func positiveButtonPressed() {
@@ -186,7 +196,6 @@ class NewHabitVC: UITableViewController  {
                 if button.isSelected == true {
                     button.sendActions(for: .touchUpInside)
                     button.colors = colors
-                    iconString = cell.iconArray[index]
                 }
             }
             return cell
@@ -229,10 +238,17 @@ extension NewHabitVC: UITextFieldDelegate {
 
 //MARK: - Protocol Extension
 
-extension NewHabitVC: reloadTableViewDelegate, reloadTableViewDelegateFromIcon {
+extension NewHabitVC: reloadTableViewDelegate, passIconData {
+    func passIconData(iconString: String) {
+        self.iconString = iconString
+        print(self.iconString)
+    }
+    
     
     func reloadTableView() {
         tableView.reloadData()
     }
+    
+    
 }
 

@@ -23,8 +23,6 @@ class HabitVC: UIViewController, SettingsPush {
     var isSlideInMenuPressed = false
     
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
-    var habitName: String = ""
-    var dailyNumber: String = ""
     static var cellCount = 1
     var habitData = HabitData()
     static var habitBool = false
@@ -46,7 +44,6 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableView()
         configureTableViewFooter()
         tableView.reloadData()
-   
     }
     
     func configureViewController() {
@@ -179,13 +176,13 @@ class HabitVC: UIViewController, SettingsPush {
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
         //change below to a switch or a toggle
-        habitArray[indexPath.row].habitDates?.append(selectedDate)
-        saveCoreData()
-      
+   
+        print("index\(habitArray[indexPath.row].habitGradientIndex)")
         if sender.backgroundColor == .clear {
 //            sender.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
        // sender.backgroundColor = decodedColor?.darker(by: 20)
-           
+            habitArray[indexPath.row].habitDates?.append(selectedDate)
+            saveCoreData()
         
         } else {
             sender.backgroundColor = .clear
@@ -230,9 +227,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         var buttonCount = 0
+        
         let habit = habitArray[indexPath.row]
-       
+        habit.habitGradientIndex = habitArray[indexPath.row].habitGradientIndex
+        cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
         cell.habitName.text = habit.habitName
+        
+        //to fix duplication issue need to move daybuttons and gradientcolors to a custom class
         cell.gradientColors = GradientArray.array[Int(habit.habitGradientIndex)]
         
         for button in cell.dayButton {
@@ -242,10 +243,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             let selectedDate = startOfDay(date: cell.dateArray[buttonCount])
         
             //tese that this resets when next week loads up after data retention added
-            if habitArray[indexPath.row].habitDates == nil {
-                habitArray[indexPath.row].habitDates = []
+            if habit.habitDates == nil {
+                habit.habitDates = []
             }
-            if habitArray[indexPath.row].habitDates!.contains(selectedDate) {
+            if habit.habitDates!.contains(selectedDate) {
                 button.backgroundColor = .black
                 button.layer.borderColor = UIColor.black.cgColor
             }

@@ -16,7 +16,7 @@ class HabitDetailsVC: UIViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var decodedColor: UIColor?
 
-    
+    var chartYears: [Int: [Int]] = [:]
     
     var cellTag: Int = 0
     var habitData = HabitData()
@@ -46,11 +46,10 @@ class HabitDetailsVC: UIViewController {
         configureBarButtons()
         configureCalendarView()
         configureStreakView()
-        //addNewYear()
-        self.tabBarController?.tabBar.isHidden = true // is this needed?
+        addNewYear()
+        //self.tabBarController?.tabBar.isHidden = true // is this needed?
         title = habitCoreData?.habitName
         setupCalendarArea()
-       
     }
     
     func viewDidLoadlayout() {
@@ -158,6 +157,41 @@ class HabitDetailsVC: UIViewController {
         }))
         present(alert, animated: true)
     }
+    
+    func addNewYear() {
+        if chartYears.count == 0 {
+            chartYears[getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
+            chartYears[getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
+        }
+            
+        //loop through dict keys to get highest value. if current year != highest value append new dict with current year
+        let latestYear = chartYears.keys.max()
+        let currentYear = getYear()
+        //test this
+        if currentYear > latestYear! {
+            chartYears[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
+        }
+    }
+    
+    func updateChart() {
+        let calendar = Calendar(identifier: .gregorian)
+        for year in chartYears.keys {
+            chartYears[year] = [0,0,0,0,0,0,0,0,0,0,0,0]
+        }
+        //use guard here
+        guard habitCoreData?.habitDates != nil else { return }
+        for date in habitCoreData!.habitDates! {
+                    
+                    let monthCalc = calendar.dateComponents([.month], from: date)
+                    let yearCalc = calendar.dateComponents([.year], from: date)
+                    let year = yearCalc.year!
+                    let month = monthCalc.month!
+                    
+                    chartYears[year]![month] += 1
+                    }
+                        }
+        
+    
     
     private func configureBarButtons() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
@@ -425,14 +459,18 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       
-        return 1
+        return chartYears.count
     }
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCell.reuseID, for: indexPath) as! ChartCell
-        
-        cell.habitView.color = decodedColor
+        updateChart()
+        let earliestYear = chartYears.keys.min()!
+        let year = earliestYear + indexPath.row
+        cell.habitView.year = year
+        cell.habitView.monthCount = chartYears[year]!
+        cell.habitView.color = .blue
         cell.habitView.configureStackView()
         cell.habitView.backgroundColor = .tertiarySystemBackground
         return cell
