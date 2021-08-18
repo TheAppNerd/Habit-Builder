@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol reloadTableViewDelegateFromIcon: AnyObject {
-    func reloadTableView()
+protocol passIconData: AnyObject {
+    func passIconData(iconString: String)
 }
 
 class IconCell: UITableViewCell {
 
 static let reuseID = "IconCell"
-    weak var delegate: reloadTableViewDelegateFromIcon?
+    weak var delegate: passIconData?
     
     let stackViewOne = UIStackView()
     let stackViewTwo = UIStackView()
@@ -96,7 +96,6 @@ static let reuseID = "IconCell"
     @objc func iconButtonPressed(_ sender: GradientButton) {
         for item in buttonArray {
                 item.tintColor = .secondaryLabel
-            //item.backgroundColor = .systemBackground
             item.isSelected = false
             item.colors = noColors
             }
@@ -104,8 +103,11 @@ static let reuseID = "IconCell"
         sender.tintColor = .label
         sender.colors = colors
         sender.isSelected = true
-        //delegate?.reloadTableView()
+        for (index,item) in buttonArray.enumerated() {
+            if item.isSelected == true {
+                delegate?.passIconData(iconString: iconArray[index])
+            }
         }
-   
+    }
     }
 
