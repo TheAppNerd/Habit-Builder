@@ -263,8 +263,14 @@ class NewHabitVC: UITableViewController  {
 
 extension NewHabitVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        name = textField.text ?? ""
      textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        name = textField.text ?? ""
+        print("did end editing")
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

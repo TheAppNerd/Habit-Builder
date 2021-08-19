@@ -35,7 +35,7 @@ class HabitDetailsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.calendarView.setDisplayDate(Date())
-        updateDates()
+       
      
     }
     
@@ -50,11 +50,14 @@ class HabitDetailsVC: UIViewController {
         //self.tabBarController?.tabBar.isHidden = true // is this needed?
         title = habitCoreData?.habitName
         setupCalendarArea()
+        updateDates()
+       
     }
     
     func viewDidLoadlayout() {
         configureCollectionView()
     setupCollectionArea()
+        streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
     }
     
     
@@ -224,7 +227,7 @@ class HabitDetailsVC: UIViewController {
         myStyle.cellTextColorDefault = .label
         myStyle.cellTextColorWeekend = .label
         myStyle.cellSelectedTextColor = .label
-        myStyle.cellSelectedColor = decodedColor ?? .clear
+        myStyle.cellSelectedColor = .blue
         
     }
     
