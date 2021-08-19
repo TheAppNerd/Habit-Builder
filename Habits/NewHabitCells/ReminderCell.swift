@@ -48,6 +48,8 @@ class ReminderCell: UITableViewCell {
         minute = Int(time[1])!
     }
     
+
+    
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
 //        if dateSwitch.isOn == true {
 //            habitData.alarmBool = true

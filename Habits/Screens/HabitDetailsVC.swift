@@ -18,7 +18,7 @@ class HabitDetailsVC: UIViewController {
 
     var chartYears: [Int: [Int]] = [:]
     
-    var cellTag: Int = 0
+    var cellTag: Int?
     var habitData = HabitData()
     let calendarView = CalendarView()
     let currentStreak = BodyLabel()
@@ -185,7 +185,7 @@ class HabitDetailsVC: UIViewController {
                     let monthCalc = calendar.dateComponents([.month], from: date)
                     let yearCalc = calendar.dateComponents([.year], from: date)
                     let year = yearCalc.year!
-                    let month = monthCalc.month!
+                    let month = monthCalc.month!-1
                     
                     chartYears[year]![month] += 1
                     }
@@ -371,6 +371,7 @@ class HabitDetailsVC: UIViewController {
     
     @objc func editHabit() {
         let newHabitVC = NewHabitVC()
+        newHabitVC.cellTag = cellTag!
         navigationController?.pushViewController(newHabitVC, animated: true)
     }
     
