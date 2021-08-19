@@ -158,7 +158,7 @@ class HabitVC: UIViewController, SettingsPush {
     @objc func addHabitPressed() {
         HabitArray.habitCreated = false
         let newHabitVC = NewHabitVC()
-        //newHabitVC.cellTag = habitArray.count
+        newHabitVC.cellTag = habitArray.count
         navigationController?.pushViewController(newHabitVC, animated: true)
     }
     

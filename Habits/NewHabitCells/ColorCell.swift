@@ -8,7 +8,7 @@
 import UIKit
 
 protocol reloadTableViewDelegate: AnyObject {
-    func reloadTableView()
+    func reloadTableView(colors: [CGColor])
 }
 
 class ColorCell: UITableViewCell {
@@ -69,8 +69,7 @@ class ColorCell: UITableViewCell {
         }
         sender.isSelected = true
         sender.layer.borderWidth = 1
-        sender.layer.borderColor = UIColor.label.cgColor
         color = sender.colors
-        delegate?.reloadTableView()
+        delegate?.reloadTableView(colors: color)
     }
 }

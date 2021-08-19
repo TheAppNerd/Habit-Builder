@@ -13,7 +13,9 @@ class NewHabitVC: UITableViewController  {
     var habitArray = [HabitCoreData]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var textFieldArray = [UITextField]()
+    var cellTag = Int()
+    var nameArray = [UITextField]()
+    var name = String()
     var frequency = 1
     var colors = [CGColor]()
     var colorIndex = Int()
@@ -22,9 +24,20 @@ class NewHabitVC: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
+        loadData()
         registerCells()
         configure()
         configureBarButtons()
+       dimissKeyboard()
+    }
+    
+    func loadData() {
+        if cellTag < habitArray.count {
+            let habit = habitArray[cellTag]
+            frequency = Int(habit.frequency)
+            colorIndex = Int(habit.habitGradientIndex)
+            iconString = habit.iconString ?? ""
+        }
     }
 
     private func registerCells() {
@@ -47,6 +60,13 @@ class NewHabitVC: UITableViewController  {
          navigationItem.rightBarButtonItem = deleteButton
      }
     
+    func dimissKeyboard() {
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    
     @objc func dismissVC() {
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
@@ -63,42 +83,46 @@ class NewHabitVC: UITableViewController  {
            //where do i need to delete. core data here.
             let destVC = UINavigationController(rootViewController: HabitVC())
             destVC.modalPresentationStyle = .fullScreen
-            
+            let habit = self.habitArray[self.cellTag]
+            self.context.delete(habit)
+            self.habitArray.remove(at: self.cellTag)
+            self.saveCoreData()
             self.present(destVC, animated: true)
             
         }))
+        if cellTag < habitArray.count {
         present(deleteAlert, animated: true, completion: nil)
+        }
     }
     
     func createCoreDataHabit() {
+        if cellTag >= habitArray.count {
         let newHabit = HabitCoreData(context: context)
-        newHabit.habitName = textFieldArray[0].text
+        newHabit.habitName = name
         newHabit.frequency = Int16(frequency)
         newHabit.iconString = iconString
         newHabit.habitGradientIndex = Int16(colorIndex)
+        newHabit.habitCreated = true
         habitArray.append(newHabit)
+        } else if cellTag < habitArray.count {
+             let oldHabit = habitArray[cellTag]
+           oldHabit.habitName = name
+           oldHabit.frequency = Int16(frequency)
+           oldHabit.iconString = iconString
+           oldHabit.habitGradientIndex = Int16(colorIndex)
+        }
     }
     
     
-//    func getYear() -> Int {
-//        let today = Date()
-//        let calendar = Calendar(identifier: .gregorian)
-//        let year = calendar.component(.year, from: today)
-//
-//        return year
-//    }
-    
     @objc func saveButtonPressed() {
       
-        guard textFieldArray[0].text != "" else {
-            textFieldArray[0].layer.borderWidth = 2
+        guard name != "" else {
+            nameArray[0].layer.borderWidth = 2
             return
         }
-        textFieldArray[0].layer.borderWidth = 0
+        nameArray[0].layer.borderWidth = 0
         createCoreDataHabit()
         saveCoreData()
-//        HabitDetailsVC.chartYears[getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
-//        HabitDetailsVC.chartYears[getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
         let destVC = UINavigationController(rootViewController: HabitVC())
                 destVC.modalPresentationStyle = .fullScreen
                 present(destVC, animated: true)
@@ -141,6 +165,8 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
+    
+    
 
     
     // MARK: - Table view data source
@@ -167,8 +193,12 @@ class NewHabitVC: UITableViewController  {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0: let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
-            textFieldArray.append(cell.nameTextField)
             cell.nameTextField.delegate = self
+            nameArray.append(cell.nameTextField) // is this still needed?
+            if cellTag < habitArray.count {
+            cell.nameTextField.text = habitArray[cellTag].habitName ?? ""
+            }
+    
             return cell
             
         case 1: let cell = tableView.dequeueReusableCell(withIdentifier: HabitFrequencyCell.reuseID, for: indexPath) as! HabitFrequencyCell
@@ -180,6 +210,9 @@ class NewHabitVC: UITableViewController  {
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
             cell.delegate = self
             for (index, button) in cell.buttonArray.enumerated() {
+                if index == colorIndex {
+                    button.sendActions(for: .touchUpInside)
+                }
                 if button.isSelected == true {
                 colorIndex = index
                     print(index)
@@ -193,6 +226,9 @@ class NewHabitVC: UITableViewController  {
             cell.colors = colors
             cell.delegate = self
             for (index, button) in cell.buttonArray.enumerated() {
+                if button.image(for: .normal) == UIImage(named: iconString) {
+                    button.sendActions(for: .touchUpInside)
+                }
                 if button.isSelected == true {
                     button.sendActions(for: .touchUpInside)
                     button.colors = colors
@@ -209,7 +245,7 @@ class NewHabitVC: UITableViewController  {
                     button.sendActions(for: .touchUpInside)
                 }
             }
-            cell.colors = colors
+            
             return cell
       
         case 5: let cell = tableView.dequeueReusableCell(withIdentifier: SaveCell.reuseID, for: indexPath) as! SaveCell
@@ -227,28 +263,26 @@ class NewHabitVC: UITableViewController  {
 
 extension NewHabitVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textFieldArray[0].resignFirstResponder()
+     textField.resignFirstResponder()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textFieldArray[0].layer.borderWidth = 0
+       textField.layer.borderWidth = 0
     }
 }
 
 //MARK: - Protocol Extension
 
 extension NewHabitVC: reloadTableViewDelegate, passIconData {
+    func reloadTableView(colors: [CGColor]) {
+        self.colors = colors
+        tableView.reloadSections([3, 4], with: .none)
+    }
+    
     func passIconData(iconString: String) {
         self.iconString = iconString
         print(self.iconString)
     }
-    
-    
-    func reloadTableView() {
-        tableView.reloadData()
-    }
-    
-    
 }
 
