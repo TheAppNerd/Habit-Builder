@@ -28,7 +28,7 @@ class NewHabitVC: UITableViewController  {
         registerCells()
         configure()
         configureBarButtons()
-       dimissKeyboard()
+       dismissKeyboard()
     }
     
     func loadData() {
@@ -40,6 +40,8 @@ class NewHabitVC: UITableViewController  {
         }
     }
 
+    // arrange funcs in same order they are called in viewdidload
+    
     private func registerCells() {
         tableView.register(HabitNameCell.self, forCellReuseIdentifier: HabitNameCell.reuseID)
         tableView.register(HabitFrequencyCell.self, forCellReuseIdentifier: HabitFrequencyCell.reuseID)
@@ -56,20 +58,25 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configureBarButtons() {
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
+        
         let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: .done, target: self, action: #selector(deleteHabit))
+        navigationItem.leftBarButtonItem = cancelButton
          navigationItem.rightBarButtonItem = deleteButton
      }
     
-    func dimissKeyboard() {
+    func dismissKeyboard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
     
+    
     @objc func dismissVC() {
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
+        print("caencelled")
         present(destVC, animated: true)
     }
     

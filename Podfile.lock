@@ -1,18 +1,16 @@
 PODS:
-  - KDCalendar (1.8.9):
-    - KDCalendar/EventManager (= 1.8.9)
-  - KDCalendar/EventManager (1.8.9)
+  - FSCalendar (2.8.2)
 
 DEPENDENCIES:
-  - KDCalendar (~> 1.8.4)
+  - FSCalendar
 
 SPEC REPOS:
   trunk:
-    - KDCalendar
+    - FSCalendar
 
 SPEC CHECKSUMS:
-  KDCalendar: a587bc486b992d82ef94bd04001fce9baf45e518
+  FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
 
-PODFILE CHECKSUM: 5732f654f138e14f00c87dc6eb8961f516b9aa6b
+PODFILE CHECKSUM: 5c3dfae2711a2b665b929d145aa856a659f3cb2b
 
 COCOAPODS: 1.10.1

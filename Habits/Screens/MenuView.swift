@@ -46,7 +46,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuTableViewCell.reuseID) as! MenuTableViewCell
-        cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])
+        cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])?.addTintGradient(colors: GradientArray.array[indexPath.row])
         cell.cellLabel.text = menuItems[indexPath.row]
         return cell
     }

@@ -37,6 +37,7 @@ class EmptyStateView: UIView {
         message.text = "There are no habits here yet. Press the add habit button to get started or press how to use for a guide on how to use this app"
         imageView.image = UIImage(systemName: "calendar")
         
+        
         addHabitButton.layer.cornerRadius = 10
         howToUseButton.layer.cornerRadius = 10
         

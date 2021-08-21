@@ -6,21 +6,25 @@
 //
 
 import UIKit
-import KDCalendar
 import CoreData
+import FSCalendar
 
-class HabitDetailsVC: UIViewController {
+class HabitDetailsVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
 
-    var habitCoreData: HabitCoreData?
+    var habitCoreData: HabitCoreData? {
+        didSet {
+            dates = (habitCoreData?.habitDates)!
+        }
+    }
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var decodedColor: UIColor?
+    var dates: [Date] = []
 
     var chartYears: [Int: [Int]] = [:]
-    
+    let calendarView = FSCalendar()
     var cellTag: Int?
     var habitData = HabitData()
-    let calendarView = CalendarView()
     let currentStreak = BodyLabel()
     let streakLabel = UILabel()
     let calendarBackgound = DividerView()
@@ -29,18 +33,19 @@ class HabitDetailsVC: UIViewController {
     //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
     
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let habitCountView = HabitCountView()
+
    
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.calendarView.setDisplayDate(Date())
+        //self.calendarView.setDisplayDate(Date())
        
      
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         viewDidLoadlayout()
         configureViewController()
         configureBarButtons()
@@ -51,7 +56,8 @@ class HabitDetailsVC: UIViewController {
         title = habitCoreData?.habitName
         setupCalendarArea()
         updateDates()
-       
+        calendarView.delegate = self
+        calendarView.dataSource = self
     }
     
     func viewDidLoadlayout() {
@@ -60,7 +66,7 @@ class HabitDetailsVC: UIViewController {
         streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
     }
     
-    
+  
     
     private func saveCoreData() {
         do {
@@ -71,7 +77,7 @@ class HabitDetailsVC: UIViewController {
     }
         
     func configureStreakView() {
-        let streakImage = UIImageView(image: UIImage(systemName: "flame.fill"))
+        let streakImage = UIImageView(image: UIImage(systemName: "flame.fill")?.addTintGradient(colors: Gradients().orangeGradient))
         streakImage.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
         streakLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -107,7 +113,7 @@ class HabitDetailsVC: UIViewController {
     
     func updateDates() {
         for date in habitCoreData!.habitDates! {
-            calendarView.selectDate(date)
+            calendarView.select(date)
         }
     }
     
@@ -136,7 +142,7 @@ class HabitDetailsVC: UIViewController {
         
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            self.calendarView.selectDate(date)
+            //self.calendarView.selectDate(date)
             self.addDate(date: date)
             self.saveCoreData()
             self.viewDidLoadlayout()
@@ -151,7 +157,7 @@ class HabitDetailsVC: UIViewController {
     func presentAlertToRemoveHabit(date: Date) {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            self.calendarView.deselectDate(date)
+            //self.calendarView.deselectDate(date)
             self.removeDate(date: date)
             self.viewDidLoadlayout()
         }))
@@ -160,6 +166,9 @@ class HabitDetailsVC: UIViewController {
         }))
         present(alert, animated: true)
     }
+    
+ 
+    
     
     func addNewYear() {
         if chartYears.count == 0 {
@@ -208,27 +217,11 @@ class HabitDetailsVC: UIViewController {
     //move calendarview to its own VC then input here as a subview.
     
     func configureCalendarView() {
-       
-        calendarView.delegate = self
-        calendarView.dataSource = self
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        calendarView.direction = .horizontal
-        calendarView.style.locale = Locale.current
-        calendarView.backgroundColor = .clear
-        calendarView.style.firstWeekday = .sunday
-        let myStyle = CalendarView.Style()
-        self.calendarView.style = myStyle
-        myStyle.cellBorderColor = .clear
-        myStyle.cellBorderWidth = 1
-        myStyle.firstWeekday = .sunday
-        myStyle.cellShape = CalendarView.Style.CellShapeOptions.round
-        myStyle.cellColorDefault = .clear
-        myStyle.cellSelectedBorderColor = decodedColor ?? .clear
-        myStyle.cellTextColorDefault = .label
-        myStyle.cellTextColorWeekend = .label
-        myStyle.cellSelectedTextColor = .label
-        myStyle.cellSelectedColor = .blue
-        
+        calendarView.allowsMultipleSelection = true
+        calendarView.appearance.headerTitleColor = .label
+        calendarView.appearance.weekdayTextColor = .label
+        calendarView.appearance.titleDefaultColor = .secondaryLabel
+        calendarView.appearance.titleSelectionColor = .label
     }
     
     private func configureViewController() {
@@ -275,8 +268,7 @@ class HabitDetailsVC: UIViewController {
         line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = .white
         
-        
-        let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis"))
+        let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: GradientArray.array[Int(habitCoreData!.habitGradientIndex)]))
         collectionImage.layer.cornerRadius = 10
         collectionImage.tintColor = decodedColor
         collectionImage.backgroundColor = . clear
@@ -326,11 +318,12 @@ class HabitDetailsVC: UIViewController {
 
         let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
         
-        let calendarImage = UIImageView(image: UIImage(systemName: "calendar"))
+        let calendarImage = UIImageView(image: UIImage(systemName: "calendar")?.addTintGradient(colors: GradientArray.array[Int(habitCoreData!.habitGradientIndex)]))
         calendarImage.layer.cornerRadius = 10
         calendarImage.tintColor = decodedColor
         calendarImage.backgroundColor = . clear
         calendarImage.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
         
         calendarBackgound.addSubviews(calendarImage, calendarLabel, infoLabel, calendarView, line)
         let padding2: CGFloat = 20
@@ -399,7 +392,7 @@ class HabitDetailsVC: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(ChartCell.self, forCellWithReuseIdentifier: ChartCell.reuseID)
+        collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
         collectionView.isScrollEnabled = true
         collectionView.backgroundColor = .tertiarySystemBackground
         
@@ -410,52 +403,54 @@ class HabitDetailsVC: UIViewController {
 
 //MARK: - Calendar View
 
-extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
-    
-    func calendar(_ calendar: CalendarView, didScrollToMonth date: Date) {
-    }
-    
-    func calendar(_ calendar: CalendarView, didSelectDate date: Date, withEvents events: [CalendarEvent]) {
-    }
-    
-    func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
-        if date < Date()
-{
-            if calendarView.selectedDates.contains(date) {
-            presentAlertToRemoveHabit(date: date)
-            } else {
-                presentAlertToAddHabit(date: date)
-            }
-        }
-       return false
-    }
-    
-    func calendar(_ calendar: CalendarView, didDeselectDate date: Date) {
-    }
-    
-    func calendar(_ calendar: CalendarView, didLongPressDate date: Date, withEvents events: [CalendarEvent]?) {
-    }
-    
-    func startDate() -> Date {
-        var dateComponents = DateComponents()
-        dateComponents.year = -10
-        let today = Date()
-        let pastEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-        return pastEndDate!
-    }
-    
-    func endDate() -> Date {
-        var dateComponents = DateComponents()
-        dateComponents.year = 10
-        let today = Date()
-        let futureEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-        return futureEndDate!
-    }
-    
-    func headerString(_ date: Date) -> String? {
-        return nil
-    }
-}
+//extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
+//
+//    func calendar(_ calendar: CalendarView, didScrollToMonth date: Date) {
+////        updateDates()
+////        print(calendarView.selectedDates)
+//    }
+//
+//    func calendar(_ calendar: CalendarView, didSelectDate date: Date, withEvents events: [CalendarEvent]) {
+//    }
+//
+//    func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
+//        if date < Date()
+//{
+//            if calendarView.selectedDates.contains(date) {
+//            presentAlertToRemoveHabit(date: date)
+//            } else {
+//                presentAlertToAddHabit(date: date)
+//            }
+//        }
+//       return false
+//    }
+//
+//    func calendar(_ calendar: CalendarView, didDeselectDate date: Date) {
+//    }
+//
+//    func calendar(_ calendar: CalendarView, didLongPressDate date: Date, withEvents events: [CalendarEvent]?) {
+//    }
+//    
+//    func startDate() -> Date {
+//        var dateComponents = DateComponents()
+//        dateComponents.year = -10
+//        let today = Date()
+//        let pastEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
+//        return pastEndDate!
+//    }
+//
+//    func endDate() -> Date {
+//        var dateComponents = DateComponents()
+//        dateComponents.year = 10
+//        let today = Date()
+//        let futureEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
+//        return futureEndDate!
+//    }
+//
+//    func headerString(_ date: Date) -> String? {
+//        return nil
+//    }
+//}
 
 //MARK: - collectionview
 
@@ -468,18 +463,17 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCell.reuseID, for: indexPath) as! ChartCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCollectionCell.reuseID, for: indexPath) as! ChartCollectionCell
         updateChart()
         let earliestYear = chartYears.keys.min()!
         let year = earliestYear + indexPath.row
-        cell.habitView.year = year
-        cell.habitView.monthCount = chartYears[year]!
-        cell.habitView.color = .blue
-        cell.habitView.configureStackView()
-        cell.habitView.backgroundColor = .tertiarySystemBackground
+        cell.year = year
+        cell.monthCount = chartYears[year]!
+        cell.configureStackView()
         return cell
         
     }
     
 }
+
 
