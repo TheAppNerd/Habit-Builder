@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import KDCalendar
 import CoreData
 
 class HabitVC: UIViewController, SettingsPush {
@@ -14,7 +13,6 @@ class HabitVC: UIViewController, SettingsPush {
     var habitArray = [HabitCoreData]()
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
     
 
     let tableView = UITableView()
@@ -33,7 +31,6 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        
                     }
 
     override func viewDidLoad() {
@@ -44,6 +41,7 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableView()
         configureTableViewFooter()
         tableView.reloadData()
+        self.tableView.allowsSelection = true
     }
     
     func configureViewController() {
@@ -69,7 +67,7 @@ class HabitVC: UIViewController, SettingsPush {
         tableView.rowHeight = tableView.frame.height / 6
         tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
         tableView.separatorStyle = .none
-
+        tableView.allowsSelectionDuringEditing = true
     }
     
     
@@ -156,15 +154,14 @@ class HabitVC: UIViewController, SettingsPush {
     
    
     @objc func addHabitPressed() {
-        HabitArray.habitCreated = false
         let newHabitVC = NewHabitVC()
         newHabitVC.cellTag = habitArray.count
         navigationController?.pushViewController(newHabitVC, animated: true)
     }
     
     func startOfDay(date: Date) -> Date {
-        let calendarView = CalendarView()
-        let startDate = calendarView.calendar.startOfDay(for: date)
+        let calendarView = Calendar(identifier: .gregorian)
+        let startDate = calendarView.startOfDay(for: date)
         return startDate
     }
     
@@ -179,11 +176,8 @@ class HabitVC: UIViewController, SettingsPush {
    
         print("index\(habitArray[indexPath.row].habitGradientIndex)")
         if sender.backgroundColor == .clear {
-//            sender.layer.borderColor = decodedColor?.darker(by: 20)?.cgColor
-       // sender.backgroundColor = decodedColor?.darker(by: 20)
             habitArray[indexPath.row].habitDates?.append(selectedDate)
             saveCoreData()
-        
         } else {
             sender.backgroundColor = .clear
             sender.layer.borderColor = UIColor.white.cgColor
@@ -242,7 +236,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             
             let selectedDate = startOfDay(date: cell.dateArray[buttonCount])
         
-            //tese that this resets when next week loads up after data retention added
+            //test that this resets when next week loads up after data retention added
             if habit.habitDates == nil {
                 habit.habitDates = []
             }

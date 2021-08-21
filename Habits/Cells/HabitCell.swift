@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import KDCalendar
 
 class HabitCell: UITableViewCell {
 
@@ -14,7 +13,7 @@ static let reuseID = "HabitCell"
     
     let habitName = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
     let cellView = TableCellView()
-    var calendarView = CalendarView()
+    var calendarView = Calendar(identifier: .gregorian)
     var dateArray: [Date] = []
     var dayArray: [Int] = []
     let alarmButton = UIButton()
@@ -142,13 +141,13 @@ static let reuseID = "HabitCell"
             print("Error")
         }
         
-        let startOfWeek = calendarView.calendar.date(byAdding: dateComponents, to: Date())!
+        let startOfWeek = calendarView.date(byAdding: dateComponents, to: Date())!
         dateArray.append(startOfWeek)
         for date in dateArray {
         while dateArray.count <= 6 {
             count += 1
             dailyDateComponents.day = count
-            dateArray.append(calendarView.calendar.date(byAdding: dailyDateComponents, to: date)!)
+            dateArray.append(calendarView.date(byAdding: dailyDateComponents, to: date)!)
         }
         }
     }

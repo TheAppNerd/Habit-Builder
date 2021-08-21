@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 
+
 struct HabitArray {
     
     
@@ -19,7 +20,7 @@ struct HabitArray {
 }
 
 struct HabitData {
-
+    
     var habitName: String?
     var buttonColor: UIColor?
     var habitNumber: Int? //relates to celltag. replace this
