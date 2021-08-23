@@ -36,6 +36,7 @@ class NewHabitVC: UITableViewController  {
             let habit = habitArray[cellTag]
             frequency = Int(habit.frequency)
             colorIndex = Int(habit.habitGradientIndex)
+            colors = GradientArray.array[colorIndex]
             iconString = habit.iconString ?? ""
         }
     }
@@ -220,19 +221,15 @@ class NewHabitVC: UITableViewController  {
                 if index == colorIndex {
                     button.sendActions(for: .touchUpInside)
                 }
-                if button.isSelected == true {
-                colorIndex = index
-                    print(index)
-                }
             }
-            colors = cell.color
+            //colors = cell.color
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
-            
+    
             cell.colors = colors
             cell.delegate = self
-            for (index, button) in cell.buttonArray.enumerated() {
+            for button in cell.buttonArray {
                 if button.image(for: .normal) == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
                 }
@@ -247,9 +244,7 @@ class NewHabitVC: UITableViewController  {
             cell.colors = colors
             for button in cell.buttonArray {
                 if button.isSelected == true {
-                    button.colors = colors
-                    button.sendActions(for: .touchUpInside)
-                    button.sendActions(for: .touchUpInside)
+                    button.isSelected = false
                 }
             }
             
@@ -288,14 +283,15 @@ extension NewHabitVC: UITextFieldDelegate {
 //MARK: - Protocol Extension
 
 extension NewHabitVC: reloadTableViewDelegate, passIconData {
-    func reloadTableView(colors: [CGColor]) {
+    func reloadTableView(colors: [CGColor], colorIndex: Int) {
         self.colors = colors
+        self.colorIndex = colorIndex
         tableView.reloadSections([3, 4], with: .none)
     }
+
     
     func passIconData(iconString: String) {
         self.iconString = iconString
-        print(self.iconString)
     }
 }
 

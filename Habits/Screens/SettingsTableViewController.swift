@@ -11,8 +11,8 @@ class SettingsTableViewController: UITableViewController {
 
     static let reuseIdentifier = "reuseID"
     
-    let oneText = ["Change tint color", "Change app icon", "Change font"]
-    let oneImages = ["paintbrush", "paperplane.circle", "textformat", ]
+    let oneText = ["Change tint color", "Change app icon"]
+    let oneImages = ["paintbrush", "paperplane.circle"]
     
     let twoText = ["Privacy", "About App"]
     let twoImages = ["hand.raised", "note.text"]
@@ -47,15 +47,15 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 3
+        case 1: return 2
         case 2: return 2
-        case 3: return 2
+       
         default:
             return 0
         }
@@ -69,6 +69,7 @@ class SettingsTableViewController: UITableViewController {
         case 0: //change these cases to names for clarity
             let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeCell.reuseID, for: indexPath) as! DarkModeCell
             cell.darkModeSegment.addTarget(self, action: #selector(darkModeValueChanged), for: .valueChanged)
+            cell.selectionStyle = .none
             return cell
             
         case 1: let cell = tableView.dequeueReusableCell(withIdentifier: VisualsCell.reuseID, for: indexPath) as! VisualsCell
@@ -81,10 +82,6 @@ class SettingsTableViewController: UITableViewController {
                 cell.cellImage.image = UIImage(systemName: twoImages[indexPath.row])
                 cell.cellLabel.text = twoText[indexPath.row]
                 return cell
-        case 3: let cell = UITableViewCell(style: .default, reuseIdentifier: "cell")
-            cell.textLabel?.textAlignment = .center //enter app details here.
-            cell.textLabel?.text = "test"
-            return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: DarkModeCell.reuseID, for: indexPath)
             return cell

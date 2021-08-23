@@ -9,13 +9,14 @@ import UIKit
 import CoreData
 import FSCalendar
 
-class HabitDetailsVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
+class HabitDetailsVC: UIViewController {
 
     var habitCoreData: HabitCoreData? {
         didSet {
             dates = (habitCoreData?.habitDates)!
         }
     }
+        
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var decodedColor: UIColor?
@@ -31,7 +32,6 @@ class HabitDetailsVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     let streakBackground = DividerView()
     let collectionBackground = DividerView()
     //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
-    
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
 
    
@@ -45,7 +45,6 @@ class HabitDetailsVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         viewDidLoadlayout()
         configureViewController()
         configureBarButtons()
@@ -142,13 +141,13 @@ class HabitDetailsVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate
         
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            //self.calendarView.selectDate(date)
+            self.calendarView.select(date)
             self.addDate(date: date)
             self.saveCoreData()
             self.viewDidLoadlayout()
-            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
+            self.calendarView.deselect(date)
             return
         }))
         present(alert, animated: true)
@@ -157,11 +156,12 @@ class HabitDetailsVC: UIViewController, FSCalendarDataSource, FSCalendarDelegate
     func presentAlertToRemoveHabit(date: Date) {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            //self.calendarView.deselectDate(date)
+            self.calendarView.deselect(date)
             self.removeDate(date: date)
             self.viewDidLoadlayout()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
+            self.calendarView.select(date)
             return
         }))
         present(alert, animated: true)
@@ -476,4 +476,14 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     
 }
 
-
+extension HabitDetailsVC: FSCalendarDataSource, FSCalendarDelegate {
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        presentAlertToAddHabit(date: date)
+    }
+    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        presentAlertToRemoveHabit(date: date)
+    }
+    
+}
