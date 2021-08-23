@@ -40,7 +40,7 @@ class MenuTableViewCell: UITableViewCell {
             cellImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
             cellImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
-            cellImage.widthAnchor.constraint(equalTo: cellImage.heightAnchor, constant: 1.5),
+            cellImage.widthAnchor.constraint(equalTo: cellImage.heightAnchor),
             
             cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),

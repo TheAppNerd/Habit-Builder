@@ -24,13 +24,14 @@ class DarkModeCell: UITableViewCell {
     
     private func configure() {
         darkModeSegment.translatesAutoresizingMaskIntoConstraints = false
+        darkModeSegment.selectedSegmentTintColor = .systemBlue
         contentView.addSubview(darkModeSegment)
-        let padding: CGFloat = 5
+        let padding: CGFloat = 15
         NSLayoutConstraint.activate([
             darkModeSegment.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            darkModeSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            darkModeSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            darkModeSegment.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            darkModeSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            darkModeSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            darkModeSegment.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
         
         
         ])

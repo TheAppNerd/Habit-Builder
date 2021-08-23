@@ -31,21 +31,21 @@ class ChartCollectionCell: UICollectionViewCell {
     let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
-        stackView.alignment = .fill
+        //stackView.alignment = .fill
         stackView.distribution = .fillEqually
         stackView.spacing = 10
         
         let countStack = UIStackView()
             countStack.translatesAutoresizingMaskIntoConstraints = false
         countStack.axis = .horizontal
-        countStack.alignment = .fill
+        //countStack.alignment = .fill
         countStack.distribution = .fillEqually
         countStack.spacing = 10
         
         let monthStack = UIStackView()
             monthStack.translatesAutoresizingMaskIntoConstraints = false
         monthStack.axis = .horizontal
-        monthStack.alignment = .fill
+        //monthStack.alignment = .fill
         monthStack.distribution = .fillEqually
         monthStack.spacing = 10
         

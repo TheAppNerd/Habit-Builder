@@ -118,17 +118,21 @@ class ReminderCell: UITableViewCell {
     }
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.isSelected.toggle()
-        for item in buttonArray {
-            if item.isSelected == false {
-                item.setTitleColor(.secondaryLabel, for: .normal)
-                item.colors = noColors
-            }
-        }
+//        for item in buttonArray {
+//            if item.isSelected == false {
+//                item.setTitleColor(.secondaryLabel, for: .normal)
+//                item.colors = noColors
+            //}
+       // }
         if sender.isSelected == true {
         sender.setTitleColor(.label, for: .normal)
             sender.colors = colors
+        } else if sender.isSelected == false {
+            sender.setTitleColor(.secondaryLabel, for: .normal)
+            sender.colors = noColors
         }
-        
+        print(sender.isSelected)
         
     }
 }
+

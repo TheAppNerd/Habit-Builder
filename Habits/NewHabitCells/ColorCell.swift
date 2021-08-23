@@ -8,7 +8,7 @@
 import UIKit
 
 protocol reloadTableViewDelegate: AnyObject {
-    func reloadTableView(colors: [CGColor])
+    func reloadTableView(colors: [CGColor], colorIndex: Int)
 }
 
 class ColorCell: UITableViewCell {
@@ -16,6 +16,7 @@ class ColorCell: UITableViewCell {
     static let reuseID = "ColorCell"
     weak var delegate: reloadTableViewDelegate?
    var color = [CGColor]()
+    var colorIndex = Int()
     
    
     
@@ -70,6 +71,7 @@ class ColorCell: UITableViewCell {
         sender.isSelected = true
         sender.layer.borderWidth = 1
         color = sender.colors
-        delegate?.reloadTableView(colors: color)
+        let index = buttonArray.firstIndex(of: sender)!
+        delegate?.reloadTableView(colors: color, colorIndex: index)
     }
 }
