@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,10 @@
 		FA62CF0626A7CB1100FE0A22 /* VisualsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */; };
 		FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */; };
 		FA8A297226D117B1008CD5AE /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = FA8A297126D117B1008CD5AE /* Podfile */; };
+		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
+		FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */; };
+		FA8A297A26D48033008CD5AE /* AppStoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297926D48033008CD5AE /* AppStoreReviewManager.swift */; };
+		FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */; };
 		FAA5915826A9923F0084C0D9 /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */; };
 		FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAACA40326B4160B00B85A74 /* HabitCoreData.xcdatamodeld */; };
 		FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */; };
@@ -93,6 +97,10 @@
 		FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualsCell.swift; sourceTree = "<group>"; };
 		FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettingsTableViewController.swift; sourceTree = "<group>"; };
 		FA8A297126D117B1008CD5AE /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
+		FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeViewController.swift; sourceTree = "<group>"; };
+		FA8A297926D48033008CD5AE /* AppStoreReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewManager.swift; sourceTree = "<group>"; };
+		FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		FAACA40426B4160B00B85A74 /* HabitCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitCoreData.xcdatamodel; sourceTree = "<group>"; };
 		FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data + Ext.swift"; sourceTree = "<group>"; };
@@ -196,6 +204,8 @@
 				FA62CEFF26A699A600FE0A22 /* SettingsTableViewController.swift */,
 				FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */,
 				FA1C732B263656BC00E63CBE /* AddHabitVC.swift */,
+				FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */,
+				FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -238,6 +248,7 @@
 				FA1C73422637CD3E00E63CBE /* TableCellView.swift */,
 				FAF4E6E7265616190029E50D /* DividerView.swift */,
 				FA09DC1E26CF30C700B58F32 /* GradientView.swift */,
+				FA8A297326D3B319008CD5AE /* DarkModeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -261,6 +272,7 @@
 				FAF4E717265F456E0029E50D /* ScrollView.swift */,
 				FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */,
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
+				FA8A297926D48033008CD5AE /* AppStoreReviewManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -406,6 +418,7 @@
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
+				FA8A297A26D48033008CD5AE /* AppStoreReviewManager.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
 				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
@@ -419,9 +432,11 @@
 				FA62CF0626A7CB1100FE0A22 /* VisualsCell.swift in Sources */,
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
 				FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */,
+				FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */,
 				FAB4EA8326CFC96300B9771D /* ChartCollectionCell.swift in Sources */,
 				FA1C730A263636D800E63CBE /* ViewController.swift in Sources */,
 				FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */,
+				FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
 				FAF4E6CD26493FF50029E50D /* DateSwitch.swift in Sources */,
 				FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */,
@@ -430,6 +445,7 @@
 				FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
+				FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */,
 				FA62CF0226A7CA8900FE0A22 /* DarkModeCell.swift in Sources */,
 				FA360BF626C6120100884B90 /* IconCell.swift in Sources */,
