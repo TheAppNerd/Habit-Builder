@@ -19,7 +19,6 @@ class HabitDetailsVC: UIViewController {
         
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var decodedColor: UIColor?
     var dates: [Date] = []
 
     var chartYears: [Int: [Int]] = [:]
@@ -222,6 +221,7 @@ class HabitDetailsVC: UIViewController {
         calendarView.appearance.weekdayTextColor = .label
         calendarView.appearance.titleDefaultColor = .secondaryLabel
         calendarView.appearance.titleSelectionColor = .label
+        calendarView.appearance.selectionColor = UIColor(cgColor: GradientArray.array[Int(habitCoreData!.habitGradientIndex)][0]) //fix this.
     }
     
     private func configureViewController() {
@@ -270,7 +270,6 @@ class HabitDetailsVC: UIViewController {
         
         let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: GradientArray.array[Int(habitCoreData!.habitGradientIndex)]))
         collectionImage.layer.cornerRadius = 10
-        collectionImage.tintColor = decodedColor
         collectionImage.backgroundColor = . clear
         collectionImage.translatesAutoresizingMaskIntoConstraints = false
         
@@ -320,7 +319,7 @@ class HabitDetailsVC: UIViewController {
         
         let calendarImage = UIImageView(image: UIImage(systemName: "calendar")?.addTintGradient(colors: GradientArray.array[Int(habitCoreData!.habitGradientIndex)]))
         calendarImage.layer.cornerRadius = 10
-        calendarImage.tintColor = decodedColor
+        
         calendarImage.backgroundColor = . clear
         calendarImage.translatesAutoresizingMaskIntoConstraints = false
         calendarView.translatesAutoresizingMaskIntoConstraints = false
@@ -401,57 +400,6 @@ class HabitDetailsVC: UIViewController {
     
 }
 
-//MARK: - Calendar View
-
-//extension HabitDetailsVC: CalendarViewDelegate, CalendarViewDataSource {
-//
-//    func calendar(_ calendar: CalendarView, didScrollToMonth date: Date) {
-////        updateDates()
-////        print(calendarView.selectedDates)
-//    }
-//
-//    func calendar(_ calendar: CalendarView, didSelectDate date: Date, withEvents events: [CalendarEvent]) {
-//    }
-//
-//    func calendar(_ calendar: CalendarView, canSelectDate date: Date) -> Bool {
-//        if date < Date()
-//{
-//            if calendarView.selectedDates.contains(date) {
-//            presentAlertToRemoveHabit(date: date)
-//            } else {
-//                presentAlertToAddHabit(date: date)
-//            }
-//        }
-//       return false
-//    }
-//
-//    func calendar(_ calendar: CalendarView, didDeselectDate date: Date) {
-//    }
-//
-//    func calendar(_ calendar: CalendarView, didLongPressDate date: Date, withEvents events: [CalendarEvent]?) {
-//    }
-//    
-//    func startDate() -> Date {
-//        var dateComponents = DateComponents()
-//        dateComponents.year = -10
-//        let today = Date()
-//        let pastEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-//        return pastEndDate!
-//    }
-//
-//    func endDate() -> Date {
-//        var dateComponents = DateComponents()
-//        dateComponents.year = 10
-//        let today = Date()
-//        let futureEndDate = self.calendarView.calendar.date(byAdding: dateComponents, to: today)
-//        return futureEndDate!
-//    }
-//
-//    func headerString(_ date: Date) -> String? {
-//        return nil
-//    }
-//}
-
 //MARK: - collectionview
 
 extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -468,8 +416,10 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         let earliestYear = chartYears.keys.min()!
         let year = earliestYear + indexPath.row
         cell.year = year
+        cell.color = GradientArray.array[Int(habitCoreData!.habitGradientIndex)]
         cell.monthCount = chartYears[year]!
         cell.configureStackView()
+        
         return cell
         
     }

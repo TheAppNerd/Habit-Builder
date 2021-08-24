@@ -13,9 +13,10 @@ class ChartCollectionCell: UICollectionViewCell {
     
     let monthArray = ["01","02","03","04","05","06","07","08","09","10","11","12",]
     var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0]
-    var color: UIColor?
+    var color: [CGColor]?
     var year: Int?
-
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,6 +28,7 @@ class ChartCollectionCell: UICollectionViewCell {
     }
     
      func configureStackView() {
+        
         self.translatesAutoresizingMaskIntoConstraints = true
     let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +84,7 @@ class ChartCollectionCell: UICollectionViewCell {
                 if number < reverseNumber {
                     count.colors = [UIColor.clear.cgColor, UIColor.clear.cgColor]
                 } else {
-                    count.colors = Gradients().blueGradient
+                    count.colors = color!
                     UIView.animate(withDuration: time) {
                         count.alpha = 1.0
                         time -= 0.2
@@ -109,9 +111,9 @@ class ChartCollectionCell: UICollectionViewCell {
         addSubview(monthStack)
         addSubview(countStack)
         addSubview(yearLabel)
-        
+
         let padding: CGFloat = 20
-        
+       
         NSLayoutConstraint.activate([
             countStack.topAnchor.constraint(equalTo: self.topAnchor),
             countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
@@ -136,8 +138,10 @@ class ChartCollectionCell: UICollectionViewCell {
             yearLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             yearLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
-}
+        }
+        
+     }
     
     
     
-}
+

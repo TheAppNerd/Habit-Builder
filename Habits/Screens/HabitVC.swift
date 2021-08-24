@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import MessageUI
 
 class HabitVC: UIViewController, SettingsPush {
  
@@ -42,6 +43,7 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableViewFooter()
         tableView.reloadData()
         self.tableView.allowsSelection = true
+        print("app \(UIApplication.appVersion)")
     }
     
     func configureViewController() {
@@ -133,8 +135,13 @@ class HabitVC: UIViewController, SettingsPush {
         case 5:
             let vc = SettingsTableViewController()
             navigationController?.pushViewController(vc, animated: true)
-        case 4: let vc = HelpScreenViewController()
+        case 3: let vc = HelpScreenViewController()
             navigationController?.pushViewController(vc, animated: true)
+        case 6: let vc = DarkModeViewController()
+            vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            self.navigationController?.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            vc.modalTransitionStyle = .flipHorizontal
+            self.present(vc, animated: true, completion: nil)
         default:
             print("Error")
         }

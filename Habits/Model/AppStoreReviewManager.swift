@@ -1,0 +1,18 @@
+//
+//  AppStoreReviewManager.swift
+//  Habits
+//
+//  Created by Alexander Thompson on 24/8/21.
+//
+
+import StoreKit
+
+enum AppStoreReviewManager {
+    static func requestReviewIfAppropriate() {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+        SKStoreReviewController.requestReview(in: scene)
+        } else {
+        //error message to user here
+        }
+    }
+}

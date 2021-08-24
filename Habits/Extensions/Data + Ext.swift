@@ -15,3 +15,10 @@ extension Data {
     }
     
 }
+
+//use this on about page 
+extension UIApplication {
+    static var appVersion: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+    }
+}
