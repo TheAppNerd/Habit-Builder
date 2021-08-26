@@ -72,6 +72,7 @@ class ColorCell: UITableViewCell {
         sender.layer.borderWidth = 1
         color = sender.colors
         let index = buttonArray.firstIndex(of: sender)!
+        print("colorCell")
         delegate?.reloadTableView(colors: color, colorIndex: index)
     }
 }

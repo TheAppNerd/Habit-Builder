@@ -20,6 +20,7 @@ class NewHabitVC: UITableViewController  {
     var colors = [CGColor]()
     var colorIndex = Int()
     var iconString = String()
+    var dayArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -175,6 +176,7 @@ class NewHabitVC: UITableViewController  {
     
     
     
+    
 
     
     // MARK: - Table view data source
@@ -217,38 +219,29 @@ class NewHabitVC: UITableViewController  {
             
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
             cell.delegate = self
-            for (index, button) in cell.buttonArray.enumerated() {
-                if index == colorIndex {
-                    button.sendActions(for: .touchUpInside)
-                }
-            }
-            //colors = cell.color
+//            for (index, button) in cell.buttonArray.enumerated() {
+//                if index == colorIndex {
+//                    button.sendActions(for: .touchUpInside)
+//                }
+//            }
+        
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
-    
-            cell.colors = colors
             cell.delegate = self
-            for button in cell.buttonArray {
-                if button.image(for: .normal) == UIImage(named: iconString) {
-                    button.sendActions(for: .touchUpInside)
-                }
-                if button.isSelected == true {
-                    button.sendActions(for: .touchUpInside)
-                    button.colors = colors
-                }
-            }
+            cell.colors = colors
             return cell
             
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: ReminderCell.reuseID, for: indexPath) as! ReminderCell
             cell.colors = colors
-            for button in cell.buttonArray {
-                if button.isSelected == true {
-                    button.isSelected = false
-                }
-            }
+            cell.delegate = self
+            
+
+                //set array to 0 every button press. then get index of selected buttons, append to array and toggle them again.
+            
             
             return cell
+    
       
         case 5: let cell = tableView.dequeueReusableCell(withIdentifier: SaveCell.reuseID, for: indexPath) as! SaveCell
             cell.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
@@ -282,11 +275,17 @@ extension NewHabitVC: UITextFieldDelegate {
 
 //MARK: - Protocol Extension
 
-extension NewHabitVC: reloadTableViewDelegate, passIconData {
+//rename protocols to resemble cell names
+extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData {
+   
+    func passDayData(dayArray: [String]) {
+        self.dayArray = dayArray
+    }
+    
     func reloadTableView(colors: [CGColor], colorIndex: Int) {
         self.colors = colors
         self.colorIndex = colorIndex
-        tableView.reloadSections([3, 4], with: .none)
+        tableView.reloadRows(at: [[3,0], [4,0]], with: .none)
     }
 
     

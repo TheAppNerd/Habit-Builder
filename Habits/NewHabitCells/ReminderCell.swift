@@ -7,14 +7,22 @@
 
 import UIKit
 
+protocol passDayData: AnyObject {
+    func passDayData(dayArray: [String])
+}
+
 class ReminderCell: UITableViewCell {
+  
+  
+    
 
  static let reuseID = "ReminderCell"
     
+    var dayArray: [Bool] = [false, false, false, false, false, false, false]
     let datePicker = UIDatePicker()
     let dateSegment = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
     let stackView = UIStackView()
-    
+    weak var delegate: passDayData?
     var hour = Int()
     var minute = Int()
     
@@ -62,6 +70,7 @@ class ReminderCell: UITableViewCell {
     }
     
     private func configure() {
+    
         datePicker.datePickerMode = .time
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -79,11 +88,11 @@ class ReminderCell: UITableViewCell {
         
         for button in 0...6 {
             let dayButton = GradientButton()
+            dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
             dayButton.setTitle(weekArray[button], for: .normal)
             dayButton.backgroundColor = .secondarySystemBackground
+            dayButton.tintColor = .secondaryLabel
             dayButton.layer.cornerRadius = 10
-            dayButton.setTitleColor(.secondaryLabel, for: .normal)
-            dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
             stackView.addArrangedSubview(dayButton)
             buttonArray.append(dayButton)
         }
@@ -99,15 +108,13 @@ class ReminderCell: UITableViewCell {
             datePicker.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
             datePicker.trailingAnchor.constraint(equalTo: dateSegment.leadingAnchor, constant: -padding),
             datePicker.heightAnchor.constraint(equalToConstant: 40),
-            //datePicker.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
-            
+       
             
             dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
             dateSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             dateSegment.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
             dateSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-           // dateSegment.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
-            
+          
            
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             stackView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: padding),
@@ -116,22 +123,21 @@ class ReminderCell: UITableViewCell {
             stackView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
+    
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.isSelected.toggle()
-//        for item in buttonArray {
-//            if item.isSelected == false {
-//                item.setTitleColor(.secondaryLabel, for: .normal)
-//                item.colors = noColors
-            //}
-       // }
-        if sender.isSelected == true {
-        sender.setTitleColor(.label, for: .normal)
-            sender.colors = colors
-        } else if sender.isSelected == false {
-            sender.setTitleColor(.secondaryLabel, for: .normal)
-            sender.colors = noColors
+        for button in buttonArray {
+            if button.isSelected == false {
+            button.tintColor = .secondaryLabel
+            button.isSelected = false
+            button.colors = noColors
+            } else {
+                button.tintColor = .label
+                button.colors = colors
+            }
         }
-        print(sender.isSelected)
+        
+        delegate?.passDayData(dayArray: [sender.title(for: .normal)!])
         
     }
 }
