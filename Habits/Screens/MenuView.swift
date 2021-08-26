@@ -19,7 +19,6 @@ class MenuView: UIViewController, MFMailComposeViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureTableView()
     }
     
@@ -60,7 +59,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         case 2: sendEmail()
         case 3: delegate?.pushSettings(row: 3)
         case 4: print("TBD") //privacy policy. link to website I make with privacy policy
-        case 5: print("tbd")
+        case 5: delegate?.pushSettings(row: 5)
         case 6:delegate?.pushSettings(row: 6)
         default: print("error")
         

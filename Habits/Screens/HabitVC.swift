@@ -43,7 +43,7 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableViewFooter()
         tableView.reloadData()
         self.tableView.allowsSelection = true
-        print("app \(UIApplication.appVersion)")
+       
     }
     
     func configureViewController() {
@@ -133,7 +133,7 @@ class HabitVC: UIViewController, SettingsPush {
     func pushSettings(row: Int) {
         switch row {
         case 5:
-            let vc = SettingsTableViewController()
+            let vc = AboutViewController()
             navigationController?.pushViewController(vc, animated: true)
         case 3: let vc = HelpScreenViewController()
             navigationController?.pushViewController(vc, animated: true)
@@ -233,7 +233,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         habit.habitGradientIndex = habitArray[indexPath.row].habitGradientIndex
         cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
         cell.habitName.text = habit.habitName
-        
         //to fix duplication issue need to move daybuttons and gradientcolors to a custom class
         cell.gradientColors = GradientArray.array[Int(habit.habitGradientIndex)]
         
