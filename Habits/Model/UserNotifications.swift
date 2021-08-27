@@ -26,26 +26,12 @@ class UserNotifications {
     }
     
     
-//    func scheduleNotification(title: String, hour: Int, minute: Int, onOrOff: Bool) {
-//        let center = UNUserNotificationCenter.current()
-//        let content = UNMutableNotificationContent()
-//        content.title = title
-//       // content.body = body //update this for habit count left
-//        content.categoryIdentifier = "alarm"
-//        content.sound = UNNotificationSound.default
-//
-//        var dateComponents = DateComponents()
-//        dateComponents.hour = hour
-//        dateComponents.minute = minute
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-//
-//        let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
-//        if onOrOff == true {
-//        center.add(request)
-//        } else {
-//            center.removePendingNotificationRequests(withIdentifiers: [title])
-//        }
-//    }
+    static func removeNotifications(title: String) {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [title])
+    }
+           
+
     
 
    static func scheduleNotification(title: String, day: Int ,hour: Int, minute: Int) {
@@ -65,12 +51,15 @@ class UserNotifications {
         let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
         
         center.add(request)
+    print("center: \(center)")
         }
     //add in error code
     //if habit deleted does it cancel all notifications? test
+    
 
     
-    func confirmRegisteredNotifications() {
+    func confirmRegisteredNotifications() -> String {
+        var str = ""
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings { (settings) in
             switch settings.authorizationStatus {
@@ -78,8 +67,10 @@ class UserNotifications {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
+                str = "authorised"
             case .denied:
-                print("Denied")
+                str = "denied"
+                
             case .notDetermined:
                 self.requestUserAuthorisation()
             case .ephemeral:
@@ -88,7 +79,7 @@ class UserNotifications {
                 break
             }
         }
-        
+        return str
     }
     
 }

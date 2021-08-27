@@ -484,8 +484,6 @@
 //        let time = twentyFourHourDate.components(separatedBy: ":")
 //        hour = Int(time[0])!
 //        minute = Int(time[1])!
-//
-//
 //    }
 //
 //

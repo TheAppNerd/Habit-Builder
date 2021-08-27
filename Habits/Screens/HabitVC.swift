@@ -163,7 +163,8 @@ class HabitVC: UIViewController, SettingsPush {
     @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
         newHabitVC.cellTag = habitArray.count
-        navigationController?.pushViewController(newHabitVC, animated: true)
+//        navigationController?.pushViewController(newHabitVC, animated: true)
+        show(newHabitVC, sender: self)
     }
     
     func startOfDay(date: Date) -> Date {
