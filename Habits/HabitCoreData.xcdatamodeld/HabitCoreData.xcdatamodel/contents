@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HabitCoreData" representedClassName=".HabitCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="alarmBool" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="alarmDates" attributeType="Transformable" customClassName=".[Bool]"/>
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="habitCreated" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="habitDates" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".[Date]">
@@ -13,6 +15,6 @@
         <attribute name="iconString" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="HabitCoreData" positionX="-336.6909179687501" positionY="-29.51290893554687" width="138.14111328125" height="133"/>
+        <element name="HabitCoreData" positionX="-344.0253906250001" positionY="9.818572998046875" width="138.14111328125" height="163"/>
     </elements>
 </model>

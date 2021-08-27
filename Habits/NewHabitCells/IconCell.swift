@@ -101,7 +101,7 @@ static let reuseID = "IconCell"
             }
             
         sender.tintColor = .label
-        sender.colors = colors
+        sender.colors = Gradients().blueGradient
         sender.isSelected = true
         for (index,item) in buttonArray.enumerated() {
             if item.isSelected == true {

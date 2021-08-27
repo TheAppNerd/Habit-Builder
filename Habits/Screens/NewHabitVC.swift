@@ -15,12 +15,17 @@ class NewHabitVC: UITableViewController  {
     
     var cellTag = Int()
     var nameArray = [UITextField]()
+    var previousName = String() //using this prevents alarms from being messed with as name is name of title
     var name = String()
     var frequency = 1
     var colors = [CGColor]()
     var colorIndex = Int()
     var iconString = String()
-    var dayArray = [String]()
+    var dayArray: [Bool] = [false, false, false, false, false, false, false]
+    var alarmsActivated: Bool = false
+    var hour = Int()
+    var minute = Int()
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +35,22 @@ class NewHabitVC: UITableViewController  {
         configure()
         configureBarButtons()
        dismissKeyboard()
+     
+    print(dayArray)
+        
     }
     
     func loadData() {
         if cellTag < habitArray.count {
             let habit = habitArray[cellTag]
+            name = habit.habitName ?? ""
+            previousName = habit.habitName ?? ""
             frequency = Int(habit.frequency)
             colorIndex = Int(habit.habitGradientIndex)
             colors = GradientArray.array[colorIndex]
             iconString = habit.iconString ?? ""
+            dayArray = habit.alarmDates ?? []
+            alarmsActivated = habit.alarmBool
         }
     }
 
@@ -59,11 +71,13 @@ class NewHabitVC: UITableViewController  {
         tableView.separatorStyle = .none
     }
     
+    
+    
     private func configureBarButtons() {
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
+//        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
         
         let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: .done, target: self, action: #selector(deleteHabit))
-        navigationItem.leftBarButtonItem = cancelButton
+        //navigationItem.leftBarButtonItem = cancelButton
          navigationItem.rightBarButtonItem = deleteButton
      }
     
@@ -75,12 +89,11 @@ class NewHabitVC: UITableViewController  {
     
     
     
-    @objc func dismissVC() {
-        let destVC = UINavigationController(rootViewController: HabitVC())
-        destVC.modalPresentationStyle = .fullScreen
-        print("caencelled")
-        present(destVC, animated: true)
-    }
+//    @objc func dismissVC() {
+//        let destVC = UINavigationController(rootViewController: HabitVC())
+//        destVC.modalPresentationStyle = .fullScreen
+//        present(destVC, animated: true)
+//    }
     
     
     @objc func deleteHabit() {
@@ -92,10 +105,12 @@ class NewHabitVC: UITableViewController  {
            //where do i need to delete. core data here.
             let destVC = UINavigationController(rootViewController: HabitVC())
             destVC.modalPresentationStyle = .fullScreen
+            UserNotifications.removeNotifications(title: self.previousName)
             let habit = self.habitArray[self.cellTag]
             self.context.delete(habit)
             self.habitArray.remove(at: self.cellTag)
             self.saveCoreData()
+            
             self.present(destVC, animated: true)
             
         }))
@@ -111,7 +126,9 @@ class NewHabitVC: UITableViewController  {
         newHabit.frequency = Int16(frequency)
         newHabit.iconString = iconString
         newHabit.habitGradientIndex = Int16(colorIndex)
+        newHabit.alarmDates = dayArray
         newHabit.habitCreated = true
+        newHabit.alarmBool = alarmsActivated
         habitArray.append(newHabit)
         } else if cellTag < habitArray.count {
              let oldHabit = habitArray[cellTag]
@@ -119,9 +136,17 @@ class NewHabitVC: UITableViewController  {
            oldHabit.frequency = Int16(frequency)
            oldHabit.iconString = iconString
            oldHabit.habitGradientIndex = Int16(colorIndex)
+            oldHabit.alarmDates = dayArray
+            oldHabit.alarmBool = alarmsActivated
         }
     }
     
+    func presentDeniedAlert() {
+       
+        let deniedAlert = UIAlertController(title: "Notifications Denied", message: "If you wish to allow notifications please activate them in your phone settings", preferredStyle: .alert)
+        deniedAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        present(deniedAlert, animated: true)
+    }
     
     @objc func saveButtonPressed() {
       
@@ -129,12 +154,17 @@ class NewHabitVC: UITableViewController  {
             nameArray[0].layer.borderWidth = 2
             return
         }
+    
+        setupNotifications()
+    
         nameArray[0].layer.borderWidth = 0
         createCoreDataHabit()
         saveCoreData()
         let destVC = UINavigationController(rootViewController: HabitVC())
                 destVC.modalPresentationStyle = .fullScreen
                 present(destVC, animated: true)
+        print("alarmsActivated: \(alarmsActivated)")
+        
     }
     
     @objc func positiveButtonPressed() {
@@ -174,7 +204,45 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
+    func setupNotifications() {
+        UserNotifications.removeNotifications(title: previousName)
     
+        if alarmsActivated == true {
+        for (index, bool) in dayArray.enumerated() {
+            if bool == true {
+                UserNotifications.scheduleNotification(title: name, day: index, hour: hour, minute: minute)
+            }
+        }
+        }
+    }
+    
+    @objc func datePickerTime(_ sender: DatePicker) {
+         
+            let formatter = DateFormatter()
+            formatter.dateFormat = "h:mm a"
+            let dateAsString = formatter.string(from: sender.date)
+    
+            let date = formatter.date(from: dateAsString)
+            formatter.dateFormat = "HH:mm"
+    
+            let twentyFourHourDate = formatter.string(from: date!)
+            let time = twentyFourHourDate.components(separatedBy: ":")
+            hour = Int(time[0])!
+            minute = Int(time[1])!
+        }
+    
+    @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
+        let userNotifications = UserNotifications()
+        userNotifications.confirmRegisteredNotifications()
+        
+        switch sender.selectedSegmentIndex {
+        case 0: alarmsActivated = false
+        case 1: alarmsActivated = true
+        default:
+            alarmsActivated = false
+        }
+        print(sender.selectedSegmentIndex)
+    }
     
     
 
@@ -206,7 +274,7 @@ class NewHabitVC: UITableViewController  {
             cell.nameTextField.delegate = self
             nameArray.append(cell.nameTextField) // is this still needed?
             if cellTag < habitArray.count {
-            cell.nameTextField.text = habitArray[cellTag].habitName ?? ""
+            cell.nameTextField.text = name
             }
     
             return cell
@@ -219,22 +287,42 @@ class NewHabitVC: UITableViewController  {
             
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
             cell.delegate = self
-//            for (index, button) in cell.buttonArray.enumerated() {
-//                if index == colorIndex {
-//                    button.sendActions(for: .touchUpInside)
-//                }
-//            }
+            for (index, button) in cell.buttonArray.enumerated() {
+                if index == colorIndex {
+                    button.sendActions(for: .touchUpInside)
+                }
+            }
         
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
             cell.delegate = self
             cell.colors = colors
+            
+            for (index, button) in cell.buttonArray.enumerated() {
+                if button.imageView?.image == UIImage(named: iconString) {
+                    button.sendActions(for: .touchUpInside)
+                }
+            }
             return cell
             
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: ReminderCell.reuseID, for: indexPath) as! ReminderCell
             cell.colors = colors
             cell.delegate = self
+            switch alarmsActivated {
+            case true: cell.dateSegment.selectedSegmentIndex = 1
+            case false: cell.dateSegment.selectedSegmentIndex = 0
+            default: cell.dateSegment.selectedSegmentIndex = 0
+                
+            }
+            cell.dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
+            cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
+            for (index, bool) in dayArray.enumerated() {
+                if bool == true {
+                    cell.buttonArray[index].sendActions(for: .touchUpInside)
+                    
+                }
+            }
             
 
                 //set array to 0 every button press. then get index of selected buttons, append to array and toggle them again.
@@ -278,14 +366,13 @@ extension NewHabitVC: UITextFieldDelegate {
 //rename protocols to resemble cell names
 extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData {
    
-    func passDayData(dayArray: [String]) {
+    func passDayData(dayArray: [Bool]) {
         self.dayArray = dayArray
     }
     
     func reloadTableView(colors: [CGColor], colorIndex: Int) {
         self.colors = colors
         self.colorIndex = colorIndex
-        tableView.reloadRows(at: [[3,0], [4,0]], with: .none)
     }
 
     

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol passDayData: AnyObject {
-    func passDayData(dayArray: [String])
+    func passDayData(dayArray: [Bool])
 }
 
 class ReminderCell: UITableViewCell {
@@ -124,20 +124,24 @@ class ReminderCell: UITableViewCell {
         ])
     }
     
+   
+    
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.isSelected.toggle()
-        for button in buttonArray {
+        for (index, button) in buttonArray.enumerated() {
             if button.isSelected == false {
             button.tintColor = .secondaryLabel
             button.isSelected = false
             button.colors = noColors
+                dayArray[index] = false
             } else {
                 button.tintColor = .label
-                button.colors = colors
+                button.colors = Gradients().blueGradient
+                dayArray[index] = true
             }
         }
         
-        delegate?.passDayData(dayArray: [sender.title(for: .normal)!])
+        delegate?.passDayData(dayArray: dayArray)
         
     }
 }
