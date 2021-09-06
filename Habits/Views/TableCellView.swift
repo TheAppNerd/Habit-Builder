@@ -21,8 +21,7 @@ class TableCellView: UIView {
     
     private func configure() {
         self.backgroundColor = .tertiarySystemBackground
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.systemGray2.cgColor
+    
         
         translatesAutoresizingMaskIntoConstraints = false
         

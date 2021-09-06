@@ -52,6 +52,7 @@ static let reuseID = "HabitCell"
                 button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
        layoutGradient()
+        configureShadow()
     }
     
     func layoutGradient() {
@@ -64,7 +65,15 @@ static let reuseID = "HabitCell"
         cellView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    
+    func configureShadow() {
+        cellView.layer.shadowPath = UIBezierPath(roundedRect: cellView.bounds, cornerRadius: 10).cgPath
+        cellView.layer.shadowRadius = 5
+        //contentView.layer.masksToBounds = true
+        cellView.layer.shadowOffset = .zero
+        cellView.layer.shadowOpacity = 0.7
+        cellView.layer.shadowColor = UIColor.label.cgColor
+        
+    }
     
     
     required init?(coder: NSCoder) {
