@@ -32,6 +32,7 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
+        configureDarkMode()
                     }
 
     override func viewDidLoad() {
@@ -75,6 +76,22 @@ class HabitVC: UIViewController, SettingsPush {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
        menuBarButtonPressed()
+    }
+    
+    func configureDarkMode() {
+        let defaults = UserDefaults.standard
+        var mode = traitCollection.userInterfaceStyle
+        
+        guard let selectedDarkMode = defaults.object(forKey: "darkMode") as? String else { return}
+        switch selectedDarkMode {
+        case "Adaptive": mode = UITraitCollection.current.userInterfaceStyle
+        case "Light": mode = UIUserInterfaceStyle.light
+        case "Dark": mode = UIUserInterfaceStyle.dark
+        default: mode = UITraitCollection.current.userInterfaceStyle
+        }
+        UIApplication.shared.windows.forEach { window in
+            window.overrideUserInterfaceStyle = mode
+    }
     }
     
     
