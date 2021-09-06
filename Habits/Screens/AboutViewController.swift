@@ -15,6 +15,10 @@ class AboutViewController: UIViewController {
     let tableView = UITableView()
     
     let iconArray = ["linkedIn", "instagram", "gitHub"]
+    let usernameArray = ["SydneySwiftDev", "AlexThompsonDevelopment", "Alexander-Thompson-847a6486"]
+    
+    let thanksArray = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
+    let urlArray = ["https://github.com/WenchaoD/FSCalendar","https://www.flaticon.com/", "https://www.appbrewery.co/", "https://seanallen.co/"]
     
     
     override func viewDidLoad() {
@@ -23,16 +27,22 @@ class AboutViewController: UIViewController {
         configureTableView()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame.size.height = tableView.contentSize.height
+    }
+    
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: MenuTableViewCell.reuseID)
         tableView.separatorStyle = .none
-        tableView.rowHeight = 40
+        tableView.rowHeight = 50
         tableView.backgroundColor = .tertiarySystemBackground
         tableView.bounces = false
         tableView.layer.cornerRadius = 10
+        tableView.frame.size.height = tableView.contentSize.height
     }
 
     private func configure() {
@@ -67,13 +77,31 @@ class AboutViewController: UIViewController {
             nameLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: padding),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nameLabel.widthAnchor.constraint(equalTo: iconImage.widthAnchor, multiplier: 2),
-            nameLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -padding),
+            nameLabel.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -padding * 2),
             
-            tableView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: padding),
+            tableView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: padding * 2),
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.widthAnchor.constraint(equalTo: iconImage.widthAnchor, multiplier: 2),
+            tableView.widthAnchor.constraint(equalTo: view.widthAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func loadInstagram() {
+        let username = "SydneySwiftDev"
+        guard let instagram = URL(string: "https://instagram.com/\(username)") else { return }
+        UIApplication.shared.open(instagram)
+    }
+    
+    func loadGithub() {
+        let username = "AlexThompsonDevelopment"
+        guard let gitHub = URL(string: "https://github.com/\(username)") else { return }
+        UIApplication.shared.open(gitHub)
+    }
+    
+    func loadLinkedIn() {
+        let username = "alexander-thompson-847a6486"
+        guard let linkedIn = URL(string: "https://www.linkedin.com/in/\(username)") else { return }
+        UIApplication.shared.open(linkedIn)
     }
     
     
@@ -98,11 +126,13 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuTableViewCell.reuseID) as! MenuTableViewCell
         if indexPath[0] == 0 {
+            cell.cellLabel.text = usernameArray[indexPath.row]
             cell.cellImage.image = UIImage(named: iconArray[indexPath.row])
         } else {
         cell.cellImage.image = UIImage(systemName: "swift")
+            cell.cellLabel.text = thanksArray[indexPath.row]
         }
-        cell.cellLabel.text = "Test"
+       
         cell.accessoryType = .disclosureIndicator
         return cell
     }
@@ -115,6 +145,23 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath[0] == 0 {
+            switch indexPath.row {
+            case 0: loadLinkedIn()
+            case 1: loadInstagram()
+            case 2: loadGithub()
+            default:
+                print("")
+            }
+        }
+        
+        if indexPath[0] == 1 {
+            if let url = URL(string: urlArray[indexPath.row]) {
+                UIApplication.shared.open(url)
+            }
+        }
+    }
     
     
     
