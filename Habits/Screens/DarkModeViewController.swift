@@ -11,6 +11,7 @@ class DarkModeViewController: UIViewController {
 
     let darkModeView = DarkModeView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -40,6 +41,8 @@ class DarkModeViewController: UIViewController {
     }
     
     @objc func darkModeValueChanged(sender: UIButton) {
+        let defaults = UserDefaults.standard
+        
         let buttonArray = [darkModeView.adaptiveButton, darkModeView.lightButton, darkModeView.darkButton]
         for button in buttonArray {
             button.setTitleColor(.gray, for: .normal)
@@ -51,8 +54,11 @@ class DarkModeViewController: UIViewController {
         var mode = traitCollection.userInterfaceStyle
         switch sender.title(for: .normal) {
         case "Adaptive": mode = UITraitCollection.current.userInterfaceStyle
+            defaults.set("Adaptive", forKey: "darkmode")
         case "Light": mode = UIUserInterfaceStyle.light
+            defaults.set("Light", forKey: "darkMode")
         case "Dark": mode = UIUserInterfaceStyle.dark
+            defaults.set("Dark", forKey: "darkMode")
         default: mode = UITraitCollection.current.userInterfaceStyle
         }
         UIApplication.shared.windows.forEach { window in
