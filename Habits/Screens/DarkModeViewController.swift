@@ -53,8 +53,8 @@ class DarkModeViewController: UIViewController {
         sender.setTitleColor(.white, for: .normal)
         var mode = traitCollection.userInterfaceStyle
         switch sender.title(for: .normal) {
-        case "Adaptive": mode = UITraitCollection.current.userInterfaceStyle
-            defaults.set("Adaptive", forKey: "darkmode")
+        case "Automatic": mode = UITraitCollection.current.userInterfaceStyle
+            defaults.set("Automatic", forKey: "darkmode")
         case "Light": mode = UIUserInterfaceStyle.light
             defaults.set("Light", forKey: "darkMode")
         case "Dark": mode = UIUserInterfaceStyle.dark

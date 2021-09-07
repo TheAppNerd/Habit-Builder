@@ -16,7 +16,7 @@ static let reuseID = "HabitCell"
     var calendarView = Calendar(identifier: .gregorian)
     var dateArray: [Date] = []
     var dayArray: [Int] = []
-    let alarmButton = UIButton()
+    let alarmImage = UIImageView()
     let frequencyLabel = BodyLabel()
     let labelStackView = UIStackView()
     let buttonStackView = UIStackView()
@@ -185,7 +185,7 @@ static let reuseID = "HabitCell"
         addSubview(habitName)
         addSubview(labelStackView)
         addSubview(buttonStackView)
-        addSubview(alarmButton)
+        addSubview(alarmImage)
         addSubview(frequencyLabel)
         
         iconImage.translatesAutoresizingMaskIntoConstraints = false
@@ -194,9 +194,9 @@ static let reuseID = "HabitCell"
       
         
         cellView.layer.cornerRadius = 10
-        alarmButton.tintColor = .white
-        alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
-        alarmButton.translatesAutoresizingMaskIntoConstraints = false
+        alarmImage.tintColor = .white
+        alarmImage.image = UIImage(systemName: "bell.slash.fill")
+        alarmImage.translatesAutoresizingMaskIntoConstraints = false
         
         //frequencyLabel.text = "Everyday"
         
@@ -223,13 +223,13 @@ static let reuseID = "HabitCell"
             habitName.heightAnchor.constraint(equalToConstant: padding * 1.5),
             
             frequencyLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
-            frequencyLabel.trailingAnchor.constraint(equalTo: alarmButton.leadingAnchor, constant: -10),
+            frequencyLabel.trailingAnchor.constraint(equalTo: alarmImage.leadingAnchor, constant: -10),
             frequencyLabel.heightAnchor.constraint(equalToConstant: padding * 1.5),
 
-            alarmButton.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
-            alarmButton.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
-            alarmButton.heightAnchor.constraint(equalToConstant: padding * 1.5),
-            alarmButton.widthAnchor.constraint(equalToConstant: padding * 1.5),
+            alarmImage.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
+            alarmImage.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
+            alarmImage.heightAnchor.constraint(equalToConstant: padding * 1.5),
+            alarmImage.widthAnchor.constraint(equalToConstant: padding * 1.5),
           
 
             labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),

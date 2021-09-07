@@ -32,7 +32,7 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        configureDarkMode()
+        
                     }
 
     override func viewDidLoad() {
@@ -44,6 +44,7 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableViewFooter()
         tableView.reloadData()
         self.tableView.allowsSelection = true
+        configureDarkMode()
        
     }
     
@@ -84,7 +85,7 @@ class HabitVC: UIViewController, SettingsPush {
         
         guard let selectedDarkMode = defaults.object(forKey: "darkMode") as? String else { return}
         switch selectedDarkMode {
-        case "Adaptive": mode = UITraitCollection.current.userInterfaceStyle
+        case "Automatic": mode = UITraitCollection.current.userInterfaceStyle
         case "Light": mode = UIUserInterfaceStyle.light
         case "Dark": mode = UIUserInterfaceStyle.dark
         default: mode = UITraitCollection.current.userInterfaceStyle
@@ -270,14 +271,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             }
             buttonCount += 1
         }
-
-      
+        // replace with ternary operator?
+        switch habit.alarmBool {
+        case true: cell.alarmImage.image = UIImage(systemName: "bell.fill")
+        case false: cell.alarmImage.image = UIImage(systemName: "bell.slash.fill")
+        }
         
-//        if dataIndex.alarmBool == true {
-//            cell.alarmButton.setImage(UIImage(systemName: "bell.fill"), for: .normal)
-//        } else {
-//            cell.alarmButton.setImage(UIImage(systemName: "bell"), for: .normal)
-//        }
+
         if habit.frequency == 7 {
             cell.frequencyLabel.text = "Everyday"
         } else if habit.frequency == 1 {
