@@ -34,7 +34,7 @@ class EmptyStateView: UIView {
         howToUseButton.translatesAutoresizingMaskIntoConstraints = false
         
         message.numberOfLines = 0
-        message.text = "There are no habits here yet. Press the add habit button to get started or press how to use for a guide on how to use this app"
+        message.text = "There are no habits here yet. Press the Add Habit button to get started or press How To Use for a guide on how to use this app"
         imageView.image = UIImage(systemName: "calendar")
         
         
@@ -59,7 +59,7 @@ class EmptyStateView: UIView {
             message.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             message.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
           
-            addHabitButton.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 10),
+            addHabitButton.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 40),
             addHabitButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             addHabitButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             addHabitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
@@ -74,13 +74,16 @@ class EmptyStateView: UIView {
         
     }
     
+    
     //change both of these to delegate funcs instead
     
-    @objc func addHabitPressed() {
-        (superview?.next as? UIViewController)?.navigationController!.pushViewController(NewHabitVC(), animated: true)
+    @objc func addHabitPressed(sender: GradientButton) {
+        sender.bounceAnimation()
+            (self.superview?.next as? UIViewController)?.navigationController!.pushViewController(NewHabitVC(), animated: true)
     }
     
-    @objc func howToUsePressed() {
+    @objc func howToUsePressed(sender: GradientButton) {
+        sender.bounceAnimation()
         (superview?.next as? UIViewController)?.navigationController!.pushViewController(HelpScreenViewController(), animated: true)
     }
     

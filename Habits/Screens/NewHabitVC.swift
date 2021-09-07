@@ -148,8 +148,8 @@ class NewHabitVC: UITableViewController  {
         present(deniedAlert, animated: true)
     }
     
-    @objc func saveButtonPressed() {
-      
+    @objc func saveButtonPressed(_ sender: GradientButton) {
+        sender.bounceAnimation()
         guard name != "" else {
             nameArray[0].layer.borderWidth = 2
             return
@@ -167,7 +167,8 @@ class NewHabitVC: UITableViewController  {
         
     }
     
-    @objc func positiveButtonPressed() {
+    @objc func positiveButtonPressed(_ sender: GradientButton) {
+        sender.bounceAnimation()
         if frequency < 7 {
             frequency += 1
         }
@@ -177,7 +178,8 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    @objc func negativeButtonPressed() {
+    @objc func negativeButtonPressed(_ sender: GradientButton) {
+        sender.bounceAnimation()
         if frequency > 1 {
             frequency -= 1
         }

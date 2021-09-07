@@ -91,7 +91,7 @@ class ReminderCell: UITableViewCell {
             dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
             dayButton.setTitle(weekArray[button], for: .normal)
             dayButton.backgroundColor = .secondarySystemBackground
-            dayButton.tintColor = .secondaryLabel
+            dayButton.setTitleColor(.secondaryLabel, for: .normal)
             dayButton.layer.cornerRadius = 10
             stackView.addArrangedSubview(dayButton)
             buttonArray.append(dayButton)
@@ -127,15 +127,18 @@ class ReminderCell: UITableViewCell {
    
     
     @objc func dayButtonpressed(_ sender: GradientButton) {
+        sender.bounceAnimation()
         sender.isSelected.toggle()
         for (index, button) in buttonArray.enumerated() {
             if button.isSelected == false {
-            button.tintColor = .secondaryLabel
+            button.setTitleColor(.secondaryLabel, for: .normal)
             button.isSelected = false
+                button.backgroundColor = .secondarySystemBackground
             button.colors = noColors
                 dayArray[index] = false
             } else {
-                button.tintColor = .label
+                button.setTitleColor(.label, for: .normal)
+                button.backgroundColor = .clear
                 button.colors = Gradients().blueGradient
                 dayArray[index] = true
             }

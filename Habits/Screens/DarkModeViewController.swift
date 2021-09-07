@@ -19,7 +19,8 @@ class DarkModeViewController: UIViewController {
     }
     
     private func configure() {
-        view.backgroundColor = .clear
+        view.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.7)
+    
         darkModeView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(darkModeView)
@@ -45,12 +46,12 @@ class DarkModeViewController: UIViewController {
         
         let buttonArray = [darkModeView.adaptiveButton, darkModeView.lightButton, darkModeView.darkButton]
         for button in buttonArray {
-            button.setTitleColor(.gray, for: .normal)
+            button.setTitleColor(.secondaryLabel, for: .normal)
             button.layer.borderColor = UIColor.label.cgColor
             button.layer.borderWidth = 0
         }
         sender.layer.borderWidth = 1
-        sender.setTitleColor(.white, for: .normal)
+        sender.setTitleColor(.label, for: .normal)
         var mode = traitCollection.userInterfaceStyle
         switch sender.title(for: .normal) {
         case "Automatic": mode = UITraitCollection.current.userInterfaceStyle

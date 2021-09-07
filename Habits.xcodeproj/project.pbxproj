@@ -21,6 +21,8 @@
 		FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733326365CFA00E63CBE /* TitleLabel.swift */; };
 		FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733726379DDE00E63CBE /* ColorButton.swift */; };
 		FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73422637CD3E00E63CBE /* TableCellView.swift */; };
+		FA1D6D8326E729AB005AA4B2 /* UIButton + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D6D8226E729AB005AA4B2 /* UIButton + Ext.swift */; };
+		FA1D6D8526E7372E005AA4B2 /* UIimageView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D6D8426E7372E005AA4B2 /* UIimageView + Ext.swift */; };
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
 		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
@@ -81,6 +83,8 @@
 		FA1C733326365CFA00E63CBE /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		FA1C733726379DDE00E63CBE /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		FA1C73422637CD3E00E63CBE /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
+		FA1D6D8226E729AB005AA4B2 /* UIButton + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Ext.swift"; sourceTree = "<group>"; };
+		FA1D6D8426E7372E005AA4B2 /* UIimageView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIimageView + Ext.swift"; sourceTree = "<group>"; };
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
 		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
@@ -297,6 +301,8 @@
 				FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */,
 				FAB0D25B26B8DEAC0095B12E /* Data + Ext.swift */,
 				FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */,
+				FA1D6D8226E729AB005AA4B2 /* UIButton + Ext.swift */,
+				FA1D6D8426E7372E005AA4B2 /* UIimageView + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -414,7 +420,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA1D6D8326E729AB005AA4B2 /* UIButton + Ext.swift in Sources */,
 				FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */,
+				FA1D6D8526E7372E005AA4B2 /* UIimageView + Ext.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,

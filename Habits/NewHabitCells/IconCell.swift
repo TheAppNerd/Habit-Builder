@@ -94,6 +94,7 @@ static let reuseID = "IconCell"
     }
     
     @objc func iconButtonPressed(_ sender: GradientButton) {
+        sender.bounceAnimation()
         for item in buttonArray {
                 item.tintColor = .secondaryLabel
             item.isSelected = false

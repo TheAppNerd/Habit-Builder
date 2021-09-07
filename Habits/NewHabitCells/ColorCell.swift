@@ -64,6 +64,7 @@ class ColorCell: UITableViewCell {
     }
     
     @objc func colorButtonPressed(_ sender: GradientButton) {
+        sender.bounceAnimation()
         for item in buttonArray {
             item.layer.borderWidth = 0
             item.isSelected = false

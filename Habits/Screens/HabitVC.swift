@@ -193,6 +193,7 @@ class HabitVC: UIViewController, SettingsPush {
     
     
     @objc func dateButtonPressed(_ sender: UIButton) {
+        
         let habitCell = HabitCell()
         let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
@@ -200,7 +201,6 @@ class HabitVC: UIViewController, SettingsPush {
         generator.impactOccurred()
         //change below to a switch or a toggle
    
-        print("index\(habitArray[indexPath.row].habitGradientIndex)")
         if sender.backgroundColor == .clear {
             habitArray[indexPath.row].habitDates?.append(selectedDate)
             saveCoreData()
@@ -210,7 +210,7 @@ class HabitVC: UIViewController, SettingsPush {
             habitArray[indexPath.row].habitDates = habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
             saveCoreData()
         }
-      
+        sender.bounceAnimation()
     }
     
     
@@ -266,8 +266,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
                 habit.habitDates = []
             }
             if habit.habitDates!.contains(selectedDate) {
-                button.backgroundColor = .black
-                button.layer.borderColor = UIColor.black.cgColor
+                button.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5)
+//                button.setTitle("", for: .normal)
+//                button.setImage(UIImage(systemName: "checkmark"), for: .normal)
+                button.layer.borderColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5).cgColor
             }
             buttonCount += 1
         }
@@ -319,11 +321,24 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let vc = HabitDetailsVC()
         vc.cellTag = indexPath.row
         vc.habitCoreData = habitArray[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+        let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
+        
+        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+            currentCell.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+        } completion: { (_) in
+            UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn) {
+                currentCell.transform = CGAffineTransform(scaleX: 1, y: 1)
+            } completion: { (_) in
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
         
     }
+    
    
 }
+
 
 
 

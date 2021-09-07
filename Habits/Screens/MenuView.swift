@@ -52,6 +52,9 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentCell = tableView.cellForRow(at: indexPath)! as! MenuTableViewCell
+        currentCell.cellImage.bounceAnimation()
+        
         
         switch indexPath.row {
         case 0: shareApp()

@@ -43,7 +43,7 @@ static let reuseID = "HabitCell"
         getDay()
         configureLabelStackView()
         configureButtonStackView()
-   
+        self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
     override func layoutSubviews() {
@@ -97,6 +97,7 @@ static let reuseID = "HabitCell"
         labelStackView.alignment = .fill
         labelStackView.distribution = .equalCentering
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
+
         
         dayLabels[getDayOfWeek()-1].textColor = .white
         dayLabels[getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)

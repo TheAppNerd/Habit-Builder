@@ -27,20 +27,20 @@ class DarkModeView: UIView {
     private func configure() {
         let buttonArray = [adaptiveButton, lightButton, darkButton, doneButton]
         
-        self.backgroundColor = .systemGray
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.label.cgColor
+        self.backgroundColor = .systemBackground
         self.layer.cornerRadius = 10
         lightLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        doneButton.colors = Gradients().blueGradient
+        
         for button in buttonArray {
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.backgroundColor = .systemBlue
             button.layer.cornerRadius = 10
         }
         
         lightLabel.text = "Light/Dark Mode"
-        adaptiveButton.setTitle("Adaptive", for: .normal)
+        lightLabel.textAlignment = .center
+        adaptiveButton.setTitle("Automatic", for: .normal)
         lightButton.setTitle("Light", for: .normal)
         darkButton.setTitle("Dark", for: .normal)
         doneButton.setTitle("Done", for: .normal)
