@@ -54,6 +54,7 @@ class ChartCollectionCell: UICollectionViewCell {
         let yearLabel = UILabel()
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
         yearLabel.textAlignment = .left
+        yearLabel.font = UIFont.boldSystemFont(ofSize: 20)
         yearLabel.text = "\(year ?? 0)"
         
         for stack in 0...11 {
@@ -102,9 +103,11 @@ class ChartCollectionCell: UICollectionViewCell {
             
             let monthLabel = UILabel()
             monthLabel.adjustsFontSizeToFitWidth = true
+            monthLabel.font = monthLabel.font.withSize(12)
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
             monthLabel.text = monthArray[stack]
             monthStack.addArrangedSubview(monthLabel)
+            
             
         }
         addSubview(stackView)

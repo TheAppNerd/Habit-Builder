@@ -22,7 +22,7 @@ class HabitVC: UIViewController, SettingsPush {
     var isSlideInMenuPressed = false
     
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
-    static var cellCount = 1
+
     var habitData = HabitData()
     static var habitBool = false
     let tableViewFooter = UIView()
@@ -32,20 +32,15 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        
+        configureDarkMode()
                     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
-        resetHabits()
         configureViewController()
         configureTableView()
         configureTableViewFooter()
-        tableView.reloadData()
-        self.tableView.allowsSelection = true
-        configureDarkMode()
-       
     }
     
     func configureViewController() {
@@ -71,7 +66,7 @@ class HabitVC: UIViewController, SettingsPush {
         tableView.rowHeight = tableView.frame.height / 6
         tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
         tableView.separatorStyle = .none
-        tableView.allowsSelectionDuringEditing = true
+        tableView.allowsSelection = true
     }
     
     
@@ -138,14 +133,6 @@ class HabitVC: UIViewController, SettingsPush {
         HabitArray.startOfWeek = startOfWeek
     }
     
-    func resetHabits() {
-        if getStartofWeek() != HabitArray.startOfWeek {
-            HabitVC.habitBool = true
-            tableView.reloadData()
-            setStartOfWeek()
-            HabitVC.habitBool = false
-        }
-    }
     
    
     func pushSettings(row: Int) {
@@ -255,6 +242,11 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         //to fix duplication issue need to move daybuttons and gradientcolors to a custom class
         cell.gradientColors = GradientArray.array[Int(habit.habitGradientIndex)]
         
+        //This prevents duplication issues on reusable cells
+        for button in cell.dayButton {
+            button.backgroundColor = .clear
+            button.layer.borderColor = UIColor.white.cgColor
+        }
         for button in cell.dayButton {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.tag = buttonCount
@@ -279,7 +271,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         case false: cell.alarmImage.image = UIImage(systemName: "bell.slash.fill")
         }
         
-
+//implement proper completion count here. change to something like 1/5 days per week. change icon to a tick is goal hit.
         if habit.frequency == 7 {
             cell.frequencyLabel.text = "Everyday"
         } else if habit.frequency == 1 {
@@ -309,13 +301,13 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             addHabitButton.widthAnchor.constraint(equalTo: tableViewFooter.widthAnchor, constant: -20),
             addHabitButton.heightAnchor.constraint(equalTo: tableViewFooter.heightAnchor)
         ])
-        if HabitVC.cellCount == 1 {
+        
+        if habitArray.isEmpty {
             tableViewFooter.isHidden = true
         } else {
             tableViewFooter.isHidden = false
         }
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()

@@ -20,7 +20,7 @@ class NewHabitVC: UITableViewController  {
     var frequency = 1
     var colors = [CGColor]()
     var colorIndex = Int()
-    var iconString = String()
+    var iconString: String = ""
     var dayArray: [Bool] = [false, false, false, false, false, false, false]
     var alarmsActivated: Bool = false
     var hour = Int()
@@ -35,10 +35,11 @@ class NewHabitVC: UITableViewController  {
         configure()
         configureBarButtons()
        dismissKeyboard()
-     
+     print("icon \(iconString)")
     print(dayArray)
         
     }
+
     
     func loadData() {
         if cellTag < habitArray.count {
@@ -163,7 +164,6 @@ class NewHabitVC: UITableViewController  {
         let destVC = UINavigationController(rootViewController: HabitVC())
                 destVC.modalPresentationStyle = .fullScreen
                 present(destVC, animated: true)
-        print("alarmsActivated: \(alarmsActivated)")
         
     }
     
@@ -213,9 +213,12 @@ class NewHabitVC: UITableViewController  {
         for (index, bool) in dayArray.enumerated() {
             if bool == true {
                 UserNotifications.scheduleNotification(title: name, day: index, hour: hour, minute: minute)
+                print("true")
+                
             }
         }
         }
+        print(previousName)
     }
     
     @objc func datePickerTime(_ sender: DatePicker) {
@@ -233,10 +236,10 @@ class NewHabitVC: UITableViewController  {
             minute = Int(time[1])!
         }
     
+    //change segment so non selected tint is secondary label and selected tint is white 
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
         let userNotifications = UserNotifications()
         userNotifications.confirmRegisteredNotifications()
-        
         switch sender.selectedSegmentIndex {
         case 0: alarmsActivated = false
         case 1: alarmsActivated = true
@@ -302,8 +305,12 @@ class NewHabitVC: UITableViewController  {
             cell.colors = colors
             
             for (index, button) in cell.buttonArray.enumerated() {
-                if button.imageView?.image == UIImage(named: iconString) {
+                if button.imageView!.image == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
+                }
+                if iconString == "" {
+                    cell.buttonArray[0].sendActions(for: .touchUpInside)
+
                 }
             }
             return cell
@@ -314,7 +321,6 @@ class NewHabitVC: UITableViewController  {
             switch alarmsActivated {
             case true: cell.dateSegment.selectedSegmentIndex = 1
             case false: cell.dateSegment.selectedSegmentIndex = 0
-            default: cell.dateSegment.selectedSegmentIndex = 0
                 
             }
             cell.dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)

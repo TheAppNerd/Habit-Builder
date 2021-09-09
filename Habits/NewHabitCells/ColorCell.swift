@@ -70,7 +70,7 @@ class ColorCell: UITableViewCell {
             item.isSelected = false
         }
         sender.isSelected = true
-        sender.layer.borderWidth = 1
+        sender.layer.borderWidth = 2
         color = sender.colors
         let index = buttonArray.firstIndex(of: sender)!
         print("colorCell")

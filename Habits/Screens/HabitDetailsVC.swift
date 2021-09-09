@@ -56,6 +56,7 @@ class HabitDetailsVC: UIViewController {
         updateDates()
         calendarView.delegate = self
         calendarView.dataSource = self
+    
     }
     
     func viewDidLoadlayout() {
@@ -64,7 +65,7 @@ class HabitDetailsVC: UIViewController {
         streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
     }
     
-  
+   
     
     private func saveCoreData() {
         do {
@@ -419,6 +420,7 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         cell.color = GradientArray.array[Int(habitCoreData!.habitGradientIndex)]
         cell.monthCount = chartYears[year]!
         cell.configureStackView()
+
         
         return cell
         

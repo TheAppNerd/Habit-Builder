@@ -27,8 +27,6 @@ static let reuseID = "IconCell"
     var buttonArray = [GradientButton]()
     var iconArray = ["bicycle", "blender", "deadline", "desktopcomputer", "dumbbell", "guitar", "hammer", "jogging", "kettlebell", "meditation", "notebook", "painting", "pills", "plantpot", "reading", "refund", "shower", "taoism", "tea", "tooth", "vegetable", "washingmachine", "water", "watermelon", "alarmclock", "music", "pillow", "laughing"]
     
-    let paths = Bundle.main.paths(forResourcesOfType: "png", inDirectory: nil)
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -60,7 +58,7 @@ static let reuseID = "IconCell"
         }
         for count in 0...buttonArray.count - 1 {
             buttonArray[count].setImage(UIImage(named: iconArray[count]), for: .normal)
-            
+
         }
         contentView.addSubviews(stackViewOne, stackViewTwo, stackViewThree, stackViewFour)
         let padding: CGFloat = 10
@@ -101,7 +99,7 @@ static let reuseID = "IconCell"
             item.colors = noColors
             }
             
-        sender.tintColor = .label
+        sender.tintColor = .white
         sender.colors = Gradients().blueGradient
         sender.isSelected = true
         for (index,item) in buttonArray.enumerated() {

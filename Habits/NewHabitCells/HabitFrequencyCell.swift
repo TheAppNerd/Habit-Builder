@@ -29,11 +29,12 @@ class HabitFrequencyCell: UITableViewCell {
     private func configure() {
         timesAWeekLabel.translatesAutoresizingMaskIntoConstraints = false
         timesAWeekLabel.textAlignment = .left
-        timesAWeekLabel.text = "Times a week:"
+        timesAWeekLabel.text = "Days a Week:"
         
         negativeButton.translatesAutoresizingMaskIntoConstraints = false
         negativeButton.setImage(UIImage(systemName: "minus"), for: .normal)
         negativeButton.layer.cornerRadius = 10
+        negativeButton.tintColor = .white
      
 
         frequencyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +43,7 @@ class HabitFrequencyCell: UITableViewCell {
         positiveButton.translatesAutoresizingMaskIntoConstraints = false
         positiveButton.setImage(UIImage(systemName: "plus"), for: .normal)
         positiveButton.layer.cornerRadius = 10
-
+        positiveButton.tintColor = .white
         
         contentView.addSubviews(timesAWeekLabel, negativeButton, positiveButton, frequencyLabel)
         
