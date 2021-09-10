@@ -58,7 +58,8 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0: shareApp()
-        case 1: AppStoreReviewManager.requestReviewIfAppropriate()
+        case 1: print("hi")
+           // https://itunes.apple.com/us/app/appName/idAPP_ID?mt=8&action=write-review
         case 2: sendEmail()
         case 3: delegate?.pushSettings(row: 3)
         case 4: print("TBD") //privacy policy. link to website I make with privacy policy

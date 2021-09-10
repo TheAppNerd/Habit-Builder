@@ -74,7 +74,9 @@ class UserNotifications {
             case .notDetermined:
                 self.requestUserAuthorisation()
             case .ephemeral:
-                print("")
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
             @unknown default:
                 break
             }

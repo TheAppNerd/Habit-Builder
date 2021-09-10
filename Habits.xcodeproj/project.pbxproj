@@ -41,7 +41,6 @@
 		FA8A297226D117B1008CD5AE /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = FA8A297126D117B1008CD5AE /* Podfile */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */; };
-		FA8A297A26D48033008CD5AE /* AppStoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297926D48033008CD5AE /* AppStoreReviewManager.swift */; };
 		FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */; };
 		FAA5915826A9923F0084C0D9 /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */; };
 		FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAACA40326B4160B00B85A74 /* HabitCoreData.xcdatamodeld */; };
@@ -103,7 +102,6 @@
 		FA8A297126D117B1008CD5AE /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeViewController.swift; sourceTree = "<group>"; };
-		FA8A297926D48033008CD5AE /* AppStoreReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewManager.swift; sourceTree = "<group>"; };
 		FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		FAA5915726A9923F0084C0D9 /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		FAACA40426B4160B00B85A74 /* HabitCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitCoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -276,7 +274,6 @@
 				FAF4E717265F456E0029E50D /* ScrollView.swift */,
 				FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */,
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
-				FA8A297926D48033008CD5AE /* AppStoreReviewManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -426,7 +423,6 @@
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
-				FA8A297A26D48033008CD5AE /* AppStoreReviewManager.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
 				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,

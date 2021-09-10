@@ -221,6 +221,7 @@ class NewHabitVC: UITableViewController  {
         print(previousName)
     }
     
+    
     @objc func datePickerTime(_ sender: DatePicker) {
          
             let formatter = DateFormatter()
@@ -238,16 +239,28 @@ class NewHabitVC: UITableViewController  {
     
     //change segment so non selected tint is secondary label and selected tint is white 
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
-        let userNotifications = UserNotifications()
-        userNotifications.confirmRegisteredNotifications()
+        //let userNotifications = UserNotifications()
         switch sender.selectedSegmentIndex {
         case 0: alarmsActivated = false
         case 1: alarmsActivated = true
+            //userNotifications.confirmRegisteredNotifications()
+            let current = UNUserNotificationCenter.current()
+            current.getNotificationSettings { (settings) in
+                if settings.authorizationStatus == .denied {
+                    let deniedAlert = UIAlertController(title: "Permission Denied", message: "To enable notifications please activate them in the settings for this app", preferredStyle: .alert)
+                    deniedAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    DispatchQueue.main.async {
+                        self.present(deniedAlert, animated: true) {
+                            sender.selectedSegmentIndex = 0
+                        }
+                        
+                    }
+                }
+            }
         default:
             alarmsActivated = false
         }
-        print(sender.selectedSegmentIndex)
-    }
+            }
     
     
 

@@ -47,8 +47,10 @@ class AboutViewController: UIViewController {
 
     private func configure() {
         view.backgroundColor = .systemBackground
-        iconImage.image = UIImage(systemName: "swift")
+        iconImage.image = UIImage(named: "habitIcon")
         iconImage.translatesAutoresizingMaskIntoConstraints = false
+        iconImage.layer.cornerRadius = 10
+        iconImage.layer.masksToBounds = true
         
         versionLabel.text = "Habits - Version \(UIApplication.appVersion!)"
         versionLabel.translatesAutoresizingMaskIntoConstraints = false

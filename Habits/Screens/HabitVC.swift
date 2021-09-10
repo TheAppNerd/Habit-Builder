@@ -198,6 +198,7 @@ class HabitVC: UIViewController, SettingsPush {
             saveCoreData()
         }
         sender.bounceAnimation()
+        tableView.reloadData()
     }
     
     
@@ -234,10 +235,11 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         var buttonCount = 0
+        var completedDays = 0
         
         let habit = habitArray[indexPath.row]
         habit.habitGradientIndex = habitArray[indexPath.row].habitGradientIndex
-        cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
+//        cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
         cell.habitName.text = habit.habitName
         //to fix duplication issue need to move daybuttons and gradientcolors to a custom class
         cell.gradientColors = GradientArray.array[Int(habit.habitGradientIndex)]
@@ -259,11 +261,11 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             }
             if habit.habitDates!.contains(selectedDate) {
                 button.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5)
-//                button.setTitle("", for: .normal)
-//                button.setImage(UIImage(systemName: "checkmark"), for: .normal)
                 button.layer.borderColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5).cgColor
+                completedDays += 1
             }
             buttonCount += 1
+            
         }
         // replace with ternary operator?
         switch habit.alarmBool {
@@ -272,13 +274,15 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         }
         
 //implement proper completion count here. change to something like 1/5 days per week. change icon to a tick is goal hit.
-        if habit.frequency == 7 {
-            cell.frequencyLabel.text = "Everyday"
-        } else if habit.frequency == 1 {
-        cell.frequencyLabel.text = "1 day a week"
+        
+      
+            cell.frequencyLabel.text = "\(completedDays) / \(habit.frequency) days"
+        if completedDays >= habit.frequency {
+            cell.iconImage.image = UIImage(systemName: "checkmark.circle")
         } else {
-            cell.frequencyLabel.text = "\(habit.frequency) days a week"
+            cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
         }
+        
         
         return cell
     }
