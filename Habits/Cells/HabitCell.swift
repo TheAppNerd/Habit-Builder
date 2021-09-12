@@ -109,12 +109,15 @@ static let reuseID = "HabitCell"
         
         var count = 0
         for button in dayButton {
+            button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true
             buttonStackView.addArrangedSubview(button)
             button.setTitleColor(.white, for: .normal)
+            button.tintColor = .white
             button.layer.borderColor = UIColor.white.cgColor
             button.backgroundColor = .clear
             button.layer.borderWidth = 1.5
             button.setTitle("\(dayArray[count])", for: .normal)
+            
             
             count += 1
         }
@@ -232,7 +235,6 @@ static let reuseID = "HabitCell"
             alarmImage.heightAnchor.constraint(equalToConstant: padding * 1.5),
             alarmImage.widthAnchor.constraint(equalToConstant: padding * 1.5),
           
-
             labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
             labelStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
             labelStackView.heightAnchor.constraint(equalToConstant: padding),

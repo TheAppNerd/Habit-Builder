@@ -187,7 +187,7 @@ class HabitVC: UIViewController, SettingsPush {
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
         //change below to a switch or a toggle
-   
+     
         if sender.backgroundColor == .clear {
             habitArray[indexPath.row].habitDates?.append(selectedDate)
             saveCoreData()
@@ -197,7 +197,7 @@ class HabitVC: UIViewController, SettingsPush {
             habitArray[indexPath.row].habitDates = habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
             saveCoreData()
         }
-        sender.bounceAnimation()
+        
         tableView.reloadData()
     }
     
@@ -239,15 +239,17 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
         let habit = habitArray[indexPath.row]
         habit.habitGradientIndex = habitArray[indexPath.row].habitGradientIndex
-//        cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
+        cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
         cell.habitName.text = habit.habitName
         //to fix duplication issue need to move daybuttons and gradientcolors to a custom class
         cell.gradientColors = GradientArray.array[Int(habit.habitGradientIndex)]
         
         //This prevents duplication issues on reusable cells
-        for button in cell.dayButton {
+        for (index,button) in cell.dayButton.enumerated() {
             button.backgroundColor = .clear
             button.layer.borderColor = UIColor.white.cgColor
+            button.setTitle("\(cell.dayArray[index])", for: .normal)
+            button.setImage(nil, for: .normal)
         }
         for button in cell.dayButton {
                         button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
@@ -262,6 +264,8 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             if habit.habitDates!.contains(selectedDate) {
                 button.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5)
                 button.layer.borderColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5).cgColor
+                button.setTitle(nil, for: .normal)
+                button.setImage(UIImage(systemName: "checkmark"), for: .normal)
                 completedDays += 1
             }
             buttonCount += 1
@@ -277,12 +281,6 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
       
             cell.frequencyLabel.text = "\(completedDays) / \(habit.frequency) days"
-        if completedDays >= habit.frequency {
-            cell.iconImage.image = UIImage(systemName: "checkmark.circle")
-        } else {
-            cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
-        }
-        
         
         return cell
     }

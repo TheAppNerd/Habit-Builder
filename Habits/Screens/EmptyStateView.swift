@@ -34,8 +34,16 @@ class EmptyStateView: UIView {
         howToUseButton.translatesAutoresizingMaskIntoConstraints = false
         
         message.numberOfLines = 0
-        message.text = "There are no habits here yet. Press the Add Habit button to get started or press How To Use for a guide on how to use this app"
-        imageView.image = UIImage(systemName: "calendar")
+        message.text = """
+                There are no habits here yet.
+                Press the Add Habit button
+                to get started or press
+                How To Use for a guide on how to use this app.
+                """
+        message.textColor = .label
+        imageView.image = UIImage(named: "habitIcon")
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 10
         
         
         addHabitButton.layer.cornerRadius = 10
@@ -50,7 +58,7 @@ class EmptyStateView: UIView {
         NSLayoutConstraint.activate([
         
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -100),
+            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -150),
             imageView.heightAnchor.constraint(equalToConstant: 200),
             imageView.widthAnchor.constraint(equalToConstant: 200),
             
