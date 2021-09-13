@@ -22,7 +22,7 @@ class MenuView: UIViewController, MFMailComposeViewControllerDelegate {
         configureTableView()
     }
     
-    let menuItems = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark/Light Mode"]
+    let menuItems = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode"]
     var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle"]
     
     

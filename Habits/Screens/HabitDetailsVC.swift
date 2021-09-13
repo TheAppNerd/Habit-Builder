@@ -56,7 +56,7 @@ class HabitDetailsVC: UIViewController {
         updateDates()
         calendarView.delegate = self
         calendarView.dataSource = self
-    
+        calendarView.setCurrentPage(Date(), animated: false)
     }
     
     func viewDidLoadlayout() {
