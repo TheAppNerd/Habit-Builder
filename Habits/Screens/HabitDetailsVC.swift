@@ -83,7 +83,13 @@ class HabitDetailsVC: UIViewController {
         streakLabel.textAlignment = .left
         
         streakBackground.addSubviews(streakImage, streakLabel)
-        let padding: CGFloat = 20
+        var padding: CGFloat = 0
+        if view.frame.size.height < 800 {
+            padding = 5
+        } else {
+            padding = 20
+        }
+       
         NSLayoutConstraint.activate([
         
             streakImage.leadingAnchor.constraint(equalTo: streakBackground.leadingAnchor, constant: padding * 2),
@@ -207,7 +213,7 @@ class HabitDetailsVC: UIViewController {
     
     private func configureBarButtons() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
-        let editButton = UIBarButtonItem(image: UIImage(systemName: "pencil.circle"), style: .plain, target: self, action: #selector(editHabit))
+        let editButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(editHabit))
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = editButton
@@ -222,7 +228,8 @@ class HabitDetailsVC: UIViewController {
         calendarView.appearance.weekdayTextColor = .label
         calendarView.appearance.titleDefaultColor = .secondaryLabel
         calendarView.appearance.titleSelectionColor = .label
-        calendarView.appearance.selectionColor = UIColor(cgColor: GradientArray.array[Int(habitCoreData!.habitGradientIndex)][0]) //fix this.
+        calendarView.appearance.selectionColor = UIColor(cgColor: GradientArray.array[Int(habitCoreData!.habitGradientIndex)][0]) //fix this to be better code
+        calendarView.placeholderType = .none
     }
     
     private func configureViewController() {
@@ -254,8 +261,7 @@ class HabitDetailsVC: UIViewController {
             streakBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             streakBackground.bottomAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: -padding),
             
-            
-            collectionBackground.heightAnchor.constraint(equalToConstant: view.frame.height / 2.8 + 30),
+            collectionBackground.heightAnchor.constraint(equalToConstant: view.frame.height / 2.8 + 30), // fix collection view height issues
             collectionBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             collectionBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             collectionBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 2)
@@ -267,7 +273,7 @@ class HabitDetailsVC: UIViewController {
         
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = .white
+        line.backgroundColor = .label
         
         let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: GradientArray.array[Int(habitCoreData!.habitGradientIndex)]))
         collectionImage.layer.cornerRadius = 10
@@ -284,8 +290,8 @@ class HabitDetailsVC: UIViewController {
         collectionImage.leadingAnchor.constraint(equalTo: collectionBackground.leadingAnchor, constant: padding2),
         collectionImage.topAnchor.constraint(equalTo: collectionBackground.topAnchor, constant: padding2),
         collectionImage.trailingAnchor.constraint(equalTo: collectionLabel.leadingAnchor, constant: -5),
-        collectionImage.heightAnchor.constraint(equalToConstant: 40),
-        collectionImage.widthAnchor.constraint(equalToConstant: 40),
+        collectionImage.heightAnchor.constraint(equalToConstant: 30),
+        collectionImage.widthAnchor.constraint(equalToConstant: 30),
         
         collectionLabel.leadingAnchor.constraint(equalTo: collectionImage.trailingAnchor, constant: 5),
         collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),
@@ -312,7 +318,7 @@ class HabitDetailsVC: UIViewController {
     func setupCalendarArea() {
     let line = UIView()
     line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = UIColor.white
+        line.backgroundColor = UIColor.label
     
         let calendarLabel = BodyLabel(textInput: "Habits Calendar", textAlignment: .left, fontSize: 18)
 
@@ -332,8 +338,8 @@ class HabitDetailsVC: UIViewController {
             calendarImage.leadingAnchor.constraint(equalTo: calendarBackgound.leadingAnchor, constant: padding2),
             calendarImage.topAnchor.constraint(equalTo: calendarBackgound.topAnchor, constant: padding2),
             calendarImage.trailingAnchor.constraint(equalTo: calendarLabel.leadingAnchor, constant: -5),
-            calendarImage.heightAnchor.constraint(equalToConstant: 40),
-            calendarImage.widthAnchor.constraint(equalToConstant: 40),
+            calendarImage.heightAnchor.constraint(equalToConstant: 30),
+            calendarImage.widthAnchor.constraint(equalToConstant: 30),
             
             calendarLabel.leadingAnchor.constraint(equalTo: calendarImage.trailingAnchor, constant: 5),
             calendarLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),

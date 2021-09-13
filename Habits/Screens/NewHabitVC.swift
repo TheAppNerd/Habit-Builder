@@ -78,6 +78,10 @@ class NewHabitVC: UITableViewController  {
 //        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
         
         let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: .done, target: self, action: #selector(deleteHabit))
+        switch cellTag < habitArray.count {
+        case true: deleteButton.image = UIImage(systemName: "trash.fill")
+        case false: deleteButton.image = UIImage(systemName: "trash.slash.fill")
+        }
         //navigationItem.leftBarButtonItem = cancelButton
          navigationItem.rightBarButtonItem = deleteButton
      }

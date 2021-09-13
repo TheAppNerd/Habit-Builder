@@ -32,6 +32,7 @@ static let reuseID = "HabitCell"
                                    DayButton()
     ]
     
+    //needed?
     override func prepareForReuse() {
         super.prepareForReuse()
     }
@@ -195,6 +196,11 @@ static let reuseID = "HabitCell"
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         iconImage.tintColor = .white
         frequencyLabel.textColor = .white
+        
+        habitName.adjustsFontSizeToFitWidth = true
+        habitName.minimumScaleFactor = 0.7 
+        frequencyLabel.adjustsFontSizeToFitWidth = true
+        frequencyLabel.minimumScaleFactor = 0.7
       
         
         cellView.layer.cornerRadius = 10
@@ -223,12 +229,14 @@ static let reuseID = "HabitCell"
             
             habitName.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             habitName.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor, constant: padding),
-            habitName.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -cellView.frame.width / 3),
+            habitName.trailingAnchor.constraint(equalTo: frequencyLabel.leadingAnchor, constant: -padding),
             habitName.heightAnchor.constraint(equalToConstant: padding * 1.5),
             
+            frequencyLabel.leadingAnchor.constraint(equalTo: habitName.trailingAnchor, constant: padding),
             frequencyLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             frequencyLabel.trailingAnchor.constraint(equalTo: alarmImage.leadingAnchor, constant: -10),
             frequencyLabel.heightAnchor.constraint(equalToConstant: padding * 1.5),
+            frequencyLabel.widthAnchor.constraint(equalToConstant: contentView.frame.size.width / 5.5),
 
             alarmImage.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             alarmImage.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),

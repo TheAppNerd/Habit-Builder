@@ -43,6 +43,7 @@ class HabitVC: UIViewController, SettingsPush {
         configureTableViewFooter()
     }
     
+    
     func configureViewController() {
         title = "Habits"
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
@@ -63,7 +64,11 @@ class HabitVC: UIViewController, SettingsPush {
         tableView.frame = view.bounds
         tableView.delegate = self
         tableView.dataSource = self
+        if view.frame.size.height < 800 {
+            tableView.rowHeight = tableView.frame.height / 4.5
+        } else {
         tableView.rowHeight = tableView.frame.height / 6
+        }
         tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
         tableView.separatorStyle = .none
         tableView.allowsSelection = true
