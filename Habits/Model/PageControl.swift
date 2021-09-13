@@ -7,6 +7,8 @@
 
 import UIKit
 
+//does this need to be seperate?
+
 class PageControl: UIPageControl {
 
     override init(frame: CGRect) {
@@ -22,7 +24,8 @@ class PageControl: UIPageControl {
     private func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.numberOfPages = 3
-        
-        
+        self.pageIndicatorTintColor = .secondaryLabel
+        self.currentPageIndicatorTintColor = .label
+        self.backgroundColor = .secondarySystemBackground
     }
 }

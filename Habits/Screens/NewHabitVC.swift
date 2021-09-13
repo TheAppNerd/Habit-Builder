@@ -13,6 +13,7 @@ class NewHabitVC: UITableViewController  {
     var habitArray = [HabitCoreData]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    
     var cellTag = Int()
     var nameArray = [UITextField]()
     var previousName = String() //using this prevents alarms from being messed with as name is name of title
@@ -35,8 +36,7 @@ class NewHabitVC: UITableViewController  {
         configure()
         configureBarButtons()
        dismissKeyboard()
-     print("icon \(iconString)")
-    print(dayArray)
+   
         
     }
 

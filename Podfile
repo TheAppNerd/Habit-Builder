@@ -1,4 +1,3 @@
-
 platform :ios, '11.0'
 
 target 'Habits' do

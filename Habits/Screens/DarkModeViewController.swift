@@ -48,9 +48,11 @@ class DarkModeViewController: UIViewController {
         for button in buttonArray {
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.layer.borderColor = UIColor.label.cgColor
-            button.layer.borderWidth = 0
+            button.backgroundColor = .secondarySystemBackground
+            //button.layer.borderWidth = 0
         }
-        sender.layer.borderWidth = 1
+        //sender.layer.borderWidth = 1
+        sender.backgroundColor = .systemBackground
         sender.setTitleColor(.label, for: .normal)
         var mode = traitCollection.userInterfaceStyle
         switch sender.title(for: .normal) {

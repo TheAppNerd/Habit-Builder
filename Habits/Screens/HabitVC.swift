@@ -32,7 +32,6 @@ class HabitVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        configureDarkMode()
                     }
 
     override func viewDidLoad() {
@@ -45,6 +44,7 @@ class HabitVC: UIViewController, SettingsPush {
     
     
     func configureViewController() {
+        navigationController?.navigationBar.isTranslucent = true
         title = "Habits"
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         self.tabBarController?.tabBar.isHidden = false
@@ -75,25 +75,10 @@ class HabitVC: UIViewController, SettingsPush {
     }
     
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-       menuBarButtonPressed()
-    }
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//       menuBarButtonPressed()
+//    }
     
-    func configureDarkMode() {
-        let defaults = UserDefaults.standard
-        var mode = traitCollection.userInterfaceStyle
-        
-        guard let selectedDarkMode = defaults.object(forKey: "darkMode") as? String else { return}
-        switch selectedDarkMode {
-        case "Automatic": mode = UITraitCollection.current.userInterfaceStyle
-        case "Light": mode = UIUserInterfaceStyle.light
-        case "Dark": mode = UIUserInterfaceStyle.dark
-        default: mode = UITraitCollection.current.userInterfaceStyle
-        }
-        UIApplication.shared.windows.forEach { window in
-            window.overrideUserInterfaceStyle = mode
-    }
-    }
     
     
     lazy var menuView: UIView = {
@@ -150,7 +135,7 @@ class HabitVC: UIViewController, SettingsPush {
         case 6: let vc = DarkModeViewController()
             vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.navigationController?.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            vc.modalTransitionStyle = .flipHorizontal
+            vc.modalTransitionStyle = .crossDissolve
             self.present(vc, animated: true, completion: nil)
         default:
             print("Error")

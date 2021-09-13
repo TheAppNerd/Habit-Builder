@@ -24,7 +24,7 @@ class HelpScreenViewController: UIViewController {
         view.addSubview(pageControl)
         view.addSubview(scrollView)
         pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
-        pageControl.backgroundColor = .secondarySystemBackground
+
         
         
         NSLayoutConstraint.activate([
@@ -86,8 +86,6 @@ to change any habit details
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: imageNames[num])
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 10
         
         page.addSubviews(label, imageView)
         let padding: CGFloat = 20
