@@ -9,7 +9,7 @@ import UIKit
 
 enum Labels {
     static let homeTitle = "Habits"
-    
+    static let tableViewFooterLabel = "Add a new habit"
 }
 
 

@@ -35,7 +35,6 @@ class HabitVC: UIViewController, SettingsPush {
         configureViewController()
         configureBarButtonItems()
         configureTableView()
-        configureTableViewFooter()
     }
     
     
@@ -161,7 +160,7 @@ class HabitVC: UIViewController, SettingsPush {
         }
     }
     
-    
+    //fix this and move to coredata funcs
     func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
         
         do {
@@ -185,8 +184,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         return habitArray.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
+        
         var buttonCount = 0
         var completedDays = 0
         
@@ -240,32 +241,17 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
-    func configureTableViewFooter() {
-        let tableViewFooter = UIView()
-        tableView.tableFooterView = tableViewFooter
-        tableViewFooter.frame.size = .init(width: tableView.frame.size.width, height: tableView.frame.size.width / 10)
-        let addHabitButton = UIButton()
-        addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
-        addHabitButton.tintColor = .systemGreen
-        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        addHabitButton.setTitle(" Add a new habit", for: .normal)
-        addHabitButton.setTitleColor(.systemGreen, for: .normal)
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
-        tableViewFooter.addSubview(addHabitButton)
-        NSLayoutConstraint.activate([
-            addHabitButton.centerYAnchor.constraint(equalTo: tableViewFooter.centerYAnchor),
-            addHabitButton.centerXAnchor.constraint(equalTo: tableViewFooter.centerXAnchor),
-            addHabitButton.widthAnchor.constraint(equalTo: tableViewFooter.widthAnchor, constant: -20),
-            addHabitButton.heightAnchor.constraint(equalTo: tableViewFooter.heightAnchor)
-        ])
+        let tableViewFooter = TableViewFooter(tableView: self.tableView)
+        tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         
-        if habitArray.isEmpty {
-            tableViewFooter.isHidden = true
-        } else {
-            tableViewFooter.isHidden = false
-        }
+        switch habitArray.isEmpty {
+        case true: tableViewFooter.isHidden = true
+        case false: tableViewFooter.isHidden = false
+    }
+        return tableViewFooter
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -275,6 +261,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         
+        //move this to an animations file
         UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn) {
             currentCell.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
         } completion: { (_) in
@@ -288,8 +275,9 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+
+
+
+
+
 }
-
-
-
-
