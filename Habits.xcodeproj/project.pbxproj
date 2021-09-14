@@ -18,12 +18,12 @@
 		FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C732F26365AFC00E63CBE /* BodyLabel.swift */; };
 		FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733326365CFA00E63CBE /* TitleLabel.swift */; };
 		FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733726379DDE00E63CBE /* ColorButton.swift */; };
-		FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73422637CD3E00E63CBE /* TableCellView.swift */; };
 		FA1D6D8326E729AB005AA4B2 /* UIButton + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D6D8226E729AB005AA4B2 /* UIButton + Ext.swift */; };
 		FA1D6D8526E7372E005AA4B2 /* UIimageView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D6D8426E7372E005AA4B2 /* UIimageView + Ext.swift */; };
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
-		FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4C263A3DE000BFDA3F /* HabitData.swift */; };
 		FA212C4F263E303100BFDA3F /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */; };
+		FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5A26F028E6005CC9F1 /* Constants.swift */; };
+		FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */; };
 		FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29042A26EF6B9100B7B00A /* DarkMode.swift */; };
 		FA360BED26C4C86300884B90 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEC26C4C86300884B90 /* Gradients.swift */; };
 		FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEE26C603F400884B90 /* NewHabitVC.swift */; };
@@ -76,12 +76,12 @@
 		FA1C732F26365AFC00E63CBE /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		FA1C733326365CFA00E63CBE /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		FA1C733726379DDE00E63CBE /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
-		FA1C73422637CD3E00E63CBE /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
 		FA1D6D8226E729AB005AA4B2 /* UIButton + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + Ext.swift"; sourceTree = "<group>"; };
 		FA1D6D8426E7372E005AA4B2 /* UIimageView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIimageView + Ext.swift"; sourceTree = "<group>"; };
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
-		FA212C4C263A3DE000BFDA3F /* HabitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitData.swift; sourceTree = "<group>"; };
 		FA212C4E263E303100BFDA3F /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
+		FA224D5A26F028E6005CC9F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFuncs.swift; sourceTree = "<group>"; };
 		FA29042A26EF6B9100B7B00A /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		FA360BEC26C4C86300884B90 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		FA360BEE26C603F400884B90 /* NewHabitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitVC.swift; sourceTree = "<group>"; };
@@ -237,7 +237,6 @@
 		FA1C73412637CD1C00E63CBE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FA1C73422637CD3E00E63CBE /* TableCellView.swift */,
 				FAF4E6E7265616190029E50D /* DividerView.swift */,
 				FA09DC1E26CF30C700B58F32 /* GradientView.swift */,
 				FA8A297326D3B319008CD5AE /* DarkModeView.swift */,
@@ -256,7 +255,6 @@
 		FA212C4B263A3DCD00BFDA3F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FA212C4C263A3DE000BFDA3F /* HabitData.swift */,
 				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
 				FAF4E6CC26493FF50029E50D /* DateSwitch.swift */,
 				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
@@ -265,6 +263,8 @@
 				FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */,
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
 				FA29042A26EF6B9100B7B00A /* DarkMode.swift */,
+				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
+				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -444,6 +444,7 @@
 				FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */,
 				FAB4EA8326CFC96300B9771D /* ChartCollectionCell.swift in Sources */,
 				FA1C730A263636D800E63CBE /* ViewController.swift in Sources */,
+				FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */,
 				FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */,
 				FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
@@ -453,15 +454,14 @@
 				FAACA40526B4160B00B85A74 /* HabitCoreData.xcdatamodeld in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
+				FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */,
 				FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* Data + Ext.swift in Sources */,
 				FA360BF626C6120100884B90 /* IconCell.swift in Sources */,
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */,
-				FA1C73432637CD3E00E63CBE /* TableCellView.swift in Sources */,
 				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
 				FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */,
-				FA212C4D263A3DE000BFDA3F /* HabitData.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
 				FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */,

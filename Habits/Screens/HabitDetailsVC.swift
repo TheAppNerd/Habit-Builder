@@ -24,7 +24,6 @@ class HabitDetailsVC: UIViewController {
     var chartYears: [Int: [Int]] = [:]
     let calendarView = FSCalendar()
     var cellTag: Int?
-    var habitData = HabitData()
     let currentStreak = BodyLabel()
     let streakLabel = UILabel()
     let calendarBackgound = DividerView()

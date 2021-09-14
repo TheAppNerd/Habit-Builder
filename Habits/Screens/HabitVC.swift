@@ -10,76 +10,70 @@ import CoreData
 import MessageUI
 
 class HabitVC: UIViewController, SettingsPush {
- 
-    var habitArray = [HabitCoreData]()
-
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-
-    let tableView = UITableView()
-    let menu = MenuView()
-    let generator = UIImpactFeedbackGenerator(style: .medium)
+    let context          = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let tableView        = UITableView()
+    let menu             = MenuView()
+    let generator        = UIImpactFeedbackGenerator(style: .medium)
+    let emptyStateView   = EmptyStateView()
+    
+    var habitArray           = [HabitCoreData]()
     var isSlideInMenuPressed = false
-    
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
-
-    var habitData = HabitData()
-    static var habitBool = false
-    let tableViewFooter = UIView()
-    let emptyStateView = EmptyStateView()
-  
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-                    }
-
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCoreData()
         configureViewController()
+        configureBarButtonItems()
         configureTableView()
         configureTableViewFooter()
     }
     
     
     func configureViewController() {
-        navigationController?.navigationBar.isTranslucent = true
-        title = "Habits"
+        title = Labels.homeTitle
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
-        self.tabBarController?.tabBar.isHidden = false
+        
         menuView.pinMenuTo(view, with: slideInMenuPadding)
         tableView.edgeTo(view, padding: 0)
         generator.prepare()
         menu.delegate = self
-        let menuButton = UIBarButtonItem(image: UIImage(systemName: "sidebar.leading"), style: .done, target: self, action: #selector(menuBarButtonPressed))
-        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus.app"), style: .plain, target: self, action: #selector(addHabitPressed))
-        navigationItem.setLeftBarButton(menuButton, animated: true)
-        navigationItem.rightBarButtonItems = [addButton]
     }
+    
+    func configureBarButtonItems() {
+        let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
+        let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
+        navigationItem.setLeftBarButton(menuButton, animated: true)
+        navigationItem.setRightBarButton(addButton, animated: true)
+    }
+    
     
     func configureTableView() {
         view.addSubview(tableView)
+        tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
+        
+        tableView.delegate        = self
+        tableView.dataSource      = self
+        tableView.frame           = view.bounds
         tableView.backgroundColor = .systemBackground
-        tableView.frame = view.bounds
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableView.separatorStyle  = .none
+        
+        //Sizing fix for older iphone models
         if view.frame.size.height < 800 {
             tableView.rowHeight = tableView.frame.height / 4.5
         } else {
-        tableView.rowHeight = tableView.frame.height / 6
+            tableView.rowHeight = tableView.frame.height / 6
         }
-        tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
-        tableView.separatorStyle = .none
-        tableView.allowsSelection = true
     }
-    
-    
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//       menuBarButtonPressed()
-//    }
-    
-    
     
     lazy var menuView: UIView = {
         let view = UIView()
@@ -111,21 +105,8 @@ class HabitVC: UIViewController, SettingsPush {
         return weekDay
     }
     
-    func getStartofWeek() -> Date {
-        let today = Date()
-            let gregorian = Calendar(identifier: .gregorian)
-            let sunday = gregorian.date(from: gregorian.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today))
-        return gregorian.date(byAdding: .day, value: 1, to: sunday!)!
-    }
     
-    func setStartOfWeek() {
-        let startOfWeek = getStartofWeek()
-        HabitArray.startOfWeek = startOfWeek
-    }
-    
-    
-   
-    func pushSettings(row: Int) {
+    func pushSettings(row: Int) { // fix all this
         switch row {
         case 5:
             let vc = AboutViewController()
@@ -142,53 +123,42 @@ class HabitVC: UIViewController, SettingsPush {
         }
     }
     
-
+    
     @objc func menuBarButtonPressed() {
-       
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
             self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
-            self.tableView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
+            self.tableView.frame.origin.x      = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
         } completion: { (finished) in
             self.isSlideInMenuPressed.toggle()
         }
-
     }
     
-   
     @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
         newHabitVC.cellTag = habitArray.count
-//        navigationController?.pushViewController(newHabitVC, animated: true)
         show(newHabitVC, sender: self)
-    }
-    
-    func startOfDay(date: Date) -> Date {
-        let calendarView = Calendar(identifier: .gregorian)
-        let startDate = calendarView.startOfDay(for: date)
-        return startDate
     }
     
     
     @objc func dateButtonPressed(_ sender: UIButton) {
         
         let habitCell = HabitCell()
-        let selectedDate = startOfDay(date: habitCell.dateArray[sender.tag])
+        let selectedDate = DateFuncs.startOfDay(date: habitCell.dateArray[sender.tag])
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
         //change below to a switch or a toggle
-     
-        if sender.backgroundColor == .clear {
-            habitArray[indexPath.row].habitDates?.append(selectedDate)
-            saveCoreData()
-        } else {
-            sender.backgroundColor = .clear
-            sender.layer.borderColor = UIColor.white.cgColor
-            habitArray[indexPath.row].habitDates = habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
-            saveCoreData()
-        }
         
-        tableView.reloadData()
+        if sender.backgroundColor == .clear { //change clear to something less breakable
+            habitArray[indexPath.row].habitDates?.append(selectedDate)
+            CoreDataFuncs.saveCoreData()
+            tableView.reloadData()
+        } else {
+            habitArray[indexPath.row].habitDates = habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
+            CoreDataFuncs.saveCoreData()
+            tableView.reloadData()
+        }
     }
     
     
@@ -205,14 +175,7 @@ class HabitVC: UIViewController, SettingsPush {
         tableView.reloadData()
     }
     
-    func saveCoreData() {
-        do {
-            try context.save()
-        } catch {
-            print("error saving context: \(error)")
-        }
-        tableView.reloadData()
-    }
+    
 }
 
 //MARK: - TableViewDelegate, TableViewDataSource
@@ -242,11 +205,11 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             button.setImage(nil, for: .normal)
         }
         for button in cell.dayButton {
-                        button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
+            button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.tag = buttonCount
             
-            let selectedDate = startOfDay(date: cell.dateArray[buttonCount])
-        
+            let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[buttonCount])
+            
             //test that this resets when next week loads up after data retention added
             if habit.habitDates == nil {
                 habit.habitDates = []
@@ -257,6 +220,9 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
                 button.setTitle(nil, for: .normal)
                 button.setImage(UIImage(systemName: "checkmark"), for: .normal)
                 completedDays += 1
+            } else {
+                button.backgroundColor = .clear
+                button.layer.borderColor = UIColor.white.cgColor
             }
             buttonCount += 1
             
@@ -267,24 +233,25 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         case false: cell.alarmImage.image = UIImage(systemName: "bell.slash.fill")
         }
         
-//implement proper completion count here. change to something like 1/5 days per week. change icon to a tick is goal hit.
+        //implement proper completion count here. change to something like 1/5 days per week. change icon to a tick is goal hit.
         
-      
-            cell.frequencyLabel.text = "\(completedDays) / \(habit.frequency) days"
+        
+        cell.frequencyLabel.text = "\(completedDays) / \(habit.frequency) days"
         
         return cell
     }
     
     func configureTableViewFooter() {
+        let tableViewFooter = UIView()
         tableView.tableFooterView = tableViewFooter
         tableViewFooter.frame.size = .init(width: tableView.frame.size.width, height: tableView.frame.size.width / 10)
         let addHabitButton = UIButton()
-    addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-    addHabitButton.translatesAutoresizingMaskIntoConstraints = false
-    addHabitButton.tintColor = .systemGreen
-    addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
-    addHabitButton.setTitle(" Add a new habit", for: .normal)
-    addHabitButton.setTitleColor(.systemGreen, for: .normal)
+        addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
+        addHabitButton.tintColor = .systemGreen
+        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
+        addHabitButton.setTitle(" Add a new habit", for: .normal)
+        addHabitButton.setTitleColor(.systemGreen, for: .normal)
         
         tableViewFooter.addSubview(addHabitButton)
         NSLayoutConstraint.activate([
@@ -320,7 +287,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-   
+    
 }
 
 

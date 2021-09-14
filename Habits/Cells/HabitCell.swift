@@ -12,7 +12,7 @@ class HabitCell: UITableViewCell {
 static let reuseID = "HabitCell"
     
     let habitName = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
-    let cellView = TableCellView()
+    let cellView = UIView()
     var calendarView = Calendar(identifier: .gregorian)
     var dateArray: [Date] = []
     var dayArray: [Int] = []
@@ -192,6 +192,8 @@ static let reuseID = "HabitCell"
         addSubview(buttonStackView)
         addSubview(alarmImage)
         addSubview(frequencyLabel)
+        cellView.translatesAutoresizingMaskIntoConstraints = false
+        cellView.backgroundColor = .tertiarySystemBackground
         
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         iconImage.tintColor = .white
