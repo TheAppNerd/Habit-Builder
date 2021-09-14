@@ -133,6 +133,7 @@ class NewHabitVC: UITableViewController  {
         newHabit.habitGradientIndex = Int16(colorIndex)
         newHabit.alarmDates = dayArray
         newHabit.habitCreated = true
+        newHabit.habitDates = []
         newHabit.alarmBool = alarmsActivated
         habitArray.append(newHabit)
         } else if cellTag < habitArray.count {
@@ -145,6 +146,7 @@ class NewHabitVC: UITableViewController  {
             oldHabit.alarmBool = alarmsActivated
         }
     }
+    
     
     func presentDeniedAlert() {
        

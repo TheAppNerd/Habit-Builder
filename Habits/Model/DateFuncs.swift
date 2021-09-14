@@ -17,6 +17,8 @@ struct DateFuncs {
 //        return gregorian.date(byAdding: .day, value: 1, to: sunday!)!
 //    }
     
+    //make this a date extension?
+    
    static func startOfDay(date: Date) -> Date {
         let calendarView = Calendar(identifier: .gregorian)
         let startDate = calendarView.startOfDay(for: date)

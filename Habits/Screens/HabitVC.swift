@@ -22,7 +22,6 @@ class HabitVC: UIViewController, SettingsPush {
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
     
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
@@ -47,6 +46,7 @@ class HabitVC: UIViewController, SettingsPush {
         generator.prepare()
         menu.delegate = self
     }
+    
     
     func configureBarButtonItems() {
         let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
@@ -88,20 +88,11 @@ class HabitVC: UIViewController, SettingsPush {
     }()
     
     func showEmptyStateView() {
-        if habitArray.isEmpty {
-            view.addSubview(emptyStateView)
-            emptyStateView.frame = tableView.frame
-        } else {
-            emptyStateView.removeFromSuperview()
+        switch habitArray.isEmpty {
+        case true:  view.addSubview(emptyStateView)
+                    emptyStateView.frame = tableView.frame
+        case false: emptyStateView.removeFromSuperview()
         }
-    }
-    
-    //make these extensions
-    func getDayOfWeek() -> Int {
-        let myCalendar = Calendar(identifier: .gregorian)
-        let today = myCalendar.startOfDay(for: Date())
-        let weekDay = myCalendar.component(.weekday, from: today)
-        return weekDay
     }
     
     
@@ -124,7 +115,7 @@ class HabitVC: UIViewController, SettingsPush {
     
     
     @objc func menuBarButtonPressed() {
-        
+        // move to animation file
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
             self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
             self.tableView.frame.origin.x      = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
@@ -135,7 +126,7 @@ class HabitVC: UIViewController, SettingsPush {
     
     @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
-        newHabitVC.cellTag = habitArray.count
+        newHabitVC.cellTag = habitArray.count //new method to remove celltags
         show(newHabitVC, sender: self)
     }
     
@@ -149,7 +140,8 @@ class HabitVC: UIViewController, SettingsPush {
         generator.impactOccurred()
         //change below to a switch or a toggle
         
-        if sender.backgroundColor == .clear { //change clear to something less breakable
+        if sender.backgroundColor == .clear {
+            //change clear to something less breakable like is selected
             habitArray[indexPath.row].habitDates?.append(selectedDate)
             CoreDataFuncs.saveCoreData()
             tableView.reloadData()
@@ -171,6 +163,7 @@ class HabitVC: UIViewController, SettingsPush {
         } catch {
             print("error loading context: \(error)")
         }
+        
         tableView.reloadData()
     }
     
@@ -188,57 +181,48 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-        var buttonCount = 0
-        var completedDays = 0
+        var buttonCount          = 0
+        var completedDays        = 0
         
-        let habit = habitArray[indexPath.row]
-        habit.habitGradientIndex = habitArray[indexPath.row].habitGradientIndex
-        cell.iconImage.image = UIImage(named: habit.iconString ?? "circle")
-        cell.habitName.text = habit.habitName
-        //to fix duplication issue need to move daybuttons and gradientcolors to a custom class
-        cell.gradientColors = GradientArray.array[Int(habit.habitGradientIndex)]
+        let habit                = habitArray[indexPath.row]
+        habit.habitGradientIndex = habitArray[indexPath.row].habitGradientIndex //??
+        cell.iconImage.image     = UIImage(named: habit.iconString ?? "")
+        cell.habitName.text      = habit.habitName
+        cell.gradientColors      = GradientArray.array[Int(habit.habitGradientIndex)]
         
-        //This prevents duplication issues on reusable cells
         for (index,button) in cell.dayButton.enumerated() {
-            button.backgroundColor = .clear
+           
+            //This prevents duplication issues on reusable cells
+            button.backgroundColor   = .clear
             button.layer.borderColor = UIColor.white.cgColor
             button.setTitle("\(cell.dayArray[index])", for: .normal)
             button.setImage(nil, for: .normal)
-        }
-        for button in cell.dayButton {
+            
             button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
-            button.tag = buttonCount
+            button.tag = buttonCount //apply tag in cell instead? then wont need buttoncount
             
             let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[buttonCount])
             
-            //test that this resets when next week loads up after data retention added
-            if habit.habitDates == nil {
-                habit.habitDates = []
-            }
             if habit.habitDates!.contains(selectedDate) {
-                button.backgroundColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5)
-                button.layer.borderColor = UIColor.tertiarySystemBackground.withAlphaComponent(0.5).cgColor
+                button.backgroundColor   = Colors.tertiaryWithAlpha
+                button.layer.borderColor = Colors.tertiaryWithAlpha.cgColor
                 button.setTitle(nil, for: .normal)
-                button.setImage(UIImage(systemName: "checkmark"), for: .normal)
+                button.setImage(SFSymbols.checkMark, for: .normal)
                 completedDays += 1
             } else {
                 button.backgroundColor = .clear
                 button.layer.borderColor = UIColor.white.cgColor
             }
             buttonCount += 1
-            
         }
-        // replace with ternary operator?
+        
         switch habit.alarmBool {
-        case true: cell.alarmImage.image = UIImage(systemName: "bell.fill")
-        case false: cell.alarmImage.image = UIImage(systemName: "bell.slash.fill")
+        case true: cell.alarmImage.image = SFSymbols.bell
+        case false: cell.alarmImage.image = SFSymbols.bellSlash
         }
-        
-        //implement proper completion count here. change to something like 1/5 days per week. change icon to a tick is goal hit.
-        
-        
+     
         cell.frequencyLabel.text = "\(completedDays) / \(habit.frequency) days"
-        
+    
         return cell
     }
 
@@ -268,7 +252,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn) {
                 currentCell.transform = CGAffineTransform(scaleX: 1, y: 1)
             } completion: { (_) in
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.show(vc, sender: self)
             }
         }
         

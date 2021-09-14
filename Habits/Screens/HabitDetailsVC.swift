@@ -373,7 +373,7 @@ class HabitDetailsVC: UIViewController {
     @objc func editHabit() {
         let newHabitVC = NewHabitVC()
         newHabitVC.cellTag = cellTag!
-        navigationController?.pushViewController(newHabitVC, animated: true)
+        show(newHabitVC, sender: self)
     }
     
     
