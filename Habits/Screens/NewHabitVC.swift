@@ -10,23 +10,22 @@ import CoreData
 
 class NewHabitVC: UITableViewController  {
     
-    var habitArray = [HabitCoreData]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var habitArray            = [HabitCoreData]()
+    let context               = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
-    var cellTag = Int()
-    var nameArray = [UITextField]()
-    var previousName = String() //using this prevents alarms from being messed with as name is name of title
-    var name = String()
-    var frequency = 1
-    var colors = [CGColor]()
-    var colorIndex = Int()
-    var iconString: String = ""
-    var dayArray: [Bool] = [false, false, false, false, false, false, false]
+    var cellTag               = Int()
+    var nameArray             = [UITextField]()
+    var previousName          = String() //using this prevents alarms from being messed with as name is name of title
+    var name                  = String()
+    var frequency             = 1
+    var colors                = [CGColor]()
+    var colorIndex            = Int()
+    var iconString: String    = ""
+    var dayArray: [Bool]      = [false, false, false, false, false, false, false]
     var alarmsActivated: Bool = false
-    var hour = Int()
-    var minute = Int()
-  
+    var hour                  = Int()
+    var minute                = Int()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,26 +34,23 @@ class NewHabitVC: UITableViewController  {
         registerCells()
         configure()
         configureBarButtons()
-       dismissKeyboard()
-   
-        
+        dismissKeyboard()
     }
-
     
     func loadData() {
         if cellTag < habitArray.count {
-            let habit = habitArray[cellTag]
-            name = habit.habitName ?? ""
-            previousName = habit.habitName ?? ""
-            frequency = Int(habit.frequency)
-            colorIndex = Int(habit.habitGradientIndex)
-            colors = GradientArray.array[colorIndex]
-            iconString = habit.iconString ?? ""
-            dayArray = habit.alarmDates ?? []
+            let habit       = habitArray[cellTag]
+            name            = habit.habitName ?? ""
+            previousName    = habit.habitName ?? ""
+            frequency       = Int(habit.frequency)
+            colorIndex      = Int(habit.habitGradientIndex)
+            colors          = GradientArray.array[colorIndex]
+            iconString      = habit.iconString ?? ""
+            dayArray        = habit.alarmDates ?? []
             alarmsActivated = habit.alarmBool
         }
     }
-
+    
     // arrange funcs in same order they are called in viewdidload
     
     private func registerCells() {
@@ -67,110 +63,85 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configure() {
+        title = Labels.AddHabitVCTitle
         tableView.allowsSelection = false
-        title = "Add Habit"
         tableView.separatorStyle = .none
     }
     
     
-    
     private func configureBarButtons() {
-//        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissVC))
-        
-        let deleteButton = UIBarButtonItem(image: UIImage(systemName: "trash.fill"), style: .done, target: self, action: #selector(deleteHabit))
+        let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
         switch cellTag < habitArray.count {
-        case true: deleteButton.image = UIImage(systemName: "trash.fill")
-        case false: deleteButton.image = UIImage(systemName: "trash.slash.fill")
+        case true: deleteButton.image = SFSymbols.trash
+        case false: deleteButton.image = SFSymbols.trashSlash
         }
-        //navigationItem.leftBarButtonItem = cancelButton
-         navigationItem.rightBarButtonItem = deleteButton
-     }
+        navigationItem.rightBarButtonItem = deleteButton
+    }
     
-    func dismissKeyboard() {
+    func dismissKeyboard() { //move to seperate file
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
-    
-    
-//    @objc func dismissVC() {
-//        let destVC = UINavigationController(rootViewController: HabitVC())
-//        destVC.modalPresentationStyle = .fullScreen
-//        present(destVC, animated: true)
-//    }
-    
-    
     @objc func deleteHabit() {
-        let deleteAlert = UIAlertController(title: "Delete Habit?", message: "Are you sure you want to delete this? It cannot be recovered.", preferredStyle: .alert)
+        let deleteAlert = UIAlertController(title: Labels.deleteAlertTitle, message: Labels.deleteAlartMessage, preferredStyle: .alert)
         deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { UIAlertAction in
-        
         }))
         deleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { UIAlertAction in
-           //where do i need to delete. core data here.
-            let destVC = UINavigationController(rootViewController: HabitVC())
-            destVC.modalPresentationStyle = .fullScreen
-            UserNotifications.removeNotifications(title: self.previousName)
-            let habit = self.habitArray[self.cellTag]
-            self.context.delete(habit)
-            self.habitArray.remove(at: self.cellTag)
-            self.saveCoreData()
             
-            self.present(destVC, animated: true)
+        UserNotifications.removeNotifications(title: self.previousName)
             
+        let habit = self.habitArray[self.cellTag]
+        self.context.delete(habit)
+        self.habitArray.remove(at: self.cellTag)
+        CoreDataFuncs.saveCoreData()
+        
+        let habitVC = HabitVC()
+        self.show(habitVC, sender: self)
         }))
+        
         if cellTag < habitArray.count {
-        present(deleteAlert, animated: true, completion: nil)
+            present(deleteAlert, animated: true, completion: nil)
         }
     }
     
     func createCoreDataHabit() {
         if cellTag >= habitArray.count {
-        let newHabit = HabitCoreData(context: context)
-        newHabit.habitName = name
-        newHabit.frequency = Int16(frequency)
-        newHabit.iconString = iconString
-        newHabit.habitGradientIndex = Int16(colorIndex)
-        newHabit.alarmDates = dayArray
-        newHabit.habitCreated = true
-        newHabit.habitDates = []
-        newHabit.alarmBool = alarmsActivated
-        habitArray.append(newHabit)
+            let newHabit                = HabitCoreData(context: context)
+            newHabit.habitName          = name
+            newHabit.frequency          = Int16(frequency)
+            newHabit.iconString         = iconString
+            newHabit.habitGradientIndex = Int16(colorIndex)
+            newHabit.alarmDates         = dayArray
+            newHabit.habitCreated       = true
+            newHabit.habitDates         = []
+            newHabit.alarmBool          = alarmsActivated
+            habitArray.append(newHabit)
         } else if cellTag < habitArray.count {
-             let oldHabit = habitArray[cellTag]
-           oldHabit.habitName = name
-           oldHabit.frequency = Int16(frequency)
-           oldHabit.iconString = iconString
-           oldHabit.habitGradientIndex = Int16(colorIndex)
-            oldHabit.alarmDates = dayArray
-            oldHabit.alarmBool = alarmsActivated
+            let oldHabit                = habitArray[cellTag]
+            oldHabit.habitName          = name
+            oldHabit.frequency          = Int16(frequency)
+            oldHabit.iconString         = iconString
+            oldHabit.habitGradientIndex = Int16(colorIndex)
+            oldHabit.alarmDates         = dayArray
+            oldHabit.alarmBool          = alarmsActivated
         }
     }
-    
-    
-    func presentDeniedAlert() {
-       
-        let deniedAlert = UIAlertController(title: "Notifications Denied", message: "If you wish to allow notifications please activate them in your phone settings", preferredStyle: .alert)
-        deniedAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        present(deniedAlert, animated: true)
-    }
-    
+
     @objc func saveButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         guard name != "" else {
             nameArray[0].layer.borderWidth = 2
             return
         }
-    
-        setupNotifications()
-    
         nameArray[0].layer.borderWidth = 0
+        setupNotifications()
         createCoreDataHabit()
-        saveCoreData()
-        let destVC = UINavigationController(rootViewController: HabitVC())
-                destVC.modalPresentationStyle = .fullScreen
-                present(destVC, animated: true)
+        CoreDataFuncs.saveCoreData()
         
+        let habitVC = HabitVC()
+        show(habitVC, sender: self)
     }
     
     @objc func positiveButtonPressed(_ sender: GradientButton) {
@@ -180,7 +151,7 @@ class NewHabitVC: UITableViewController  {
         }
         UIView.performWithoutAnimation {
             self.tableView.reloadSections([1], with: .none)
-          
+            
         }
     }
     
@@ -191,7 +162,6 @@ class NewHabitVC: UITableViewController  {
         }
         UIView.performWithoutAnimation {
             self.tableView.reloadSections([1], with: .none)
-        
         }
     }
     
@@ -204,82 +174,63 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    func saveCoreData() {
-        do {
-            try context.save()
-        } catch {
-            print("error saving context: \(error)")
-        }
-    }
-    
     func setupNotifications() {
         UserNotifications.removeNotifications(title: previousName)
-    
         if alarmsActivated == true {
-        for (index, bool) in dayArray.enumerated() {
-            if bool == true {
-                UserNotifications.scheduleNotification(title: name, day: index, hour: hour, minute: minute)
-                print("true")
-                
+            for (index, bool) in dayArray.enumerated() {
+                if bool == true {
+                    UserNotifications.scheduleNotification(title: name, day: index, hour: hour, minute: minute)
+                }
             }
         }
-        }
-        print(previousName)
     }
     
     
     @objc func datePickerTime(_ sender: DatePicker) {
-         
-            let formatter = DateFormatter()
-            formatter.dateFormat = "h:mm a"
-            let dateAsString = formatter.string(from: sender.date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        let dateAsString = formatter.string(from: sender.date)
+        
+        let date = formatter.date(from: dateAsString)
+        formatter.dateFormat = "HH:mm"
+        
+        let twentyFourHourDate = formatter.string(from: date!)
+        let time = twentyFourHourDate.components(separatedBy: ":")
+        hour = Int(time[0])!
+        minute = Int(time[1])!
+    }
     
-            let date = formatter.date(from: dateAsString)
-            formatter.dateFormat = "HH:mm"
     
-            let twentyFourHourDate = formatter.string(from: date!)
-            let time = twentyFourHourDate.components(separatedBy: ":")
-            hour = Int(time[0])!
-            minute = Int(time[1])!
-        }
-    
-    //change segment so non selected tint is secondary label and selected tint is white 
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
-        //let userNotifications = UserNotifications()
         switch sender.selectedSegmentIndex {
         case 0: alarmsActivated = false
         case 1: alarmsActivated = true
-            //userNotifications.confirmRegisteredNotifications()
             let current = UNUserNotificationCenter.current()
             current.getNotificationSettings { (settings) in
                 if settings.authorizationStatus == .denied {
-                    let deniedAlert = UIAlertController(title: "Permission Denied", message: "To enable notifications please activate them in the settings for this app", preferredStyle: .alert)
+                    let deniedAlert = UIAlertController(title: Labels.notificationDeniedTitle, message: Labels.notificationDeniedMessage, preferredStyle: .alert)
                     deniedAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     DispatchQueue.main.async {
                         self.present(deniedAlert, animated: true) {
                             sender.selectedSegmentIndex = 0
                         }
-                        
                     }
                 }
             }
         default:
             alarmsActivated = false
         }
-            }
-    
-    
-
+    }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 6
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Name"
@@ -288,19 +239,18 @@ class NewHabitVC: UITableViewController  {
         case 3: return "Icon"
         case 4: return "Remind Me"
         default:
-            return ""
+                return ""
         }
     }
-  
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0: let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
             cell.nameTextField.delegate = self
             nameArray.append(cell.nameTextField) // is this still needed?
             if cellTag < habitArray.count {
-            cell.nameTextField.text = name
+                cell.nameTextField.text = name
             }
-    
             return cell
             
         case 1: let cell = tableView.dequeueReusableCell(withIdentifier: HabitFrequencyCell.reuseID, for: indexPath) as! HabitFrequencyCell
@@ -316,20 +266,17 @@ class NewHabitVC: UITableViewController  {
                     button.sendActions(for: .touchUpInside)
                 }
             }
-        
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
             cell.delegate = self
             cell.colors = colors
-            
             for (index, button) in cell.buttonArray.enumerated() {
                 if button.imageView!.image == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
                 }
                 if iconString == "" {
                     cell.buttonArray[0].sendActions(for: .touchUpInside)
-
                 }
             }
             return cell
@@ -340,31 +287,23 @@ class NewHabitVC: UITableViewController  {
             switch alarmsActivated {
             case true: cell.dateSegment.selectedSegmentIndex = 1
             case false: cell.dateSegment.selectedSegmentIndex = 0
-                
             }
             cell.dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
             cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
             for (index, bool) in dayArray.enumerated() {
                 if bool == true {
                     cell.buttonArray[index].sendActions(for: .touchUpInside)
-                    
                 }
             }
-            
-
-                //set array to 0 every button press. then get index of selected buttons, append to array and toggle them again.
-            
-            
             return cell
-    
-      
+            
         case 5: let cell = tableView.dequeueReusableCell(withIdentifier: SaveCell.reuseID, for: indexPath) as! SaveCell
             cell.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
             return cell
             
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
-                return cell
+            return cell
         }
     }
 }
@@ -374,7 +313,7 @@ class NewHabitVC: UITableViewController  {
 extension NewHabitVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         name = textField.text ?? ""
-     textField.resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
@@ -384,7 +323,7 @@ extension NewHabitVC: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-       textField.layer.borderWidth = 0
+        textField.layer.borderWidth = 0
     }
 }
 
@@ -392,7 +331,7 @@ extension NewHabitVC: UITextFieldDelegate {
 
 //rename protocols to resemble cell names
 extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData {
-   
+    
     func passDayData(dayArray: [Bool]) {
         self.dayArray = dayArray
     }
@@ -401,7 +340,7 @@ extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData {
         self.colors = colors
         self.colorIndex = colorIndex
     }
-
+    
     
     func passIconData(iconString: String) {
         self.iconString = iconString
