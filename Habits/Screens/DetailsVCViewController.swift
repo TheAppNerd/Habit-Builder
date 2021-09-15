@@ -16,19 +16,19 @@ class DetailsVCViewController: UIViewController {
             dates = (habitCoreData?.habitDates)!
         }
     }
-        
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var dates: [Date] = []
-
+    
     var chartYears: [Int: [Int]] = [:]
     var cellTag: Int?
-  
+    
     //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView = HabitDetailsStreakView()
     let habitDetailsChartView = HabitDetailsChartView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateStreaks()
@@ -42,16 +42,30 @@ class DetailsVCViewController: UIViewController {
     func configureViews() {
         habitDetailsCalendarView.calendarView.dataSource = self
         habitDetailsCalendarView.calendarView.delegate = self
-        view.addSubviews(habitDetailsCalendarView)
+        view.addSubviews(habitDetailsCalendarView, habitDetailsStreakView, habitDetailsChartView)
+        
+        let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
-            habitDetailsCalendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            habitDetailsCalendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            habitDetailsCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            habitDetailsCalendarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -400)
+        habitDetailsCalendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+        habitDetailsCalendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+        habitDetailsCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+        habitDetailsCalendarView.bottomAnchor.constraint(equalTo: habitDetailsStreakView.topAnchor,constant: -padding),
+        habitDetailsCalendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
+                                                                                         
+        habitDetailsStreakView.topAnchor.constraint(equalTo: habitDetailsCalendarView.bottomAnchor, constant: padding),
+        habitDetailsStreakView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+        habitDetailsStreakView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+        habitDetailsStreakView.bottomAnchor.constraint(equalTo: habitDetailsChartView.topAnchor,constant: -padding),
+            
+        habitDetailsChartView.topAnchor.constraint(equalTo: habitDetailsStreakView.bottomAnchor, constant: padding),
+        habitDetailsChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+        habitDetailsChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+        habitDetailsChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -padding),
+        habitDetailsChartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35)
         ])
         
-    }
+        }
     
     override func viewDidLayoutSubviews() {
         //loads the collection view as current year
@@ -78,7 +92,7 @@ class DetailsVCViewController: UIViewController {
     }
     
     func presentAlertToAddHabit(date: Date) { //move this externally. to present add ability to link vc to func.
-       // let day = getDayOfWeek(date: date)
+        // let day = getDayOfWeek(date: date)
         
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
@@ -99,7 +113,7 @@ class DetailsVCViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
             self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
-//            self.viewDidLoadlayout()
+            //            self.viewDidLoadlayout()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)
@@ -107,7 +121,7 @@ class DetailsVCViewController: UIViewController {
         }))
         present(alert, animated: true)
     }
- 
+    
     
     private func configureBarButtons() {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
@@ -139,7 +153,7 @@ class DetailsVCViewController: UIViewController {
             chartYears[getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
             chartYears[getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
         }
-            
+        
         //loop through dict keys to get highest value. if current year != highest value append new dict with current year
         let latestYear = chartYears.keys.max()
         let currentYear = getYear()
@@ -157,22 +171,22 @@ class DetailsVCViewController: UIViewController {
         //use guard here
         guard habitCoreData?.habitDates != nil else { return }
         for date in habitCoreData!.habitDates! {
-                    
-                    let monthCalc = calendar.dateComponents([.month], from: date)
-                    let yearCalc = calendar.dateComponents([.year], from: date)
-                    let year = yearCalc.year!
-                    let month = monthCalc.month!-1
-                    
-                    chartYears[year]![month] += 1
-                    }
-
-}
+            
+            let monthCalc = calendar.dateComponents([.month], from: date)
+            let yearCalc = calendar.dateComponents([.year], from: date)
+            let year = yearCalc.year!
+            let month = monthCalc.month!-1
+            
+            chartYears[year]![month] += 1
+        }
+        
+    }
     
     func getYear() -> Int { //this is used several times. move to one location for all views.
         let today = Date()
         let calendar = Calendar(identifier: .gregorian)
         let year = calendar.component(.year, from: today)
-      
+        
         return year
     }
     
@@ -199,7 +213,7 @@ class DetailsVCViewController: UIViewController {
 extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      
+        
         return chartYears.count
     }
     
@@ -212,7 +226,7 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.color = GradientArray.array[Int(habitCoreData!.habitGradientIndex)]
         cell.monthCount = chartYears[year]!
         cell.configureStackView()
-
+        
         
         return cell
         

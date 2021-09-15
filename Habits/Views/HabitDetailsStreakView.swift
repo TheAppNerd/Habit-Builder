@@ -24,6 +24,7 @@ class HabitDetailsStreakView: UIView {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
+        layer.cornerRadius = 10
         backgroundColor = .tertiarySystemBackground
         let streakImage = UIImageView(image: UIImage(systemName: "flame.fill")?.addTintGradient(colors: Gradients().orangeGradient))
         streakImage.translatesAutoresizingMaskIntoConstraints = false
@@ -31,12 +32,12 @@ class HabitDetailsStreakView: UIView {
         streakLabel.textAlignment = .left
         
         self.addSubviews(streakImage, streakLabel)
-        var padding: CGFloat = 0
-        if viewControllerHeight ?? 0 < 800 {
-            padding = 5
-        } else {
-            padding = 20
-        }
+//        var padding: CGFloat = 0
+//        if viewControllerHeight ?? 0 < 800 {
+//            padding = 5
+//        } else {
+        let padding: CGFloat = 20
+       // }
        
         NSLayoutConstraint.activate([
         
