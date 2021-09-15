@@ -39,43 +39,6 @@ extension UIView {
         }
     }
     
-    func setupDetailViews(superView: UIView, viewOne: UIView, viewTwo: UIView, viewThree: UIView) {
-        let line = UIView()
-        line.backgroundColor = .systemGray2
-        
-        superview!.addSubviews(viewOne, viewTwo, viewThree, line)
-        for subview in superview!.subviews {
-            subview.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
-        let padding: CGFloat = 20
-        NSLayoutConstraint.activate([
-            viewOne.leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: padding),
-            viewOne.trailingAnchor.constraint(equalTo: viewTwo.leadingAnchor, constant: -padding),
-            viewOne.topAnchor.constraint(equalTo: superview!.topAnchor, constant: padding),
-            viewOne.heightAnchor.constraint(equalToConstant: padding * 2),
-            
-            viewTwo.leadingAnchor.constraint(equalTo: viewOne.trailingAnchor, constant: padding),
-            viewTwo.trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -padding),
-            viewTwo.topAnchor.constraint(equalTo: superview!.topAnchor, constant: padding),
-            viewTwo.heightAnchor.constraint(equalToConstant: padding * 2),
-            
-            line.leadingAnchor.constraint(equalTo: viewOne.leadingAnchor),
-            line.topAnchor.constraint(equalTo: viewOne.bottomAnchor, constant: 5),
-            line.trailingAnchor.constraint(equalTo: viewTwo.trailingAnchor),
-            line.heightAnchor.constraint(equalToConstant: 1),
-            
-            viewThree.leadingAnchor.constraint(equalTo: superview!.leadingAnchor, constant: padding),
-            viewThree.trailingAnchor.constraint(equalTo: superview!.trailingAnchor, constant: -padding),
-            viewThree.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
-            viewThree.bottomAnchor.constraint(equalTo: superview!.bottomAnchor, constant: -padding)
-        ])
-        
-        
-        
-        
-    }
-
     
     
 }

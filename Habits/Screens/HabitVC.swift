@@ -239,7 +239,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = HabitDetailsVC()
+        let vc = DetailsVCViewController()
         vc.cellTag = indexPath.row
         vc.habitCoreData = habitArray[indexPath.row]
         

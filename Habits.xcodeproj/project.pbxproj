@@ -25,6 +25,11 @@
 		FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5A26F028E6005CC9F1 /* Constants.swift */; };
 		FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */; };
 		FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */; };
+		FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */; };
+		FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */; };
+		FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */; };
+		FA224D6926F17216005CC9F1 /* DetailsVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6826F17216005CC9F1 /* DetailsVCViewController.swift */; };
+		FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */; };
 		FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29042A26EF6B9100B7B00A /* DarkMode.swift */; };
 		FA360BED26C4C86300884B90 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEC26C4C86300884B90 /* Gradients.swift */; };
 		FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEE26C603F400884B90 /* NewHabitVC.swift */; };
@@ -35,7 +40,6 @@
 		FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* ColorCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA62CF0626A7CB1100FE0A22 /* VisualsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */; };
-		FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */; };
 		FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */; };
@@ -84,6 +88,11 @@
 		FA224D5A26F028E6005CC9F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFuncs.swift; sourceTree = "<group>"; };
 		FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewFooter.swift; sourceTree = "<group>"; };
+		FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsCalendarView.swift; sourceTree = "<group>"; };
+		FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsStreakView.swift; sourceTree = "<group>"; };
+		FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsChartView.swift; sourceTree = "<group>"; };
+		FA224D6826F17216005CC9F1 /* DetailsVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVCViewController.swift; sourceTree = "<group>"; };
+		FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		FA29042A26EF6B9100B7B00A /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		FA360BEC26C4C86300884B90 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		FA360BEE26C603F400884B90 /* NewHabitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitVC.swift; sourceTree = "<group>"; };
@@ -94,7 +103,6 @@
 		FA360BF926C62C6A00884B90 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
 		FA62CF0526A7CB1100FE0A22 /* VisualsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualsCell.swift; sourceTree = "<group>"; };
-		FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettingsTableViewController.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeViewController.swift; sourceTree = "<group>"; };
 		FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -198,9 +206,9 @@
 				FAF4E713265F43270029E50D /* HelpScreenViewController.swift */,
 				FAF4E6D7264A47B90029E50D /* MenuView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
-				FA62CF0726A841F600FE0A22 /* ViewSettingsTableViewController.swift */,
 				FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */,
 				FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */,
+				FA224D6826F17216005CC9F1 /* DetailsVCViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -243,6 +251,9 @@
 				FA09DC1E26CF30C700B58F32 /* GradientView.swift */,
 				FA8A297326D3B319008CD5AE /* DarkModeView.swift */,
 				FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */,
+				FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */,
+				FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */,
+				FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -268,6 +279,7 @@
 				FA29042A26EF6B9100B7B00A /* DarkMode.swift */,
 				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
 				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
+				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -432,9 +444,12 @@
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
 				FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
+				FA224D6926F17216005CC9F1 /* DetailsVCViewController.swift in Sources */,
 				FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */,
+				FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */,
 				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
+				FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
 				FABA380D26C9F1E00088254C /* SaveCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
@@ -465,14 +480,15 @@
 				FA1C733826379DDE00E63CBE /* ColorButton.swift in Sources */,
 				FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */,
 				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
+				FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */,
 				FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
-				FA62CF0826A841F600FE0A22 /* ViewSettingsTableViewController.swift in Sources */,
 				FABA380A26C7DF650088254C /* GradientButton.swift in Sources */,
 				FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */,
 				FAF4E6E8265616190029E50D /* DividerView.swift in Sources */,
 				FAA5915826A9923F0084C0D9 /* UIColor + Ext.swift in Sources */,
+				FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */,
 				FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

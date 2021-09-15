@@ -68,7 +68,6 @@ class NewHabitVC: UITableViewController  {
         tableView.separatorStyle = .none
     }
     
-    
     private func configureBarButtons() {
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
         switch cellTag < habitArray.count {
@@ -106,7 +105,7 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    func createCoreDataHabit() {
+    func createCoreDataHabit() { //create a habit core data struct to contain all the information
         if cellTag >= habitArray.count {
             let newHabit                = HabitCoreData(context: context)
             newHabit.habitName          = name
