@@ -11,12 +11,15 @@ import FSCalendar // needed?
 
 class DetailsVCViewController: UIViewController {
     
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     var habitCoreData: HabitCoreData? {
         didSet {
-            dates = (habitCoreData?.habitDates)!
+            dates = (habitCoreData?.habitDates)! // needed?
         }
     }
     
+    //var collectionView: UICollectionView!
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var dates: [Date] = []
     
@@ -24,7 +27,6 @@ class DetailsVCViewController: UIViewController {
     var cellTag: Int?
     
     //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView = HabitDetailsStreakView()
     let habitDetailsChartView = HabitDetailsChartView()
@@ -36,9 +38,19 @@ class DetailsVCViewController: UIViewController {
         configureViews()
         updateCalendar()
         configureBarButtons()
+        addNewYear()
+        title = habitCoreData?.habitName
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        configureCollectionView()
+    
+    }
+
+
+
     func configureViews() {
         habitDetailsCalendarView.calendarView.dataSource = self
         habitDetailsCalendarView.calendarView.delegate = self
@@ -67,12 +79,23 @@ class DetailsVCViewController: UIViewController {
         
         }
     
-    override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews() { //needed?
         //loads the collection view as current year
         let section = 0
-        let lastItemIndex = self.collectionView.numberOfItems(inSection: section) - 1
+        let lastItemIndex = collectionView.numberOfItems(inSection: section) - 1
         let indexPath = IndexPath(item: lastItemIndex, section: section)
-        self.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
+       collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
+    }
+    
+    func configureCollectionView() {
+        collectionView = UICollectionView(frame: habitDetailsChartView.collectionViewFrame.bounds, collectionViewLayout: ChartCollectionViewLayout.collectionLayout(in: habitDetailsChartView.collectionViewFrame))
+        collectionView.dataSource = self
+       collectionView.delegate = self
+      collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
+       collectionView.isScrollEnabled = true
+        collectionView.backgroundColor = .tertiarySystemBackground
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        habitDetailsChartView.collectionViewFrame.addSubview(collectionView)
     }
     
     func updateCalendar() {
@@ -99,7 +122,9 @@ class DetailsVCViewController: UIViewController {
             self.habitDetailsCalendarView.calendarView.select(date)
             self.habitCoreData?.habitDates?.append(date)
             CoreDataFuncs.saveCoreData()
-            //self.viewDidLoadlayout()
+            self.habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(self.habitCoreData?.habitDates?.count ?? 0)"
+            self.collectionView.reloadData()
+            self.configureCollectionView()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
@@ -113,7 +138,9 @@ class DetailsVCViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
             self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
-            //            self.viewDidLoadlayout()
+            self.habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(self.habitCoreData?.habitDates?.count ?? 0)"
+            self.collectionView.reloadData()
+            self.configureCollectionView()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)
@@ -179,7 +206,6 @@ class DetailsVCViewController: UIViewController {
             
             chartYears[year]![month] += 1
         }
-        
     }
     
     func getYear() -> Int { //this is used several times. move to one location for all views.
@@ -188,22 +214,6 @@ class DetailsVCViewController: UIViewController {
         let year = calendar.component(.year, from: today)
         
         return year
-    }
-    
-    func configureCollectionView() { //move this externally. refer to sean allen.
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: view.frame.width - 40, height: view.frame.height / 3.5) // make this into a variable that also goes into nslayout constraint
-        layout.scrollDirection = .horizontal
-        
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
-        collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .tertiarySystemBackground
-        
     }
     
 }
@@ -216,6 +226,7 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
         
         return chartYears.count
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCollectionCell.reuseID, for: indexPath) as! ChartCollectionCell
@@ -233,6 +244,7 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
 }
+//MARK: - calendar
 
 extension DetailsVCViewController: FSCalendarDataSource, FSCalendarDelegate {
     

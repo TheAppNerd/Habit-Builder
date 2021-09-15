@@ -1,8 +1,8 @@
-//
-//  HabitDetailsVC.swift
-//  Habits
-//
-//  Created by Alexander Thompson on 2/5/21.
+////
+////  HabitDetailsVC.swift
+////  Habits
+////
+////  Created by Alexander Thompson on 2/5/21.
 ////
 //
 //import UIKit
@@ -52,8 +52,8 @@
 //        streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
 //    }
 //
-   
-    
+//
+//
 //    private func saveCoreData() {
 //        do {
 //            try context.save()
@@ -62,39 +62,39 @@
 //        }
 //    }
 //
-//    func configureStreakView() {
-//        let streakImage = UIImageView(image: UIImage(systemName: "flame.fill")?.addTintGradient(colors: Gradients().orangeGradient))
-//        streakImage.translatesAutoresizingMaskIntoConstraints = false
-//        streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
-//        streakLabel.translatesAutoresizingMaskIntoConstraints = false
-//        streakLabel.textAlignment = .left
+////    func configureStreakView() {
+////        let streakImage = UIImageView(image: UIImage(systemName: "flame.fill")?.addTintGradient(colors: Gradients().orangeGradient))
+////        streakImage.translatesAutoresizingMaskIntoConstraints = false
+////        streakLabel.text = "Total Days Completed: \(habitCoreData?.habitDates?.count ?? 0)"
+////        streakLabel.translatesAutoresizingMaskIntoConstraints = false
+////        streakLabel.textAlignment = .left
+////
+////        streakBackground.addSubviews(streakImage, streakLabel)
+////        var padding: CGFloat = 0
+////        if view.frame.size.height < 800 {
+////            padding = 5
+////        } else {
+////            padding = 20
+////        }
+////
+////        NSLayoutConstraint.activate([
+////
+////            streakImage.leadingAnchor.constraint(equalTo: streakBackground.leadingAnchor, constant: padding * 2),
+////            streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -20),
+////            streakImage.topAnchor.constraint(equalTo: streakBackground.topAnchor, constant: padding),
+////            streakImage.bottomAnchor.constraint(equalTo: streakBackground.bottomAnchor, constant: -padding),
+////            streakImage.widthAnchor.constraint(equalTo: streakImage.heightAnchor),
+////
+////            streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: padding),
+////            streakLabel.topAnchor.constraint(equalTo: streakBackground.topAnchor, constant: padding),
+////            streakLabel.bottomAnchor.constraint(equalTo: streakBackground.bottomAnchor, constant: -padding),
+////            streakLabel.trailingAnchor.constraint(equalTo: streakBackground.trailingAnchor, constant: padding)
+////
+////
+////        ])
+////    }
 //
-//        streakBackground.addSubviews(streakImage, streakLabel)
-//        var padding: CGFloat = 0
-//        if view.frame.size.height < 800 {
-//            padding = 5
-//        } else {
-//            padding = 20
-//        }
 //
-//        NSLayoutConstraint.activate([
-//
-//            streakImage.leadingAnchor.constraint(equalTo: streakBackground.leadingAnchor, constant: padding * 2),
-//            streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -20),
-//            streakImage.topAnchor.constraint(equalTo: streakBackground.topAnchor, constant: padding),
-//            streakImage.bottomAnchor.constraint(equalTo: streakBackground.bottomAnchor, constant: -padding),
-//            streakImage.widthAnchor.constraint(equalTo: streakImage.heightAnchor),
-//
-//            streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: padding),
-//            streakLabel.topAnchor.constraint(equalTo: streakBackground.topAnchor, constant: padding),
-//            streakLabel.bottomAnchor.constraint(equalTo: streakBackground.bottomAnchor, constant: -padding),
-//            streakLabel.trailingAnchor.constraint(equalTo: streakBackground.trailingAnchor, constant: padding)
-//
-//
-//        ])
-//    }
-    
-    
 //    override func viewDidLayoutSubviews() {
 //        //loads the collection view as current year
 //        let section = 0
@@ -102,20 +102,20 @@
 //        let indexPath = IndexPath(item: lastItemIndex, section: section)
 //        self.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
 //    }
-    
-//    func updateDates() {
-//        for date in habitCoreData!.habitDates! {
-//            calendarView.select(date)
-//        }
-//    }
-    
-    
+//
+////    func updateDates() {
+////        for date in habitCoreData!.habitDates! {
+////            calendarView.select(date)
+////        }
+////    }
+//
+//
 //    func addDate(date: Date) { //can I remove this whole func?
-//       // let calendar = Calendar(identifier: .gregorian)
-////        let monthCalc = calendar.dateComponents([.month], from: date)
-////        let yearCalc = calendar.dateComponents([.year], from: date)
-////        let year =  Int16(yearCalc.year!)
-////        let month = monthCalc.month
+//        let calendar = Calendar(identifier: .gregorian)
+//        let monthCalc = calendar.dateComponents([.month], from: date)
+//        let yearCalc = calendar.dateComponents([.year], from: date)
+//        let year =  Int16(yearCalc.year!)
+//        let month = monthCalc.month
 //        habitCoreData?.habitDates?.append(date)
 //        }
 //
@@ -161,7 +161,7 @@
 //    }
 //
 //
-    
+//
 //
 //    func addNewYear() { //move to class
 //        if chartYears.count == 0 {
@@ -196,8 +196,8 @@
 //                    }
 //                        }
 //
-    
-    
+//
+//
 //    private func configureBarButtons() {
 //        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
 //        let editButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(editHabit))
@@ -207,8 +207,8 @@
 //
 //    }
 //
-    //move calendarview to its own VC then input here as a subview.
-    
+//    //move calendarview to its own VC then input here as a subview.
+//
 //    func configureCalendarView() {
 //        calendarView.delegate = self
 //        calendarView.dataSource = self
@@ -256,7 +256,7 @@
 //            collectionBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 2)
 //        ])
 //    }
-
+//
 //    //MARK: - collection view layout
 //    func setupCollectionArea() {
 //
@@ -351,8 +351,8 @@
 //            calendarView.bottomAnchor.constraint(equalTo: calendarBackgound.bottomAnchor)
 //        ])
 //    }
-
-    
+//
+//
 //    @objc func goBack() {
 //        let destVC = UINavigationController(rootViewController: HabitVC())
 //        destVC.modalPresentationStyle = .fullScreen
@@ -365,9 +365,9 @@
 //        newHabitVC.cellTag = cellTag!
 //        show(newHabitVC, sender: self)
 //    }
-    
-    
-    
+//
+//
+//
 //
 //    func getYear() -> Int { //this is used several times. move to one location for all views.
 //        let today = Date()
@@ -376,7 +376,7 @@
 //
 //        return year
 //    }
-    
+//
 //    func configureCollectionView() { //move this externally. refer to sean allen.
 //        let layout = UICollectionViewFlowLayout()
 //        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -393,10 +393,10 @@
 //
 //    }
 //
-    
+//
 //}
-
-//MARK: - collectionview
+//
+////MARK: - collectionview
 //
 //extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 //
@@ -422,7 +422,7 @@
 //    }
 //
 //}
-
+//
 //extension HabitDetailsVC: FSCalendarDataSource, FSCalendarDelegate {
 //
 //    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {

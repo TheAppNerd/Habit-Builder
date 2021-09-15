@@ -10,7 +10,7 @@ import UIKit
 class HabitDetailsChartView: UIView {
     
     var gradientIndex: Int?
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    var collectionViewFrame = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,16 +21,15 @@ class HabitDetailsChartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .tertiarySystemBackground
         self.layer.cornerRadius = 10
-
+       
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = .label
-        
+        collectionViewFrame.translatesAutoresizingMaskIntoConstraints = false
         let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: GradientArray.array[gradientIndex ?? 0]))
         collectionImage.layer.cornerRadius = 10
         collectionImage.backgroundColor = UIColor.clear
@@ -39,7 +38,7 @@ class HabitDetailsChartView: UIView {
         let collectionLabel = BodyLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
         let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
         
-        self.addSubviews(collectionImage, collectionLabel, infoLabel, collectionView, line)
+        self.addSubviews(collectionImage, collectionLabel, infoLabel, collectionViewFrame, line)
         let padding2: CGFloat = 20
         NSLayoutConstraint.activate([
             
@@ -64,11 +63,11 @@ class HabitDetailsChartView: UIView {
             line.trailingAnchor.constraint(equalTo: infoLabel.trailingAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),
             
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding2),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding2),
-            collectionView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+            collectionViewFrame.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding2),
+            collectionViewFrame.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding2),
+            collectionViewFrame.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
+            collectionViewFrame.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
         ])
-        
+      
     }
 }
