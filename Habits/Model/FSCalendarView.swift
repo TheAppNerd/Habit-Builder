@@ -22,12 +22,12 @@ class FSCalendarView: FSCalendar {
     
     private func configure() {
        setCurrentPage(Date(), animated: false)
-       allowsMultipleSelection = true
-       appearance.headerTitleColor = .label
-       appearance.weekdayTextColor = .label
-       appearance.titleDefaultColor = .secondaryLabel
+       allowsMultipleSelection        = true
+       appearance.headerTitleColor    = .label
+       appearance.weekdayTextColor    = .label
+       appearance.titleDefaultColor   = .secondaryLabel
        appearance.titleSelectionColor = .label
-       placeholderType = .none
+       placeholderType                = .none
         //                appearance.selectionColor = UIColor(cgColor: GradientArray.array[Int(habitCoreData!.habitGradientIndex)][0]) //fix this to be better code
     }
 }

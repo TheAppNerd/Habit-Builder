@@ -17,8 +17,8 @@ class BodyLabel: UILabel {
     convenience init(textInput: String, textAlignment: NSTextAlignment, fontSize: CGFloat) {
         self.init(frame: .zero)
         self.textAlignment = textAlignment
-        self.text = textInput
-        self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        self.text          = textInput
+        self.font          = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
     
     required init?(coder: NSCoder) {
@@ -27,12 +27,12 @@ class BodyLabel: UILabel {
     
     
     private func configure() {
-        textColor = .label
-        font = UIFont.preferredFont(forTextStyle: .body)
-        adjustsFontSizeToFitWidth = true
+        textColor                         = .label
+        font                              = UIFont.preferredFont(forTextStyle: .body)
+        adjustsFontSizeToFitWidth         = true
         adjustsFontForContentSizeCategory = true
-        minimumScaleFactor = 0.75
-        lineBreakMode = .byWordWrapping
+        minimumScaleFactor                = 0.75
+        lineBreakMode                     = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

@@ -21,12 +21,12 @@ class HabitDetailsStreakView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10
-        backgroundColor = .tertiarySystemBackground
-        let streakImage = UIImageView(image: UIImage(systemName: "flame.fill")?.addTintGradient(colors: Gradients().orangeGradient))
+        backgroundColor    = .tertiarySystemBackground
+        
+        let streakImage = UIImageView(image: SFSymbols.flame?.addTintGradient(colors: Gradients().orangeGradient))
         streakImage.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.translatesAutoresizingMaskIntoConstraints = false
         streakLabel.textAlignment = .left
@@ -41,17 +41,16 @@ class HabitDetailsStreakView: UIView {
        
         NSLayoutConstraint.activate([
         
+            streakImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             streakImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
             streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -20),
-            streakImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             streakImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
             streakImage.widthAnchor.constraint(equalTo: streakImage.heightAnchor),
             
-            streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: padding),
             streakLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            streakLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
-            streakLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: padding)
+            streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: padding),
+            streakLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: padding),
+            streakLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
         ])
-        
     }
 }

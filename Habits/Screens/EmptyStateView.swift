@@ -13,7 +13,7 @@ class EmptyStateView: UIView {
     let message = TitleLabel(textInput: "", textAlignment: .center, fontSize: 16)
     let imageView = UIImageView()
     let addHabitButton = GradientButton(colors: Gradients().blueGradient)
-    let howToUseButton = GradientButton(colors: Gradients().darkGreen)
+    let howToUseButton = GradientButton(colors: Gradients().darkGreenGradient)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

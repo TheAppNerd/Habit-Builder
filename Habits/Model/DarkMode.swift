@@ -13,6 +13,7 @@ struct DarkMode {
         let defaults = UserDefaults.standard
         
         guard let selectedDarkMode = defaults.object(forKey: "darkMode") as? String else { return UITraitCollection.current.userInterfaceStyle}
+        
         switch selectedDarkMode {
         case "Automatic": return UITraitCollection.current.userInterfaceStyle
         case "Light": return UIUserInterfaceStyle.light

@@ -25,8 +25,8 @@ class DayLabel: UILabel {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        textColor = .white
-        textAlignment = .center
+        textColor                 = .white
+        textAlignment             = .center
         adjustsFontSizeToFitWidth = true
         
         

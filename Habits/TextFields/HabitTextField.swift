@@ -22,17 +22,17 @@ class HabitTextField: UITextField {
     private func configure() {
     translatesAutoresizingMaskIntoConstraints = false
         
-        textColor = .label
-        tintColor = .label
-        textAlignment = .left
-        font = UIFont.preferredFont(forTextStyle: .title2)
+        textColor                 = .label
+        tintColor                 = .label
+        textAlignment             = .left
+        font                      = UIFont.preferredFont(forTextStyle: .title2)
         adjustsFontSizeToFitWidth = true
-        minimumFontSize = 12
-        layer.cornerRadius = 10
-        backgroundColor = .secondarySystemBackground
-        autocorrectionType = .no
-        returnKeyType = .go
-        clearButtonMode = .whileEditing
+        minimumFontSize           = 12
+        layer.cornerRadius        = 10
+        backgroundColor           = .secondarySystemBackground
+        autocorrectionType        = .no
+        returnKeyType             = .go
+        clearButtonMode           = .whileEditing
     }
     
     

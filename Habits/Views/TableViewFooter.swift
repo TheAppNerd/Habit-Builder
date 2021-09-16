@@ -10,21 +10,24 @@ import UIKit
 class TableViewFooter: UIView {
 
     let addHabitButton = UIButton()
-    var tableView = UITableView()
+    var tableView      = UITableView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     convenience init(tableView: UITableView) {
         self.init(frame: .zero)
         self.tableView = tableView
     }
+    
     
     private func configure() {
         self.frame.size = .init(width: tableView.frame.size.width, height: tableView.frame.size.width / 10)
@@ -43,6 +46,4 @@ class TableViewFooter: UIView {
             addHabitButton.heightAnchor.constraint(equalTo: self.heightAnchor)
         ])
     }
-    
-
 }

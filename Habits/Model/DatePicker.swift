@@ -19,11 +19,9 @@ class DatePicker: UIDatePicker {
     }
     
     private func configure() {
-        self.datePickerMode = .time
-        
-    
-        self.preferredDatePickerStyle = .inline
-        self.translatesAutoresizingMaskIntoConstraints = false
+        datePickerMode                            = .time
+        preferredDatePickerStyle                  = .wheels
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     

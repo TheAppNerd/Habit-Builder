@@ -48,9 +48,6 @@ class HelpScreenViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         
-        //scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height - 100)
-        
-        
         if scrollView.subviews.count == 2 {
             configureScrollView()
     }

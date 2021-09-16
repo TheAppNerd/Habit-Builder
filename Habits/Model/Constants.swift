@@ -8,12 +8,13 @@
 import UIKit
 
 enum Labels {
-    static let HabitVCTitle         = "Habits"
-    static let tableViewFooterLabel = "Add a new habit"
-    static let AddHabitVCTitle      = "Add Habit"
-    static let deleteAlertTitle     = "Delete Habit?"
-    static let deleteAlartMessage   = "Are you sure you want to delete this? It cannot be recovered."
-    static let notificationDeniedTitle = "Permission Denied"
+    static let HabitVCTitle              = "Habits"
+    static let tableViewFooterLabel      = "Add a new habit"
+    static let AddHabitVCTitle           = "Add Habit"
+    static let deleteAlertTitle          = "Delete Habit?"
+    static let deleteAlartMessage        = "Are you sure you want to delete this? It cannot be recovered."
+    static let placeholder               = "Eg. Workout, meditate, etc"
+    static let notificationDeniedTitle   = "Permission Denied"
     static let notificationDeniedMessage = "To enable notifications please activate them in the settings for this app"
 }
 
@@ -26,6 +27,10 @@ enum SFSymbols {
     static let bellSlash            = UIImage(systemName: "bell.slash.fill")
     static let trash                = UIImage(systemName: "trash.fill")
     static let trashSlash           = UIImage(systemName: "trash.slash.fill")
+    static let flame                = UIImage(systemName: "flame.fill")
+    static let chart                = UIImage(systemName: "chart.bar.xaxis")
+    static let minus                = UIImage(systemName: "minus")
+    static let plus                 = UIImage(systemName: "plus")
 }
 
 
@@ -34,7 +39,7 @@ enum Colors {
 }
 
 enum GradientColors {
-    
+    static let clearGradient =      [UIColor.clear.cgColor, UIColor.clear.cgColor]
 }
 
 

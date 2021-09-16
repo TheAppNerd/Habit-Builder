@@ -20,7 +20,6 @@ class DayButton: UIButton {
     
     private func configure() {
         
-       
         self.clipsToBounds = true
         self.backgroundColor = .clear
         self.setTitleColor(.label, for: .normal)

@@ -20,68 +20,68 @@ class ChartCollectionCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureStackView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-     func configureStackView() {
-        
+    func configureStackView() {
         self.translatesAutoresizingMaskIntoConstraints = true
-    let stackView = UIStackView()
+        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
+        stackView.axis          = .horizontal
+        stackView.distribution  = .fillEqually
+        stackView.spacing       = 10
         
         let countStack = UIStackView()
-            countStack.translatesAutoresizingMaskIntoConstraints = false
-        countStack.axis = .horizontal
+        countStack.translatesAutoresizingMaskIntoConstraints = false
+        countStack.axis         = .horizontal
         countStack.distribution = .fillEqually
-        countStack.spacing = 10
+        countStack.spacing      = 10
         
         let monthStack = UIStackView()
-            monthStack.translatesAutoresizingMaskIntoConstraints = false
-        monthStack.axis = .horizontal
+        monthStack.translatesAutoresizingMaskIntoConstraints = false
+        monthStack.axis         = .horizontal
         monthStack.distribution = .fillEqually
-        monthStack.spacing = 10
+        monthStack.spacing      = 10
         
         let yearLabel = UILabel()
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
         yearLabel.textAlignment = .left
-        yearLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        yearLabel.text = "\(year ?? 0)"
+        yearLabel.font          = UIFont.boldSystemFont(ofSize: 20)
+        yearLabel.text          = "\(year ?? 0)"
         
         for stack in 0...11 {
             let vStackView = UIStackView()
             vStackView.translatesAutoresizingMaskIntoConstraints = false
-            vStackView.axis = .vertical
-            vStackView.alignment = .fill
+            vStackView.axis         = .vertical
+            vStackView.alignment    = .fill
             vStackView.distribution = .fillEqually
-
+            
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
-            countLabel.text = "\(monthCount[stack])"
+            countLabel.text         = "\(monthCount[stack])"
             if monthCount[stack] == 0 {
-                countLabel.alpha = 0
+                countLabel.alpha    = 0
             } else {
-                countLabel.alpha = 1.0
+                countLabel.alpha    = 1.0
             }
             countStack.addArrangedSubview(countLabel)
-
-            var time = 2.0
+            var time                = 2.0
+            
             for number in 0...30 {
-                let count = GradientView()
-
+                let count           = GradientView()
                 count.translatesAutoresizingMaskIntoConstraints = false
-                count.alpha = 0.0
-
-                let reverseNumber = 31 - monthCount[stack]
+                count.alpha         = 0.0
+                
+                let reverseNumber   = 31 - monthCount[stack]
                 if number < reverseNumber {
-                    count.colors = [UIColor.clear.cgColor, UIColor.clear.cgColor]
+                    count.colors    = GradientColors.clearGradient
                 } else {
-                    count.colors = color!
+                    count.colors    = color!
+                    
                     UIView.animate(withDuration: time) {
                         count.alpha = 1.0
                         time -= 0.2
@@ -93,26 +93,26 @@ class ChartCollectionCell: UICollectionViewCell {
                     }
                 }
                 vStackView.addArrangedSubview(count)
-        }
-        
+            }
+            
             stackView.addArrangedSubview(vStackView)
             
             let monthLabel = UILabel()
-            monthLabel.adjustsFontSizeToFitWidth = true
-            monthLabel.font = monthLabel.font.withSize(12)
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
-            monthLabel.text = monthArray[stack]
+            monthLabel.adjustsFontSizeToFitWidth = true
+            monthLabel.font                      = monthLabel.font.withSize(12)
+            monthLabel.text                      = monthArray[stack]
             monthStack.addArrangedSubview(monthLabel)
-            
-            
         }
+         
+        //turn this into seperate func
         addSubview(stackView)
         addSubview(monthStack)
         addSubview(countStack)
         addSubview(yearLabel)
-
+        
         let padding: CGFloat = 20
-       
+        
         NSLayoutConstraint.activate([
             countStack.topAnchor.constraint(equalTo: self.topAnchor),
             countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
@@ -137,10 +137,10 @@ class ChartCollectionCell: UICollectionViewCell {
             yearLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             yearLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
-        }
-        
-     }
+    }
     
-    
-    
+}
+
+
+
 

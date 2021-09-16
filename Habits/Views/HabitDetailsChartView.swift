@@ -10,7 +10,7 @@ import UIKit
 class HabitDetailsChartView: UIView {
     
     var gradientIndex: Int?
-    var collectionViewFrame = UIView()
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,16 +21,25 @@ class HabitDetailsChartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
+     func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .tertiarySystemBackground
-        self.layer.cornerRadius = 10
-       
+        layer.cornerRadius = 10
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.estimatedItemSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .tertiarySystemBackground
+        collectionView.isScrollEnabled = true
+        
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = .label
-        collectionViewFrame.translatesAutoresizingMaskIntoConstraints = false
-        let collectionImage = UIImageView(image: UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: GradientArray.array[gradientIndex ?? 0]))
+        
+        let collectionImage = UIImageView(image: SFSymbols.chart?.addTintGradient(colors: GradientArray.array[gradientIndex ?? 0]))
         collectionImage.layer.cornerRadius = 10
         collectionImage.backgroundColor = UIColor.clear
         collectionImage.translatesAutoresizingMaskIntoConstraints = false
@@ -38,36 +47,35 @@ class HabitDetailsChartView: UIView {
         let collectionLabel = BodyLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
         let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
         
-        self.addSubviews(collectionImage, collectionLabel, infoLabel, collectionViewFrame, line)
-        let padding2: CGFloat = 20
+        self.addSubviews(collectionImage, collectionLabel, infoLabel, collectionView, line)
+        let padding: CGFloat = 20
         NSLayoutConstraint.activate([
             
-            collectionImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding2),
-            collectionImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding2),
+            collectionImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            collectionImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             collectionImage.trailingAnchor.constraint(equalTo: collectionLabel.leadingAnchor, constant: -5),
             collectionImage.heightAnchor.constraint(equalToConstant: 30),
             collectionImage.widthAnchor.constraint(equalToConstant: 30),
             
+            collectionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             collectionLabel.leadingAnchor.constraint(equalTo: collectionImage.trailingAnchor, constant: 5),
-            collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding2),
-            collectionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding2),
+            collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding),
             collectionLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            infoLabel.leadingAnchor.constraint(equalTo: collectionLabel.trailingAnchor, constant: padding2),
+            infoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            infoLabel.leadingAnchor.constraint(equalTo: collectionLabel.trailingAnchor, constant: padding),
             infoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            infoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding2),
             infoLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            line.leadingAnchor.constraint(equalTo: collectionImage.leadingAnchor),
             line.topAnchor.constraint(equalTo: collectionLabel.bottomAnchor, constant: 5),
+            line.leadingAnchor.constraint(equalTo: collectionImage.leadingAnchor),
             line.trailingAnchor.constraint(equalTo: infoLabel.trailingAnchor),
             line.heightAnchor.constraint(equalToConstant: 1),
             
-            collectionViewFrame.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding2),
-            collectionViewFrame.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding2),
-            collectionViewFrame.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
-            collectionViewFrame.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+            collectionView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
+            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
         ])
-      
     }
 }

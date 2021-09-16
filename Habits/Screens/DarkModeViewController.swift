@@ -34,7 +34,7 @@ class DarkModeViewController: UIViewController {
     }
     
     func configureButtons() {
-        darkModeView.adaptiveButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
+        darkModeView.automaticButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         darkModeView.lightButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         darkModeView.darkButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         
@@ -44,7 +44,7 @@ class DarkModeViewController: UIViewController {
     @objc func darkModeValueChanged(sender: UIButton) {
         let defaults = UserDefaults.standard
         
-        let buttonArray = [darkModeView.adaptiveButton, darkModeView.lightButton, darkModeView.darkButton]
+        let buttonArray = [darkModeView.automaticButton, darkModeView.lightButton, darkModeView.darkButton]
         for button in buttonArray {
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.layer.borderColor = UIColor.label.cgColor

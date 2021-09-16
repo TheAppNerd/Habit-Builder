@@ -8,8 +8,6 @@
 import UIKit
 
 class ScrollView: UIScrollView {
-    
-    //is this needed?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,9 +17,6 @@ class ScrollView: UIScrollView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    
     
     private func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false

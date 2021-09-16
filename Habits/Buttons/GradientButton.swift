@@ -31,7 +31,7 @@ class GradientButton: UIButton {
        layoutGradient()
     }
     
-    func layoutGradient() {
+    private func layoutGradient() {
         
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)
         gradientLayer.frame = self.bounds

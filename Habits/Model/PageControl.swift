@@ -22,10 +22,10 @@ class PageControl: UIPageControl {
     
     
     private func configure() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.numberOfPages = 3
-        self.pageIndicatorTintColor = .secondaryLabel
-        self.currentPageIndicatorTintColor = .label
-        self.backgroundColor = .secondarySystemBackground
+        translatesAutoresizingMaskIntoConstraints = false
+        numberOfPages                             = 3
+        pageIndicatorTintColor                    = .secondaryLabel
+        currentPageIndicatorTintColor             = .label
+        backgroundColor                           = .secondarySystemBackground
     }
 }

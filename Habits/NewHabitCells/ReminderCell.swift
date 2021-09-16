@@ -19,8 +19,10 @@ class ReminderCell: UITableViewCell {
  static let reuseID = "ReminderCell"
     
     var dayArray: [Bool] = [false, false, false, false, false, false, false]
-    let datePicker = UIDatePicker()
+    let datePicker = DatePicker()
     let dateSegment = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
+   
+    
     let stackView = UIStackView()
     weak var delegate: passDayData?
     var hour = Int()
@@ -55,32 +57,14 @@ class ReminderCell: UITableViewCell {
         hour = Int(time[0])!
         minute = Int(time[1])!
     }
-    
 
-    
-    @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
-//        if dateSwitch.isOn == true {
-//            habitData.alarmBool = true
-//            bellImage.image = UIImage(systemName: "bell.fill")
-//        } else if dateSwitch.isOn == false {
-//            habitData.alarmBool = false
-//            bellImage.image = UIImage(systemName: "bell.slash")
-//            userNotifications.scheduleNotification(title: habitNameTextField.text!, hour: hour, minute: minute, onOrOff: false)
-//
-    }
     
     private func configure() {
     
-        datePicker.datePickerMode = .time
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
-        
         dateSegment.layer.cornerRadius = 10
         dateSegment.translatesAutoresizingMaskIntoConstraints = false
         dateSegment.selectedSegmentTintColor = .systemBlue
-        dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
-        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -115,7 +99,7 @@ class ReminderCell: UITableViewCell {
             dateSegment.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
             dateSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
           
-           
+        
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             stackView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),

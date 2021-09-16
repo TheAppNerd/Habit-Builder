@@ -10,10 +10,8 @@ import UserNotifications
 
 class UserNotifications {
     
-    //build functionality where if user declines authorisation, if they try to turn alarms on again they get a prompt to allow in settings. (Can I link to settings with button press in alert?)
     
-    
-    func requestUserAuthorisation() {
+     func requestUserAuthorisation() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if granted {
@@ -21,8 +19,7 @@ class UserNotifications {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             }
-               
-            }
+        }
     }
     
     
@@ -30,35 +27,31 @@ class UserNotifications {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: [title])
     }
-           
-
     
-
-   static func scheduleNotification(title: String, day: Int ,hour: Int, minute: Int) {
-        let center = UNUserNotificationCenter.current()
+    
+    static func scheduleNotification(title: String, day: Int ,hour: Int, minute: Int) {
+        let center  = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = "Time to \(title). You can do it"
+        content.title              = title
+        content.body               = "Time to \(title). You can do it"
         content.categoryIdentifier = "alarm"
-        content.sound = UNNotificationSound.default
+        content.sound              = UNNotificationSound.default
         
-        var dateComponents = DateComponents()
-        dateComponents.weekday = day
-        dateComponents.hour = hour
-        dateComponents.minute = minute
+        var dateComponents         = DateComponents()
+        dateComponents.weekday     = day
+        dateComponents.hour        = hour
+        dateComponents.minute      = minute
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
         
         center.add(request)
-    print("center: \(center)")
-        }
-    //add in error code
-    //if habit deleted does it cancel all notifications? test
+        print("center: \(center)")
+    }
+   
     
-
-    
-    func confirmRegisteredNotifications() -> String {
+    func confirmRegisteredNotifications() -> String { // made this func in new habit vc. should use this one and find way to present alert if denied. (input view to present?)
         var str = ""
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings { (settings) in
@@ -85,6 +78,6 @@ class UserNotifications {
     }
     
 }
-    
-    
+
+
 

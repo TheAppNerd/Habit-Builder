@@ -11,8 +11,8 @@ class MenuTableViewCell: UITableViewCell {
 
     static let reuseID = "MenuCell"
     
-    let cellImage = UIImageView()
-    let cellLabel = TitleLabel(textInput: "", textAlignment: .left, fontSize: 20)
+    let cellImage      = UIImageView()
+    let cellLabel      = TitleLabel(textInput: "", textAlignment: .left, fontSize: 20)
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,21 +29,21 @@ class MenuTableViewCell: UITableViewCell {
         addSubview(cellLabel)
         self.backgroundColor = .secondarySystemBackground
       
-        cellLabel.textColor = .label
+        cellLabel.textColor  = .label
         cellImage.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let padding: CGFloat = 10
         NSLayoutConstraint.activate([
             
-            cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding * 2),
             cellImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding * 2),
             cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
             cellImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
             cellImage.widthAnchor.constraint(equalTo: cellImage.heightAnchor),
             
-            cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             cellLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
         ])

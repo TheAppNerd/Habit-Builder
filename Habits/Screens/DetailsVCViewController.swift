@@ -11,8 +11,6 @@ import FSCalendar // needed?
 
 class DetailsVCViewController: UIViewController {
     
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
     var habitCoreData: HabitCoreData? {
         didSet {
             dates = (habitCoreData?.habitDates)! // needed?
@@ -40,16 +38,8 @@ class DetailsVCViewController: UIViewController {
         configureBarButtons()
         addNewYear()
         title = habitCoreData?.habitName
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         configureCollectionView()
-    
     }
-
-
 
     func configureViews() {
         habitDetailsCalendarView.calendarView.dataSource = self
@@ -82,20 +72,16 @@ class DetailsVCViewController: UIViewController {
     override func viewDidLayoutSubviews() { //needed?
         //loads the collection view as current year
         let section = 0
-        let lastItemIndex = collectionView.numberOfItems(inSection: section) - 1
+        let lastItemIndex = habitDetailsChartView.collectionView.numberOfItems(inSection: section) - 1
         let indexPath = IndexPath(item: lastItemIndex, section: section)
-       collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
+        habitDetailsChartView.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
     }
     
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: habitDetailsChartView.collectionViewFrame.bounds, collectionViewLayout: ChartCollectionViewLayout.collectionLayout(in: habitDetailsChartView.collectionViewFrame))
-        collectionView.dataSource = self
-       collectionView.delegate = self
-      collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
-       collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .tertiarySystemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        habitDetailsChartView.collectionViewFrame.addSubview(collectionView)
+
+        habitDetailsChartView.collectionView.dataSource = self
+        habitDetailsChartView.collectionView.delegate = self
+        habitDetailsChartView.collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
     }
     
     func updateCalendar() {
@@ -123,8 +109,8 @@ class DetailsVCViewController: UIViewController {
             self.habitCoreData?.habitDates?.append(date)
             CoreDataFuncs.saveCoreData()
             self.habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(self.habitCoreData?.habitDates?.count ?? 0)"
-            self.collectionView.reloadData()
-            self.configureCollectionView()
+            self.habitDetailsChartView.collectionView.reloadData()
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
@@ -139,8 +125,7 @@ class DetailsVCViewController: UIViewController {
             self.habitDetailsCalendarView.calendarView.deselect(date)
             self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
             self.habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(self.habitCoreData?.habitDates?.count ?? 0)"
-            self.collectionView.reloadData()
-            self.configureCollectionView()
+            self.habitDetailsChartView.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)
@@ -225,6 +210,10 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return chartYears.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: habitDetailsChartView.collectionView.bounds.width, height: habitDetailsChartView.collectionView.bounds.height)
     }
     
     
