@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1100"
+   LastUpgradeVersion = "1250"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "03586A65EA9A8C65156629AB578BBF62"
-               BuildableName = "Pods_Habits.framework"
-               BlueprintName = "Pods-Habits"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "FA1C7301263636D800E63CBE"
+               BuildableName = "Habits.app"
+               BlueprintName = "Habits"
+               ReferencedContainer = "container:Habits.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -40,6 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "FA1C7301263636D800E63CBE"
+            BuildableName = "Habits.app"
+            BlueprintName = "Habits"
+            ReferencedContainer = "container:Habits.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -47,6 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "FA1C7301263636D800E63CBE"
+            BuildableName = "Habits.app"
+            BlueprintName = "Habits"
+            ReferencedContainer = "container:Habits.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

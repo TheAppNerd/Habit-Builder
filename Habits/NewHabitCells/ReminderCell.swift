@@ -13,28 +13,22 @@ protocol passDayData: AnyObject {
 
 class ReminderCell: UITableViewCell {
   
-  
-    
-
  static let reuseID = "ReminderCell"
     
-    var dayArray: [Bool] = [false, false, false, false, false, false, false]
-    let datePicker = DatePicker()
-    let dateSegment = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
-   
-    
-    let stackView = UIStackView()
     weak var delegate: passDayData?
-    var hour = Int()
-    var minute = Int()
     
-    let weekArray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    var buttonArray = [GradientButton]()
+    let datePicker       = DatePicker()
+    let dateSegment      = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
+    let stackView        = UIStackView() //rename
+    let weekArray        = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     
-    var colors = [CGColor]()
+    var dayArray: [Bool] = [false, false, false, false, false, false, false]
+    var hour             = Int()
+    var minute           = Int()
+    var buttonArray      = [GradientButton]()
+    var colors           = [CGColor]()
     
-    var noColors = [UIColor.clear.cgColor, UIColor.clear.cgColor]
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -45,38 +39,41 @@ class ReminderCell: UITableViewCell {
     }
     
     @objc func timeChanged() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        let dateAsString = formatter.string(from: datePicker.date)
+        let formatter          = DateFormatter()
+        formatter.dateFormat   = "h:mm a"
+        let dateAsString       = formatter.string(from: datePicker.date)
 
-        let date = formatter.date(from: dateAsString)
-        formatter.dateFormat = "HH:mm"
+        let date               = formatter.date(from: dateAsString)
+        formatter.dateFormat   = "HH:mm"
 
         let twentyFourHourDate = formatter.string(from: date!)
-        let time = twentyFourHourDate.components(separatedBy: ":")
-        hour = Int(time[0])!
-        minute = Int(time[1])!
+        let time               = twentyFourHourDate.components(separatedBy: ":")
+        hour                   = Int(time[0])!
+        minute                 = Int(time[1])!
     }
 
     
     private func configure() {
     
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
-        dateSegment.layer.cornerRadius = 10
+        
         dateSegment.translatesAutoresizingMaskIntoConstraints = false
+        dateSegment.layer.cornerRadius       = 10
         dateSegment.selectedSegmentTintColor = .systemBlue
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
+        stackView.axis         = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 6
+        stackView.spacing      = 6
         
         for button in 0...6 {
             let dayButton = GradientButton()
             dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
             dayButton.setTitle(weekArray[button], for: .normal)
-            dayButton.backgroundColor = .secondarySystemBackground
             dayButton.setTitleColor(.secondaryLabel, for: .normal)
+            dayButton.backgroundColor    = .secondarySystemBackground
             dayButton.layer.cornerRadius = 10
+            
             stackView.addArrangedSubview(dayButton)
             buttonArray.append(dayButton)
         }
@@ -86,50 +83,45 @@ class ReminderCell: UITableViewCell {
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
-            
-            datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             datePicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            datePicker.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
+            datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             datePicker.trailingAnchor.constraint(equalTo: dateSegment.leadingAnchor, constant: -padding),
+            datePicker.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
             datePicker.heightAnchor.constraint(equalToConstant: 40),
        
-            
-            dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
             dateSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            dateSegment.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
+            dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
             dateSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-          
-        
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            dateSegment.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -padding),
+
             stackView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: padding),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             stackView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
-   
     
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         sender.isSelected.toggle()
+        
         for (index, button) in buttonArray.enumerated() {
             if button.isSelected == false {
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.isSelected = false
                 button.backgroundColor = .secondarySystemBackground
-            button.colors = noColors
-                dayArray[index] = false
+                button.colors          = GradientColors.clearGradient
+                dayArray[index]        = false
             } else {
                 button.setTitleColor(.white, for: .normal)
                 button.backgroundColor = .clear
-                button.colors = Gradients().blueGradient
-                dayArray[index] = true
+                button.colors          = Gradients().blueGradient
+                dayArray[index]        = true
             }
         }
-        
         delegate?.passDayData(dayArray: dayArray)
-        
     }
 }
 

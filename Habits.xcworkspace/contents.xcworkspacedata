@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/alex/Documents/xcode projects/Personal Projects/Habits/Habits/Model/HabitCoreData+CoreDataProperties.swift">
+      location = "group:Habits.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Habits.xcodeproj">
+      location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

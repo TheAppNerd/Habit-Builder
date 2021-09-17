@@ -8,7 +8,7 @@
 import UIKit
 
 class DarkModeViewController: UIViewController {
-
+    
     let darkModeView = DarkModeView()
     
     
@@ -20,9 +20,6 @@ class DarkModeViewController: UIViewController {
     
     private func configure() {
         view.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.7)
-    
-        darkModeView.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(darkModeView)
         
         NSLayoutConstraint.activate([
@@ -37,7 +34,6 @@ class DarkModeViewController: UIViewController {
         darkModeView.automaticButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         darkModeView.lightButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         darkModeView.darkButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
-        
         darkModeView.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
     }
     
@@ -48,25 +44,28 @@ class DarkModeViewController: UIViewController {
         for button in buttonArray {
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.layer.borderColor = UIColor.label.cgColor
-            button.backgroundColor = .secondarySystemBackground
-            //button.layer.borderWidth = 0
+            button.backgroundColor   = .secondarySystemBackground
         }
-        //sender.layer.borderWidth = 1
+        
         sender.backgroundColor = .systemBackground
         sender.setTitleColor(.label, for: .normal)
         var mode = traitCollection.userInterfaceStyle
+        
         switch sender.title(for: .normal) {
         case "Automatic": mode = UITraitCollection.current.userInterfaceStyle
             defaults.set("Automatic", forKey: "darkmode")
+            
         case "Light": mode = UIUserInterfaceStyle.light
             defaults.set("Light", forKey: "darkMode")
+            
         case "Dark": mode = UIUserInterfaceStyle.dark
             defaults.set("Dark", forKey: "darkMode")
+            
         default: mode = UITraitCollection.current.userInterfaceStyle
         }
         UIApplication.shared.windows.forEach { window in
             window.overrideUserInterfaceStyle = mode
-    }
+        }
     }
     
     @objc func doneButtonPressed() {
@@ -79,5 +78,5 @@ class DarkModeViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
-        
+    
 }

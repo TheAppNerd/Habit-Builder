@@ -9,19 +9,21 @@ import UIKit
 
 class HabitCell: UITableViewCell {
 
+    //move all calculations to model. nothing but view setup in here. 
+    
 static let reuseID = "HabitCell"
     
-    let habitName = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
-    let cellView = UIView()
-    var calendarView = Calendar(identifier: .gregorian)
+    let habitName         = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
+    let cellView          = UIView()
+    var calendarView      = Calendar(identifier: .gregorian)
     var dateArray: [Date] = []
-    var dayArray: [Int] = []
-    let alarmImage = UIImageView()
-    let frequencyLabel = BodyLabel()
-    let labelStackView = UIStackView()
-    let buttonStackView = UIStackView()
-    var gradientColors = [CGColor]()
-    let iconImage = UIImageView()
+    var dayArray: [Int]   = []
+    let alarmImage        = UIImageView()
+    let frequencyLabel    = BodyLabel()
+    let labelStackView    = UIStackView()
+    let buttonStackView   = UIStackView()
+    var gradientColors    = [CGColor]()
+    let iconImage         = UIImageView()
     
     let dayButton: [DayButton] = [ DayButton(),
                                    DayButton(),
@@ -66,14 +68,12 @@ static let reuseID = "HabitCell"
         cellView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func configureShadow() {
+    func configureShadow() { //rastersize to reduce memory?
         cellView.layer.shadowPath = UIBezierPath(roundedRect: cellView.bounds, cornerRadius: 10).cgPath
         cellView.layer.shadowRadius = 5
-        //contentView.layer.masksToBounds = true
         cellView.layer.shadowOffset = .zero
         cellView.layer.shadowOpacity = 0.7
         cellView.layer.shadowColor = UIColor.label.cgColor
-        
     }
     
     

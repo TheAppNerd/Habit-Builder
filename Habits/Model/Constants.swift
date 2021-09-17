@@ -39,7 +39,21 @@ enum Colors {
 }
 
 enum GradientColors {
-    static let clearGradient =      [UIColor.clear.cgColor, UIColor.clear.cgColor]
+    static let clearGradient        = [UIColor.clear.cgColor, UIColor.clear.cgColor]
 }
 
 
+enum SocialMedia {
+    static let linkedInUsername     = "alexander-thompson-847a6486"
+    static let linkedInLink           = "https://www.linkedin.com/in/\(SocialMedia.linkedInUsername)"
+    
+    static let instagramUsername    = "alexthompsondevelopment"
+    static let instagramLink        = "https://instagram.com/\(SocialMedia.instagramUsername)"
+    
+    static let githubUsername       = "AlexThompsonDevelopment"
+    static let githubLink           = "https://github.com/\(SocialMedia.githubUsername)"
+    
+    
+    
+   
+}

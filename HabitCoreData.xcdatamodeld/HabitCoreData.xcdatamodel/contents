@@ -15,6 +15,6 @@
         <attribute name="iconString" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="HabitCoreData" positionX="-344.0253906250001" positionY="9.818572998046875" width="138.14111328125" height="163"/>
+        <element name="HabitCoreData" positionX="-344.0253906250001" positionY="9.818572998046875" width="138.14111328125" height="149"/>
     </elements>
 </model>

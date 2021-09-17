@@ -8,34 +8,33 @@
 import UIKit
 
 class SaveCell: UITableViewCell {
-
+    
     static let reuseID = "SaveCell"
+
+    let saveButton = GradientButton(colors: Gradients().blueGradient)
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configure() {
+        saveButton.setTitle("Save Habit", for: .normal)
+        saveButton.layer.cornerRadius = 10
+        contentView.addSubview(saveButton)
         
-        let saveButton = GradientButton(colors: Gradients().blueGradient)
+        let padding: CGFloat = 10
         
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
-            configure()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        private func configure() {
-            saveButton.translatesAutoresizingMaskIntoConstraints = false
-            saveButton.setTitle("Save Habit", for: .normal)
-            saveButton.layer.cornerRadius = 10
-            contentView.addSubview(saveButton)
-            
-            let padding: CGFloat = 10
-            
-            NSLayoutConstraint.activate([
-                saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-                saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-                saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-                saveButton.bottomAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: -padding),
-                saveButton.heightAnchor.constraint(equalToConstant: 40)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            saveButton.bottomAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: -padding),
+            saveButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
 }

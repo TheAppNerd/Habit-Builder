@@ -8,7 +8,7 @@
 import UIKit
 
 class HabitFrequencyCell: UITableViewCell {
-
+    
     static let reuseID = "HabitFrequencyCell"
     
     let timesAWeekLabel = UILabel()
@@ -30,18 +30,16 @@ class HabitFrequencyCell: UITableViewCell {
         timesAWeekLabel.textAlignment      = .left
         timesAWeekLabel.text               = "Days a Week:"
         
-        negativeButton.translatesAutoresizingMaskIntoConstraints = false
         negativeButton.setImage(SFSymbols.minus, for: .normal)
         negativeButton.layer.cornerRadius  = 10
         negativeButton.tintColor           = .white
-    
+        
         frequencyLabel.translatesAutoresizingMaskIntoConstraints = false
         frequencyLabel.textAlignment       = .center
         frequencyLabel.backgroundColor     = .secondarySystemBackground
         frequencyLabel.layer.cornerRadius  = 10
         frequencyLabel.layer.masksToBounds = true
         
-        positiveButton.translatesAutoresizingMaskIntoConstraints = false
         positiveButton.setImage(SFSymbols.plus, for: .normal)
         positiveButton.layer.cornerRadius  = 10
         positiveButton.tintColor           = .white
@@ -56,7 +54,7 @@ class HabitFrequencyCell: UITableViewCell {
             timesAWeekLabel.trailingAnchor.constraint(equalTo: negativeButton.leadingAnchor, constant: padding),
             timesAWeekLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             timesAWeekLabel.heightAnchor.constraint(equalToConstant: 35),
-         
+            
             negativeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             negativeButton.leadingAnchor.constraint(equalTo: timesAWeekLabel.trailingAnchor, constant: padding),
             negativeButton.trailingAnchor.constraint(equalTo: frequencyLabel.leadingAnchor, constant: -6),
