@@ -45,15 +45,18 @@ enum GradientColors {
 
 enum SocialMedia {
     static let linkedInUsername     = "alexander-thompson-847a6486"
-    static let linkedInLink           = "https://www.linkedin.com/in/\(SocialMedia.linkedInUsername)"
+    static let linkedInURL          = "https://www.linkedin.com/in/\(SocialMedia.linkedInUsername)"
     
     static let instagramUsername    = "alexthompsondevelopment"
-    static let instagramLink        = "https://instagram.com/\(SocialMedia.instagramUsername)"
+    static let instagramURL         = "https://instagram.com/\(SocialMedia.instagramUsername)"
     
     static let githubUsername       = "AlexThompsonDevelopment"
-    static let githubLink           = "https://github.com/\(SocialMedia.githubUsername)"
-    
-    
-    
+    static let githubURL            = "https://github.com/\(SocialMedia.githubUsername)"
    
+    static let fSCalendarURL        = "https://github.com/WenchaoD/FSCalendar"
+    static let flatIconURL          = "https://www.flaticon.com"
+    static let appBreweryURL        = "https://www.appbrewery.co"
+    static let seanAllenURL         = "https://seanallen.co"
 }
+
+

@@ -15,10 +15,10 @@ class AboutViewController: UIViewController {
     let tableView     = UITableView()
     
     let iconArray     = ["linkedIn", "instagram", "gitHub"]
-    let usernameArray = ["SydneySwiftDev", "AlexThompsonDevelopment", "Alexander-Thompson-847a6486"]
+    let usernameArray = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername]
     
     let thanksArray   = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
-    let urlArray      = ["https://github.com/WenchaoD/FSCalendar","https://www.flaticon.com/", "https://www.appbrewery.co/", "https://seanallen.co/"]
+    let urlArray      = [SocialMedia.fSCalendarURL, SocialMedia.flatIconURL, SocialMedia.appBreweryURL, SocialMedia.seanAllenURL]
     
     
     override func viewDidLoad() {
@@ -89,17 +89,17 @@ class AboutViewController: UIViewController {
     }
     
     func loadInstagram() {
-        guard let instagram = URL(string: SocialMedia.instagramLink) else { return }
+        guard let instagram = URL(string: SocialMedia.instagramURL) else { return }
         UIApplication.shared.open(instagram)
     }
     
     func loadGithub() {
-        guard let gitHub = URL(string: SocialMedia.githubLink) else { return }
+        guard let gitHub = URL(string: SocialMedia.githubURL) else { return }
         UIApplication.shared.open(gitHub)
     }
     
     func loadLinkedIn() {
-        guard let linkedIn = URL(string: SocialMedia.linkedInLink) else { return }
+        guard let linkedIn = URL(string: SocialMedia.linkedInURL) else { return }
         UIApplication.shared.open(linkedIn)
     }
     
