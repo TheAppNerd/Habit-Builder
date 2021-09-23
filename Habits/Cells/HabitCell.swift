@@ -13,18 +13,18 @@ class HabitCell: UITableViewCell {
     
 static let reuseID = "HabitCell"
     
+    let dateModel         = DateModel()
     let habitName         = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
     let cellView          = UIView()
-    var calendarView      = Calendar(identifier: .gregorian)
-    var dateArray: [Date] = []
-    var dayArray: [Int]   = []
+    let iconImage         = UIImageView()
     let alarmImage        = UIImageView()
     let frequencyLabel    = BodyLabel()
     let labelStackView    = UIStackView()
     let buttonStackView   = UIStackView()
     var gradientColors    = [CGColor]()
-    let iconImage         = UIImageView()
-    
+    var dateArray: [Date] = []
+    var dayArray: [Int]   = []
+    var calendarView      = Calendar(identifier: .gregorian)
     let dayButton: [DayButton] = [ DayButton(),
                                    DayButton(),
                                    DayButton(),
@@ -34,16 +34,12 @@ static let reuseID = "HabitCell"
                                    DayButton()
     ]
     
-    //needed?
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
-        configureDays()
-        getDay()
+        dateArray = dateModel.configureDays()
+        dayArray = dateModel.getDay(dateArray: dateArray)
         configureLabelStackView()
         configureButtonStackView()
         self.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -99,9 +95,8 @@ static let reuseID = "HabitCell"
         labelStackView.distribution = .equalCentering
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        
-        dayLabels[getDayOfWeek()-1].textColor = .white
-        dayLabels[getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        dayLabels[dateModel.getDayOfWeek()-1].textColor = .white
+        dayLabels[dateModel.getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)
 
         
     }
@@ -129,60 +124,7 @@ static let reuseID = "HabitCell"
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func configureDays() { //this func works out the weeks dates.
 
-        var dateComponents = DateComponents()
-        var dailyDateComponents = DateComponents()
-        var count = 0
-        
-            
-        switch getDayOfWeek() {
-        case 1:
-            dateComponents.day = 0
-        case 2:
-            dateComponents.day = -1
-        case 3:
-            dateComponents.day = -2
-        case 4:
-            dateComponents.day = -3
-        case 5:
-            dateComponents.day = -4
-        case 6:
-            dateComponents.day = -5
-        case 7:
-            dateComponents.day = -6
-        default:
-            print("Error")
-        }
-        
-        let startOfWeek = calendarView.date(byAdding: dateComponents, to: Date())!
-        dateArray.append(startOfWeek)
-        for date in dateArray {
-        while dateArray.count <= 6 {
-            count += 1
-            dailyDateComponents.day = count
-            dateArray.append(calendarView.date(byAdding: dailyDateComponents, to: date)!)
-        }
-        }
-    }
-        func getDay() { //this func takes the weeks dates and converts them to just the months day
-            let myCalendar = Calendar(identifier: .gregorian)
-            for date in dateArray {
-            let day = myCalendar.component(.day, from: date)
-            dayArray.append(day)
-            }
-        }
-    
-    func getDayOfWeek() -> Int {
-        let myCalendar = Calendar(identifier: .gregorian)
-        let today = myCalendar.startOfDay(for: Date())
-        let weekDay = myCalendar.component(.weekday, from: today)
-
-        return weekDay
-    }
-    func viewWillLayoutSubviews() {
-        
-    }
     private func configure() {
         contentView.isUserInteractionEnabled = true
         addSubview(iconImage)
@@ -254,10 +196,6 @@ static let reuseID = "HabitCell"
             buttonStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
             buttonStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
             buttonStackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10)
-       
         ])
-        
     }
-    
-  
 }

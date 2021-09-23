@@ -58,7 +58,9 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0: shareApp()
-        case 1: print("hi")
+        case 1: let vc = AboutViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
         // https://itunes.apple.com/us/app/appName/idAPP_ID?mt=8&action=write-review
         case 2: sendEmail()
         case 3: delegate?.pushSettings(row: 3)
@@ -67,11 +69,8 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         case 6:delegate?.pushSettings(row: 6)
         default: print("error")
             
-            
-            
         }
-        
-        
+        //make a func here for push all the vcs so in habitVc can just call the func name.
     }
     
     

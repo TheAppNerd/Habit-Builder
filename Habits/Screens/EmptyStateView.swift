@@ -46,11 +46,10 @@ class EmptyStateView: UIView {
         
         addHabitButton.layer.cornerRadius = 10
         addHabitButton.setTitle("Add Habit", for: .normal)
-        addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-        
+       
         howToUseButton.layer.cornerRadius = 10
         howToUseButton.setTitle("How to Use", for: .normal)
-        howToUseButton.addTarget(self, action: #selector(howToUsePressed), for: .touchUpInside)
+      
         
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -76,21 +75,4 @@ class EmptyStateView: UIView {
             howToUseButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
-    
-    //change both of these to delegate funcs instead
-    
-    @objc func addHabitPressed(sender: GradientButton) {
-        sender.bounceAnimation()
-            (self.superview?.next as? UIViewController)?.navigationController!.pushViewController(NewHabitVC(), animated: true)
-    }
-    
-    @objc func howToUsePressed(sender: GradientButton) {
-        sender.bounceAnimation()
-        (superview?.next as? UIViewController)?.navigationController!.pushViewController(HelpScreenViewController(), animated: true)
-    }
-    
-    
-    
-    
 }

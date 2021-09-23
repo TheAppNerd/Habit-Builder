@@ -11,12 +11,12 @@ import MessageUI
 
 class HabitVC: UIViewController, SettingsPush {
     
-    let context          = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    let tableView        = UITableView()
-    let menu             = MenuView()
-    let generator        = UIImpactFeedbackGenerator(style: .medium)
-    let emptyStateView   = EmptyStateView()
-    
+    let context              = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let tableView            = UITableView()
+    let menu                 = MenuView()
+    let generator            = UIImpactFeedbackGenerator(style: .medium)
+    let emptyStateView       = EmptyStateView()
+    let dateModel            = DateModel()
     var habitArray           = [HabitCoreData]()
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
@@ -34,6 +34,7 @@ class HabitVC: UIViewController, SettingsPush {
         configureViewController()
         configureBarButtonItems()
         configureTableView()
+        configureEmptyState()
     }
     
     
@@ -90,7 +91,7 @@ class HabitVC: UIViewController, SettingsPush {
     func showEmptyStateView() {
         switch habitArray.isEmpty {
         case true:  view.addSubview(emptyStateView)
-                    emptyStateView.frame = tableView.frame
+            emptyStateView.frame = tableView.frame
         case false: emptyStateView.removeFromSuperview()
         }
     }
@@ -110,7 +111,19 @@ class HabitVC: UIViewController, SettingsPush {
             self.present(vc, animated: true, completion: nil)
         default:
             print("Error")
+            
         }
+    }
+    
+    func configureEmptyState() {
+        emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+        
+        emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
+    }
+    
+    @objc func helpButtonPressed() {
+        let helpVC = HelpScreenViewController()
+        show(helpVC, sender: self)
     }
     
     
@@ -191,7 +204,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         cell.gradientColors      = GradientArray.array[Int(habit.habitGradientIndex)]
         
         for (index,button) in cell.dayButton.enumerated() {
-           
+            
             //This prevents duplication issues on reusable cells
             button.backgroundColor   = .clear
             button.layer.borderColor = UIColor.white.cgColor
@@ -220,12 +233,12 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         case true: cell.alarmImage.image = SFSymbols.bell
         case false: cell.alarmImage.image = SFSymbols.bellSlash
         }
-     
+        
         cell.frequencyLabel.text = "\(completedDays) / \(habit.frequency) days"
-    
+        
         return cell
     }
-
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         let tableViewFooter = TableViewFooter(tableView: self.tableView)
@@ -234,7 +247,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         switch habitArray.isEmpty {
         case true: tableViewFooter.isHidden = true
         case false: tableViewFooter.isHidden = false
-    }
+        }
         return tableViewFooter
     }
     
@@ -259,9 +272,9 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     
-
-
-
-
-
+    
+    
+    
+    
+    
 }
