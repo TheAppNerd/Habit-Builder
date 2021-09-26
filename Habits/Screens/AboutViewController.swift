@@ -14,7 +14,7 @@ class AboutViewController: UIViewController {
     let nameLabel     = UILabel()
     let tableView     = UITableView()
     
-    let iconArray     = ["linkedIn", "instagram", "gitHub"]
+    let iconArray     = ["linkedIn", "Instagram", "GitHub"]
     let usernameArray = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername]
     
     let thanksArray   = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
@@ -84,7 +84,7 @@ class AboutViewController: UIViewController {
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             tableView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: padding * 2),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.widthAnchor.constraint(equalTo: view.widthAnchor)
+            tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7)
         ])
     }
     
@@ -125,6 +125,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuTableViewCell.reuseID) as! MenuTableViewCell
         if indexPath[0] == 0 {
+            
             cell.cellLabel.text = usernameArray[indexPath.row]
             cell.cellImage.image = UIImage(named: iconArray[indexPath.row])
         } else {
@@ -132,6 +133,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             cell.cellLabel.text = thanksArray[indexPath.row]
         }
         
+        cell.cellLabel.font = UIFont.systemFont(ofSize: 12)
         cell.accessoryType = .disclosureIndicator
         return cell
     }

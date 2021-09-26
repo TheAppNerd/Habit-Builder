@@ -99,10 +99,10 @@ class HabitVC: UIViewController, SettingsPush {
     
     func pushSettings(row: Int) { // fix all this
         switch row {
+        case 3: let vc = HelpScreenViewController()
+            navigationController?.pushViewController(vc, animated: true)
         case 5:
             let vc = AboutViewController()
-            navigationController?.pushViewController(vc, animated: true)
-        case 3: let vc = HelpScreenViewController()
             navigationController?.pushViewController(vc, animated: true)
         case 6: let vc = DarkModeViewController()
             vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
@@ -111,7 +111,6 @@ class HabitVC: UIViewController, SettingsPush {
             self.present(vc, animated: true, completion: nil)
         default:
             print("Error")
-            
         }
     }
     
@@ -178,8 +177,8 @@ class HabitVC: UIViewController, SettingsPush {
         }
         
         tableView.reloadData()
-    }
     
+    }
     
 }
 
