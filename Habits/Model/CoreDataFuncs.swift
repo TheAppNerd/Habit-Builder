@@ -9,6 +9,7 @@ import UIKit
 
 struct CoreDataFuncs {
     
+    
     static func saveCoreData() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do {

@@ -17,7 +17,7 @@ class HabitVC: UIViewController, SettingsPush {
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView       = EmptyStateView()
     let dateModel            = DateModel()
-    var habitArray           = [HabitCoreData]()
+    static var habitArray           = [HabitCoreData]()
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
     
@@ -35,6 +35,9 @@ class HabitVC: UIViewController, SettingsPush {
         configureBarButtonItems()
         configureTableView()
         configureEmptyState()
+        for habit in HabitVC.habitArray {
+            print("Array\(habit.habitName)")
+        }
     }
     
     
@@ -89,7 +92,7 @@ class HabitVC: UIViewController, SettingsPush {
     }()
     
     func showEmptyStateView() {
-        switch habitArray.isEmpty {
+        switch HabitVC.habitArray.isEmpty {
         case true:  view.addSubview(emptyStateView)
             emptyStateView.frame = tableView.frame
         case false: emptyStateView.removeFromSuperview()
@@ -138,7 +141,7 @@ class HabitVC: UIViewController, SettingsPush {
     
     @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
-        newHabitVC.cellTag = habitArray.count //new method to remove celltags
+//        newHabitVC.cellTag = HabitVC.habitArray.count //new method to remove celltags
         show(newHabitVC, sender: self)
     }
     
@@ -154,11 +157,11 @@ class HabitVC: UIViewController, SettingsPush {
         
         if sender.backgroundColor == .clear {
             //change clear to something less breakable like is selected
-            habitArray[indexPath.row].habitDates?.append(selectedDate)
+            HabitVC.habitArray[indexPath.row].habitDates?.append(selectedDate)
             CoreDataFuncs.saveCoreData()
             tableView.reloadData()
         } else {
-            habitArray[indexPath.row].habitDates = habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
+            HabitVC.habitArray[indexPath.row].habitDates = HabitVC.habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
             CoreDataFuncs.saveCoreData()
             tableView.reloadData()
         }
@@ -169,9 +172,7 @@ class HabitVC: UIViewController, SettingsPush {
         
         do {
             let coreDataArray = try context.fetch(request)
-            if coreDataArray.count != 0 {
-                habitArray = coreDataArray
-            }
+            HabitVC.habitArray = coreDataArray
         } catch {
             print("error loading context: \(error)")
         }
@@ -186,7 +187,7 @@ class HabitVC: UIViewController, SettingsPush {
 
 extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habitArray.count
+        return HabitVC.habitArray.count
     }
     
     
@@ -196,8 +197,8 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         var buttonCount          = 0
         var completedDays        = 0
         
-        let habit                = habitArray[indexPath.row]
-        habit.habitGradientIndex = habitArray[indexPath.row].habitGradientIndex //??
+        let habit                = HabitVC.habitArray[indexPath.row]
+        habit.habitGradientIndex = HabitVC.habitArray[indexPath.row].habitGradientIndex //??
         cell.iconImage.image     = UIImage(named: habit.iconString ?? "")
         cell.habitName.text      = habit.habitName
         cell.gradientColors      = GradientArray.array[Int(habit.habitGradientIndex)]
@@ -243,7 +244,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let tableViewFooter = TableViewFooter(tableView: self.tableView)
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         
-        switch habitArray.isEmpty {
+        switch HabitVC.habitArray.isEmpty {
         case true: tableViewFooter.isHidden = true
         case false: tableViewFooter.isHidden = false
         }
@@ -252,8 +253,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailsVCViewController()
-        vc.cellTag = indexPath.row
-        vc.habitCoreData = habitArray[indexPath.row]
+        vc.habitCoreData = HabitVC.habitArray[indexPath.row]
         
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         

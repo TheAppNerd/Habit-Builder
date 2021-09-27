@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import CoreData
+
 import FSCalendar // needed?
 
 class DetailsVCViewController: UIViewController {
@@ -22,7 +22,6 @@ class DetailsVCViewController: UIViewController {
     var dates: [Date] = []
     
     var chartYears: [Int: [Int]] = [:]
-    var cellTag: Int?
     
     //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
     let habitDetailsCalendarView = HabitDetailsCalendarView()
@@ -154,7 +153,7 @@ class DetailsVCViewController: UIViewController {
     
     @objc func editHabit() {
         let newHabitVC = NewHabitVC()
-        newHabitVC.cellTag = cellTag!
+        newHabitVC.habitCoreData = habitCoreData
         show(newHabitVC, sender: self)
     }
     

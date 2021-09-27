@@ -10,10 +10,11 @@ import CoreData
 
 class NewHabitVC: UITableViewController  {
     
-    var habitArray            = [HabitCoreData]()
+//    var habitArray            = [HabitCoreData]()
+    var habitCoreData: HabitCoreData?
     let context               = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var cellTag               = Int()
+//    var cellTag               = Int()
     var nameArray             = [UITextField]()
     var previousName          = String() //using this prevents alarms from being messed with as name is name of title
     var name                  = String()
@@ -29,7 +30,7 @@ class NewHabitVC: UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCoreData()
+        //loadCoreData()
         loadData()
         registerCells()
         configure()
@@ -38,8 +39,8 @@ class NewHabitVC: UITableViewController  {
     }
     
     func loadData() {
-        if cellTag < habitArray.count {
-            let habit       = habitArray[cellTag]
+            if habitCoreData != nil {
+            let habit       = habitCoreData!
             name            = habit.habitName ?? ""
             previousName    = habit.habitName ?? ""
             frequency       = Int(habit.frequency)
@@ -70,7 +71,7 @@ class NewHabitVC: UITableViewController  {
     
     private func configureBarButtons() {
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
-        switch cellTag < habitArray.count {
+        switch habitCoreData != nil {
         case true: deleteButton.image = SFSymbols.trash
         case false: deleteButton.image = SFSymbols.trashSlash
         }
@@ -91,22 +92,28 @@ class NewHabitVC: UITableViewController  {
             
         UserNotifications.removeNotifications(title: self.previousName)
             
-        let habit = self.habitArray[self.cellTag]
-        self.context.delete(habit)
-        self.habitArray.remove(at: self.cellTag)
+            let habit = self.habitCoreData
+            self.context.delete(habit!)
+            for (index, habits) in HabitVC.habitArray.enumerated() {
+                if habits == habit {
+                    let habitIndex = index
+                    HabitVC.habitArray.remove(at: habitIndex)
+                }
+            }
+            
         CoreDataFuncs.saveCoreData()
         
         let habitVC = HabitVC()
         self.show(habitVC, sender: self)
         }))
         
-        if cellTag < habitArray.count {
+        if habitCoreData != nil {
             present(deleteAlert, animated: true, completion: nil)
         }
     }
     
     func createCoreDataHabit() { //create a habit core data struct to contain all the information
-        if cellTag >= habitArray.count {
+        if habitCoreData == nil {
             let newHabit                = HabitCoreData(context: context)
             newHabit.habitName          = name
             newHabit.frequency          = Int16(frequency)
@@ -116,9 +123,9 @@ class NewHabitVC: UITableViewController  {
             newHabit.habitCreated       = true
             newHabit.habitDates         = []
             newHabit.alarmBool          = alarmsActivated
-            habitArray.append(newHabit)
-        } else if cellTag < habitArray.count {
-            let oldHabit                = habitArray[cellTag]
+            HabitVC.habitArray.append(newHabit)
+        } else if habitCoreData != nil {
+            let oldHabit                = habitCoreData!
             oldHabit.habitName          = name
             oldHabit.frequency          = Int16(frequency)
             oldHabit.iconString         = iconString
@@ -164,14 +171,14 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
-        
-        do {
-            habitArray = try context.fetch(request)
-        } catch {
-            print("error loading context: \(error)")
-        }
-    }
+//    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
+//
+//        do {
+//            habitArray = try context.fetch(request)
+//        } catch {
+//            print("error loading context: \(error)")
+//        }
+//    }
     
     func setupNotifications() {
         UserNotifications.removeNotifications(title: previousName)
@@ -247,7 +254,7 @@ class NewHabitVC: UITableViewController  {
         case 0: let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
             cell.nameTextField.delegate = self
             nameArray.append(cell.nameTextField) // is this still needed?
-            if cellTag < habitArray.count {
+            if habitCoreData != nil {
                 cell.nameTextField.text = name
             }
             return cell
