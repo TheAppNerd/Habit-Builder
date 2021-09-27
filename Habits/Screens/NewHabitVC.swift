@@ -70,12 +70,21 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configureBarButtons() {
+        let backButton = UIBarButtonItem(title: "back", style: .done, target: self, action: #selector(backButtonPressed))
+        
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
         switch habitCoreData != nil {
         case true: deleteButton.image = SFSymbols.trash
         case false: deleteButton.image = SFSymbols.trashSlash
         }
+        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = deleteButton
+    }
+    
+    @objc func backButtonPressed() {
+        CoreDataFuncs.saveCoreData() //stops tableview loading in random order on habitvc
+        let habitVC = HabitVC()
+        show(habitVC, sender: self)
     }
     
     func dismissKeyboard() { //move to seperate file

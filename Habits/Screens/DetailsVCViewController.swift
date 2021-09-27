@@ -135,7 +135,7 @@ class DetailsVCViewController: UIViewController {
     
     
     private func configureBarButtons() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "swift" ), style: .plain, target: self, action: #selector(goBack))
         let editButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(editHabit))
         
         navigationItem.leftBarButtonItem = backButton
@@ -145,6 +145,7 @@ class DetailsVCViewController: UIViewController {
     
     
     @objc func goBack() {
+        CoreDataFuncs.saveCoreData() //stops tableview loading in random order on habitvc
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
         
