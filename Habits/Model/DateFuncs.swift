@@ -13,7 +13,7 @@ struct DateFuncs {
     //make this a date extension?
     
    static func startOfDay(date: Date) -> Date {
-        let calendarView = Calendar(identifier: .gregorian)
+       let calendarView = Calendar.current
         let startDate    = calendarView.startOfDay(for: date)
         return startDate
     }

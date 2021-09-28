@@ -9,9 +9,8 @@ import UIKit
 
 class DateModel {
     
-    //change all gregorian calendars to calendar.current?
     
-    var calendarView = Calendar(identifier: .gregorian)
+    var calendarView = Calendar.current
 
     func getDayOfWeek() -> Int {
         let myCalendar = Calendar.current
@@ -19,6 +18,14 @@ class DateModel {
         let weekDay = myCalendar.component(.weekday, from: today)
 
         return weekDay
+    }
+    
+    func getYear() -> Int {
+        let today = Date()
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: today)
+        
+        return year
     }
     
     
@@ -63,7 +70,7 @@ class DateModel {
     
     func getDay(dateArray: [Date]) -> [Int] { //this func takes the weeks dates and converts them to just the months day
         var dayArray: [Int] = []
-        let myCalendar = Calendar(identifier: .gregorian)
+        let myCalendar = Calendar.current
         for date in dateArray {
         let day = myCalendar.component(.day, from: date)
         dayArray.append(day)

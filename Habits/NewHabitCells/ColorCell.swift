@@ -20,7 +20,7 @@ class ColorCell: UITableViewCell {
     var color          = [CGColor]()
     var colorIndex     = Int()
     var buttonArray    = [GradientButton]()
-    
+    let generator            = UIImpactFeedbackGenerator(style: .medium)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,7 +32,7 @@ class ColorCell: UITableViewCell {
     }
     
     private func configure() {
-
+        generator.prepare()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis          = .horizontal
         stackView.distribution  = .fillEqually
@@ -62,6 +62,7 @@ class ColorCell: UITableViewCell {
     
     @objc func colorButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
+        generator.impactOccurred()
         for item in buttonArray {
             item.layer.borderWidth = 0
             item.isSelected        = false

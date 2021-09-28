@@ -11,25 +11,35 @@ class ChartCollectionCell: UICollectionViewCell {
     
     static let reuseID = "CollectionChartCell"
     
-    let monthArray = ["01","02","03","04","05","06","07","08","09","10","11","12",]
+    let stackView = UIStackView() //rename
+  
     var monthCount = [0,0,0,0,0,0,0,0,0,0,0,0]
     var color: [CGColor]?
     var year: Int?
     
     
     
+    //to be updated month count, color, year, 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureStackView()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func set(chartYear: ChartYear) {
+        
+    }
+    
+    
+
     func configureStackView() {
         self.translatesAutoresizingMaskIntoConstraints = true
-        let stackView = UIStackView()
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis          = .horizontal
         stackView.distribution  = .fillEqually
@@ -97,6 +107,7 @@ class ChartCollectionCell: UICollectionViewCell {
             
             stackView.addArrangedSubview(vStackView)
             
+            let monthArray = ["01","02","03","04","05","06","07","08","09","10","11","12",]
             let monthLabel = UILabel()
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
             monthLabel.adjustsFontSizeToFitWidth = true

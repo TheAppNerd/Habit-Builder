@@ -35,9 +35,7 @@ class HabitVC: UIViewController, SettingsPush {
         configureBarButtonItems()
         configureTableView()
         configureEmptyState()
-        for habit in HabitVC.habitArray {
-            print("Array\(habit.habitName)")
-        }
+        configureTableViewFooter()
     }
     
     
@@ -77,6 +75,19 @@ class HabitVC: UIViewController, SettingsPush {
             tableView.rowHeight = tableView.frame.height / 6
         }
     }
+    
+    func configureTableViewFooter() {
+        
+        let tableViewFooter = TableViewFooter()
+        tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+        tableView.tableFooterView = tableViewFooter
+        switch HabitVC.habitArray.isEmpty {
+        case true: tableViewFooter.isHidden = true
+        case false: tableViewFooter.isHidden = false
+        }
+        
+    }
+    
     
     lazy var menuView: UIView = {
         let view = UIView()
@@ -131,6 +142,7 @@ class HabitVC: UIViewController, SettingsPush {
     
     @objc func menuBarButtonPressed() { //change this to a push. can then load button presses from menuview, dismiss back to here and have it much cleaner.
         // move to animation file
+        generator.impactOccurred()
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
             self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
             self.tableView.frame.origin.x      = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
@@ -141,7 +153,7 @@ class HabitVC: UIViewController, SettingsPush {
     
     @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
-//        newHabitVC.cellTag = HabitVC.habitArray.count //new method to remove celltags
+        //        newHabitVC.cellTag = HabitVC.habitArray.count //new method to remove celltags
         show(newHabitVC, sender: self)
     }
     
@@ -178,7 +190,7 @@ class HabitVC: UIViewController, SettingsPush {
         }
         
         tableView.reloadData()
-    
+        
     }
     
 }
@@ -239,17 +251,19 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
-        let tableViewFooter = TableViewFooter(tableView: self.tableView)
-        tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-        
-        switch HabitVC.habitArray.isEmpty {
-        case true: tableViewFooter.isHidden = true
-        case false: tableViewFooter.isHidden = false
-        }
-        return tableViewFooter
-    }
+    
+    //        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    //
+    //            let tableViewFooter = TableViewFooter(tableView: self.tableView)
+    //            tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+    //
+    //            switch HabitVC.habitArray.isEmpty {
+    //            case true: tableViewFooter.isHidden = true
+    //            case false: tableViewFooter.isHidden = false
+    //            }
+    //            return tableViewFooter
+    //        }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailsVCViewController()

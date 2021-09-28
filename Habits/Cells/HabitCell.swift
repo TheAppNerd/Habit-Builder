@@ -24,7 +24,7 @@ static let reuseID = "HabitCell"
     var gradientColors    = [CGColor]()
     var dateArray: [Date] = []
     var dayArray: [Int]   = []
-    var calendarView      = Calendar(identifier: .gregorian)
+    var calendarView      = Calendar.current
     let dayButton: [DayButton] = [ DayButton(),
                                    DayButton(),
                                    DayButton(),

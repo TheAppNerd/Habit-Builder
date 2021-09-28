@@ -56,6 +56,7 @@
 		FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E713265F43270029E50D /* HelpScreenViewController.swift */; };
 		FAF4E716265F445E0029E50D /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E715265F445E0029E50D /* PageControl.swift */; };
 		FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E717265F456E0029E50D /* ScrollView.swift */; };
+		FAFF09AC2702E3FA008E8569 /* ChartYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF09AB2702E3FA008E8569 /* ChartYear.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		FAF4E713265F43270029E50D /* HelpScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewController.swift; sourceTree = "<group>"; };
 		FAF4E715265F445E0029E50D /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		FAF4E717265F456E0029E50D /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		FAFF09AB2702E3FA008E8569 /* ChartYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartYear.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
 				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
 				FA29E0DB26FAA53300426F97 /* DateModel.swift */,
+				FAFF09AB2702E3FA008E8569 /* ChartYear.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
 				FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */,
 				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
+				FAFF09AC2702E3FA008E8569 /* ChartYear.swift in Sources */,
 				FABA380D26C9F1E00088254C /* SaveCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FA360BED26C4C86300884B90 /* Gradients.swift in Sources */,

@@ -14,7 +14,7 @@ protocol passDayData: AnyObject {
 class ReminderCell: UITableViewCell {
   
  static let reuseID = "ReminderCell"
-    
+    let generator            = UIImpactFeedbackGenerator(style: .medium)
     weak var delegate: passDayData?
     
     let datePicker       = DatePicker()
@@ -54,7 +54,7 @@ class ReminderCell: UITableViewCell {
 
     
     private func configure() {
-    
+        generator.prepare()
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         
         dateSegment.translatesAutoresizingMaskIntoConstraints = false
@@ -105,6 +105,7 @@ class ReminderCell: UITableViewCell {
     
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.bounceAnimation()
+        generator.impactOccurred()
         sender.isSelected.toggle()
         
         for (index, button) in buttonArray.enumerated() {

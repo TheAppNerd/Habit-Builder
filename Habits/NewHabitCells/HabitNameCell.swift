@@ -23,6 +23,7 @@ class HabitNameCell: UITableViewCell {
     }
     
     private func configure() {
+        
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.placeholder       = Labels.placeholder
         nameTextField.layer.borderColor = UIColor.red.cgColor

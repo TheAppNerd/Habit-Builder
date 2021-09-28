@@ -13,6 +13,7 @@ class NewHabitVC: UITableViewController  {
 //    var habitArray            = [HabitCoreData]()
     var habitCoreData: HabitCoreData?
     let context               = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let generator            = UIImpactFeedbackGenerator(style: .medium)
     
 //    var cellTag               = Int()
     var nameArray             = [UITextField]()
@@ -67,10 +68,11 @@ class NewHabitVC: UITableViewController  {
         title = Labels.AddHabitVCTitle
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        generator.prepare()
     }
     
     private func configureBarButtons() {
-        let backButton = UIBarButtonItem(title: "back", style: .done, target: self, action: #selector(backButtonPressed))
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(backButtonPressed))
         
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
         switch habitCoreData != nil {
@@ -117,6 +119,7 @@ class NewHabitVC: UITableViewController  {
         }))
         
         if habitCoreData != nil {
+            generator.impactOccurred()
             present(deleteAlert, animated: true, completion: nil)
         }
     }
@@ -146,6 +149,7 @@ class NewHabitVC: UITableViewController  {
 
     @objc func saveButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
+        generator.impactOccurred()
         guard name != "" else {
             nameArray[0].layer.borderWidth = 2
             return
@@ -161,6 +165,7 @@ class NewHabitVC: UITableViewController  {
     
     @objc func positiveButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
+        generator.impactOccurred()
         if frequency < 7 {
             frequency += 1
         }
@@ -172,6 +177,7 @@ class NewHabitVC: UITableViewController  {
     
     @objc func negativeButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
+        generator.impactOccurred()
         if frequency > 1 {
             frequency -= 1
         }
@@ -217,6 +223,7 @@ class NewHabitVC: UITableViewController  {
     
     
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
+        generator.impactOccurred()
         switch sender.selectedSegmentIndex {
         case 0: alarmsActivated = false
         case 1: alarmsActivated = true

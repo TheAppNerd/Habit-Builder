@@ -12,7 +12,7 @@ protocol passIconData: AnyObject {
 }
 
 class IconCell: UITableViewCell {
-
+    let generator            = UIImpactFeedbackGenerator(style: .medium)
     weak var delegate: passIconData?
     
     static let reuseID = "IconCell"
@@ -39,6 +39,7 @@ class IconCell: UITableViewCell {
     }
     
     private func configure() {
+        generator.prepare()
         let stackArray = [stackViewOne, stackViewTwo, stackViewThree, stackViewFour]
         
         for stack in stackArray {
@@ -97,6 +98,7 @@ class IconCell: UITableViewCell {
     
     @objc func iconButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
+        generator.impactOccurred()
         for item in buttonArray {
             item.tintColor  = .secondaryLabel
             item.isSelected = false
