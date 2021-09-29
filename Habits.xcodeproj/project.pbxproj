@@ -57,6 +57,7 @@
 		FAF4E716265F445E0029E50D /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E715265F445E0029E50D /* PageControl.swift */; };
 		FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E717265F456E0029E50D /* ScrollView.swift */; };
 		FAFF09AC2702E3FA008E8569 /* ChartYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF09AB2702E3FA008E8569 /* ChartYear.swift */; };
+		FAFF09AE27046E93008E8569 /* ChartCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF09AD27046E93008E8569 /* ChartCellCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,7 @@
 		FAF4E715265F445E0029E50D /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		FAF4E717265F456E0029E50D /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		FAFF09AB2702E3FA008E8569 /* ChartYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartYear.swift; sourceTree = "<group>"; };
+		FAFF09AD27046E93008E8569 /* ChartCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCellCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 				FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */,
 				FA1C73282636491A00E63CBE /* HabitCell.swift */,
 				FAB4EA8226CFC96300B9771D /* ChartCollectionCell.swift */,
+				FAFF09AD27046E93008E8569 /* ChartCellCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
+				FAFF09AE27046E93008E8569 /* ChartCellCollectionViewCell.swift in Sources */,
 				FABA380A26C7DF650088254C /* GradientButton.swift in Sources */,
 				FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */,
 				FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */,

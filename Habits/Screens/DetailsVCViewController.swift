@@ -85,7 +85,8 @@ class DetailsVCViewController: UIViewController {
 
         habitDetailsChartView.collectionView.dataSource = self
         habitDetailsChartView.collectionView.delegate = self
-        habitDetailsChartView.collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
+//        habitDetailsChartView.collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
+        habitDetailsChartView.collectionView.register(ChartCellCollectionViewCell.self, forCellWithReuseIdentifier: ChartCellCollectionViewCell.reuseID)
     }
     
     func updateCalendar() {
@@ -113,7 +114,9 @@ class DetailsVCViewController: UIViewController {
             self.habitCoreData?.habitDates?.append(date)
             CoreDataFuncs.saveCoreData()
             self.habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(self.habitCoreData?.habitDates?.count ?? 0)"
+            
             self.updateChart()
+        
 
             
         }))
@@ -228,18 +231,19 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCollectionCell.reuseID, for: indexPath) as! ChartCollectionCell
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCollectionCell.reuseID, for: indexPath) as! ChartCollectionCell
+//
         
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCellCollectionViewCell.reuseID, for: indexPath) as! ChartCellCollectionViewCell
     
         let chartYear = chartArray[indexPath.row]
-        cell.year = chartYear.year
-        cell.monthCount = chartYear.monthCount
-        cell.color = chartYear.color
-        return cell
+        //cell.set(chartYear: chartYear)
         
+        
+        return cell
     }
-    
 }
+
 //MARK: - calendar
 
 extension DetailsVCViewController: FSCalendarDataSource, FSCalendarDelegate {
