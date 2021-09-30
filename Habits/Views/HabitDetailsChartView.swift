@@ -11,6 +11,7 @@ class HabitDetailsChartView: UIView {
     
     var gradientIndex: Int?
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let layout = UICollectionViewFlowLayout()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,6 +21,8 @@ class HabitDetailsChartView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
      func configure() {
         translatesAutoresizingMaskIntoConstraints = false

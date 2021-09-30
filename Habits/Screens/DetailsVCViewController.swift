@@ -184,7 +184,8 @@ class DetailsVCViewController: UIViewController {
         }
     }
     
-    func updateChart() { //move to class
+    func updateChart() { //must fix this. needs to be able to generate new years. right now its always limited to two. app crashes if date added to 2019 or 2022
+        
         let calendar = Calendar.current
         
         //resets all charts to 0
@@ -202,14 +203,22 @@ class DetailsVCViewController: UIViewController {
             
             chartYears[year]![month] += 1
         }
-        
+        chartArray = []
         for year in chartYears {
             
             let chartYear = ChartYear(year: year.key, monthCount: year.value, color: GradientArray.array[Int(habitCoreData!.habitGradientIndex)])
                 
             chartArray.append(chartYear)
         }
-        habitDetailsChartView.collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.habitDetailsChartView.collectionView.reloadData()
+//            self.habitDetailsChartView.collectionView.performBatchUpdates({ [weak self] in
+//                let visibleItems = self?.habitDetailsChartView.collectionView.indexPathsForVisibleItems ?? []
+//                self?.habitDetailsChartView.collectionView.reloadItems(at: visibleItems)
+//            }, completion: { (_) in
+//            })
+//        }
+        }
     }
     
    
@@ -230,15 +239,11 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCollectionCell.reuseID, for: indexPath) as! ChartCollectionCell
-//
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCellCollectionViewCell.reuseID, for: indexPath) as! ChartCellCollectionViewCell
     
         let chartYear = chartArray[indexPath.row]
-        //cell.set(chartYear: chartYear)
-        
+        cell.set(chartYear: chartYear)
         
         return cell
     }

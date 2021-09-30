@@ -12,7 +12,6 @@ class ChartCollectionCell: UICollectionViewCell {
     static let reuseID = "CollectionChartCell"
     
     let stackView = UIStackView() //rename
-    
     let yearLabel = UILabel()
     var monthCountArray = [UILabel]()
     var countArray = [[GradientView]]()
@@ -29,7 +28,7 @@ class ChartCollectionCell: UICollectionViewCell {
     }
     
     func set(chartYear: ChartYear) {
-        print("set")
+        
         yearLabel.text = String(chartYear.year)
         
         for num in 0...11 {
