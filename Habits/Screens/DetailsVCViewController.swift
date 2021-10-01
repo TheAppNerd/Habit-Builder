@@ -185,6 +185,9 @@ class DetailsVCViewController: UIViewController {
     }
     
     func updateChart() { //must fix this. needs to be able to generate new years. right now its always limited to two. app crashes if date added to 2019 or 2022
+                        // potential solutions. add arrays for 10 years behind. confirm addnew year func works correctly adding new year.
+                        //another potential solution. find a way to add new year if date selected from diff year
+                        //anogther potential solution. have lots of years behind and on number of items in section only count ones where the chartyear isnt empty
         
         let calendar = Calendar.current
         

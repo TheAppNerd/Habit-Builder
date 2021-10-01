@@ -17,33 +17,21 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
     var progressBarArray = [UIProgressView]()
     let barView = UIStackView()
     var countLabelArray = [UILabel]()
+    let yearLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        for label in monthlyCountArray {
-            label.text = ""
-        }
-        for label in countLabelArray {
-            label.text = ""
-        }
-        for bar in progressBarArray {
-            bar.progress = 0.0
-        }
-    }
-    
+        
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     func set(chartYear: ChartYear) {
-        print("set")
+        yearLabel.text = String(chartYear.year)
         for num in 0...11{
-            var time = 2.0
+            
             countLabelArray[num].text = String(chartYear.monthCount[num])
             
             if chartYear.monthCount[num] == 0 {
@@ -51,8 +39,9 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
             } else {
                 countLabelArray[num].alpha   = 1.0
             }
-            UIView.animate(withDuration: time) { [self] in
-                self.progressBarArray[num].progress = (Float(1.0) / Float(chartYear.monthCount[num]))
+            UIView.animate(withDuration: 1.0) {
+                let progress: Float = 1.0 / 31
+                self.progressBarArray[num].setProgress(Float(chartYear.monthCount[num]) * progress, animated: true)
             }
         }
         print(chartYear.monthCount)
@@ -60,7 +49,6 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
     
     
     func configure() {
-        print("configure")
         let monthStack = UIStackView()
         monthStack.translatesAutoresizingMaskIntoConstraints = false
         monthStack.axis         = .horizontal
@@ -85,13 +73,14 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
             countLabel.text = "0"
+            countLabel.font = UIFont.boldSystemFont(ofSize: 12)
             countLabelArray.append(countLabel)
             countStack.addArrangedSubview(countLabelArray[num])
             
             
             let progressBar = UIProgressView()
             progressBar.layer.cornerRadius = 5
-            progressBar.progress = 0.3
+            progressBar.progress = 0.0
             progressBar.backgroundColor = .tertiarySystemBackground
             progressBar.tintColor = .blue
             let image = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: Gradients().blueGradient)
@@ -106,7 +95,13 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
         barView.distribution = .fillEqually
         barView.spacing = 10
         barView.transform = CGAffineTransform(rotationAngle: .pi / -2)
-        addSubviews(countStack, barView, monthStack)
+        
+        yearLabel.translatesAutoresizingMaskIntoConstraints = false
+        yearLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        yearLabel.textAlignment = .left
+        
+        
+        addSubviews(countStack, barView, monthStack, yearLabel)
         NSLayoutConstraint.activate([
             countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
             countStack.topAnchor.constraint(equalTo: self.topAnchor),
@@ -114,14 +109,19 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
             countStack.heightAnchor.constraint(equalToConstant: 20),
             
             barView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            barView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            barView.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.80),
+            barView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
+            barView.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.70),
             barView.heightAnchor.constraint(equalTo: self.widthAnchor),
             
             monthStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
             monthStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            monthStack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            monthStack.heightAnchor.constraint(equalToConstant: 20)
+            monthStack.bottomAnchor.constraint(equalTo: yearLabel.topAnchor),
+            monthStack.heightAnchor.constraint(equalToConstant: 20),
+            
+            yearLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            yearLabel.topAnchor.constraint(equalTo: monthStack.bottomAnchor),
+            yearLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            yearLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
 }
