@@ -14,6 +14,9 @@ class DetailsVCViewController: UIViewController {
     var habitCoreData: HabitCoreData? {
         didSet {
             dates = (habitCoreData?.habitDates)! // needed?
+            let gradientColor = GradientArray.array[Int(habitCoreData!.habitGradientIndex)]
+            habitDetailsChartView.setColor(colors: gradientColor)
+            habitDetailsCalendarView.setColor(colors: gradientColor)
         }
     }
     
@@ -35,9 +38,7 @@ class DetailsVCViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateStreaks()
-        //updateChartView()
         configureViews()
-        updateCalendar()
         configureBarButtons()
         addNewYear()
         title = habitCoreData?.habitName
@@ -89,16 +90,6 @@ class DetailsVCViewController: UIViewController {
         habitDetailsChartView.collectionView.register(ChartCellCollectionViewCell.self, forCellWithReuseIdentifier: ChartCellCollectionViewCell.reuseID)
     }
     
-    func updateCalendar() {
-        habitDetailsCalendarView.gradientIndex = Int(habitCoreData!.habitGradientIndex)
-        for date in dates {
-            habitDetailsCalendarView.calendarView.select(date)
-        }
-    }
-    
-    func updateChartView() {
-        //habitDetailsChartView.gradientIndex = Int(habitCoreData!.habitGradientIndex)
-    }
     
     func updateStreaks() {
         habitDetailsStreakView.viewControllerHeight = Int(view.frame.size.height)
@@ -203,29 +194,23 @@ class DetailsVCViewController: UIViewController {
             let yearCalc = calendar.dateComponents([.year], from: date)
             let year = yearCalc.year!
             let month = monthCalc.month!-1
-            
+            //add if statement here to check if year in dict
+            if !chartYears.keys.contains(year) {
+                chartYears[year] = [0,0,0,0,0,0,0,0,0,0,0,0]
+            }
             chartYears[year]![month] += 1
         }
         chartArray = []
         for year in chartYears {
-            
             let chartYear = ChartYear(year: year.key, monthCount: year.value, color: GradientArray.array[Int(habitCoreData!.habitGradientIndex)])
-                
             chartArray.append(chartYear)
         }
+        chartArray = chartArray.sorted { $0.year < $1.year }
+        print(chartArray)
         DispatchQueue.main.async {
             self.habitDetailsChartView.collectionView.reloadData()
-//            self.habitDetailsChartView.collectionView.performBatchUpdates({ [weak self] in
-//                let visibleItems = self?.habitDetailsChartView.collectionView.indexPathsForVisibleItems ?? []
-//                self?.habitDetailsChartView.collectionView.reloadItems(at: visibleItems)
-//            }, completion: { (_) in
-//            })
-//        }
         }
     }
-    
-   
-    
 }
 
 //MARK: - collectionview

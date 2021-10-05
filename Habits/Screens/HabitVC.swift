@@ -206,6 +206,8 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
+        //turn all this into a class like collection view. including background color.
+        
         var buttonCount          = 0
         var completedDays        = 0
         
@@ -214,6 +216,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         cell.iconImage.image     = UIImage(named: habit.iconString ?? "")
         cell.habitName.text      = habit.habitName
         cell.gradientColors      = GradientArray.array[Int(habit.habitGradientIndex)]
+        
         
         for (index,button) in cell.dayButton.enumerated() {
             

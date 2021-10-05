@@ -12,6 +12,7 @@ class HabitDetailsChartView: UIView {
     var gradientIndex: Int?
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let layout = UICollectionViewFlowLayout()
+    var collectionImage = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,8 +22,12 @@ class HabitDetailsChartView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
+    func setColor(colors: [CGColor] ) {
+        DispatchQueue.main.async {
+            self.collectionImage.image = UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: colors)
+        }
+    }
     
      func configure() {
         translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +47,6 @@ class HabitDetailsChartView: UIView {
         line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = .label
         
-        let collectionImage = UIImageView(image: SFSymbols.chart?.addTintGradient(colors: GradientArray.array[gradientIndex ?? 0]))
         collectionImage.layer.cornerRadius = 10
         collectionImage.backgroundColor = UIColor.clear
         collectionImage.translatesAutoresizingMaskIntoConstraints = false

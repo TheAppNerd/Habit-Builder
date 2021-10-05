@@ -12,6 +12,7 @@ class HabitDetailsCalendarView: UIView {
     
     var gradientIndex: Int?
     let calendarView = FSCalendarView()
+    var calendarImage = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,6 +21,12 @@ class HabitDetailsCalendarView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setColor(colors: [CGColor]) {
+        DispatchQueue.main.async {
+            self.calendarImage.image = UIImage(systemName: "calendar")?.addTintGradient(colors: colors)
+        }
     }
     
     private func configure() {
@@ -38,8 +45,6 @@ class HabitDetailsCalendarView: UIView {
         let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
             
-        let calendarImage = UIImageView(image: UIImage(systemName: "calendar"))
-        //?.addTintGradient(colors: GradientArray.array[gradientIndex ?? 0]))
         calendarImage.layer.cornerRadius = 10
         calendarImage.backgroundColor = UIColor.clear
         calendarImage.translatesAutoresizingMaskIntoConstraints = false

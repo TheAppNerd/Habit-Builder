@@ -31,7 +31,7 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
     func set(chartYear: ChartYear) {
         yearLabel.text = String(chartYear.year)
         for num in 0...11{
-            
+            progressBarArray[num].progressImage = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: chartYear.color)
             countLabelArray[num].text = String(chartYear.monthCount[num])
             
             if chartYear.monthCount[num] == 0 {
@@ -67,15 +67,18 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
             monthLabel.adjustsFontSizeToFitWidth = true
             monthLabel.font                      = monthLabel.font.withSize(12)
+            monthLabel.textAlignment = .center
             monthLabel.text                      = monthArray[num]
             monthStack.addArrangedSubview(monthLabel)
             
             let countLabel = UILabel()
             countLabel.translatesAutoresizingMaskIntoConstraints = false
             countLabel.text = "0"
+            countLabel.textAlignment = .center
             countLabel.font = UIFont.boldSystemFont(ofSize: 12)
             countLabelArray.append(countLabel)
             countStack.addArrangedSubview(countLabelArray[num])
+            
             
             
             let progressBar = UIProgressView()
@@ -83,8 +86,7 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
             progressBar.progress = 0.0
             progressBar.backgroundColor = .tertiarySystemBackground
             progressBar.tintColor = .blue
-            let image = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: Gradients().blueGradient)
-            progressBar.progressImage = image
+          
             progressBar.clipsToBounds = true
             progressBar.translatesAutoresizingMaskIntoConstraints = false
             progressBarArray.append(progressBar)
@@ -103,7 +105,7 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
         
         addSubviews(countStack, barView, monthStack, yearLabel)
         NSLayoutConstraint.activate([
-            countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
+            countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             countStack.topAnchor.constraint(equalTo: self.topAnchor),
             countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             countStack.heightAnchor.constraint(equalToConstant: 20),
@@ -113,7 +115,7 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
             barView.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.70),
             barView.heightAnchor.constraint(equalTo: self.widthAnchor),
             
-            monthStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
+            monthStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             monthStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             monthStack.bottomAnchor.constraint(equalTo: yearLabel.topAnchor),
             monthStack.heightAnchor.constraint(equalToConstant: 20),
