@@ -44,6 +44,7 @@ class DetailsVCViewController: UIViewController {
         title = habitCoreData?.habitName
         configureCollectionView()
         updateChart()
+
     }
 
     func configureViews() {
@@ -74,16 +75,18 @@ class DetailsVCViewController: UIViewController {
         
         }
     
-    override func viewDidLayoutSubviews() { //needed?
+    override func viewDidLayoutSubviews() {
         //loads the collection view as current year
+        habitDetailsChartView.collectionView.isPagingEnabled = false //paging turned off due to xcode bug which prevents scroll to item working when it is active. 
         let section = 0
         let lastItemIndex = habitDetailsChartView.collectionView.numberOfItems(inSection: section) - 1
         let indexPath = IndexPath(item: lastItemIndex, section: section)
         habitDetailsChartView.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
+        habitDetailsChartView.collectionView.isPagingEnabled = true
     }
     
     func configureCollectionView() {
-
+     
         habitDetailsChartView.collectionView.dataSource = self
         habitDetailsChartView.collectionView.delegate = self
 //        habitDetailsChartView.collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
@@ -206,9 +209,10 @@ class DetailsVCViewController: UIViewController {
             chartArray.append(chartYear)
         }
         chartArray = chartArray.sorted { $0.year < $1.year }
-        print(chartArray)
+        
         DispatchQueue.main.async {
             self.habitDetailsChartView.collectionView.reloadData()
+            
         }
     }
 }
@@ -232,7 +236,6 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
     
         let chartYear = chartArray[indexPath.row]
         cell.set(chartYear: chartYear)
-        
         return cell
     }
 }
