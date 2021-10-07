@@ -9,8 +9,17 @@ import UIKit
 
 class HabitDetailsStreakView: UIView {
 
-    var viewControllerHeight: Int?
-    let streakLabel = UILabel()
+    let dateCreatedLabel = UILabel()
+    let totalCountLabel = UILabel()
+    let averageCountLabel = UILabel()
+    
+    let dateCreatedImage = UIImageView(image: UIImage(systemName: "deskclock")?.addTintGradient(colors: Gradients().purpleGradient))
+    let totalCountImage = UIImageView(image: SFSymbols.flame?.addTintGradient(colors: Gradients().orangeGradient))
+    let averageCountImage = UIImageView(image: UIImage(systemName: "equal.square.fill")?.addTintGradient(colors: Gradients().darkGreenGradient))
+    
+    let labelStack = UIStackView()
+    let imageStack = UIStackView()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,36 +30,55 @@ class HabitDetailsStreakView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setLabels(date: String, count: Int, average: String) {
+        
+        dateCreatedLabel.text = "Date Habit Created: \(date)"
+        totalCountLabel.text = "Total Days Completed: \(count)"
+        averageCountLabel.text = "Average habits per week: \(average)"
+    }
+    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10
         backgroundColor    = .tertiarySystemBackground
         
-        let streakImage = UIImageView(image: SFSymbols.flame?.addTintGradient(colors: Gradients().orangeGradient))
-        streakImage.translatesAutoresizingMaskIntoConstraints = false
-        streakLabel.translatesAutoresizingMaskIntoConstraints = false
-        streakLabel.textAlignment = .left
+        dateCreatedLabel.text = "date created"
+        totalCountLabel.text = "total count"
+        averageCountLabel.text = "average count"
         
-        self.addSubviews(streakImage, streakLabel)
-//        var padding: CGFloat = 0
-//        if viewControllerHeight ?? 0 < 800 {
-//            padding = 5
-//        } else {
+        labelStack.translatesAutoresizingMaskIntoConstraints = false
+        labelStack.axis = .vertical
+        labelStack.distribution = .fillEqually
+        labelStack.spacing = 6
+        
+        imageStack.translatesAutoresizingMaskIntoConstraints = false
+        imageStack.axis = .vertical
+        imageStack.distribution = .fillEqually
+        imageStack.spacing = 6
+        
+        labelStack.addArrangedSubview(dateCreatedLabel)
+        labelStack.addArrangedSubview(totalCountLabel)
+        labelStack.addArrangedSubview(averageCountLabel)
+        
+        imageStack.addArrangedSubview(dateCreatedImage)
+        imageStack.addArrangedSubview(totalCountImage)
+        imageStack.addArrangedSubview(averageCountImage)
+        
+        addSubviews(labelStack, imageStack)
+        
         let padding: CGFloat = 20
-       // }
-       
-        NSLayoutConstraint.activate([
         
-            streakImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            streakImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
-            streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -20),
-            streakImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
-            streakImage.widthAnchor.constraint(equalTo: streakImage.heightAnchor),
+        NSLayoutConstraint.activate([
+            imageStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            imageStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            imageStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            imageStack.widthAnchor.constraint(equalToConstant: 30),
             
-            streakLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: padding),
-            streakLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: padding),
-            streakLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
+            
+            labelStack.leadingAnchor.constraint(equalTo: imageStack.trailingAnchor, constant: padding),
+            labelStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
         ])
     }
 }

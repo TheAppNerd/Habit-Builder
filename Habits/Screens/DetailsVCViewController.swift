@@ -59,7 +59,7 @@ class DetailsVCViewController: UIViewController {
         habitDetailsCalendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         habitDetailsCalendarView.bottomAnchor.constraint(equalTo: habitDetailsStreakView.topAnchor,constant: -padding),
-        habitDetailsCalendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35),
+        habitDetailsCalendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34),
                                                                                          
         habitDetailsStreakView.topAnchor.constraint(equalTo: habitDetailsCalendarView.bottomAnchor, constant: padding),
         habitDetailsStreakView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -70,14 +70,14 @@ class DetailsVCViewController: UIViewController {
         habitDetailsChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         habitDetailsChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -padding),
-        habitDetailsChartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35)
+        habitDetailsChartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34)
         ])
         
         }
     
     override func viewDidLayoutSubviews() {
         //loads the collection view as current year
-        habitDetailsChartView.collectionView.isPagingEnabled = false //paging turned off due to xcode bug which prevents scroll to item working when it is active. 
+        habitDetailsChartView.collectionView.isPagingEnabled = false //paging turned off due to xcode bug which prevents scroll to item working when it is active.
         let section = 0
         let lastItemIndex = habitDetailsChartView.collectionView.numberOfItems(inSection: section) - 1
         let indexPath = IndexPath(item: lastItemIndex, section: section)
@@ -86,31 +86,44 @@ class DetailsVCViewController: UIViewController {
     }
     
     func configureCollectionView() {
-     
         habitDetailsChartView.collectionView.dataSource = self
         habitDetailsChartView.collectionView.delegate = self
-//        habitDetailsChartView.collectionView.register(ChartCollectionCell.self, forCellWithReuseIdentifier: ChartCollectionCell.reuseID)
         habitDetailsChartView.collectionView.register(ChartCellCollectionViewCell.self, forCellWithReuseIdentifier: ChartCellCollectionViewCell.reuseID)
     }
     
     
     func updateStreaks() {
-        habitDetailsStreakView.viewControllerHeight = Int(view.frame.size.height)
-        habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(dates.count)"
+        let dateCreated = habitCoreData?.dateHabitCreated ?? Date()
+        let daysCompleted = dates.count
+        
+        //make an extension?
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        let date = dateFormatter.string(from: dateCreated)
+        
+        let timeSinceCreated = Date().timeIntervalSince(dateCreated)
+        let week: Double = 86400 * 7
+        var totalWeeks = timeSinceCreated / week
+        if totalWeeks < 1 {
+            totalWeeks = 1
+        }
+        let averagePerWeek = Double(daysCompleted) / totalWeeks
+        let averageString = String(format: "%.1f", averagePerWeek)
+        
+        habitDetailsStreakView.setLabels(date: date, count: daysCompleted, average: averageString)
     }
     
-    func presentAlertToAddHabit(date: Date) { //move this externally. to present add ability to link vc to func.
-        // let day = getDayOfWeek(date: date)
-        
+    func presentAlertToAddHabit(date: Date) {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)
             self.habitCoreData?.habitDates?.append(date)
             CoreDataFuncs.saveCoreData()
-            self.habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(self.habitCoreData?.habitDates?.count ?? 0)"
+           
+            
             
             self.updateChart()
-        
+            self.updateStreaks()
 
             
         }))
@@ -126,8 +139,9 @@ class DetailsVCViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
             self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
-            self.habitDetailsStreakView.streakLabel.text = "Total Days Completed: \(self.habitCoreData?.habitDates?.count ?? 0)"
+            
             self.updateChart()
+            self.updateStreaks()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)

@@ -135,6 +135,7 @@ class NewHabitVC: UITableViewController  {
             newHabit.habitCreated       = true
             newHabit.habitDates         = []
             newHabit.alarmBool          = alarmsActivated
+            newHabit.dateHabitCreated   = Date()
             HabitVC.habitArray.append(newHabit)
         } else if habitCoreData != nil {
             let oldHabit                = habitCoreData!

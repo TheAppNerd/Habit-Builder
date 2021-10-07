@@ -44,7 +44,6 @@ class ChartCellCollectionViewCell: UICollectionViewCell {
                 self.progressBarArray[num].setProgress(Float(chartYear.monthCount[num]) * progress, animated: true)
             }
         }
-        print(chartYear.monthCount)
     }
     
     
