@@ -54,6 +54,7 @@ class ReminderCell: UITableViewCell {
 
     
     private func configure() {
+        
         generator.prepare()
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         

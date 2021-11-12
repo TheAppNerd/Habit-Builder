@@ -39,6 +39,7 @@ class IconCell: UITableViewCell {
     }
     
     private func configure() {
+        
         generator.prepare()
         let stackArray = [stackViewOne, stackViewTwo, stackViewThree, stackViewFour]
         

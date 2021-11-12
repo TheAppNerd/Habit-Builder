@@ -13,23 +13,17 @@ class DetailsVCViewController: UIViewController {
     
     var habitCoreData: HabitCoreData? {
         didSet {
-            dates = (habitCoreData?.habitDates)! // needed?
             let gradientColor = GradientArray.array[Int(habitCoreData!.habitGradientIndex)]
             habitDetailsChartView.setColor(colors: gradientColor)
             habitDetailsCalendarView.setColor(colors: gradientColor)
         }
     }
     
-    
     var chartArray = [ChartYear]()
     var chartYears: [Int: [Int]] = [:]
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var dates: [Date] = []
-    
-    
-    
-    //put all these items in a divider view. create an extension with layout constraints to put on all thse and all the views in add habit
+
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView = HabitDetailsStreakView()
     let habitDetailsChartView = HabitDetailsChartView()
@@ -38,13 +32,13 @@ class DetailsVCViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateStreaks()
+        configureCalendarDates()
         configureViews()
         configureBarButtons()
         addNewYear()
         title = habitCoreData?.habitName
         configureCollectionView()
         updateChart()
-
     }
 
     func configureViews() {
@@ -60,7 +54,7 @@ class DetailsVCViewController: UIViewController {
         habitDetailsCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         habitDetailsCalendarView.bottomAnchor.constraint(equalTo: habitDetailsStreakView.topAnchor,constant: -padding),
         habitDetailsCalendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34),
-                                                                                         
+                                                                                    
         habitDetailsStreakView.topAnchor.constraint(equalTo: habitDetailsCalendarView.bottomAnchor, constant: padding),
         habitDetailsStreakView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsStreakView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
@@ -72,7 +66,6 @@ class DetailsVCViewController: UIViewController {
         habitDetailsChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -padding),
         habitDetailsChartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34)
         ])
-        
         }
     
     override func viewDidLayoutSubviews() {
@@ -91,10 +84,17 @@ class DetailsVCViewController: UIViewController {
         habitDetailsChartView.collectionView.register(ChartCellCollectionViewCell.self, forCellWithReuseIdentifier: ChartCellCollectionViewCell.reuseID)
     }
     
+    func configureCalendarDates() {
+        if let dateArray = habitCoreData?.habitDates {
+            for date in dateArray {
+                habitDetailsCalendarView.calendarView.select(date)
+            }
+        }
+    }
     
     func updateStreaks() {
         let dateCreated = habitCoreData?.dateHabitCreated ?? Date()
-        let daysCompleted = dates.count
+        let daysCompleted = habitCoreData?.habitDates?.count ?? 0
         
         //make an extension?
         let dateFormatter = DateFormatter()
@@ -120,12 +120,8 @@ class DetailsVCViewController: UIViewController {
             self.habitCoreData?.habitDates?.append(date)
             CoreDataFuncs.saveCoreData()
            
-            
-            
             self.updateChart()
             self.updateStreaks()
-
-            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
@@ -157,7 +153,6 @@ class DetailsVCViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = editButton
-        
     }
     
     
@@ -226,7 +221,6 @@ class DetailsVCViewController: UIViewController {
         
         DispatchQueue.main.async {
             self.habitDetailsChartView.collectionView.reloadData()
-            
         }
     }
 }
@@ -266,5 +260,6 @@ extension DetailsVCViewController: FSCalendarDataSource, FSCalendarDelegate {
         presentAlertToRemoveHabit(date: date)
     }
     
+
 }
 

@@ -32,6 +32,7 @@ class ColorCell: UITableViewCell {
     }
     
     private func configure() {
+        
         generator.prepare()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis          = .horizontal

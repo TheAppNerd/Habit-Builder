@@ -26,6 +26,7 @@ class HabitFrequencyCell: UITableViewCell {
     }
     
     private func configure() {
+        
         timesAWeekLabel.translatesAutoresizingMaskIntoConstraints = false
         timesAWeekLabel.textAlignment      = .left
         timesAWeekLabel.text               = "Days a Week:"

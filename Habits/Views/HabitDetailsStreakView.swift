@@ -42,10 +42,6 @@ class HabitDetailsStreakView: UIView {
         layer.cornerRadius = 10
         backgroundColor    = .tertiarySystemBackground
         
-        dateCreatedLabel.text = "date created"
-        totalCountLabel.text = "total count"
-        averageCountLabel.text = "average count"
-        
         labelStack.translatesAutoresizingMaskIntoConstraints = false
         labelStack.axis = .vertical
         labelStack.distribution = .fillEqually

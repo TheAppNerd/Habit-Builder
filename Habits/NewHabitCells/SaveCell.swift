@@ -23,6 +23,7 @@ class SaveCell: UITableViewCell {
     }
     
     private func configure() {
+        
         saveButton.setTitle("Save Habit", for: .normal)
         saveButton.layer.cornerRadius = 10
         contentView.addSubview(saveButton)

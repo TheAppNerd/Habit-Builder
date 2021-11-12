@@ -27,6 +27,7 @@ class HabitDetailsCalendarView: UIView {
         DispatchQueue.main.async {
             self.calendarImage.image = UIImage(systemName: "calendar")?.addTintGradient(colors: colors)
         }
+        calendarView.appearance.selectionColor = UIColor(cgColor: colors[1])
     }
     
     private func configure() {
