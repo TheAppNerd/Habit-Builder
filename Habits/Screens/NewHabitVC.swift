@@ -65,6 +65,7 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configure() {
+        tableView.backgroundColor = .systemBackground
         title = Labels.AddHabitVCTitle
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
@@ -72,6 +73,7 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configureBarButtons() {
+        //fix back button
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(backButtonPressed))
         
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))

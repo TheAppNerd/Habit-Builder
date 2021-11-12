@@ -20,6 +20,10 @@ class HabitVC: UIViewController, SettingsPush {
     static var habitArray           = [HabitCoreData]()
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
+    var habitArray = [HabitModel]()
+    
+    var habitModelArray = [HabitModel]() //do I actually need this with core data one?
+    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +89,6 @@ class HabitVC: UIViewController, SettingsPush {
         case true: tableViewFooter.isHidden = true
         case false: tableViewFooter.isHidden = false
         }
-        
     }
     
     
@@ -188,10 +191,9 @@ class HabitVC: UIViewController, SettingsPush {
         } catch {
             print("error loading context: \(error)")
         }
-        
         tableView.reloadData()
-        
     }
+ 
     
 }
 
@@ -206,17 +208,12 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-        //turn all this into a class like collection view. including background color.
+        let habit                = HabitVC.habitArray[indexPath.row]
+        cell.set(habit: habit)
+        
         
         var buttonCount          = 0
         var completedDays        = 0
-        
-        let habit                = HabitVC.habitArray[indexPath.row]
-        habit.habitGradientIndex = HabitVC.habitArray[indexPath.row].habitGradientIndex //??
-        cell.iconImage.image     = UIImage(named: habit.iconString ?? "")
-        cell.habitName.text      = habit.habitName
-        cell.gradientColors      = GradientArray.array[Int(habit.habitGradientIndex)]
-        
         
         for (index,button) in cell.dayButton.enumerated() {
             
@@ -233,7 +230,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             
             if habit.habitDates!.contains(selectedDate) {
                 button.backgroundColor   = Colors.tertiaryWithAlpha
-                button.layer.borderColor = Colors.tertiaryWithAlpha.cgColor
+                button.layer.borderColor = UIColor.clear.cgColor //Colors.tertiaryWithAlpha.cgColor
                 button.setTitle(nil, for: .normal)
                 button.setImage(SFSymbols.checkMark, for: .normal)
                 completedDays += 1
@@ -243,29 +240,10 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             }
             buttonCount += 1
         }
-        
-        switch habit.alarmBool {
-        case true: cell.alarmImage.image = SFSymbols.bell
-        case false: cell.alarmImage.image = SFSymbols.bellSlash
-        }
-        
-        cell.frequencyLabel.text = "\(completedDays) / \(habit.frequency) days"
-        
+    
         return cell
     }
     
-    
-    //        func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    //
-    //            let tableViewFooter = TableViewFooter(tableView: self.tableView)
-    //            tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-    //
-    //            switch HabitVC.habitArray.isEmpty {
-    //            case true: tableViewFooter.isHidden = true
-    //            case false: tableViewFooter.isHidden = false
-    //            }
-    //            return tableViewFooter
-    //        }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -284,13 +262,5 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
                 self.show(vc, sender: self)
             }
         }
-        
     }
-    
-    
-    
-    
-    
-    
-    
 }
