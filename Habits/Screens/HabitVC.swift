@@ -21,7 +21,6 @@ class HabitVC: UIViewController, SettingsPush {
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
     var habitArray = [HabitModel]()
-    
     var habitModelArray = [HabitModel]() //do I actually need this with core data one?
     
     
@@ -170,6 +169,7 @@ class HabitVC: UIViewController, SettingsPush {
         generator.impactOccurred()
         //change below to a switch or a toggle
         
+        //change all this to only occur here or in tasbleview func. too much spaghetti code
         if sender.backgroundColor == .clear {
             //change clear to something less breakable like is selected
             HabitVC.habitArray[indexPath.row].habitDates?.append(selectedDate)
@@ -209,15 +209,15 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
         let habit                = HabitVC.habitArray[indexPath.row]
-        cell.set(habit: habit)
         
         
+        var completedDays = 0
         var buttonCount          = 0
-        var completedDays        = 0
         
         for (index,button) in cell.dayButton.enumerated() {
             
             //This prevents duplication issues on reusable cells
+            //move all of this to set?
             button.backgroundColor   = .clear
             button.layer.borderColor = UIColor.white.cgColor
             button.setTitle("\(cell.dayArray[index])", for: .normal)
@@ -233,14 +233,21 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
                 button.layer.borderColor = UIColor.clear.cgColor //Colors.tertiaryWithAlpha.cgColor
                 button.setTitle(nil, for: .normal)
                 button.setImage(SFSymbols.checkMark, for: .normal)
-                completedDays += 1
             } else {
                 button.backgroundColor = .clear
                 button.layer.borderColor = UIColor.white.cgColor
             }
             buttonCount += 1
         }
-    
+     
+        for button in cell.dayButton {
+            if button.image(for: .normal) == SFSymbols.checkMark {
+                completedDays += 1
+        }
+        }
+        cell.habitCompletedDays = completedDays
+        cell.set(habit: habit)
+        
         return cell
     }
     
