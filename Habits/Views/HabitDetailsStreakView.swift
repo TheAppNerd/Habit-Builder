@@ -10,15 +10,17 @@ import UIKit
 class HabitDetailsStreakView: UIView {
 
     let dateCreatedLabel = UILabel()
-    let totalCountLabel = UILabel()
-    let averageCountLabel = UILabel()
+    let dateCreatedResultLabel = UILabel()
     
-    let dateCreatedImage = UIImageView(image: UIImage(systemName: "deskclock")?.addTintGradient(colors: Gradients().purpleGradient))
-    let totalCountImage = UIImageView(image: SFSymbols.flame?.addTintGradient(colors: Gradients().orangeGradient))
-    let averageCountImage = UIImageView(image: UIImage(systemName: "equal.square.fill")?.addTintGradient(colors: Gradients().darkGreenGradient))
+    let totalCountLabel = UILabel()
+    let totalCountResultLabel = UILabel()
+    
+    let averageCountLabel = UILabel()
+    let averageCountResultLabel = UILabel()
+    
     
     let labelStack = UIStackView()
-    let imageStack = UIStackView()
+    let resultStack = UIStackView()
     
     
     override init(frame: CGRect) {
@@ -31,10 +33,10 @@ class HabitDetailsStreakView: UIView {
     }
     
     func setLabels(date: String, count: Int, average: String) {
+        dateCreatedResultLabel.text = "\(date)"
+        totalCountResultLabel.text = "\(count)"
+        averageCountResultLabel.text = "\(average)"
         
-        dateCreatedLabel.text = "Date Habit Created: \(date)"
-        totalCountLabel.text = "Total Days Completed: \(count)"
-        averageCountLabel.text = "Average habits per week: \(average)"
     }
     
     private func configure() {
@@ -42,39 +44,46 @@ class HabitDetailsStreakView: UIView {
         layer.cornerRadius = 10
         backgroundColor    = .tertiarySystemBackground
         
+        dateCreatedLabel.text = "Date Habit Created:"
+        totalCountLabel.text = "Total Days Completed:"
+        averageCountLabel.text = "Average habits per week:"
+        
+        dateCreatedResultLabel.textAlignment = .right
+        totalCountResultLabel.textAlignment = .right
+        averageCountResultLabel.textAlignment = .right
+        
         labelStack.translatesAutoresizingMaskIntoConstraints = false
         labelStack.axis = .vertical
         labelStack.distribution = .fillEqually
         labelStack.spacing = 6
         
-        imageStack.translatesAutoresizingMaskIntoConstraints = false
-        imageStack.axis = .vertical
-        imageStack.distribution = .fillEqually
-        imageStack.spacing = 6
+        resultStack.translatesAutoresizingMaskIntoConstraints = false
+        resultStack.axis = .vertical
+        resultStack.distribution = .fillEqually
+        resultStack.spacing = 6
         
         labelStack.addArrangedSubview(dateCreatedLabel)
         labelStack.addArrangedSubview(totalCountLabel)
         labelStack.addArrangedSubview(averageCountLabel)
         
-        imageStack.addArrangedSubview(dateCreatedImage)
-        imageStack.addArrangedSubview(totalCountImage)
-        imageStack.addArrangedSubview(averageCountImage)
+        resultStack.addArrangedSubview(dateCreatedResultLabel)
+        resultStack.addArrangedSubview(totalCountResultLabel)
+        resultStack.addArrangedSubview(averageCountResultLabel)
         
-        addSubviews(labelStack, imageStack)
+        addSubviews(labelStack, resultStack)
         
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            imageStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            imageStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            imageStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
-            imageStack.widthAnchor.constraint(equalToConstant: 30),
-            
-            
-            labelStack.leadingAnchor.constraint(equalTo: imageStack.trailingAnchor, constant: padding),
+            labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             labelStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            labelStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
+            labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            labelStack.trailingAnchor.constraint(equalTo: resultStack.leadingAnchor, constant: padding),
+            
+            resultStack.leadingAnchor.constraint(equalTo: labelStack.trailingAnchor, constant: padding),
+            resultStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            resultStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            resultStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
         ])
     }
 }
