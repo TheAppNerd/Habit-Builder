@@ -24,6 +24,7 @@ static let reuseID = "HabitCell"
     
     
     
+    
     let dateModel         = DateModel()
     let cellView          = UIView()
 
@@ -93,12 +94,12 @@ static let reuseID = "HabitCell"
         case false: habitAlarmIcon.image = SFSymbols.bellSlash
         }
         
-        for (index, button) in dayButton.enumerated() {
-            button.setTitle("\(dayArray[index])", for: .normal)
-            button.setImage(nil, for: .normal)
-            
-            let selectedDate = DateFuncs.startOfDay(date: dateArray[index])
-        }
+//        for (index, button) in dayButton.enumerated() {
+//            button.setTitle("\(dayArray[index])", for: .normal)
+//            button.setImage(nil, for: .normal)
+//            
+//            let selectedDate = DateFuncs.startOfDay(date: dateArray[index])
+//        }
         
     }
     

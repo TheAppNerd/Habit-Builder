@@ -63,7 +63,7 @@ class DetailsVCViewController: UIViewController {
         habitDetailsChartView.topAnchor.constraint(equalTo: habitDetailsStreakView.bottomAnchor, constant: padding),
         habitDetailsChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-        habitDetailsChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -padding),
+        habitDetailsChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -padding * 2),
         habitDetailsChartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34)
         ])
         }
