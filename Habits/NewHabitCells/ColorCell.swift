@@ -32,7 +32,8 @@ class ColorCell: UITableViewCell {
     }
     
     private func configure() {
-        
+        backgroundColor = .secondarySystemBackground
+        self.layer.cornerRadius = 10
         generator.prepare()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis          = .horizontal

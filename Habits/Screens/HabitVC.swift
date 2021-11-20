@@ -45,7 +45,7 @@ class HabitVC: UIViewController, SettingsPush {
     func configureViewController() {
         title = Labels.HabitVCTitle
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
-        
+        view.backgroundColor = .systemBackground
         menuView.pinMenuTo(view, with: slideInMenuPadding)
         tableView.edgeTo(view, padding: 0)
         generator.prepare()

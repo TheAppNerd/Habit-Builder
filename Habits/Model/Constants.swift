@@ -13,7 +13,7 @@ enum Labels {
     static let AddHabitVCTitle           = "Add Habit"
     static let deleteAlertTitle          = "Delete Habit?"
     static let deleteAlartMessage        = "Are you sure you want to delete this? It cannot be recovered."
-    static let placeholder               = "Eg. Workout, meditate, etc"
+    static let placeholder               = "  Eg. Workout, meditate, etc"
     static let notificationDeniedTitle   = "Permission Denied"
     static let notificationDeniedMessage = "To enable notifications please activate them in the settings for this app"
 }

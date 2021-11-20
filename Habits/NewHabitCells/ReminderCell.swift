@@ -54,7 +54,8 @@ class ReminderCell: UITableViewCell {
 
     
     private func configure() {
-        
+        backgroundColor = .secondarySystemBackground
+        self.layer.cornerRadius = 10
         generator.prepare()
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         

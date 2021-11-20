@@ -39,7 +39,8 @@ class IconCell: UITableViewCell {
     }
     
     private func configure() {
-        
+        backgroundColor = .secondarySystemBackground
+        self.layer.cornerRadius = 10
         generator.prepare()
         let stackArray = [stackViewOne, stackViewTwo, stackViewThree, stackViewFour]
         

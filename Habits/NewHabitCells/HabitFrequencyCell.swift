@@ -26,7 +26,8 @@ class HabitFrequencyCell: UITableViewCell {
     }
     
     private func configure() {
-        
+        backgroundColor = .secondarySystemBackground
+        self.layer.cornerRadius = 10
         timesAWeekLabel.translatesAutoresizingMaskIntoConstraints = false
         timesAWeekLabel.textAlignment      = .left
         timesAWeekLabel.text               = "Days a Week:"

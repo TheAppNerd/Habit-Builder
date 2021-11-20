@@ -37,6 +37,10 @@ class NewHabitVC: UITableViewController  {
         configure()
         configureBarButtons()
         dismissKeyboard()
+        
+        if #available(iOS 15.0, *) {
+            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
+        }
     }
     
     func loadData() {
@@ -66,6 +70,7 @@ class NewHabitVC: UITableViewController  {
     
     private func configure() {
         tableView.backgroundColor = .systemBackground
+        
         title = Labels.AddHabitVCTitle
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
@@ -331,7 +336,14 @@ class NewHabitVC: UITableViewController  {
             return cell
         }
     }
+
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.label
+    }
+
 }
+
 
 //MARK: - UITextFieldDelegate
 

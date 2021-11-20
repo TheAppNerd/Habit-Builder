@@ -38,8 +38,10 @@ class DarkModeViewController: UIViewController {
     }
     
     @objc func darkModeValueChanged(sender: UIButton) {
+        sender.bounceAnimation()
         let defaults = UserDefaults.standard
         
+
         let buttonArray = [darkModeView.automaticButton, darkModeView.lightButton, darkModeView.darkButton]
         for button in buttonArray {
             button.setTitleColor(.secondaryLabel, for: .normal)
@@ -68,7 +70,8 @@ class DarkModeViewController: UIViewController {
         }
     }
     
-    @objc func doneButtonPressed() {
+    @objc func doneButtonPressed(sender: UIButton) {
+        sender.bounceAnimation()
         self.dismiss(animated: true, completion: nil)
     }
     

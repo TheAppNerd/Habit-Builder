@@ -42,6 +42,7 @@ class DetailsVCViewController: UIViewController {
     }
 
     func configureViews() {
+        view.backgroundColor = .systemBackground
         habitDetailsCalendarView.calendarView.dataSource = self
         habitDetailsCalendarView.calendarView.delegate = self
         view.addSubviews(habitDetailsCalendarView, habitDetailsStreakView, habitDetailsChartView)
