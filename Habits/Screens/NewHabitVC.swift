@@ -362,6 +362,7 @@ extension NewHabitVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 0
     }
+    
 }
 
 //MARK: - Protocol Extension

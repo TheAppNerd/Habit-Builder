@@ -21,6 +21,7 @@ class HelpScreenViewController: UIViewController {
     
     
     private func configureLayout() {
+        view.backgroundColor = .systemBackground
         view.addSubview(pageControl)
         view.addSubview(scrollView)
         pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
