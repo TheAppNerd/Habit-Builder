@@ -47,7 +47,7 @@ class DarkModeView: UIView {
         lightButton.setTitle("Light", for: .normal)
         darkButton.setTitle("Dark", for: .normal)
         doneButton.setTitle("Done", for: .normal)
-        doneButton.colors = Gradients().blueGradient
+        doneButton.colors = Gradients().pinkGradient
         
         self.addSubviews(lightLabel, automaticButton, lightButton, darkButton, doneButton)
         

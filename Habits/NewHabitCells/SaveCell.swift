@@ -11,7 +11,7 @@ class SaveCell: UITableViewCell {
     
     static let reuseID = "SaveCell"
 
-    let saveButton = GradientButton(colors: Gradients().blueGradient)
+    let saveButton = GradientButton(colors: Gradients().pinkGradient)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

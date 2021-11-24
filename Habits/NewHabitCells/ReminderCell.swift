@@ -120,7 +120,7 @@ class ReminderCell: UITableViewCell {
             } else {
                 button.setTitleColor(.white, for: .normal)
                 button.backgroundColor = .clear
-                button.colors          = Gradients().blueGradient
+                button.colors          = Gradients().pinkGradient
                 dayArray[index]        = true
             }
         }

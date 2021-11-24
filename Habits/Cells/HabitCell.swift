@@ -18,7 +18,7 @@ static let reuseID = "HabitCell"
     let habitName         = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
     let habitIcon         = UIImageView()
     var habitGradient     = [CGColor]()
-    let habitFrequency    = BodyLabel()
+    let habitFrequency    = BodyLabel(textInput: "", textAlignment: .right, fontSize: 18)
     let habitAlarmIcon    = UIImageView()
     var habitCompletedDays = Int()
     

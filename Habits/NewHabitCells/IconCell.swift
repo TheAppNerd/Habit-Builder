@@ -108,7 +108,7 @@ class IconCell: UITableViewCell {
             }
             
         sender.tintColor  = .white
-        sender.colors     = Gradients().blueGradient
+        sender.colors     = Gradients().pinkGradient
         sender.isSelected = true
         
         for (index,item) in buttonArray.enumerated() {
