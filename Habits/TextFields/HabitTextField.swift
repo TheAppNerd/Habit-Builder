@@ -21,7 +21,7 @@ class HabitTextField: UITextField {
     
     private func configure() {
     translatesAutoresizingMaskIntoConstraints = false
-        
+        returnKeyType             = .done
         textColor                 = .label
         tintColor                 = .label
         textAlignment             = .left

@@ -11,7 +11,7 @@ class HabitNameCell: UITableViewCell {
 
  static let reuseID = "HabitNameCell"
     
-    var nameTextField = UITextField()
+    var nameTextField = HabitTextField()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

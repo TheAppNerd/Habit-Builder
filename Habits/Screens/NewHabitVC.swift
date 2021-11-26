@@ -132,6 +132,10 @@ class NewHabitVC: UITableViewController  {
     }
     
     func createCoreDataHabit() { //create a habit core data struct to contain all the information
+        
+        let colorOne = GradientArray.array[colorIndex][0].encodeColor()
+        let colorTwo = GradientArray.array[colorIndex][1].encodeColor()
+        
         if habitCoreData == nil {
             let newHabit                = HabitCoreData(context: context)
             newHabit.habitName          = name
@@ -143,6 +147,7 @@ class NewHabitVC: UITableViewController  {
             newHabit.habitDates         = []
             newHabit.alarmBool          = alarmsActivated
             newHabit.dateHabitCreated   = Date()
+            
             HabitVC.habitArray.append(newHabit)
         } else if habitCoreData != nil {
             let oldHabit                = habitCoreData!

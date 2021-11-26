@@ -22,6 +22,7 @@ struct Gradients {
     let darkBlueGradient = [UIColor(red: 20/255.0, green: 85/255.0, blue: 123/255.0, alpha: 1.0).cgColor, UIColor(red: 127/255.0, green: 206/255.0, blue: 197/255.0, alpha: 1.0).cgColor]
     
     let purpleGradient = [UIColor(red: 114/255.0, green: 42/255.0, blue: 230/255.0, alpha: 1.0).cgColor, UIColor(red: 228/255.0, green: 181/255.0, blue: 203/255.0, alpha: 1.0).cgColor]
+    
 }
 
 struct GradientArray {
