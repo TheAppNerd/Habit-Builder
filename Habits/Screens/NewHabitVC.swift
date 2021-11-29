@@ -19,7 +19,7 @@ class NewHabitVC: UITableViewController  {
     var nameArray             = [UITextField]()
     var previousName          = String() //using this prevents alarms from being messed with as name is name of title
     var name                  = String()
-    var frequency             = Int()
+    var frequency             = 1
     var colors                = [CGColor]()
     var colorIndex            = Int()
     var iconString: String    = ""
