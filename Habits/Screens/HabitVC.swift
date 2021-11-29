@@ -209,7 +209,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
         let habit                = HabitVC.habitArray[indexPath.row]
-        
+       
         
         var completedDays = 0
         var buttonCount          = 0

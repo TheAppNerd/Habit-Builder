@@ -19,7 +19,7 @@ class NewHabitVC: UITableViewController  {
     var nameArray             = [UITextField]()
     var previousName          = String() //using this prevents alarms from being messed with as name is name of title
     var name                  = String()
-    var frequency             = 1
+    var frequency             = Int()
     var colors                = [CGColor]()
     var colorIndex            = Int()
     var iconString: String    = ""
@@ -133,8 +133,6 @@ class NewHabitVC: UITableViewController  {
     
     func createCoreDataHabit() { //create a habit core data struct to contain all the information
         
-        let colorOne = GradientArray.array[colorIndex][0].encodeColor()
-        let colorTwo = GradientArray.array[colorIndex][1].encodeColor()
         
         if habitCoreData == nil {
             let newHabit                = HabitCoreData(context: context)
@@ -147,7 +145,8 @@ class NewHabitVC: UITableViewController  {
             newHabit.habitDates         = []
             newHabit.alarmBool          = alarmsActivated
             newHabit.dateHabitCreated   = Date()
-            
+        
+        
             HabitVC.habitArray.append(newHabit)
         } else if habitCoreData != nil {
             let oldHabit                = habitCoreData!
@@ -157,6 +156,7 @@ class NewHabitVC: UITableViewController  {
             oldHabit.habitGradientIndex = Int16(colorIndex)
             oldHabit.alarmDates         = dayArray
             oldHabit.alarmBool          = alarmsActivated
+           
         }
     }
 
@@ -175,30 +175,6 @@ class NewHabitVC: UITableViewController  {
         let habitVC = HabitVC()
         show(habitVC, sender: self)
     }
-    
-    @objc func positiveButtonPressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
-        generator.impactOccurred()
-        if frequency < 7 {
-            frequency += 1
-        }
-        UIView.performWithoutAnimation {
-            self.tableView.reloadSections([1], with: .none)
-            
-        }
-    }
-    
-    @objc func negativeButtonPressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
-        generator.impactOccurred()
-        if frequency > 1 {
-            frequency -= 1
-        }
-        UIView.performWithoutAnimation {
-            self.tableView.reloadSections([1], with: .none)
-        }
-    }
-    
 //    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
 //
 //        do {
@@ -269,7 +245,7 @@ class NewHabitVC: UITableViewController  {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "Name"
-        case 1: return "Frequency"
+        case 1: return "How many days per week?"
         case 2: return "Colour"
         case 3: return "Icon"
         case 4: return "Remind Me"
@@ -289,9 +265,9 @@ class NewHabitVC: UITableViewController  {
             return cell
             
         case 1: let cell = tableView.dequeueReusableCell(withIdentifier: HabitFrequencyCell.reuseID, for: indexPath) as! HabitFrequencyCell
-            cell.frequencyLabel.text = "\(frequency)"
-            cell.negativeButton.addTarget(self, action: #selector(negativeButtonPressed), for: .touchUpInside)
-            cell.positiveButton.addTarget(self, action: #selector(positiveButtonPressed), for: .touchUpInside)
+            cell.delegate = self
+            cell.frequencyButtonArray[frequency - 1].sendActions(for: .touchUpInside)
+            
             return cell
             
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
@@ -373,7 +349,7 @@ extension NewHabitVC: UITextFieldDelegate {
 //MARK: - Protocol Extension
 
 //rename protocols to resemble cell names
-extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData {
+extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData, passFrequencyData {
     
     func passDayData(dayArray: [Bool]) {
         self.dayArray = dayArray
@@ -387,6 +363,10 @@ extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData {
     
     func passIconData(iconString: String) {
         self.iconString = iconString
+    }
+    
+    func passFrequencyData(frequency: Int) {
+        self.frequency = frequency
     }
 }
 

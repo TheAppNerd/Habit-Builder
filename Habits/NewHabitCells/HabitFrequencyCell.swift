@@ -7,14 +7,20 @@
 
 import UIKit
 
+protocol passFrequencyData: AnyObject {
+    func passFrequencyData(frequency: Int)
+}
+
 class HabitFrequencyCell: UITableViewCell {
-    
+    weak var delegate: passFrequencyData?
     static let reuseID = "HabitFrequencyCell"
+    var frequency = 1
+    var frequencyArray = [1, 2, 3, 4, 5, 6, 7]
     
-    let timesAWeekLabel = UILabel()
-    let negativeButton  = GradientButton(colors: Gradients().pinkGradient)
-    let positiveButton  = GradientButton(colors: Gradients().pinkGradient)
-    let frequencyLabel  = UILabel()
+    let frequencyStackView = UIStackView()
+    let generator            = UIImpactFeedbackGenerator(style: .medium)
+    var frequencyButtonArray = [GradientButton]()
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,55 +31,52 @@ class HabitFrequencyCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func frequencyButtonPressed(_ sender: GradientButton) {
+        sender.bounceAnimation()
+        generator.impactOccurred()
+        for item in frequencyButtonArray {
+            item.isSelected = false
+            item.setTitleColor(.secondaryLabel, for: .normal)
+            item.colors = GradientColors.clearGradient
+        }
+        sender.isSelected = true
+        sender.setTitleColor(.white, for: .normal)
+        sender.colors = GradientArray.array[0]
+        
+        //fix this
+        frequency = Int(sender.currentTitle!) ?? 1
+        delegate?.passFrequencyData(frequency: frequency)
+    }
+    
     private func configure() {
         backgroundColor = .secondarySystemBackground
+        generator.prepare()
         self.layer.cornerRadius = 10
-        timesAWeekLabel.translatesAutoresizingMaskIntoConstraints = false
-        timesAWeekLabel.textAlignment      = .left
-        timesAWeekLabel.text               = "Days a Week:"
+        frequencyStackView.translatesAutoresizingMaskIntoConstraints = false
+        frequencyStackView.axis = .horizontal
+        frequencyStackView.distribution = .fillEqually
+        frequencyStackView.spacing = 6
+    
+        for count in 0...6 {
+            let frequencyButton = GradientButton()
+            frequencyButton.layer.cornerRadius = 10
+            frequencyButton.setTitleColor(.secondaryLabel, for: .normal)
+            frequencyButton.setTitle("\(frequencyArray[count])", for: .normal)
+            frequencyButton.addTarget(self, action: #selector(frequencyButtonPressed), for: .touchUpInside)
+            frequencyButtonArray.append(frequencyButton)
+            frequencyStackView.addArrangedSubview(frequencyButton)
+        }
+     
         
-        negativeButton.setImage(SFSymbols.minus, for: .normal)
-        negativeButton.layer.cornerRadius  = 10
-        negativeButton.tintColor           = .white
-        
-        frequencyLabel.translatesAutoresizingMaskIntoConstraints = false
-        frequencyLabel.textAlignment       = .center
-        frequencyLabel.backgroundColor     = .secondarySystemBackground
-        frequencyLabel.layer.cornerRadius  = 10
-        frequencyLabel.layer.masksToBounds = true
-        
-        positiveButton.setImage(SFSymbols.plus, for: .normal)
-        positiveButton.layer.cornerRadius  = 10
-        positiveButton.tintColor           = .white
-        
-        contentView.addSubviews(timesAWeekLabel, negativeButton, positiveButton, frequencyLabel)
+        contentView.addSubviews(frequencyStackView)
         
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
-            timesAWeekLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            timesAWeekLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            timesAWeekLabel.trailingAnchor.constraint(equalTo: negativeButton.leadingAnchor, constant: padding),
-            timesAWeekLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
-            timesAWeekLabel.heightAnchor.constraint(equalToConstant: 35),
-            
-            negativeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            negativeButton.leadingAnchor.constraint(equalTo: timesAWeekLabel.trailingAnchor, constant: padding),
-            negativeButton.trailingAnchor.constraint(equalTo: frequencyLabel.leadingAnchor, constant: -6),
-            negativeButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
-            negativeButton.widthAnchor.constraint(equalToConstant: self.frame.width / 6.2),
-            
-            frequencyLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            frequencyLabel.leadingAnchor.constraint(equalTo: negativeButton.trailingAnchor, constant: 6),
-            frequencyLabel.trailingAnchor.constraint(equalTo: positiveButton.leadingAnchor, constant: -6),
-            frequencyLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
-            frequencyLabel.widthAnchor.constraint(equalToConstant: self.frame.width / 6.2),
-            
-            positiveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            positiveButton.leadingAnchor.constraint(equalTo: frequencyLabel.trailingAnchor, constant: 6),
-            positiveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            positiveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
-            positiveButton.widthAnchor.constraint(equalToConstant: self.frame.width / 6.2),
+            frequencyStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            frequencyStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            frequencyStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            frequencyStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
         ])
     }
 }
