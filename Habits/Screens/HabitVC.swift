@@ -193,8 +193,7 @@ class HabitVC: UIViewController, SettingsPush {
         }
         tableView.reloadData()
     }
- 
-    
+
 }
 
 //MARK: - TableViewDelegate, TableViewDataSource
@@ -209,7 +208,8 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
         let habit                = HabitVC.habitArray[indexPath.row]
-       
+        
+        cell.habitGradient = [UIColor.clear.cgColor]
         
         var completedDays = 0
         var buttonCount          = 0
@@ -246,10 +246,22 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
         }
         }
         cell.habitCompletedDays = completedDays
+        
+        switch habit.habitGradientIndex {
+        case 0: cell.habitGradient = Gradients().pinkGradient
+        case 1: cell.habitGradient = Gradients().orangeGradient
+        case 2: cell.habitGradient = Gradients().limeGradient
+        case 3: cell.habitGradient = Gradients().lightBlueGradient
+        case 4: cell.habitGradient = Gradients().redGradient
+        case 5: cell.habitGradient = Gradients().darkBlueGradient
+        case 6: cell.habitGradient = Gradients().purpleGradient
+        default:
+            cell.habitGradient = Gradients().pinkGradient
+        }
+        
         cell.set(habit: habit)
         return cell
     }
-    
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

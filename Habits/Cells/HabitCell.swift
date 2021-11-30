@@ -66,6 +66,9 @@ static let reuseID = "HabitCell"
     }
     
     func layoutGradient() {
+        if ((cellView.layer.sublayers?.first as? CAGradientLayer) != nil) {
+            cellView.layer.sublayers?.remove(at: 0)
+        }
         let gradientLayer: CAGradientLayer = CAGradientLayer()
         gradientLayer.frame = cellView.bounds
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)
@@ -86,7 +89,7 @@ static let reuseID = "HabitCell"
     func set(habit: HabitCoreData) {
         habitName.text = habit.habitName
         habitIcon.image = UIImage(named: habit.iconString ?? "")
-        habitGradient  = GradientArray.array[Int(habit.habitGradientIndex)]
+       //habitGradient  = GradientArray.array[Int(habit.habitGradientIndex)]
         habitFrequency.text = "\(habitCompletedDays) / \(habit.frequency) days"
         
         switch habit.alarmBool {
@@ -94,6 +97,18 @@ static let reuseID = "HabitCell"
         case false: habitAlarmIcon.image = SFSymbols.bellSlash
         }
         
+//        switch habit.habitGradientIndex {
+//        case 0: habitGradient = Gradients().pinkGradient
+//        case 1: habitGradient = Gradients().orangeGradient
+//        case 2: habitGradient = Gradients().limeGradient
+//        case 3: habitGradient = Gradients().lightBlueGradient
+//        case 4: habitGradient = Gradients().redGradient
+//        case 5: habitGradient = Gradients().darkBlueGradient
+//        case 6: habitGradient = Gradients().purpleGradient
+//        default:
+//            habitGradient = Gradients().pinkGradient
+//        }
+         
 //        for (index, button) in dayButton.enumerated() {
 //            button.setTitle("\(dayArray[index])", for: .normal)
 //            button.setImage(nil, for: .normal)
