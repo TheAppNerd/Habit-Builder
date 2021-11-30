@@ -31,7 +31,7 @@ class SaveCell: UITableViewCell {
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
-            saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 3),
+            saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             saveButton.bottomAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: -padding),
