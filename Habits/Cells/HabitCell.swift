@@ -66,9 +66,12 @@ static let reuseID = "HabitCell"
     }
     
     func layoutGradient() {
+        
+        //prevents gradient changers from cell reuse
         if ((cellView.layer.sublayers?.first as? CAGradientLayer) != nil) {
             cellView.layer.sublayers?.remove(at: 0)
         }
+        //make an extension instead
         let gradientLayer: CAGradientLayer = CAGradientLayer()
         gradientLayer.frame = cellView.bounds
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)
