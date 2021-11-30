@@ -41,7 +41,7 @@ class HabitFrequencyCell: UITableViewCell {
         }
         sender.isSelected = true
         sender.setTitleColor(.white, for: .normal)
-        sender.colors = GradientArray.array[0]
+        sender.colors = Gradients().darkBlueGradient
         
         //fix this
         frequency = Int(sender.currentTitle!) ?? 1
