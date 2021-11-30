@@ -29,6 +29,7 @@ class NewHabitVC: UITableViewController  {
     var minute                = Int()
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //loadCoreData()
@@ -213,6 +214,7 @@ class NewHabitVC: UITableViewController  {
     
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
         generator.impactOccurred()
+        
         switch sender.selectedSegmentIndex {
         case 0: alarmsActivated = false
         case 1: alarmsActivated = true

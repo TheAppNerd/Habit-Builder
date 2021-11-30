@@ -44,12 +44,14 @@ class IntroScreenViewController: UIViewController {
         let destVC = UINavigationController(rootViewController: HabitVC())
         destVC.modalPresentationStyle = .fullScreen
         
-        let seconds = 2.0
+        let seconds = 1.8
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.present(destVC, animated: true)
         }
-        
     }
+
+    }
+    
   
-    }
+    
 

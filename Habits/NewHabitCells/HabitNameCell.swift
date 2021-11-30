@@ -37,10 +37,10 @@ class HabitNameCell: UITableViewCell {
         contentView.addSubview(nameTextField)
         
         NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor),
-            nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            nameTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            nameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            nameTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             nameTextField.heightAnchor.constraint(equalToConstant: 55)
         ])
     }

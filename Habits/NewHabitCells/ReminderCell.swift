@@ -27,6 +27,7 @@ class ReminderCell: UITableViewCell {
     var minute           = Int()
     var buttonArray      = [GradientButton]()
     var colors           = [CGColor]()
+    let rectangleGradient     = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: GradientArray.array[5])
     
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -61,8 +62,9 @@ class ReminderCell: UITableViewCell {
         
         dateSegment.translatesAutoresizingMaskIntoConstraints = false
         dateSegment.layer.cornerRadius       = 10
-        dateSegment.selectedSegmentTintColor = .systemBlue
+       dateSegment.setBackgroundImage(rectangleGradient, for: .normal, barMetrics: .default)
         
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis         = .horizontal
         stackView.distribution = .fillEqually
