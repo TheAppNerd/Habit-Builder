@@ -159,6 +159,7 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.cellLabel.text = usernameArray[indexPath.row]
             cell.cellImage.image = UIImage(named: iconArray[indexPath.row])
+            
         } else {
             cell.cellImage.image = UIImage(systemName: "heart.circle")?.addTintGradient(colors: GradientArray.array[indexPath.row])
             cell.cellLabel.text = thanksArray[indexPath.row]

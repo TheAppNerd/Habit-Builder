@@ -99,26 +99,6 @@ static let reuseID = "HabitCell"
         case true: habitAlarmIcon.image = SFSymbols.bell
         case false: habitAlarmIcon.image = SFSymbols.bellSlash
         }
-        
-//        switch habit.habitGradientIndex {
-//        case 0: habitGradient = Gradients().pinkGradient
-//        case 1: habitGradient = Gradients().orangeGradient
-//        case 2: habitGradient = Gradients().limeGradient
-//        case 3: habitGradient = Gradients().lightBlueGradient
-//        case 4: habitGradient = Gradients().redGradient
-//        case 5: habitGradient = Gradients().darkBlueGradient
-//        case 6: habitGradient = Gradients().purpleGradient
-//        default:
-//            habitGradient = Gradients().pinkGradient
-//        }
-         
-//        for (index, button) in dayButton.enumerated() {
-//            button.setTitle("\(dayArray[index])", for: .normal)
-//            button.setImage(nil, for: .normal)
-//            
-//            let selectedDate = DateFuncs.startOfDay(date: dateArray[index])
-//        }
-        
     }
     
 
@@ -146,10 +126,11 @@ static let reuseID = "HabitCell"
         labelStackView.distribution = .equalCentering
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        dayLabels[dateModel.getDayOfWeek()-1].textColor = .white
-        dayLabels[dateModel.getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)
-
-        
+        //dayLabels[dateModel.getDayOfWeek()-1].textColor = .white
+        //dayLabels[dateModel.getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        dayLabels[dateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        dayLabels[dateModel.getDayOfWeek()-1].layer.masksToBounds = true
+        dayLabels[dateModel.getDayOfWeek()-1].layer.cornerRadius = 5
     }
     
     func configureButtonStackView() {
@@ -159,12 +140,13 @@ static let reuseID = "HabitCell"
             button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true
             buttonStackView.addArrangedSubview(button)
             button.setTitleColor(.white, for: .normal)
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
             button.tintColor = .white
             button.layer.borderColor = UIColor.white.cgColor
             button.backgroundColor = .clear
-            button.layer.borderWidth = 1.5
+            button.layer.borderWidth = 2
             button.setTitle("\(dayArray[count])", for: .normal)
-            
+
             
             count += 1
         }
@@ -191,6 +173,7 @@ static let reuseID = "HabitCell"
         habitIcon.translatesAutoresizingMaskIntoConstraints = false
         habitIcon.tintColor = .white
         habitFrequency.textColor = .white
+        habitFrequency.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         
         habitName.adjustsFontSizeToFitWidth = true
         habitName.minimumScaleFactor = 0.7 
@@ -235,8 +218,8 @@ static let reuseID = "HabitCell"
 
             habitAlarmIcon.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             habitAlarmIcon.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
-            habitAlarmIcon.heightAnchor.constraint(equalToConstant: padding * 1.5),
-            habitAlarmIcon.widthAnchor.constraint(equalToConstant: padding * 1.5),
+            habitAlarmIcon.heightAnchor.constraint(equalToConstant: padding * 1.3),
+            habitAlarmIcon.widthAnchor.constraint(equalToConstant: padding * 1.3),
           
             labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
             labelStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
