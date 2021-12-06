@@ -38,6 +38,7 @@
 		FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF726C6151600884B90 /* ReminderCell.swift */; };
 		FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* ColorCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
+		FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */; };
 		FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */; };
@@ -46,7 +47,6 @@
 		FABA380A26C7DF650088254C /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380926C7DF650088254C /* GradientButton.swift */; };
 		FABA380D26C9F1E00088254C /* SaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* SaveCell.swift */; };
 		FAC2F36F27507DDB00148EBC /* HabitCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAC2F36D27507DDB00148EBC /* HabitCoreData.xcdatamodeld */; };
-		FAEDBA0D270EB75E006CCFAC /* HabitModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEDBA0C270EB75E006CCFAC /* HabitModel.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
 		FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* MenuView.swift */; };
@@ -98,6 +98,7 @@
 		FA360BF726C6151600884B90 /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
 		FA360BF926C62C6A00884B90 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
+		FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeViewController.swift; sourceTree = "<group>"; };
 		FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -106,7 +107,6 @@
 		FABA380926C7DF650088254C /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		FABA380C26C9F1E00088254C /* SaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCell.swift; sourceTree = "<group>"; };
 		FAC2F36E27507DDB00148EBC /* HabitCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitCoreData.xcdatamodel; sourceTree = "<group>"; };
-		FAEDBA0C270EB75E006CCFAC /* HabitModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitModel.swift; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6D7264A47B90029E50D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -174,6 +174,7 @@
 		FA1C7304263636D800E63CBE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				FA6A49F9275EBDE00084EFCC /* Utilities */,
 				FAF4E6D0264A309E0029E50D /* Extensions */,
 				FA212C4B263A3DCD00BFDA3F /* Model */,
 				FA212C48263917FE00BFDA3F /* TextFields */,
@@ -259,19 +260,15 @@
 			isa = PBXGroup;
 			children = (
 				FA224D7826F4177A005CC9F1 /* CoreData */,
-				FAEDBA0C270EB75E006CCFAC /* HabitModel.swift */,
-				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
 				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
-				FAF4E715265F445E0029E50D /* PageControl.swift */,
-				FAF4E717265F456E0029E50D /* ScrollView.swift */,
 				FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */,
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
 				FA29042A26EF6B9100B7B00A /* DarkMode.swift */,
 				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
 				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
-				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
 				FA29E0DB26FAA53300426F97 /* DateModel.swift */,
 				FAFF09AB2702E3FA008E8569 /* ChartYear.swift */,
+				FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -312,6 +309,17 @@
 				FABA380C26C9F1E00088254C /* SaveCell.swift */,
 			);
 			path = NewHabitCells;
+			sourceTree = "<group>";
+		};
+		FA6A49F9275EBDE00084EFCC /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
+				FAF4E715265F445E0029E50D /* PageControl.swift */,
+				FAF4E717265F456E0029E50D /* ScrollView.swift */,
+				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		FAF4E6D0264A309E0029E50D /* Extensions */ = {
@@ -437,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */,
 				FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
@@ -477,7 +486,6 @@
 				FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */,
 				FA360BF626C6120100884B90 /* IconCell.swift in Sources */,
 				FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */,
-				FAEDBA0D270EB75E006CCFAC /* HabitModel.swift in Sources */,
 				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
 				FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
@@ -623,7 +631,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AlexThompson.Habits;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AlexThompson.Habit-Builder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -643,7 +651,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AlexThompson.Habits;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AlexThompson.Habit-Builder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

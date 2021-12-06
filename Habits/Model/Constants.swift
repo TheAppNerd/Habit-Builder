@@ -20,20 +20,20 @@ enum Labels {
 
 
 enum SFSymbols {
-    static let menuButton           = UIImage(systemName: "sidebar.leading")
-    static let addHabitButton       = UIImage(systemName: "plus.app")
-    static let checkMark            = UIImage(systemName: "checkmark")
+    static let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
+    
+    static let menuButton           = UIImage(systemName: "sidebar.leading", withConfiguration: boldConfig)
+    static let addHabitButton       = UIImage(systemName: "plus.app", withConfiguration: boldConfig)
+    static let checkMark            = UIImage(systemName: "checkmark", withConfiguration: boldConfig)
     static let bell                 = UIImage(systemName: "bell.fill")
     static let bellSlash            = UIImage(systemName: "bell.slash.fill")
     static let trash                = UIImage(systemName: "trash.fill")
     static let trashSlash           = UIImage(systemName: "trash.slash.fill")
     static let flame                = UIImage(systemName: "flame.fill")
     static let chart                = UIImage(systemName: "chart.bar.xaxis")
-    static let minus                = UIImage(systemName: "minus")
-    static let plus                 = UIImage(systemName: "plus")
 }
 
-
+//needed?
 enum Colors {
     static let tertiaryWithAlpha    = UIColor.tertiarySystemBackground.withAlphaComponent(0.5)
 }
@@ -57,6 +57,10 @@ enum SocialMedia {
     static let flatIconURL          = "https://www.flaticon.com"
     static let appBreweryURL        = "https://www.appbrewery.co"
     static let seanAllenURL         = "https://seanallen.co"
+    
+    static let appLink              = "https://apps.apple.com/us/app/habit-builder/id1598204296"
+    
+    static let emailAddress         = "AlexThompsonDevelopment@gmail.com"
 }
 
 

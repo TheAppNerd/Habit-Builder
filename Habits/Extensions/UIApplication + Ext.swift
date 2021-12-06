@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-//use this on about page 
+//use this on about page. shows current app version
 extension UIApplication {
     static var appVersion: String? {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String

@@ -21,8 +21,7 @@ static let reuseID = "HabitCell"
     let habitFrequency    = BodyLabel(textInput: "", textAlignment: .right, fontSize: 18)
     let habitAlarmIcon    = UIImageView()
     var habitCompletedDays = Int()
-    
-    
+   
     
     
     let dateModel         = DateModel()
@@ -65,6 +64,8 @@ static let reuseID = "HabitCell"
         configureShadow()
     }
     
+
+    
     func layoutGradient() {
         
         //prevents gradient changers from cell reuse
@@ -93,7 +94,7 @@ static let reuseID = "HabitCell"
         habitName.text = habit.habitName
         habitIcon.image = UIImage(named: habit.iconString ?? "")
        //habitGradient  = GradientArray.array[Int(habit.habitGradientIndex)]
-        habitFrequency.text = "\(habitCompletedDays) / \(habit.frequency) days"
+        habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days "
         
         switch habit.alarmBool {
         case true: habitAlarmIcon.image = SFSymbols.bell
@@ -174,12 +175,12 @@ static let reuseID = "HabitCell"
         habitIcon.tintColor = .white
         habitFrequency.textColor = .white
         habitFrequency.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+       
         
         habitName.adjustsFontSizeToFitWidth = true
         habitName.minimumScaleFactor = 0.7 
         habitFrequency.adjustsFontSizeToFitWidth = true
         habitFrequency.minimumScaleFactor = 0.7
-      
         
         cellView.layer.cornerRadius = 10
         habitAlarmIcon.tintColor = .white

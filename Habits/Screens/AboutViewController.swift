@@ -9,11 +9,10 @@ import UIKit
 
 class AboutViewController: UIViewController {
     
-    let iconImage     = UIImageView()
-    let versionLabel  = UILabel()
-    let nameLabel     = UILabel()
-    let tableView     = UITableView()
-    
+    let iconImage       = UIImageView()
+    let versionLabel    = UILabel()
+    let nameLabel       = UILabel()
+    let tableView       = UITableView()
     let topGradientView = UIView()
     
     let iconArray     = ["linkedIn", "Instagram", "GitHub"]
