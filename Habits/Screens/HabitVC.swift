@@ -20,8 +20,7 @@ class HabitVC: UIViewController, SettingsPush {
     static var habitArray           = [HabitCoreData]()
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
-    var habitArray = [HabitModel]()
-    var habitModelArray = [HabitModel]() //do I actually need this with core data one?
+    
     
     
     
@@ -112,8 +111,8 @@ class HabitVC: UIViewController, SettingsPush {
         }
     }
     
-    
-    func pushSettings(row: Int) { // fix all this
+ 
+    func pushSettings(row: Int) {
         switch row {
         case 3: let vc = HelpScreenViewController()
             navigationController?.pushViewController(vc, animated: true)
@@ -132,7 +131,6 @@ class HabitVC: UIViewController, SettingsPush {
     
     func configureEmptyState() {
         emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-        
         emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
     }
     
@@ -161,7 +159,6 @@ class HabitVC: UIViewController, SettingsPush {
     
     
     @objc func dateButtonPressed(_ sender: UIButton) {
-        
         let habitCell = HabitCell()
         let selectedDate = DateFuncs.startOfDay(date: habitCell.dateArray[sender.tag])
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
@@ -170,16 +167,17 @@ class HabitVC: UIViewController, SettingsPush {
         //change below to a switch or a toggle
         
         //change all this to only occur here or in tasbleview func. too much spaghetti code
-        if sender.backgroundColor == .clear {
+        if sender.layer.borderColor == UIColor.white.cgColor {
             //change clear to something less breakable like is selected
             HabitVC.habitArray[indexPath.row].habitDates?.append(selectedDate)
             CoreDataFuncs.saveCoreData()
-            tableView.reloadData()
+                self.tableView.reloadData()
         } else {
             HabitVC.habitArray[indexPath.row].habitDates = HabitVC.habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
             CoreDataFuncs.saveCoreData()
             tableView.reloadData()
         }
+        
     }
     
     //fix this and move to coredata funcs
@@ -218,7 +216,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             
             //This prevents duplication issues on reusable cells
             //move all of this to set?
-            button.backgroundColor   = .clear
+            //button.backgroundColor   = .clear
             button.layer.borderColor = UIColor.white.cgColor
             button.setTitle("\(cell.dayArray[index])", for: .normal)
             button.setImage(nil, for: .normal)
@@ -229,7 +227,7 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
             let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[buttonCount])
             
             if habit.habitDates!.contains(selectedDate) {
-                button.backgroundColor   = Colors.tertiaryWithAlpha
+                //button.backgroundColor   = Colors.tertiaryWithAlpha
                 button.layer.borderColor = UIColor.clear.cgColor //Colors.tertiaryWithAlpha.cgColor
                 button.setTitle(nil, for: .normal)
                 button.setImage(SFSymbols.checkMark, for: .normal)
