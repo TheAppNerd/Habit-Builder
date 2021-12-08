@@ -9,7 +9,7 @@ import UIKit
 
 import FSCalendar // needed?
 
-class DetailsVCViewController: UIViewController {
+class HabitDetailsVC: UIViewController {
     
     var habitCoreData: HabitCoreData? {
         didSet {
@@ -82,7 +82,7 @@ class DetailsVCViewController: UIViewController {
     func configureCollectionView() {
         habitDetailsChartView.collectionView.dataSource = self
         habitDetailsChartView.collectionView.delegate = self
-        habitDetailsChartView.collectionView.register(ChartCellCollectionViewCell.self, forCellWithReuseIdentifier: ChartCellCollectionViewCell.reuseID)
+        habitDetailsChartView.collectionView.register(ChartCollectionViewCell.self, forCellWithReuseIdentifier: ChartCollectionViewCell.reuseID)
     }
     
     func configureCalendarDates() {
@@ -159,7 +159,7 @@ class DetailsVCViewController: UIViewController {
     
     @objc func goBack() {
         CoreDataFuncs.saveCoreData() //stops tableview loading in random order on habitvc
-        let destVC = UINavigationController(rootViewController: HabitVC())
+        let destVC = UINavigationController(rootViewController: HabitHomeVC())
         destVC.modalPresentationStyle = .fullScreen
         
         present(destVC, animated: true)
@@ -228,7 +228,7 @@ class DetailsVCViewController: UIViewController {
 
 //MARK: - collectionview
 
-extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return chartYears.count
@@ -241,7 +241,7 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCellCollectionViewCell.reuseID, for: indexPath) as! ChartCellCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCollectionViewCell.reuseID, for: indexPath) as! ChartCollectionViewCell
     
         let chartYear = chartArray[indexPath.row]
         cell.set(chartYear: chartYear)
@@ -251,7 +251,7 @@ extension DetailsVCViewController: UICollectionViewDelegate, UICollectionViewDat
 
 //MARK: - calendar
 
-extension DetailsVCViewController: FSCalendarDataSource, FSCalendarDelegate {
+extension HabitDetailsVC: FSCalendarDataSource, FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         presentAlertToAddHabit(date: date)

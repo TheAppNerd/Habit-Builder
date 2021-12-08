@@ -11,7 +11,7 @@ protocol reloadTableViewDelegate: AnyObject {
     func reloadTableView(colors: [CGColor], colorIndex: Int)
 }
 
-class ColorCell: UITableViewCell {
+class HabitColorCell: UITableViewCell {
 
     weak var delegate: reloadTableViewDelegate?
     

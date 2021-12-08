@@ -10,11 +10,11 @@
 		3CC551A27B6840B7BDF879AB /* Pods_Habits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 838E44C3241E759CB1015ADF /* Pods_Habits.framework */; };
 		FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */; };
 		FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09DC1E26CF30C700B58F32 /* GradientView.swift */; };
-		FA175EDC2754C8D80067D2A5 /* IntroScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA175EDB2754C8D80067D2A5 /* IntroScreenViewController.swift */; };
+		FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */; };
 		FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C7305263636D800E63CBE /* AppDelegate.swift */; };
 		FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C7307263636D800E63CBE /* SceneDelegate.swift */; };
 		FA1C730F263636DA00E63CBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1C730E263636DA00E63CBE /* Assets.xcassets */; };
-		FA1C73242636406300E63CBE /* HabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73232636406300E63CBE /* HabitVC.swift */; };
+		FA1C73242636406300E63CBE /* HabitHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73232636406300E63CBE /* HabitHomeVC.swift */; };
 		FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73282636491A00E63CBE /* HabitCell.swift */; };
 		FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C732F26365AFC00E63CBE /* BodyLabel.swift */; };
 		FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733326365CFA00E63CBE /* TitleLabel.swift */; };
@@ -26,7 +26,7 @@
 		FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */; };
 		FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */; };
 		FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */; };
-		FA224D6926F17216005CC9F1 /* DetailsVCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6826F17216005CC9F1 /* DetailsVCViewController.swift */; };
+		FA224D6926F17216005CC9F1 /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */; };
 		FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */; };
 		FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29042A26EF6B9100B7B00A /* DarkMode.swift */; };
 		FA29E0DC26FAA53300426F97 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29E0DB26FAA53300426F97 /* DateModel.swift */; };
@@ -34,32 +34,31 @@
 		FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEE26C603F400884B90 /* NewHabitVC.swift */; };
 		FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF126C605C300884B90 /* HabitNameCell.swift */; };
 		FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */; };
-		FA360BF626C6120100884B90 /* IconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF526C6120100884B90 /* IconCell.swift */; };
-		FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF726C6151600884B90 /* ReminderCell.swift */; };
-		FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* ColorCell.swift */; };
+		FA360BF626C6120100884B90 /* HabitIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF526C6120100884B90 /* HabitIconCell.swift */; };
+		FA360BF826C6151600884B90 /* HabitReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF726C6151600884B90 /* HabitReminderCell.swift */; };
+		FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* HabitColorCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
-		FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */; };
-		FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */; };
+		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
+		FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */; };
 		FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */; };
-		FAB4EA8326CFC96300B9771D /* ChartCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4EA8226CFC96300B9771D /* ChartCollectionCell.swift */; };
 		FABA380A26C7DF650088254C /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380926C7DF650088254C /* GradientButton.swift */; };
-		FABA380D26C9F1E00088254C /* SaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* SaveCell.swift */; };
+		FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* HabitSaveCell.swift */; };
 		FAC2F36F27507DDB00148EBC /* HabitCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAC2F36D27507DDB00148EBC /* HabitCoreData.xcdatamodeld */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
-		FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* MenuView.swift */; };
-		FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */; };
+		FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */; };
+		FAF4E6DA264A48EC0029E50D /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D9264A48EC0029E50D /* MenuCell.swift */; };
 		FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6DB265222320029E50D /* UserNotifications.swift */; };
 		FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E126537DEF0029E50D /* DayLabel.swift */; };
 		FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E326549DDC0029E50D /* DayButton.swift */; };
 		FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6E5265608830029E50D /* EmptyStateView.swift */; };
-		FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E713265F43270029E50D /* HelpScreenViewController.swift */; };
+		FAF4E714265F43270029E50D /* HowToUseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E713265F43270029E50D /* HowToUseVC.swift */; };
 		FAF4E716265F445E0029E50D /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E715265F445E0029E50D /* PageControl.swift */; };
 		FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E717265F456E0029E50D /* ScrollView.swift */; };
 		FAFF09AC2702E3FA008E8569 /* ChartYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF09AB2702E3FA008E8569 /* ChartYear.swift */; };
-		FAFF09AE27046E93008E8569 /* ChartCellCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF09AD27046E93008E8569 /* ChartCellCollectionViewCell.swift */; };
+		FAFF09AE27046E93008E8569 /* ChartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFF09AD27046E93008E8569 /* ChartCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,13 +67,13 @@
 		838E44C3241E759CB1015ADF /* Pods_Habits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ext.swift"; sourceTree = "<group>"; };
 		FA09DC1E26CF30C700B58F32 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		FA175EDB2754C8D80067D2A5 /* IntroScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroScreenViewController.swift; sourceTree = "<group>"; };
+		FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenVC.swift; sourceTree = "<group>"; };
 		FA1C7302263636D800E63CBE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1C7305263636D800E63CBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA1C7307263636D800E63CBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FA1C730E263636DA00E63CBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA1C7313263636DA00E63CBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA1C73232636406300E63CBE /* HabitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitVC.swift; sourceTree = "<group>"; };
+		FA1C73232636406300E63CBE /* HabitHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHomeVC.swift; sourceTree = "<group>"; };
 		FA1C73282636491A00E63CBE /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
 		FA1C732F26365AFC00E63CBE /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		FA1C733326365CFA00E63CBE /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
@@ -86,7 +85,7 @@
 		FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsCalendarView.swift; sourceTree = "<group>"; };
 		FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsStreakView.swift; sourceTree = "<group>"; };
 		FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsChartView.swift; sourceTree = "<group>"; };
-		FA224D6826F17216005CC9F1 /* DetailsVCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsVCViewController.swift; sourceTree = "<group>"; };
+		FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 		FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		FA29042A26EF6B9100B7B00A /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		FA29E0DB26FAA53300426F97 /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
@@ -94,32 +93,31 @@
 		FA360BEE26C603F400884B90 /* NewHabitVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHabitVC.swift; sourceTree = "<group>"; };
 		FA360BF126C605C300884B90 /* HabitNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitNameCell.swift; sourceTree = "<group>"; };
 		FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFrequencyCell.swift; sourceTree = "<group>"; };
-		FA360BF526C6120100884B90 /* IconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCell.swift; sourceTree = "<group>"; };
-		FA360BF726C6151600884B90 /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
-		FA360BF926C62C6A00884B90 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		FA360BF526C6120100884B90 /* HabitIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitIconCell.swift; sourceTree = "<group>"; };
+		FA360BF726C6151600884B90 /* HabitReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReminderCell.swift; sourceTree = "<group>"; };
+		FA360BF926C62C6A00884B90 /* HabitColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitColorCell.swift; sourceTree = "<group>"; };
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
 		FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
-		FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeViewController.swift; sourceTree = "<group>"; };
-		FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
+		FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppVC.swift; sourceTree = "<group>"; };
 		FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication + Ext.swift"; sourceTree = "<group>"; };
-		FAB4EA8226CFC96300B9771D /* ChartCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCollectionCell.swift; sourceTree = "<group>"; };
 		FABA380926C7DF650088254C /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
-		FABA380C26C9F1E00088254C /* SaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCell.swift; sourceTree = "<group>"; };
+		FABA380C26C9F1E00088254C /* HabitSaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSaveCell.swift; sourceTree = "<group>"; };
 		FAC2F36E27507DDB00148EBC /* HabitCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitCoreData.xcdatamodel; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
-		FAF4E6D7264A47B90029E50D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
+		FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
+		FAF4E6D9264A48EC0029E50D /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		FAF4E6DB265222320029E50D /* UserNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotifications.swift; sourceTree = "<group>"; };
 		FAF4E6E126537DEF0029E50D /* DayLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayLabel.swift; sourceTree = "<group>"; };
 		FAF4E6E326549DDC0029E50D /* DayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButton.swift; sourceTree = "<group>"; };
 		FAF4E6E5265608830029E50D /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
-		FAF4E713265F43270029E50D /* HelpScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpScreenViewController.swift; sourceTree = "<group>"; };
+		FAF4E713265F43270029E50D /* HowToUseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseVC.swift; sourceTree = "<group>"; };
 		FAF4E715265F445E0029E50D /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		FAF4E717265F456E0029E50D /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		FAFF09AB2702E3FA008E8569 /* ChartYear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartYear.swift; sourceTree = "<group>"; };
-		FAFF09AD27046E93008E8569 /* ChartCellCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCellCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAFF09AD27046E93008E8569 /* ChartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +180,6 @@
 				FA1C733626379DC900E63CBE /* Buttons */,
 				FA1C732E263659D100E63CBE /* Labels */,
 				FA1C7327263648F400E63CBE /* Cells */,
-				FA360BF026C6058500884B90 /* NewHabitCells */,
 				FA1C73222636404500E63CBE /* Screens */,
 				FA29042C26F00F1E00B7B00A /* Controller */,
 			);
@@ -192,15 +189,14 @@
 		FA1C73222636404500E63CBE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				FA1C73232636406300E63CBE /* HabitVC.swift */,
+				FA1C73232636406300E63CBE /* HabitHomeVC.swift */,
 				FA360BEE26C603F400884B90 /* NewHabitVC.swift */,
-				FA224D6826F17216005CC9F1 /* DetailsVCViewController.swift */,
-				FAF4E713265F43270029E50D /* HelpScreenViewController.swift */,
-				FAF4E6D7264A47B90029E50D /* MenuView.swift */,
-				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
-				FA8A297526D3BA91008CD5AE /* DarkModeViewController.swift */,
-				FA8A297B26D49C5E008CD5AE /* AboutViewController.swift */,
-				FA175EDB2754C8D80067D2A5 /* IntroScreenViewController.swift */,
+				FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */,
+				FAF4E713265F43270029E50D /* HowToUseVC.swift */,
+				FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */,
+				FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */,
+				FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */,
+				FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -208,10 +204,10 @@
 		FA1C7327263648F400E63CBE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				FAF4E6D9264A48EC0029E50D /* MenuTableViewCell.swift */,
+				FA360BF026C6058500884B90 /* NewHabitCells */,
+				FAF4E6D9264A48EC0029E50D /* MenuCell.swift */,
 				FA1C73282636491A00E63CBE /* HabitCell.swift */,
-				FAB4EA8226CFC96300B9771D /* ChartCollectionCell.swift */,
-				FAFF09AD27046E93008E8569 /* ChartCellCollectionViewCell.swift */,
+				FAFF09AD27046E93008E8569 /* ChartCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -244,6 +240,7 @@
 				FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */,
 				FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */,
 				FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */,
+				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,10 +300,10 @@
 			children = (
 				FA360BF126C605C300884B90 /* HabitNameCell.swift */,
 				FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */,
-				FA360BF926C62C6A00884B90 /* ColorCell.swift */,
-				FA360BF526C6120100884B90 /* IconCell.swift */,
-				FA360BF726C6151600884B90 /* ReminderCell.swift */,
-				FABA380C26C9F1E00088254C /* SaveCell.swift */,
+				FA360BF926C62C6A00884B90 /* HabitColorCell.swift */,
+				FA360BF526C6120100884B90 /* HabitIconCell.swift */,
+				FA360BF726C6151600884B90 /* HabitReminderCell.swift */,
+				FABA380C26C9F1E00088254C /* HabitSaveCell.swift */,
 			);
 			path = NewHabitCells;
 			sourceTree = "<group>";
@@ -448,49 +445,48 @@
 				FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */,
 				FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
-				FAF4E714265F43270029E50D /* HelpScreenViewController.swift in Sources */,
+				FAF4E714265F43270029E50D /* HowToUseVC.swift in Sources */,
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
 				FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
-				FA224D6926F17216005CC9F1 /* DetailsVCViewController.swift in Sources */,
+				FA224D6926F17216005CC9F1 /* HabitDetailsVC.swift in Sources */,
 				FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */,
 				FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */,
 				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
 				FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */,
-				FAF4E6DA264A48EC0029E50D /* MenuTableViewCell.swift in Sources */,
+				FAF4E6DA264A48EC0029E50D /* MenuCell.swift in Sources */,
 				FAFF09AC2702E3FA008E8569 /* ChartYear.swift in Sources */,
-				FABA380D26C9F1E00088254C /* SaveCell.swift in Sources */,
+				FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FA360BED26C4C86300884B90 /* Gradients.swift in Sources */,
 				FA29E0DC26FAA53300426F97 /* DateModel.swift in Sources */,
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
 				FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */,
-				FA1C73242636406300E63CBE /* HabitVC.swift in Sources */,
+				FA1C73242636406300E63CBE /* HabitHomeVC.swift in Sources */,
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
-				FAF4E6D8264A47B90029E50D /* MenuView.swift in Sources */,
-				FA8A297C26D49C5E008CD5AE /* AboutViewController.swift in Sources */,
-				FAB4EA8326CFC96300B9771D /* ChartCollectionCell.swift in Sources */,
+				FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */,
+				FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */,
 				FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */,
-				FA360BFA26C62C6A00884B90 /* ColorCell.swift in Sources */,
+				FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */,
 				FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
-				FA175EDC2754C8D80067D2A5 /* IntroScreenViewController.swift in Sources */,
+				FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */,
 				FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */,
 				FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */,
 				FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */,
-				FA8A297626D3BA91008CD5AE /* DarkModeViewController.swift in Sources */,
+				FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */,
-				FA360BF626C6120100884B90 /* IconCell.swift in Sources */,
-				FA360BF826C6151600884B90 /* ReminderCell.swift in Sources */,
+				FA360BF626C6120100884B90 /* HabitIconCell.swift in Sources */,
+				FA360BF826C6151600884B90 /* HabitReminderCell.swift in Sources */,
 				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
 				FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
-				FAFF09AE27046E93008E8569 /* ChartCellCollectionViewCell.swift in Sources */,
+				FAFF09AE27046E93008E8569 /* ChartCollectionViewCell.swift in Sources */,
 				FABA380A26C7DF650088254C /* GradientButton.swift in Sources */,
 				FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */,
 				FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */,

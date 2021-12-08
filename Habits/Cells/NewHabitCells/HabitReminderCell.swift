@@ -11,7 +11,7 @@ protocol passDayData: AnyObject {
     func passDayData(dayArray: [Bool])
 }
 
-class ReminderCell: UITableViewCell {
+class HabitReminderCell: UITableViewCell {
   
  static let reuseID = "ReminderCell"
     let generator            = UIImpactFeedbackGenerator(style: .medium)

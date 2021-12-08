@@ -12,7 +12,7 @@ protocol SettingsPush {
     func pushSettings(row: Int)
 }
 
-class MenuView: UIViewController, MFMailComposeViewControllerDelegate {
+class SideMenuVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     let emailFeedback = EmailFeedback()
     let tableView = UITableView()
@@ -34,26 +34,26 @@ class MenuView: UIViewController, MFMailComposeViewControllerDelegate {
         tableView.dataSource         = self
         tableView.estimatedRowHeight = 70
         tableView.separatorStyle     = .none
-        tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: MenuTableViewCell.reuseID)
+        tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
         view.addSubview(tableView)
     }
 }
 
 
-extension MenuView: UITableViewDelegate, UITableViewDataSource {
+extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell             = tableView.dequeueReusableCell(withIdentifier: MenuTableViewCell.reuseID) as! MenuTableViewCell
+        let cell             = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseID) as! MenuCell
         cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])?.addTintGradient(colors: GradientArray.array[indexPath.row])
         cell.cellLabel.text  = menuItems[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentCell = tableView.cellForRow(at: indexPath)! as! MenuTableViewCell
+        let currentCell = tableView.cellForRow(at: indexPath)! as! MenuCell
         currentCell.cellImage.bounceAnimation()
         
         

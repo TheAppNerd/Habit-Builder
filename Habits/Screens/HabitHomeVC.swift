@@ -9,11 +9,11 @@ import UIKit
 import CoreData
 import MessageUI
 
-class HabitVC: UIViewController, SettingsPush {
+class HabitHomeVC: UIViewController, SettingsPush {
     
     let context              = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let tableView            = UITableView()
-    let menu                 = MenuView()
+    let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView       = EmptyStateView()
     let dateModel            = DateModel()
@@ -83,7 +83,7 @@ class HabitVC: UIViewController, SettingsPush {
         let tableViewFooter = TableViewFooter()
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         tableView.tableFooterView = tableViewFooter
-        switch HabitVC.habitArray.isEmpty {
+        switch HabitHomeVC.habitArray.isEmpty {
         case true: tableViewFooter.isHidden = true
         case false: tableViewFooter.isHidden = false
         }
@@ -104,7 +104,7 @@ class HabitVC: UIViewController, SettingsPush {
     }()
     
     func showEmptyStateView() {
-        switch HabitVC.habitArray.isEmpty {
+        switch HabitHomeVC.habitArray.isEmpty {
         case true:  view.addSubview(emptyStateView)
             emptyStateView.frame = tableView.frame
         case false: emptyStateView.removeFromSuperview()
@@ -114,12 +114,12 @@ class HabitVC: UIViewController, SettingsPush {
  
     func pushSettings(row: Int) {
         switch row {
-        case 3: let vc = HelpScreenViewController()
+        case 3: let vc = HowToUseVC()
             navigationController?.pushViewController(vc, animated: true)
         case 5:
-            let vc = AboutViewController()
+            let vc = AboutAppVC()
             navigationController?.pushViewController(vc, animated: true)
-        case 6: let vc = DarkModeViewController()
+        case 6: let vc = DarkModeVC()
             vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             self.navigationController?.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
             vc.modalTransitionStyle = .crossDissolve
@@ -135,7 +135,7 @@ class HabitVC: UIViewController, SettingsPush {
     }
     
     @objc func helpButtonPressed() {
-        let helpVC = HelpScreenViewController()
+        let helpVC = HowToUseVC()
         show(helpVC, sender: self)
     }
     
@@ -169,11 +169,11 @@ class HabitVC: UIViewController, SettingsPush {
         //change all this to only occur here or in tasbleview func. too much spaghetti code
         if sender.layer.borderColor == UIColor.white.cgColor {
             //change clear to something less breakable like is selected
-            HabitVC.habitArray[indexPath.row].habitDates?.append(selectedDate)
+            HabitHomeVC.habitArray[indexPath.row].habitDates?.append(selectedDate)
             CoreDataFuncs.saveCoreData()
                 self.tableView.reloadData()
         } else {
-            HabitVC.habitArray[indexPath.row].habitDates = HabitVC.habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
+            HabitHomeVC.habitArray[indexPath.row].habitDates = HabitHomeVC.habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
             CoreDataFuncs.saveCoreData()
             tableView.reloadData()
         }
@@ -185,7 +185,7 @@ class HabitVC: UIViewController, SettingsPush {
         
         do {
             let coreDataArray = try context.fetch(request)
-            HabitVC.habitArray = coreDataArray
+            HabitHomeVC.habitArray = coreDataArray
         } catch {
             print("error loading context: \(error)")
         }
@@ -196,16 +196,16 @@ class HabitVC: UIViewController, SettingsPush {
 
 //MARK: - TableViewDelegate, TableViewDataSource
 
-extension HabitVC: UITableViewDelegate, UITableViewDataSource {
+extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return HabitVC.habitArray.count
+        return HabitHomeVC.habitArray.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-        let habit                = HabitVC.habitArray[indexPath.row]
+        let habit                = HabitHomeVC.habitArray[indexPath.row]
         
         cell.habitGradient = [UIColor.clear.cgColor]
         
@@ -263,8 +263,8 @@ extension HabitVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DetailsVCViewController()
-        vc.habitCoreData = HabitVC.habitArray[indexPath.row]
+        let vc = HabitDetailsVC()
+        vc.habitCoreData = HabitHomeVC.habitArray[indexPath.row]
         
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         

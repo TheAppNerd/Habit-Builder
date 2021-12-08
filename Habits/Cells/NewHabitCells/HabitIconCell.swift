@@ -11,7 +11,7 @@ protocol passIconData: AnyObject {
     func passIconData(iconString: String)
 }
 
-class IconCell: UITableViewCell {
+class HabitIconCell: UITableViewCell {
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     weak var delegate: passIconData?
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChartCellCollectionViewCell: UICollectionViewCell {
+class ChartCollectionViewCell: UICollectionViewCell {
     
     static let reuseID = "ChartCellCollectionViewCell"
     

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.overrideUserInterfaceStyle = DarkMode.selectedDarkMode()
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: IntroScreenViewController())
+        window?.rootViewController = UINavigationController(rootViewController: LoadingScreenVC())
         window?.makeKeyAndVisible()
     }
 
