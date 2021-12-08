@@ -7,7 +7,7 @@
 
 import UIKit
 
-class IntroScreenViewController: UIViewController {
+class LoadingScreenVC: UIViewController {
     
     let iconCircle = UIImageView(image: UIImage(named: "iconCircle")?.addTintGradient(colors: GradientArray.array[5]))
     let icontick = UIImageView(image: UIImage(named: "iconTick")?.addTintGradient(colors: GradientArray.array[5]))
@@ -42,7 +42,7 @@ class IntroScreenViewController: UIViewController {
     }
     
     func presentHabitVC() {
-        let destVC = UINavigationController(rootViewController: HabitVC())
+        let destVC = UINavigationController(rootViewController: HabitHomeVC())
         destVC.modalPresentationStyle = .fullScreen
         
         let seconds = 1.8

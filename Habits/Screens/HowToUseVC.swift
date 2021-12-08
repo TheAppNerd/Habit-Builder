@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HelpScreenViewController: UIViewController {
+class HowToUseVC: UIViewController {
     
     let pageControl = PageControl()
     let scrollView = ScrollView()
@@ -103,7 +103,7 @@ to change any habit details
     
 }
 
-extension HelpScreenViewController: UIScrollViewDelegate {
+extension HowToUseVC: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(floor(Float(scrollView.contentOffset.x) / Float(scrollView.frame.size.width)))

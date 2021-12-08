@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AboutViewController: UIViewController {
+class AboutAppVC: UIViewController {
     
     let iconImage       = UIImageView()
     let versionLabel    = UILabel()
@@ -15,32 +15,37 @@ class AboutViewController: UIViewController {
     let tableView       = UITableView()
     let topGradientView = UIView()
     
-    let iconArray     = ["linkedIn", "Instagram", "GitHub"]
-    let usernameArray = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername]
+    let iconArray       = ["linkedIn", "Instagram", "GitHub"]
+    let usernameArray   = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername]
     
-    let thanksArray   = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
-    let urlArray      = [SocialMedia.fSCalendarURL, SocialMedia.flatIconURL, SocialMedia.appBreweryURL, SocialMedia.seanAllenURL]
+    let thanksArray     = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
+    let urlArray        = [SocialMedia.fSCalendarURL, SocialMedia.flatIconURL, SocialMedia.appBreweryURL, SocialMedia.seanAllenURL]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         configureTableView()
-        
-        if #available(iOS 15.0, *) {
-            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
-        }
+        tableViewHeaderPadding()
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame.size.height = tableView.contentSize.height
         iconImage.layer.cornerRadius  = iconImage.frame.size.width / 2
-        
     }
     
+    
+    func tableViewHeaderPadding() {
+        //to rectify xcode tableview error
+        if #available(iOS 15.0, *) {
+            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
+        }
+    }
+    
+    
     private func configureTableView() {
-        
         tableView.delegate           = self
         tableView.dataSource         = self
         tableView.separatorStyle     = .none
@@ -50,46 +55,46 @@ class AboutViewController: UIViewController {
         tableView.layer.cornerRadius = 10
         tableView.frame.size.height  = tableView.contentSize.height
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: MenuTableViewCell.reuseID)
+        tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
     }
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         topGradientView.addGradient(colors: Gradients().darkBlueGradient)
     }
     
+    
     private func configure() {
-        
         topGradientView.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .systemBackground
+        
         iconImage.image               = UIImage(named: "habitIcon")
-
         iconImage.layer.masksToBounds = true
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         
-        versionLabel.text             = " Habits - Version \(UIApplication.appVersion!)  "
-        versionLabel.textAlignment    = .center
-        versionLabel.translatesAutoresizingMaskIntoConstraints = false
-        versionLabel.backgroundColor = .white
-        versionLabel.layer.cornerRadius = 10
+        versionLabel.text                = " Habits - Version \(UIApplication.appVersion!)  "
+        versionLabel.textAlignment       = .center
+        versionLabel.backgroundColor     = .white
+        versionLabel.layer.cornerRadius  = 10
         versionLabel.layer.masksToBounds = true
+        versionLabel.textColor           = .black
         versionLabel.sizeToFit()
-        versionLabel.textColor = .black
+        versionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        nameLabel.text                = " Made by Alex Thompson  "
-        nameLabel.textAlignment       = .center
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.backgroundColor = .white
-        nameLabel.layer.cornerRadius = 10
-        nameLabel.layer.masksToBounds = true
+        nameLabel.text                   = " Made by Alex Thompson  "
+        nameLabel.textAlignment          = .center
+        nameLabel.backgroundColor        = .white
+        nameLabel.layer.cornerRadius     = 10
+        nameLabel.layer.masksToBounds    = true
+        nameLabel.textColor              = .black
         nameLabel.sizeToFit()
-        nameLabel.textColor = .black
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubviews(topGradientView ,iconImage, versionLabel, nameLabel, tableView)
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            
             topGradientView.topAnchor.constraint(equalTo: view.topAnchor),
             topGradientView.widthAnchor.constraint(equalTo: view.widthAnchor),
             topGradientView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 2.5),
@@ -104,12 +109,10 @@ class AboutViewController: UIViewController {
             versionLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -padding),
             versionLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nameLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: padding),
             nameLabel.bottomAnchor.constraint(equalTo: topGradientView.bottomAnchor, constant: -padding),
             nameLabel.heightAnchor.constraint(equalToConstant: 30),
-            
             
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             tableView.topAnchor.constraint(equalTo: topGradientView.bottomAnchor, constant: padding * 2),
@@ -118,47 +121,36 @@ class AboutViewController: UIViewController {
         ])
     }
     
-    func loadInstagram() {
-        guard let instagram = URL(string: SocialMedia.instagramURL) else { return }
-        UIApplication.shared.open(instagram)
+    
+    func loadSocialMedia(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url)
     }
-    
-    func loadGithub() {
-        guard let gitHub = URL(string: SocialMedia.githubURL) else { return }
-        UIApplication.shared.open(gitHub)
-    }
-    
-    func loadLinkedIn() {
-        guard let linkedIn = URL(string: SocialMedia.linkedInURL) else { return }
-        UIApplication.shared.open(linkedIn)
-    }
-    
-    
-    
 }
+
 //MARK: - UITableViewDelegate, UITableViewDataSource
-extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
+extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case 0: return 3
         case 1: return 4
-        case 2: return 4
         default:
             return 3
         }
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MenuTableViewCell.reuseID) as! MenuTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseID) as! MenuCell
         if indexPath[0] == 0 {
-            
             cell.cellLabel.text = usernameArray[indexPath.row]
             cell.cellImage.image = UIImage(named: iconArray[indexPath.row])
-            
         } else {
             cell.cellImage.image = UIImage(systemName: "heart.circle")?.addTintGradient(colors: GradientArray.array[indexPath.row])
             cell.cellLabel.text = thanksArray[indexPath.row]
@@ -178,28 +170,25 @@ extension AboutViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath[0] == 0 {
             switch indexPath.row {
-            case 0: loadLinkedIn()
-            case 1: loadInstagram()
-            case 2: loadGithub()
+            case 0: loadSocialMedia(urlString: SocialMedia.linkedInURL)
+            case 1: loadSocialMedia(urlString: SocialMedia.instagramURL)
+            case 2: loadSocialMedia(urlString: SocialMedia.githubURL)
             default:
-                print("Error")
+                print("Error") //create a default error func to utilise across app
             }
         }
         
         if indexPath[0] == 1 {
-            if let url = URL(string: urlArray[indexPath.row]) {
-                UIApplication.shared.open(url)
-            }
+            loadSocialMedia(urlString: urlArray[indexPath.row])
         }
     }
+    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
-    
-    
-    
 }

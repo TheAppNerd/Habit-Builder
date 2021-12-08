@@ -63,10 +63,10 @@ class NewHabitVC: UITableViewController  {
     private func registerCells() {
         tableView.register(HabitNameCell.self, forCellReuseIdentifier: HabitNameCell.reuseID)
         tableView.register(HabitFrequencyCell.self, forCellReuseIdentifier: HabitFrequencyCell.reuseID)
-        tableView.register(IconCell.self, forCellReuseIdentifier: IconCell.reuseID)
-        tableView.register(ReminderCell.self, forCellReuseIdentifier: ReminderCell.reuseID)
-        tableView.register(ColorCell.self, forCellReuseIdentifier: ColorCell.reuseID)
-        tableView.register(SaveCell.self, forCellReuseIdentifier: SaveCell.reuseID)
+        tableView.register(HabitIconCell.self, forCellReuseIdentifier: HabitIconCell.reuseID)
+        tableView.register(HabitReminderCell.self, forCellReuseIdentifier: HabitReminderCell.reuseID)
+        tableView.register(HabitColorCell.self, forCellReuseIdentifier: HabitColorCell.reuseID)
+        tableView.register(HabitSaveCell.self, forCellReuseIdentifier: HabitSaveCell.reuseID)
     }
     
     private func configure() {
@@ -93,7 +93,7 @@ class NewHabitVC: UITableViewController  {
     
     @objc func backButtonPressed() {
         CoreDataFuncs.saveCoreData() //stops tableview loading in random order on habitvc
-        let habitVC = HabitVC()
+        let habitVC = HabitHomeVC()
         show(habitVC, sender: self)
     }
     
@@ -113,16 +113,16 @@ class NewHabitVC: UITableViewController  {
             
             let habit = self.habitCoreData
             self.context.delete(habit!)
-            for (index, habits) in HabitVC.habitArray.enumerated() {
+            for (index, habits) in HabitHomeVC.habitArray.enumerated() {
                 if habits == habit {
                     let habitIndex = index
-                    HabitVC.habitArray.remove(at: habitIndex)
+                    HabitHomeVC.habitArray.remove(at: habitIndex)
                 }
             }
             
         CoreDataFuncs.saveCoreData()
         
-        let habitVC = HabitVC()
+        let habitVC = HabitHomeVC()
         self.show(habitVC, sender: self)
         }))
         
@@ -148,7 +148,7 @@ class NewHabitVC: UITableViewController  {
             newHabit.dateHabitCreated   = Date()
         
         
-            HabitVC.habitArray.append(newHabit)
+            HabitHomeVC.habitArray.append(newHabit)
         } else if habitCoreData != nil {
             let oldHabit                = habitCoreData!
             oldHabit.habitName          = name
@@ -173,7 +173,7 @@ class NewHabitVC: UITableViewController  {
         createCoreDataHabit()
         CoreDataFuncs.saveCoreData()
         
-        let habitVC = HabitVC()
+        let habitVC = HabitHomeVC()
         show(habitVC, sender: self)
     }
 //    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
@@ -272,7 +272,7 @@ class NewHabitVC: UITableViewController  {
             
             return cell
             
-        case 2: let cell = tableView.dequeueReusableCell(withIdentifier: ColorCell.reuseID, for: indexPath) as! ColorCell
+        case 2: let cell = tableView.dequeueReusableCell(withIdentifier: HabitColorCell.reuseID, for: indexPath) as! HabitColorCell
             cell.delegate = self
             for (index, button) in cell.buttonArray.enumerated() {
                 if index == colorIndex {
@@ -281,7 +281,7 @@ class NewHabitVC: UITableViewController  {
             }
             return cell
             
-        case 3: let cell = tableView.dequeueReusableCell(withIdentifier: IconCell.reuseID, for: indexPath) as! IconCell
+        case 3: let cell = tableView.dequeueReusableCell(withIdentifier: HabitIconCell.reuseID, for: indexPath) as! HabitIconCell
             cell.delegate = self
             cell.colors = colors
             for (index, button) in cell.buttonArray.enumerated() {
@@ -294,7 +294,7 @@ class NewHabitVC: UITableViewController  {
             }
             return cell
             
-        case 4: let cell = tableView.dequeueReusableCell(withIdentifier: ReminderCell.reuseID, for: indexPath) as! ReminderCell
+        case 4: let cell = tableView.dequeueReusableCell(withIdentifier: HabitReminderCell.reuseID, for: indexPath) as! HabitReminderCell
             cell.colors = colors
             cell.delegate = self
             switch alarmsActivated {
@@ -310,7 +310,7 @@ class NewHabitVC: UITableViewController  {
             }
             return cell
             
-        case 5: let cell = tableView.dequeueReusableCell(withIdentifier: SaveCell.reuseID, for: indexPath) as! SaveCell
+        case 5: let cell = tableView.dequeueReusableCell(withIdentifier: HabitSaveCell.reuseID, for: indexPath) as! HabitSaveCell
             cell.saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
             return cell
             

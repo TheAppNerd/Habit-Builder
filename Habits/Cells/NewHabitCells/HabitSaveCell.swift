@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SaveCell: UITableViewCell {
+class HabitSaveCell: UITableViewCell {
     
     static let reuseID = "SaveCell"
 
