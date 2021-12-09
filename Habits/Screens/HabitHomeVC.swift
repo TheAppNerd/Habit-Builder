@@ -7,22 +7,18 @@
 
 import UIKit
 import CoreData
-import MessageUI
+
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
-    let context              = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView       = EmptyStateView()
-    let dateModel            = DateModel()
     static var habitArray           = [HabitCoreData]()
+    
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
-    
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -38,6 +34,16 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureTableView()
         configureEmptyState()
         configureTableViewFooter()
+        configureMenuView()
+    }
+    
+    
+    func showEmptyStateView() {
+        switch HabitHomeVC.habitArray.isEmpty {
+        case true:  view.addSubview(emptyStateView)
+            emptyStateView.frame = tableView.frame
+        case false: emptyStateView.removeFromSuperview()
+        }
     }
     
     
@@ -45,10 +51,9 @@ class HabitHomeVC: UIViewController, SettingsPush {
         title = Labels.HabitVCTitle
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         view.backgroundColor = .systemBackground
-        menuView.pinMenuTo(view, with: slideInMenuPadding)
-        tableView.edgeTo(view, padding: 0)
+        
         generator.prepare()
-        menu.delegate = self
+        
     }
     
     
@@ -90,28 +95,9 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     
-    lazy var menuView: UIView = {
-        let view = UIView()
-        view.addSubview(menu.view)
-        menu.view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            menu.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            menu.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            menu.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            menu.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        return view
-    }()
     
-    func showEmptyStateView() {
-        switch HabitHomeVC.habitArray.isEmpty {
-        case true:  view.addSubview(emptyStateView)
-            emptyStateView.frame = tableView.frame
-        case false: emptyStateView.removeFromSuperview()
-        }
-    }
     
- 
+    
     func pushSettings(row: Int) {
         switch row {
         case 3: let vc = HowToUseVC()
@@ -129,31 +115,14 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
-    func configureEmptyState() {
-        emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-        emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
-    }
     
     @objc func helpButtonPressed() {
         let helpVC = HowToUseVC()
         show(helpVC, sender: self)
     }
     
-    
-    @objc func menuBarButtonPressed() { //change this to a push. can then load button presses from menuview, dismiss back to here and have it much cleaner.
-        // move to animation file
-        generator.impactOccurred()
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
-            self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
-            self.tableView.frame.origin.x      = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
-        } completion: { (finished) in
-            self.isSlideInMenuPressed.toggle()
-        }
-    }
-    
     @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
-        //        newHabitVC.cellTag = HabitVC.habitArray.count //new method to remove celltags
         show(newHabitVC, sender: self)
     }
     
@@ -164,25 +133,21 @@ class HabitHomeVC: UIViewController, SettingsPush {
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         generator.impactOccurred()
-        //change below to a switch or a toggle
         
-        //change all this to only occur here or in tasbleview func. too much spaghetti code
         if sender.layer.borderColor == UIColor.white.cgColor {
-            //change clear to something less breakable like is selected
             HabitHomeVC.habitArray[indexPath.row].habitDates?.append(selectedDate)
             CoreDataFuncs.saveCoreData()
-                self.tableView.reloadData()
+            self.tableView.reloadData()
         } else {
             HabitHomeVC.habitArray[indexPath.row].habitDates = HabitHomeVC.habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
             CoreDataFuncs.saveCoreData()
             tableView.reloadData()
         }
-        
     }
     
     //fix this and move to coredata funcs
     func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
-        
+        let context              = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do {
             let coreDataArray = try context.fetch(request)
             HabitHomeVC.habitArray = coreDataArray
@@ -191,7 +156,44 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
         tableView.reloadData()
     }
-
+    
+    //MARK: - menu view
+    
+    func configureMenuView() {
+        lazy var menuView: UIView = {
+            let view = UIView()
+            view.addSubview(menu.view)
+            menu.view.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                menu.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                menu.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                menu.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                menu.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+            return view
+        }()
+        
+        menuView.pinMenuTo(view, with: slideInMenuPadding)
+        tableView.edgeTo(view, padding: 0)
+        menu.delegate = self
+    }
+    
+    @objc func menuBarButtonPressed() { //change this to a push. can then load button presses from menuview, dismiss back to here and have it much cleaner.
+        // move to animation file
+        generator.impactOccurred()
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
+            self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
+            self.tableView.frame.origin.x      = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
+        } completion: { (finished) in
+            self.isSlideInMenuPressed.toggle()
+        }
+    }
+    
+    func configureEmptyState() {
+        emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+        emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
+    }
+    
 }
 
 //MARK: - TableViewDelegate, TableViewDataSource
@@ -204,58 +206,38 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
-        
         let habit                = HabitHomeVC.habitArray[indexPath.row]
-        
         cell.habitGradient = [UIColor.clear.cgColor]
         
         var completedDays = 0
-        var buttonCount          = 0
-        
         for (index,button) in cell.dayButton.enumerated() {
-            
-            //This prevents duplication issues on reusable cells
-            //move all of this to set?
-            //button.backgroundColor   = .clear
             button.layer.borderColor = UIColor.white.cgColor
             button.setTitle("\(cell.dayArray[index])", for: .normal)
             button.setImage(nil, for: .normal)
             
             button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
-            button.tag = buttonCount //apply tag in cell instead? then wont need buttoncount
+            button.tag = index
             
-            let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[buttonCount])
+            let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[index])
             
             if habit.habitDates!.contains(selectedDate) {
-                //button.backgroundColor   = Colors.tertiaryWithAlpha
-                button.layer.borderColor = UIColor.clear.cgColor //Colors.tertiaryWithAlpha.cgColor
+                button.layer.borderColor = UIColor.clear.cgColor
                 button.setTitle(nil, for: .normal)
                 button.setImage(SFSymbols.checkMark, for: .normal)
             } else {
                 button.backgroundColor = .clear
                 button.layer.borderColor = UIColor.white.cgColor
             }
-            buttonCount += 1
         }
-     
+        
         for button in cell.dayButton {
             if button.image(for: .normal) == SFSymbols.checkMark {
                 completedDays += 1
-        }
+            }
         }
         cell.habitCompletedDays = completedDays
         
-        switch habit.habitGradientIndex {
-        case 0: cell.habitGradient = Gradients().pinkGradient
-        case 1: cell.habitGradient = Gradients().orangeGradient
-        case 2: cell.habitGradient = Gradients().limeGradient
-        case 3: cell.habitGradient = Gradients().lightBlueGradient
-        case 4: cell.habitGradient = Gradients().redGradient
-        case 5: cell.habitGradient = Gradients().darkBlueGradient
-        case 6: cell.habitGradient = Gradients().purpleGradient
-        default:
-            cell.habitGradient = Gradients().pinkGradient
-        }
+        cell.habitGradient = GradientArray.array[Int(habit.habitGradientIndex)]
         
         cell.set(habit: habit)
         return cell

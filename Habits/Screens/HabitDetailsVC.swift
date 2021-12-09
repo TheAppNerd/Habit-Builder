@@ -7,7 +7,7 @@
 
 import UIKit
 
-import FSCalendar // needed?
+import FSCalendar 
 
 class HabitDetailsVC: UIViewController {
     
@@ -22,7 +22,6 @@ class HabitDetailsVC: UIViewController {
     var chartArray = [ChartYear]()
     var chartYears: [Int: [Int]] = [:]
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView = HabitDetailsStreakView()
@@ -188,10 +187,7 @@ class HabitDetailsVC: UIViewController {
         }
     }
     
-    func updateChart() { //must fix this. needs to be able to generate new years. right now its always limited to two. app crashes if date added to 2019 or 2022
-                        // potential solutions. add arrays for 10 years behind. confirm addnew year func works correctly adding new year.
-                        //another potential solution. find a way to add new year if date selected from diff year
-                        //anogther potential solution. have lots of years behind and on number of items in section only count ones where the chartyear isnt empty
+    func updateChart() {
         
         let calendar = Calendar.current
         
@@ -226,7 +222,7 @@ class HabitDetailsVC: UIViewController {
     }
 }
 
-//MARK: - collectionview
+//MARK: - CollectionView
 
 extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -249,7 +245,7 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
 }
 
-//MARK: - calendar
+//MARK: - FSCalendar
 
 extension HabitDetailsVC: FSCalendarDataSource, FSCalendarDelegate {
     

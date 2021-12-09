@@ -14,7 +14,6 @@ class HabitCell: UITableViewCell {
 static let reuseID = "HabitCell"
     
    
-    
     let habitName         = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
     let habitIcon         = UIImageView()
     var habitGradient     = [CGColor]()
@@ -34,7 +33,6 @@ static let reuseID = "HabitCell"
    
     var dateArray: [Date] = []
     var dayArray: [Int]   = []
-    var calendarView      = Calendar.current
     let dayButton: [DayButton] = [ DayButton(),
                                    DayButton(),
                                    DayButton(),
@@ -93,7 +91,6 @@ static let reuseID = "HabitCell"
     func set(habit: HabitCoreData) {
         habitName.text = habit.habitName
         habitIcon.image = UIImage(named: habit.iconString ?? "")
-       //habitGradient  = GradientArray.array[Int(habit.habitGradientIndex)]
         habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days "
         
         switch habit.alarmBool {
@@ -127,17 +124,13 @@ static let reuseID = "HabitCell"
         labelStackView.distribution = .equalCentering
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
 
-        //dayLabels[dateModel.getDayOfWeek()-1].textColor = .white
-        //dayLabels[dateModel.getDayOfWeek()-1].font = UIFont.systemFont(ofSize: 18, weight: .bold)
         dayLabels[dateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
         dayLabels[dateModel.getDayOfWeek()-1].layer.masksToBounds = true
         dayLabels[dateModel.getDayOfWeek()-1].layer.cornerRadius = 5
     }
     
     func configureButtonStackView() {
-        
-        var count = 0
-        for button in dayButton {
+        for (index, button) in dayButton.enumerated() {
             button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true
             buttonStackView.addArrangedSubview(button)
             button.setTitleColor(.white, for: .normal)
@@ -146,11 +139,9 @@ static let reuseID = "HabitCell"
             button.layer.borderColor = UIColor.white.cgColor
             button.backgroundColor = .clear
             button.layer.borderWidth = 2
-            button.setTitle("\(dayArray[count])", for: .normal)
-
-            
-            count += 1
+            button.setTitle("\(dayArray[index])", for: .normal)
         }
+        
         buttonStackView.axis = .horizontal
         buttonStackView.spacing = 10
         buttonStackView.distribution = .equalCentering
@@ -186,9 +177,6 @@ static let reuseID = "HabitCell"
         habitAlarmIcon.tintColor = .white
         habitAlarmIcon.image = UIImage(systemName: "bell.slash.fill")
         habitAlarmIcon.translatesAutoresizingMaskIntoConstraints = false
-        
-        //frequencyLabel.text = "Everyday"
-        
         
         let padding: CGFloat = 20
         

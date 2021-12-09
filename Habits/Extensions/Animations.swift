@@ -16,11 +16,10 @@ extension UIButton {
             UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn) {
                 self.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
-            
         }
     }
-    
 }
+
 
 extension UIImageView {
     
@@ -37,6 +36,7 @@ extension UIImageView {
     }
 }
 
+
 extension UIView {
     
     func rotate() {
@@ -47,8 +47,7 @@ extension UIView {
         rotation.repeatCount = Float.greatestFiniteMagnitude
         self.layer.add(rotation, forKey: "rotationAnimation")
     }
-    
-    }
-    
+}
+
 
 
