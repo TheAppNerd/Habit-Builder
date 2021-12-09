@@ -12,7 +12,7 @@ class MenuCell: UITableViewCell {
     static let reuseID = "MenuCell"
     
     let cellImage      = UIImageView()
-    let cellLabel      = TitleLabel(textInput: "", textAlignment: .left, fontSize: 20)
+    let cellLabel      = TitleLabel(textAlignment: .left, fontSize: 20)
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,14 +25,13 @@ class MenuCell: UITableViewCell {
     
     private func configure() {
         contentView.isUserInteractionEnabled = true
-        addSubview(cellImage)
-        addSubview(cellLabel)
+        addSubviews(cellImage, cellLabel)
         self.backgroundColor = .secondarySystemBackground
       
         cellLabel.textColor  = .label
-        cellImage.translatesAutoresizingMaskIntoConstraints = false
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        cellImage.translatesAutoresizingMaskIntoConstraints = false
+       
         let padding: CGFloat = 10
         NSLayoutConstraint.activate([
             
@@ -48,7 +47,4 @@ class MenuCell: UITableViewCell {
             cellLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
         ])
     }
-    
-    
-   
 }

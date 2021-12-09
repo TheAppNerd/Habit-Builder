@@ -43,12 +43,19 @@ extension UIView {
     
     func addGradient(colors: [CGColor]) {
         let gradientLayer: CAGradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.bounds
+        gradientLayer.frame = bounds
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
-        gradientLayer.cornerRadius = self.layer.cornerRadius
+        gradientLayer.cornerRadius = layer.cornerRadius
         gradientLayer.colors = colors
-        self.layer.insertSublayer(gradientLayer, at: 0)
+        layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    func addShadow() {
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
+        layer.shadowRadius = 5
+        layer.shadowOffset = .zero
+        layer.shadowOpacity = 0.7
+        layer.shadowColor = UIColor.label.cgColor
+    }
 }

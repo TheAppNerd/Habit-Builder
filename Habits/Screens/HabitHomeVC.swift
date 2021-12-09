@@ -206,10 +206,11 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
-        let habit                = HabitHomeVC.habitArray[indexPath.row]
+        let habit = HabitHomeVC.habitArray[indexPath.row]
+        
         cell.habitGradient = [UIColor.clear.cgColor]
         
-        var completedDays = 0
+
         for (index,button) in cell.dayButton.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
             button.setTitle("\(cell.dayArray[index])", for: .normal)
@@ -230,6 +231,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
+        var completedDays = 0
         for button in cell.dayButton {
             if button.image(for: .normal) == SFSymbols.checkMark {
                 completedDays += 1

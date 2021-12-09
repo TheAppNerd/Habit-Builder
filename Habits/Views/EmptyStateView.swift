@@ -10,7 +10,7 @@ import UIKit
 
 class EmptyStateView: UIView {
 
-    let message = TitleLabel(textInput: "", textAlignment: .center, fontSize: 16)
+    let message = TitleLabel(textAlignment: .center, fontSize: 16)
     let imageView = UIImageView()
     let addHabitButton = GradientButton(colors: Gradients().pinkGradient)
     let howToUseButton = GradientButton(colors: Gradients().purpleGradient)

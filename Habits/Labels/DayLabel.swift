@@ -29,7 +29,8 @@ class DayLabel: UILabel {
         textAlignment             = .center
         font                      = .systemFont(ofSize: 18, weight: .bold)
         adjustsFontSizeToFitWidth = true
-        
+        layer.masksToBounds       = true
+        layer.cornerRadius        = 5
         
     }
     
