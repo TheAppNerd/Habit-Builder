@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3CC551A27B6840B7BDF879AB /* Pods_Habits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 838E44C3241E759CB1015ADF /* Pods_Habits.framework */; };
 		FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */; };
-		FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09DC1E26CF30C700B58F32 /* GradientView.swift */; };
 		FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */; };
 		FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C7305263636D800E63CBE /* AppDelegate.swift */; };
 		FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C7307263636D800E63CBE /* SceneDelegate.swift */; };
@@ -66,7 +65,6 @@
 		2FF57C4A93B664F2B8DAF532 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 		838E44C3241E759CB1015ADF /* Pods_Habits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ext.swift"; sourceTree = "<group>"; };
-		FA09DC1E26CF30C700B58F32 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenVC.swift; sourceTree = "<group>"; };
 		FA1C7302263636D800E63CBE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1C7305263636D800E63CBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 		FA1C73412637CD1C00E63CBE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				FA09DC1E26CF30C700B58F32 /* GradientView.swift */,
 				FA8A297326D3B319008CD5AE /* DarkModeView.swift */,
 				FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */,
 				FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */,
@@ -483,7 +480,6 @@
 				FA360BF626C6120100884B90 /* HabitIconCell.swift in Sources */,
 				FA360BF826C6151600884B90 /* HabitReminderCell.swift in Sources */,
 				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
-				FA09DC1F26CF30C700B58F32 /* GradientView.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
 				FAFF09AE27046E93008E8569 /* ChartCollectionViewCell.swift in Sources */,

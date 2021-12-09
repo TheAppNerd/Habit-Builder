@@ -12,7 +12,6 @@ extension UIView {
     func edgeTo(_ view: UIView, padding: CGFloat) {
         view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false
-       
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
             leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -20,6 +19,7 @@ extension UIView {
             bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding)
         ])
     }
+    
     
     func pinMenuTo(_ view: UIView, with constant: CGFloat) {
         view.addSubview(self)
@@ -33,11 +33,13 @@ extension UIView {
         ])
     }
     
+    
     func addSubviews(_ views: UIView...) {
         for view in views {
             addSubview(view)
         }
     }
+    
     
     func addGradient(colors: [CGColor]) {
         let gradientLayer: CAGradientLayer = CAGradientLayer()
