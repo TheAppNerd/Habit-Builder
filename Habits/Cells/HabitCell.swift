@@ -9,40 +9,26 @@ import UIKit
 
 class HabitCell: UITableViewCell {
 
-    //move all calculations to model. nothing but view setup in here. 
     
-static let reuseID = "HabitCell"
+    static let reuseID = "HabitCell"
     
-   
-    let habitName         = TitleLabel(textInput: "", textAlignment: .left, fontSize: 22)
-    let habitIcon         = UIImageView()
-    var habitGradient     = [CGColor]()
-    let habitFrequency    = BodyLabel(textInput: "", textAlignment: .right, fontSize: 18)
-    let habitAlarmIcon    = UIImageView()
+    let habitName          = TitleLabel(textAlignment: .left, fontSize: 22)
+    let habitIcon          = UIImageView()
+    let habitFrequency     = BodyLabel(textInput: "", textAlignment: .right, fontSize: 18)
+    let habitAlarmIcon     = UIImageView()
+    var habitGradient      = [CGColor]()
+    
     var habitCompletedDays = Int()
-   
-    
-    
-    let dateModel         = DateModel()
-    let cellView          = UIView()
+    let dateModel          = DateModel()
+    let cellView           = UIView()
 
-    
-    
     let labelStackView    = UIStackView()
     let buttonStackView   = UIStackView()
    
     var dateArray: [Date] = []
     var dayArray: [Int]   = []
-    let dayButton: [DayButton] = [ DayButton(),
-                                   DayButton(),
-                                   DayButton(),
-                                   DayButton(),
-                                   DayButton(),
-                                   DayButton(),
-                                   DayButton()
-    ]
-    
-    
+    let dayButton: [DayButton] = [DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton()]
+         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
@@ -53,40 +39,28 @@ static let reuseID = "HabitCell"
         self.selectionStyle = UITableViewCell.SelectionStyle.none
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
             for button in dayButton {
                 button.layer.cornerRadius = 0.5 * button.bounds.size.width
         }
        layoutGradient()
-        configureShadow()
+       cellView.addShadow()
     }
     
-
-    
+ 
     func layoutGradient() {
-        
-        //prevents gradient changers from cell reuse
+        //prevents gradient changes from cell reuse
         if ((cellView.layer.sublayers?.first as? CAGradientLayer) != nil) {
             cellView.layer.sublayers?.remove(at: 0)
         }
-        //make an extension instead
-        let gradientLayer: CAGradientLayer = CAGradientLayer()
-        gradientLayer.frame = cellView.bounds
-        gradientLayer.startPoint = CGPoint(x: 1, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
-        gradientLayer.cornerRadius = cellView.layer.cornerRadius
-        gradientLayer.colors = habitGradient
-        cellView.layer.insertSublayer(gradientLayer, at: 0)
+        cellView.addGradient(colors: habitGradient)
     }
     
-    func configureShadow() { //rastersize to reduce memory?
-        cellView.layer.shadowPath = UIBezierPath(roundedRect: cellView.bounds, cornerRadius: 10).cgPath
-        cellView.layer.shadowRadius = 5
-        cellView.layer.shadowOffset = .zero
-        cellView.layer.shadowOpacity = 0.7
-        cellView.layer.shadowColor = UIColor.label.cgColor
-    }
     
     func set(habit: HabitCoreData) {
         habitName.text = habit.habitName
@@ -99,12 +73,6 @@ static let reuseID = "HabitCell"
         }
     }
     
-
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     func configureLabelStackView() {
         let dayLabels: [DayLabel] = [ DayLabel(text: "Sun"),
@@ -123,11 +91,11 @@ static let reuseID = "HabitCell"
         labelStackView.alignment = .fill
         labelStackView.distribution = .equalCentering
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
+        //this marks the current day of the week
         dayLabels[dateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
-        dayLabels[dateModel.getDayOfWeek()-1].layer.masksToBounds = true
-        dayLabels[dateModel.getDayOfWeek()-1].layer.cornerRadius = 5
     }
+    
     
     func configureButtonStackView() {
         for (index, button) in dayButton.enumerated() {
@@ -152,37 +120,31 @@ static let reuseID = "HabitCell"
 
     private func configure() {
         contentView.isUserInteractionEnabled = true
-        addSubview(habitIcon)
-        addSubview(cellView)
-        addSubview(habitName)
-        addSubview(labelStackView)
-        addSubview(buttonStackView)
-        addSubview(habitAlarmIcon)
-        addSubview(habitFrequency)
+        addSubviews(habitIcon, cellView, habitName, labelStackView, buttonStackView, habitAlarmIcon, habitFrequency)
+        
         cellView.translatesAutoresizingMaskIntoConstraints = false
         cellView.backgroundColor = .tertiarySystemBackground
+        cellView.layer.cornerRadius = 10
+        
+        habitName.adjustsFontSizeToFitWidth = true
+        habitName.minimumScaleFactor = 0.7
         
         habitIcon.translatesAutoresizingMaskIntoConstraints = false
         habitIcon.tintColor = .white
+        
         habitFrequency.textColor = .white
         habitFrequency.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-       
-        
-        habitName.adjustsFontSizeToFitWidth = true
-        habitName.minimumScaleFactor = 0.7 
         habitFrequency.adjustsFontSizeToFitWidth = true
         habitFrequency.minimumScaleFactor = 0.7
         
-        cellView.layer.cornerRadius = 10
         habitAlarmIcon.tintColor = .white
-        habitAlarmIcon.image = UIImage(systemName: "bell.slash.fill")
+        habitAlarmIcon.image = SFSymbols.bellSlash
         habitAlarmIcon.translatesAutoresizingMaskIntoConstraints = false
         
         let padding: CGFloat = 20
         
         self.sendSubviewToBack(cellView)
         NSLayoutConstraint.activate([
-
             cellView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             cellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             cellView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),

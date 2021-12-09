@@ -33,11 +33,6 @@ enum SFSymbols {
     static let chart                = UIImage(systemName: "chart.bar.xaxis")
 }
 
-//needed?
-enum Colors {
-    static let tertiaryWithAlpha    = UIColor.tertiarySystemBackground.withAlphaComponent(0.5)
-}
-
 enum GradientColors {
     static let clearGradient        = [UIColor.clear.cgColor, UIColor.clear.cgColor]
 }

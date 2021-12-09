@@ -14,9 +14,8 @@ class TitleLabel: UILabel {
         configure()
     }
     
-    convenience init(textInput: String, textAlignment: NSTextAlignment, fontSize: CGFloat) {
+    convenience init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
         self.init(frame: .zero)
-        self.text          = textInput
         self.textAlignment = textAlignment
         self.font          = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }

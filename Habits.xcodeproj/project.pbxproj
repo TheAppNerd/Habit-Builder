@@ -203,8 +203,8 @@
 			isa = PBXGroup;
 			children = (
 				FA360BF026C6058500884B90 /* NewHabitCells */,
-				FAF4E6D9264A48EC0029E50D /* MenuCell.swift */,
 				FA1C73282636491A00E63CBE /* HabitCell.swift */,
+				FAF4E6D9264A48EC0029E50D /* MenuCell.swift */,
 				FAFF09AD27046E93008E8569 /* ChartCollectionViewCell.swift */,
 			);
 			path = Cells;

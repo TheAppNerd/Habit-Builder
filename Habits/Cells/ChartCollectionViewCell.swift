@@ -11,9 +11,7 @@ class ChartCollectionViewCell: UICollectionViewCell {
     
     static let reuseID = "ChartCellCollectionViewCell"
     
-    var monthlyCountArray = [UILabel]()
     let countStack = UIStackView()
-    
     var progressBarArray = [UIProgressView]()
     let barView = UIStackView()
     var countLabelArray = [UILabel]()
@@ -31,14 +29,18 @@ class ChartCollectionViewCell: UICollectionViewCell {
     func set(chartYear: ChartYear) {
         yearLabel.text = String(chartYear.year)
         for num in 0...11{
+            //workaround to add tint to progress bars
             progressBarArray[num].progressImage = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: chartYear.color)
+            
             countLabelArray[num].text = String(chartYear.monthCount[num])
             
+            //only shows month count on months that arent empty
             if chartYear.monthCount[num] == 0 {
                 countLabelArray[num].alpha    = 0
             } else {
                 countLabelArray[num].alpha   = 1.0
             }
+            
             UIView.animate(withDuration: 1.0) {
                 let progress: Float = 1.0 / 31
                 self.progressBarArray[num].setProgress(Float(chartYear.monthCount[num]) * progress, animated: true)
@@ -60,8 +62,8 @@ class ChartCollectionViewCell: UICollectionViewCell {
         countStack.spacing = 10
         
         let monthArray = ["01","02","03","04","05","06","07","08","09","10","11","12",]
+        
         for num in 0...11 {
-            
             let monthLabel = UILabel()
             monthLabel.translatesAutoresizingMaskIntoConstraints = false
             monthLabel.adjustsFontSizeToFitWidth = true
@@ -78,14 +80,11 @@ class ChartCollectionViewCell: UICollectionViewCell {
             countLabelArray.append(countLabel)
             countStack.addArrangedSubview(countLabelArray[num])
             
-            
-            
             let progressBar = UIProgressView()
             progressBar.layer.cornerRadius = 5
             progressBar.progress = 0.0
             progressBar.backgroundColor = .tertiarySystemBackground
             progressBar.tintColor = .blue
-          
             progressBar.clipsToBounds = true
             progressBar.translatesAutoresizingMaskIntoConstraints = false
             progressBarArray.append(progressBar)
