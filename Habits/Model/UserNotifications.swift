@@ -49,7 +49,34 @@ class UserNotifications {
         center.add(request)
         print("center: \(center)")
     }
-   
+    
+    static func scheduleNotifications(alarmItem: AlarmItem) {
+        let center  = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.title              = alarmItem.title
+        content.body               = "Time to \(alarmItem.title). You can do it"
+        content.categoryIdentifier = "alarm"
+        content.sound              = UNNotificationSound.default
+        
+        for (index, bool) in alarmItem.days.enumerated() {
+            if bool == true {
+            var dateComponents         = DateComponents()
+            dateComponents.weekday     = index + 1
+            dateComponents.hour        = alarmItem.hour
+            dateComponents.minute      = alarmItem.minute
+                print("weekday\(dateComponents.weekday)")
+            print("weekdaycentre\(center)")
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            
+            let request = UNNotificationRequest(identifier: alarmItem.title, content: content, trigger: trigger)
+            
+            center.add(request)
+        }
+    }
+      
+    }
+    
+
     
     func confirmRegisteredNotifications() -> String { // made this func in new habit vc. should use this one and find way to present alert if denied. (input view to present?)
         var str = ""

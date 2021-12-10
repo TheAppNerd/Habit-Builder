@@ -35,6 +35,7 @@ enum SFSymbols {
 
 enum GradientColors {
     static let clearGradient        = [UIColor.clear.cgColor, UIColor.clear.cgColor]
+  
 }
 
 

@@ -44,5 +44,4 @@ class HabitNameCell: UITableViewCell {
             nameTextField.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
-    
 }

@@ -7,20 +7,18 @@
 
 import UIKit
 
-protocol reloadTableViewDelegate: AnyObject {
-    func reloadTableView(colors: [CGColor], colorIndex: Int)
+protocol passColorsData: AnyObject {
+    func passColorsData(colors: [CGColor], colorIndex: Int)
 }
 
 class HabitColorCell: UITableViewCell {
 
-    weak var delegate: reloadTableViewDelegate?
+    weak var delegate: passColorsData?
     
     static let reuseID = "ColorCell"
     let stackView      = UIStackView()
-    var color          = [CGColor]()
-    var colorIndex     = Int()
     var buttonArray    = [GradientButton]()
-    let generator            = UIImpactFeedbackGenerator(style: .medium)
+    let generator      = UIImpactFeedbackGenerator(style: .medium)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,7 +31,7 @@ class HabitColorCell: UITableViewCell {
     
     private func configure() {
         backgroundColor = .secondarySystemBackground
-        self.layer.cornerRadius = 10
+        layer.cornerRadius = 10
         generator.prepare()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis          = .horizontal
@@ -65,15 +63,13 @@ class HabitColorCell: UITableViewCell {
     @objc func colorButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
-        for item in buttonArray {
-            item.layer.borderWidth = 0
-            item.isSelected        = false
+        for button in buttonArray {
+            button.layer.borderWidth = 0
         }
-        sender.isSelected          = true
+     
         sender.layer.borderWidth   = 2
-        color                      = sender.colors
-        
+        let color                      = sender.colors
         let index                  = buttonArray.firstIndex(of: sender)!
-        delegate?.reloadTableView(colors: color, colorIndex: index)
+        delegate?.passColorsData(colors: color, colorIndex: index)
     }
 }

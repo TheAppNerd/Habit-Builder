@@ -10,8 +10,8 @@ import UIKit
 extension UIImage {
     
     func addTintGradient(colors: [CGColor]) -> UIImage {
-       UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
-       
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        
         guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
         
         context.translateBy(x: 0, y: self.size.height)

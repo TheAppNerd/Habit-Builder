@@ -28,6 +28,5 @@ class FSCalendarView: FSCalendar {
        appearance.titleDefaultColor   = .secondaryLabel
        appearance.titleSelectionColor = .label
        placeholderType                = .none
-        //                appearance.selectionColor = UIColor(cgColor: GradientArray.array[Int(habitCoreData!.habitGradientIndex)][0]) //fix this to be better code
     }
 }

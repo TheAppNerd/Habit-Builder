@@ -193,7 +193,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
         emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
     }
-    
 }
 
 //MARK: - TableViewDelegate, TableViewDataSource

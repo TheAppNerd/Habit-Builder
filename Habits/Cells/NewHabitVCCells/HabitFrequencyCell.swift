@@ -14,8 +14,7 @@ protocol passFrequencyData: AnyObject {
 class HabitFrequencyCell: UITableViewCell {
     weak var delegate: passFrequencyData?
     static let reuseID = "HabitFrequencyCell"
-    var frequency = 1
-    var frequencyArray = [1, 2, 3, 4, 5, 6, 7]
+
     
     let frequencyStackView = UIStackView()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
@@ -43,8 +42,7 @@ class HabitFrequencyCell: UITableViewCell {
         sender.setTitleColor(.white, for: .normal)
         sender.colors = Gradients().darkBlueGradient
         
-        //fix this
-        frequency = Int(sender.currentTitle!) ?? 1
+        let frequency = Int(sender.currentTitle!) ?? 1
         delegate?.passFrequencyData(frequency: frequency)
     }
     
@@ -61,13 +59,12 @@ class HabitFrequencyCell: UITableViewCell {
             let frequencyButton = GradientButton()
             frequencyButton.layer.cornerRadius = 10
             frequencyButton.setTitleColor(.secondaryLabel, for: .normal)
-            frequencyButton.setTitle("\(frequencyArray[count])", for: .normal)
+            frequencyButton.setTitle("\(count + 1)", for: .normal)
             frequencyButton.addTarget(self, action: #selector(frequencyButtonPressed), for: .touchUpInside)
             frequencyButtonArray.append(frequencyButton)
             frequencyStackView.addArrangedSubview(frequencyButton)
         }
-     
-        
+    
         contentView.addSubviews(frequencyStackView)
         
         let padding: CGFloat = 10

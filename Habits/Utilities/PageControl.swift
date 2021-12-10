@@ -7,10 +7,8 @@
 
 import UIKit
 
-//does this need to be seperate?
-
 class PageControl: UIPageControl {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -20,12 +18,11 @@ class PageControl: UIPageControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        numberOfPages                             = 3
-        pageIndicatorTintColor                    = .secondaryLabel
-        currentPageIndicatorTintColor             = .label
-        backgroundColor                           = .secondarySystemBackground
+        numberOfPages                 = 3
+        pageIndicatorTintColor        = .secondaryLabel
+        currentPageIndicatorTintColor = .label
+        backgroundColor               = .secondarySystemBackground
     }
 }

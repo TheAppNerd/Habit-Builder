@@ -37,6 +37,7 @@
 		FA360BF826C6151600884B90 /* HabitReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF726C6151600884B90 /* HabitReminderCell.swift */; };
 		FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* HabitColorCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
+		FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60772762EA0C00A1A804 /* AlarmItem.swift */; };
 		FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
@@ -95,6 +96,7 @@
 		FA360BF726C6151600884B90 /* HabitReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitReminderCell.swift; sourceTree = "<group>"; };
 		FA360BF926C62C6A00884B90 /* HabitColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitColorCell.swift; sourceTree = "<group>"; };
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
+		FA3E60772762EA0C00A1A804 /* AlarmItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmItem.swift; sourceTree = "<group>"; };
 		FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
@@ -202,10 +204,10 @@
 		FA1C7327263648F400E63CBE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				FA360BF026C6058500884B90 /* NewHabitCells */,
 				FA1C73282636491A00E63CBE /* HabitCell.swift */,
 				FAF4E6D9264A48EC0029E50D /* MenuCell.swift */,
 				FAFF09AD27046E93008E8569 /* ChartCollectionViewCell.swift */,
+				FA360BF026C6058500884B90 /* NewHabitVCCells */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -261,6 +263,7 @@
 				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
 				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
 				FA29E0DB26FAA53300426F97 /* DateModel.swift */,
+				FA3E60772762EA0C00A1A804 /* AlarmItem.swift */,
 				FAFF09AB2702E3FA008E8569 /* ChartYear.swift */,
 				FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */,
 			);
@@ -292,7 +295,7 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		FA360BF026C6058500884B90 /* NewHabitCells */ = {
+		FA360BF026C6058500884B90 /* NewHabitVCCells */ = {
 			isa = PBXGroup;
 			children = (
 				FA360BF126C605C300884B90 /* HabitNameCell.swift */,
@@ -302,7 +305,7 @@
 				FA360BF726C6151600884B90 /* HabitReminderCell.swift */,
 				FABA380C26C9F1E00088254C /* HabitSaveCell.swift */,
 			);
-			path = NewHabitCells;
+			path = NewHabitVCCells;
 			sourceTree = "<group>";
 		};
 		FA6A49F9275EBDE00084EFCC /* Utilities */ = {
@@ -449,6 +452,7 @@
 				FA224D6926F17216005CC9F1 /* HabitDetailsVC.swift in Sources */,
 				FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */,
 				FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */,
+				FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */,
 				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
 				FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */,
 				FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */,
