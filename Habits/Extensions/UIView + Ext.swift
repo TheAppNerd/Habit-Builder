@@ -20,7 +20,7 @@ extension UIView {
         ])
     }
     
-    
+
     func pinMenuTo(_ view: UIView, with constant: CGFloat) {
         view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false

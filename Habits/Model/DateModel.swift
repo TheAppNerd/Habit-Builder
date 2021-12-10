@@ -9,9 +9,6 @@ import UIKit
 
 class DateModel {
     
-    
-    var calendarView = Calendar.current
-
     func getDayOfWeek() -> Int {
         let myCalendar = Calendar.current
         let today = myCalendar.startOfDay(for: Date())
@@ -30,6 +27,7 @@ class DateModel {
     
     
     func configureDays() -> [Date] { //this func works out the weeks dates.
+        let calendarView = Calendar.current
         var dateArray: [Date] = []
         var dateComponents = DateComponents()
         var dailyDateComponents = DateComponents()

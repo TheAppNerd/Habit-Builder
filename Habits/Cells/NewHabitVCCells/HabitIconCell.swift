@@ -105,8 +105,8 @@ class HabitIconCell: UITableViewCell {
             item.tintColor  = .secondaryLabel
             item.isSelected = false
             item.colors     = GradientColors.clearGradient
-            }
-            
+        }
+        
         sender.tintColor  = .white
         sender.colors     = Gradients().darkBlueGradient
         sender.isSelected = true
@@ -117,5 +117,5 @@ class HabitIconCell: UITableViewCell {
             }
         }
     }
-    }
+}
 

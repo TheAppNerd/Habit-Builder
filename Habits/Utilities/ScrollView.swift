@@ -21,6 +21,5 @@ class ScrollView: UIScrollView {
     private func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.isPagingEnabled = true
-        
     }
 }

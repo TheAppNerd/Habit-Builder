@@ -8,7 +8,7 @@
 import UIKit
 
 class DatePicker: UIDatePicker {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -23,6 +23,4 @@ class DatePicker: UIDatePicker {
         preferredDatePickerStyle                  = .wheels
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    
 }

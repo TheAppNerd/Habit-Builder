@@ -10,12 +10,22 @@ import CoreData
 
 class NewHabitVC: UITableViewController  {
     
-//    var habitArray            = [HabitCoreData]()
     var habitCoreData: HabitCoreData?
+    
+    //fix alarm picker so s date has to be selected if alarm is on
+    //fix alarm background
+    //fix nameArray functionality?
+    //move name, frequency colors etc striahgt to habit core array?
+    //get rid of dayArray, hour and minute
+    
+    //alarm testing considerations - Does previous name functionality work. Will there be an error with 2 habits with same name
+    
+    //total time - 5 hours
+    
     let context               = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     
-//    var cellTag               = Int()
+
     var nameArray             = [UITextField]()
     var previousName          = String() //using this prevents alarms from being messed with as name is name of title
     var name                  = String()
@@ -23,16 +33,12 @@ class NewHabitVC: UITableViewController  {
     var colors                = [CGColor]()
     var colorIndex            = Int()
     var iconString: String    = ""
-    var dayArray: [Bool]      = [false, false, false, false, false, false, false]
-    var alarmsActivated: Bool = false
-    var hour                  = Int()
-    var minute                = Int()
     
-    
+    var alarmItem             = AlarmItem(alarmActivated: false, title: "", days: [], hour: 0, minute: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //loadCoreData()
+        
         loadData()
         registerCells()
         configure()
@@ -53,8 +59,13 @@ class NewHabitVC: UITableViewController  {
             colorIndex      = Int(habit.habitGradientIndex)
             colors          = GradientArray.array[colorIndex]
             iconString      = habit.iconString ?? ""
-            dayArray        = habit.alarmDates ?? []
-            alarmsActivated = habit.alarmBool
+            
+            alarmItem.title = name
+            alarmItem.days        = habit.alarmDays ?? []
+            alarmItem.alarmActivated = habit.alarmBool
+            alarmItem.hour = Int(habit.alarmHour)
+            alarmItem.minute = Int(habit.alarmMinute)
+                
         }
     }
     
@@ -79,10 +90,9 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configureBarButtons() {
-        //fix back button
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(backButtonPressed))
-        
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
+        
         switch habitCoreData != nil {
         case true: deleteButton.image = SFSymbols.trash
         case false: deleteButton.image = SFSymbols.trashSlash
@@ -97,7 +107,7 @@ class NewHabitVC: UITableViewController  {
         show(habitVC, sender: self)
     }
     
-    func dismissKeyboard() { //move to seperate file
+    func dismissKeyboard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
@@ -132,38 +142,36 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    func createCoreDataHabit() { //create a habit core data struct to contain all the information
+    func createCoreDataHabit() {
+        var habit = HabitCoreData()
+        switch habitCoreData == nil {
+        case true: habit = HabitCoreData(context: context)
+        case false: habit = habitCoreData!
+        }
         
+        habit.habitName          = name
+        habit.frequency          = Int16(frequency)
+        habit.iconString         = iconString
+        habit.habitGradientIndex = Int16(colorIndex)
+        habit.alarmDays          = alarmItem.days
+        habit.habitDates         = []
+        habit.alarmBool          = alarmItem.alarmActivated
+        if alarmItem.alarmActivated == true {
+        habit.alarmHour =  Int16(alarmItem.hour)
+        habit.alarmMinute = Int16(alarmItem.minute)
+        }
         
         if habitCoreData == nil {
-            let newHabit                = HabitCoreData(context: context)
-            newHabit.habitName          = name
-            newHabit.frequency          = Int16(frequency)
-            newHabit.iconString         = iconString
-            newHabit.habitGradientIndex = Int16(colorIndex)
-            newHabit.alarmDates         = dayArray
-            newHabit.habitCreated       = true
-            newHabit.habitDates         = []
-            newHabit.alarmBool          = alarmsActivated
-            newHabit.dateHabitCreated   = Date()
-        
-        
-            HabitHomeVC.habitArray.append(newHabit)
-        } else if habitCoreData != nil {
-            let oldHabit                = habitCoreData!
-            oldHabit.habitName          = name
-            oldHabit.frequency          = Int16(frequency)
-            oldHabit.iconString         = iconString
-            oldHabit.habitGradientIndex = Int16(colorIndex)
-            oldHabit.alarmDates         = dayArray
-            oldHabit.alarmBool          = alarmsActivated
-           
+            habit.dateHabitCreated   = Date()
+            HabitHomeVC.habitArray.append(habit)
         }
     }
-
+    
+    
     @objc func saveButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
+        print(alarmItem)
         guard name != "" else {
             nameArray[0].layer.borderWidth = 2
             return
@@ -176,23 +184,12 @@ class NewHabitVC: UITableViewController  {
         let habitVC = HabitHomeVC()
         show(habitVC, sender: self)
     }
-//    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
-//
-//        do {
-//            habitArray = try context.fetch(request)
-//        } catch {
-//            print("error loading context: \(error)")
-//        }
-//    }
+    
     
     func setupNotifications() {
         UserNotifications.removeNotifications(title: previousName)
-        if alarmsActivated == true {
-            for (index, bool) in dayArray.enumerated() {
-                if bool == true {
-                    UserNotifications.scheduleNotification(title: name, day: index, hour: hour, minute: minute)
-                }
-            }
+        if alarmItem.alarmActivated == true {
+            UserNotifications.scheduleNotifications(alarmItem: alarmItem)
         }
     }
     
@@ -207,8 +204,8 @@ class NewHabitVC: UITableViewController  {
         
         let twentyFourHourDate = formatter.string(from: date!)
         let time = twentyFourHourDate.components(separatedBy: ":")
-        hour = Int(time[0])!
-        minute = Int(time[1])!
+        alarmItem.hour = Int(time[0])!
+        alarmItem.minute = Int(time[1])!
     }
     
     
@@ -216,8 +213,8 @@ class NewHabitVC: UITableViewController  {
         generator.impactOccurred()
         
         switch sender.selectedSegmentIndex {
-        case 0: alarmsActivated = false
-        case 1: alarmsActivated = true
+        case 0: alarmItem.alarmActivated = false
+        case 1: alarmItem.alarmActivated = true
             let current = UNUserNotificationCenter.current()
             current.getNotificationSettings { (settings) in
                 if settings.authorizationStatus == .denied {
@@ -231,7 +228,7 @@ class NewHabitVC: UITableViewController  {
                 }
             }
         default:
-            alarmsActivated = false
+            alarmItem.alarmActivated = false
         }
     }
     
@@ -297,13 +294,16 @@ class NewHabitVC: UITableViewController  {
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: HabitReminderCell.reuseID, for: indexPath) as! HabitReminderCell
             cell.colors = colors
             cell.delegate = self
-            switch alarmsActivated {
+            
+            switch alarmItem.alarmActivated {
             case true: cell.dateSegment.selectedSegmentIndex = 1
+                cell.datePicker.date = DateFuncs.setupDatePickerDate(hour: alarmItem.hour, minute: alarmItem.minute)
             case false: cell.dateSegment.selectedSegmentIndex = 0
             }
+            
             cell.dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
             cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
-            for (index, bool) in dayArray.enumerated() {
+            for (index, bool) in alarmItem.days.enumerated() {
                 if bool == true {
                     cell.buttonArray[index].sendActions(for: .touchUpInside)
                 }
@@ -324,7 +324,6 @@ class NewHabitVC: UITableViewController  {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.label
     }
-
 }
 
 
@@ -348,16 +347,15 @@ extension NewHabitVC: UITextFieldDelegate {
     
 }
 
-//MARK: - Protocol Extension
+//MARK: - Protocol Extensions
 
-//rename protocols to resemble cell names
-extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData, passFrequencyData {
+extension NewHabitVC: passColorsData, passIconData, passDayData, passFrequencyData {
     
-    func passDayData(dayArray: [Bool]) {
-        self.dayArray = dayArray
+    func passFrequencyData(frequency: Int) {
+        self.frequency = frequency
     }
     
-    func reloadTableView(colors: [CGColor], colorIndex: Int) {
+    func passColorsData(colors: [CGColor], colorIndex: Int) {
         self.colors = colors
         self.colorIndex = colorIndex
     }
@@ -367,8 +365,9 @@ extension NewHabitVC: reloadTableViewDelegate, passIconData, passDayData, passFr
         self.iconString = iconString
     }
     
-    func passFrequencyData(frequency: Int) {
-        self.frequency = frequency
+    
+    func passDayData(dayArray: [Bool]) {
+        alarmItem.days = dayArray
     }
 }
 

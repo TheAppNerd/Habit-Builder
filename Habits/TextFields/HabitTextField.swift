@@ -20,7 +20,7 @@ class HabitTextField: UITextField {
     
     
     private func configure() {
-    translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         returnKeyType             = .done
         textColor                 = .label
         tintColor                 = .label
