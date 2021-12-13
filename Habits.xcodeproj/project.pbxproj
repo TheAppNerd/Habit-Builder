@@ -38,6 +38,8 @@
 		FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* HabitColorCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60772762EA0C00A1A804 /* AlarmItem.swift */; };
+		FA3E607B2766C3C400A1A804 /* HabitEntities.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60792766C3C400A1A804 /* HabitEntities.xcdatamodeld */; };
+		FA3E607D2766CF8100A1A804 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E607C2766CF8100A1A804 /* CoreDataStorage.swift */; };
 		FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
@@ -97,6 +99,8 @@
 		FA360BF926C62C6A00884B90 /* HabitColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitColorCell.swift; sourceTree = "<group>"; };
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
 		FA3E60772762EA0C00A1A804 /* AlarmItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmItem.swift; sourceTree = "<group>"; };
+		FA3E607A2766C3C400A1A804 /* HabitEntities.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitEntities.xcdatamodel; sourceTree = "<group>"; };
+		FA3E607C2766CF8100A1A804 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 		FA224D7826F4177A005CC9F1 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				FA3E60792766C3C400A1A804 /* HabitEntities.xcdatamodeld */,
+				FA3E607C2766CF8100A1A804 /* CoreDataStorage.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -461,6 +467,7 @@
 				FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FA360BED26C4C86300884B90 /* Gradients.swift in Sources */,
+				FA3E607D2766CF8100A1A804 /* CoreDataStorage.swift in Sources */,
 				FA29E0DC26FAA53300426F97 /* DateModel.swift in Sources */,
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
 				FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */,
@@ -479,6 +486,7 @@
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */,
 				FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */,
+				FA3E607B2766C3C400A1A804 /* HabitEntities.xcdatamodeld in Sources */,
 				FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */,
 				FA360BF626C6120100884B90 /* HabitIconCell.swift in Sources */,
@@ -678,6 +686,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		FA3E60792766C3C400A1A804 /* HabitEntities.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FA3E607A2766C3C400A1A804 /* HabitEntities.xcdatamodel */,
+			);
+			currentVersion = FA3E607A2766C3C400A1A804 /* HabitEntities.xcdatamodel */;
+			path = HabitEntities.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		FAC2F36D27507DDB00148EBC /* HabitCoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

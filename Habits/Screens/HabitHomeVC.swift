@@ -11,6 +11,10 @@ import CoreData
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
+    let coreDataStorage = CoreDataStorage()
+    
+    
+    
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
@@ -68,7 +72,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
     func configureTableView() {
         view.addSubview(tableView)
         tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
-        
         tableView.delegate        = self
         tableView.dataSource      = self
         tableView.frame           = view.bounds
@@ -181,7 +184,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     @objc func menuBarButtonPressed() { //change this to a push. can then load button presses from menuview, dismiss back to here and have it much cleaner.
         // move to animation file
         generator.impactOccurred()
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveLinear) {
             self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
             self.tableView.frame.origin.x      = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
         } completion: { (finished) in
