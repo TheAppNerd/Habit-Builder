@@ -25,9 +25,7 @@ class HabitNameCell: UITableViewCell {
     private func configure() {
         backgroundColor = .secondarySystemBackground
         self.layer.cornerRadius = 10
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.placeholder       = Labels.placeholder
-        nameTextField.layer.cornerRadius = 10
         nameTextField.layer.borderColor = UIColor.red.cgColor
         nameTextField.text              = ""
         contentView.layer.cornerRadius  = 10

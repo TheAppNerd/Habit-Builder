@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HabitDates" representedClassName="HabitDates" parentEntity="HabitEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="parentID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="HabitEntity" representedClassName="HabitEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="frequency" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="gradient" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="icon" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+    </entity>
+    <entity name="HabitNotifications" representedClassName="HabitNotifications" parentEntity="HabitEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="notificationBool" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="notificationDays" optional="YES" attributeType="String"/>
+        <attribute name="notificationTime" optional="YES" attributeType="String"/>
+        <attribute name="parentID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <elements>
+        <element name="HabitEntity" positionX="-43.64984130859375" positionY="-213.3012084960938" width="128" height="118"/>
+        <element name="HabitDates" positionX="-118.657958984375" positionY="-62.08392333984375" width="128" height="73"/>
+        <element name="HabitNotifications" positionX="30.58734130859375" positionY="-62.4693603515625" width="128" height="89"/>
+    </elements>
+</model>

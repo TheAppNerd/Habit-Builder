@@ -12,20 +12,17 @@ class NewHabitVC: UITableViewController  {
     
     var habitCoreData: HabitCoreData?
     
-    //fix alarm picker so s date has to be selected if alarm is on
-    //fix alarm background
+    //fix alarm picker so date has to be selected if alarm is on. like the text field red circle.
+    //fix alarm on or off background
     //fix nameArray functionality?
     //move name, frequency colors etc striahgt to habit core array?
-    //get rid of dayArray, hour and minute
-    
-    //alarm testing considerations - Does previous name functionality work. Will there be an error with 2 habits with same name
-    
-    //total time - 5 hours
+    //2 habits with same name doesnt work. ignore or fix?
+    //move generator to its own class/protocol?
+//new habits that havent been saved yet wont create a habit. fix this. (alarmitem doesnt get filled until the load func.)``~QC4AQ4  `1awq
     
     let context               = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     
-
     var nameArray             = [UITextField]()
     var previousName          = String() //using this prevents alarms from being messed with as name is name of title
     var name                  = String()
@@ -65,11 +62,8 @@ class NewHabitVC: UITableViewController  {
             alarmItem.alarmActivated = habit.alarmBool
             alarmItem.hour = Int(habit.alarmHour)
             alarmItem.minute = Int(habit.alarmMinute)
-                
         }
     }
-    
-    // arrange funcs in same order they are called in viewdidload
     
     private func registerCells() {
         tableView.register(HabitNameCell.self, forCellReuseIdentifier: HabitNameCell.reuseID)
