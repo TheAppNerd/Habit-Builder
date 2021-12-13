@@ -27,6 +27,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
+     
     }
     
     
@@ -39,6 +40,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureEmptyState()
         configureTableViewFooter()
         configureMenuView()
+        
+
     }
     
     
