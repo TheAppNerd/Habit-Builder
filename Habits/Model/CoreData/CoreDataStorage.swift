@@ -8,6 +8,11 @@
 import UIKit
 import CoreData
 
+//all data connections should use the core data funcs
+//look at saved website for proper way to connect these.
+//need to find optimal way to update and save dates and notifications to the correct habit
+//notifications dont need to be seperate from habit entity. move them back and just make days and time optional
+
 class CoreDataStorage {
     
     let persistentContainer: NSPersistentContainer
@@ -32,7 +37,7 @@ extension CoreDataStorage {
         habit.frequency = frequency
         habit.gradient = gradient
         habit.dateCreated = dateCreated
-        
+    
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -70,6 +75,26 @@ extension CoreDataStorage {
             persistentContainer.viewContext.rollback()
             print("Failed to save: \(error)")
         }
+    }
+    
+    func setNotifications(index: Int) {
+        let entityArray = loadHabit()
+        let notifications = entityArray[index].notifications
+        
+        
+    }
+    
+    func addHabitDate(index: Int) {
+        //how do we ensure this saves to right habit?
+        let habitDates = HabitDates(context: persistentContainer.viewContext)
+         habitDates.date = Date()
+        habitDates.dates?.addToDatesSaved(habitDates)
+        
+    }
+     
+    func removeHabitDate(index: Int) {
+        let entityArray = loadHabit()
+        
     }
     
 }

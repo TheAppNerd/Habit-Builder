@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="HabitDates" representedClassName="HabitDates" parentEntity="HabitEntity" syncable="YES" codeGenerationType="class">
+    <entity name="HabitDates" representedClassName="HabitDates" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="parentID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="dates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HabitEntity" inverseName="datesSaved" inverseEntity="HabitEntity"/>
     </entity>
     <entity name="HabitEntity" representedClassName="HabitEntity" syncable="YES" codeGenerationType="class">
         <attribute name="dateCreated" attributeType="Date" usesScalarValueType="NO"/>
@@ -10,16 +10,18 @@
         <attribute name="gradient" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="icon" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
+        <relationship name="datesSaved" toMany="YES" deletionRule="Nullify" destinationEntity="HabitDates" inverseName="dates" inverseEntity="HabitDates"/>
+        <relationship name="notifications" maxCount="1" deletionRule="Nullify" destinationEntity="HabitNotifications" inverseName="notificationSettings" inverseEntity="HabitNotifications"/>
     </entity>
-    <entity name="HabitNotifications" representedClassName="HabitNotifications" parentEntity="HabitEntity" syncable="YES" codeGenerationType="class">
+    <entity name="HabitNotifications" representedClassName="HabitNotifications" syncable="YES" codeGenerationType="class">
         <attribute name="notificationBool" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="notificationDays" optional="YES" attributeType="String"/>
         <attribute name="notificationTime" optional="YES" attributeType="String"/>
-        <attribute name="parentID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="notificationSettings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HabitEntity" inverseName="notifications" inverseEntity="HabitEntity"/>
     </entity>
     <elements>
-        <element name="HabitEntity" positionX="-43.64984130859375" positionY="-213.3012084960938" width="128" height="118"/>
-        <element name="HabitDates" positionX="-118.657958984375" positionY="-62.08392333984375" width="128" height="73"/>
-        <element name="HabitNotifications" positionX="30.58734130859375" positionY="-62.4693603515625" width="128" height="89"/>
+        <element name="HabitDates" positionX="-233.75927734375" positionY="172.156494140625" width="128" height="73"/>
+        <element name="HabitNotifications" positionX="46.5755615234375" positionY="146.8286743164062" width="128" height="103"/>
+        <element name="HabitEntity" positionX="-154.5319213867188" positionY="-29.615966796875" width="128" height="148"/>
     </elements>
 </model>
