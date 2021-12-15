@@ -11,9 +11,9 @@ import FSCalendar
 
 class HabitDetailsVC: UIViewController {
     
-    var habitCoreData: HabitCoreData? {
+    var habitEntity: HabitEntity? {
         didSet {
-            let gradientColor = GradientArray.array[Int(habitCoreData!.habitGradientIndex)]
+            let gradientColor = GradientArray.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
             habitDetailsCalendarView.setColor(colors: gradientColor)
         }
@@ -35,7 +35,7 @@ class HabitDetailsVC: UIViewController {
         configureViews()
         configureBarButtons()
         addNewYear()
-        title = habitCoreData?.habitName
+        title = habitEntity?.name
         configureCollectionView()
         updateChart()
     }
@@ -85,16 +85,15 @@ class HabitDetailsVC: UIViewController {
     }
     
     func configureCalendarDates() {
-        if let dateArray = habitCoreData?.habitDates {
+        let dateArray = HabitEntities().loadHabitDates(habit: habitEntity!)
             for date in dateArray {
                 habitDetailsCalendarView.calendarView.select(date)
             }
-        }
     }
     
     func updateStreaks() {
-        let dateCreated = habitCoreData?.dateHabitCreated ?? Date()
-        let daysCompleted = habitCoreData?.habitDates?.count ?? 0
+        let dateCreated = habitEntity?.dateCreated ?? Date()
+        let daysCompleted = HabitEntities().loadHabitDates(habit: habitEntity!).count
         
         //make an extension?
         let dateFormatter = DateFormatter()
@@ -117,7 +116,7 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)
-            self.habitCoreData?.habitDates?.append(date)
+            //self.habitCoreData?.habitDates?.append(date)
             CoreDataFuncs.saveCoreData()
            
             self.updateChart()
@@ -134,7 +133,7 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
-            self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
+            //self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
             
             self.updateChart()
             self.updateStreaks()
@@ -166,7 +165,7 @@ class HabitDetailsVC: UIViewController {
     
     @objc func editHabit() {
         let newHabitVC = NewHabitVC()
-        newHabitVC.habitCoreData = habitCoreData
+        //newHabitVC.habitCoreData = habitCoreData
         show(newHabitVC, sender: self)
     }
     

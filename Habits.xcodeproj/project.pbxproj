@@ -39,8 +39,9 @@
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60772762EA0C00A1A804 /* AlarmItem.swift */; };
 		FA3E607B2766C3C400A1A804 /* HabitEntities.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60792766C3C400A1A804 /* HabitEntities.xcdatamodeld */; };
-		FA3E607D2766CF8100A1A804 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E607C2766CF8100A1A804 /* CoreDataStorage.swift */; };
+		FA3E607D2766CF8100A1A804 /* HabitEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E607C2766CF8100A1A804 /* HabitEntities.swift */; };
 		FA3E608127675E4500A1A804 /* CoreDataDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E608027675E4400A1A804 /* CoreDataDates.swift */; };
+		FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60842769AAC500A1A804 /* ChartModel.swift */; };
 		FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
@@ -101,8 +102,9 @@
 		FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFuncs.swift; sourceTree = "<group>"; };
 		FA3E60772762EA0C00A1A804 /* AlarmItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmItem.swift; sourceTree = "<group>"; };
 		FA3E607A2766C3C400A1A804 /* HabitEntities.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitEntities.xcdatamodel; sourceTree = "<group>"; };
-		FA3E607C2766CF8100A1A804 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		FA3E607C2766CF8100A1A804 /* HabitEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitEntities.swift; sourceTree = "<group>"; };
 		FA3E608027675E4400A1A804 /* CoreDataDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDates.swift; sourceTree = "<group>"; };
+		FA3E60842769AAC500A1A804 /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
 		FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				FA3E60772762EA0C00A1A804 /* AlarmItem.swift */,
 				FAFF09AB2702E3FA008E8569 /* ChartYear.swift */,
 				FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */,
+				FA3E60842769AAC500A1A804 /* ChartModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -280,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				FA3E60792766C3C400A1A804 /* HabitEntities.xcdatamodeld */,
-				FA3E607C2766CF8100A1A804 /* CoreDataStorage.swift */,
+				FA3E607C2766CF8100A1A804 /* HabitEntities.swift */,
 				FA3E608027675E4400A1A804 /* CoreDataDates.swift */,
 			);
 			path = CoreData;
@@ -470,9 +473,10 @@
 				FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */,
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FA360BED26C4C86300884B90 /* Gradients.swift in Sources */,
-				FA3E607D2766CF8100A1A804 /* CoreDataStorage.swift in Sources */,
+				FA3E607D2766CF8100A1A804 /* HabitEntities.swift in Sources */,
 				FA29E0DC26FAA53300426F97 /* DateModel.swift in Sources */,
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
+				FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */,
 				FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */,
 				FA1C73242636406300E63CBE /* HabitHomeVC.swift in Sources */,
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
