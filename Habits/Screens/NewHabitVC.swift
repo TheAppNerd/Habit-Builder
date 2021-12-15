@@ -116,13 +116,13 @@ class NewHabitVC: UITableViewController  {
         UserNotifications.removeNotifications(title: self.previousName)
             
             let habit = self.habitCoreData
-            self.context.delete(habit!)
-            for (index, habits) in HabitHomeVC.habitArray.enumerated() {
-                if habits == habit {
-                    let habitIndex = index
-                    HabitHomeVC.habitArray.remove(at: habitIndex)
-                }
-            }
+          //  self.context.delete(habit!)
+         //   for (index, habits) in HabitHomeVC.habitArray.enumerated() {
+//                if habits == habit {
+//                    let habitIndex = index
+//                    HabitHomeVC.habitArray.remove(at: habitIndex)
+//             //   }
+//            }
             
         CoreDataFuncs.saveCoreData()
         
@@ -139,7 +139,7 @@ class NewHabitVC: UITableViewController  {
     func createCoreDataHabit() {
         var habit = HabitCoreData()
         switch habitCoreData == nil {
-        case true: habit = HabitCoreData(context: context)
+        case true: print("")//habit = HabitCoreData(context: context)
         case false: habit = habitCoreData!
         }
         
@@ -157,7 +157,7 @@ class NewHabitVC: UITableViewController  {
         
         if habitCoreData == nil {
             habit.dateHabitCreated   = Date()
-            HabitHomeVC.habitArray.append(habit)
+          //  HabitHomeVC.habitArray.append(habit)
         }
     }
     

@@ -16,13 +16,12 @@ class HabitDetailsVC: UIViewController {
             let gradientColor = GradientArray.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
             habitDetailsCalendarView.setColor(colors: gradientColor)
+            chartYears = ChartModel.setChartData(habit: habitEntity!)
         }
     }
     
-    var chartArray = [ChartYear]()
-    var chartYears: [Int: [Int]] = [:]
+    var chartYears: [ChartYear] = []
     
-
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView = HabitDetailsStreakView()
     let habitDetailsChartView = HabitDetailsChartView()
@@ -34,10 +33,9 @@ class HabitDetailsVC: UIViewController {
         configureCalendarDates()
         configureViews()
         configureBarButtons()
-        addNewYear()
+        
         title = habitEntity?.name
         configureCollectionView()
-        updateChart()
     }
 
     func configureViews() {
@@ -119,7 +117,7 @@ class HabitDetailsVC: UIViewController {
             //self.habitCoreData?.habitDates?.append(date)
             CoreDataFuncs.saveCoreData()
            
-            self.updateChart()
+           // self.updateChart()
             self.updateStreaks()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
@@ -135,7 +133,7 @@ class HabitDetailsVC: UIViewController {
             self.habitDetailsCalendarView.calendarView.deselect(date)
             //self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
             
-            self.updateChart()
+           // self.updateChart()
             self.updateStreaks()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
@@ -169,56 +167,6 @@ class HabitDetailsVC: UIViewController {
         show(newHabitVC, sender: self)
     }
     
-    //MARK: - chart funcs
-    
-    func addNewYear() { //move to class
-        if chartYears.count == 0 {
-            chartYears[DateModel().getYear()] = [0,0,0,0,0,0,0,0,0,0,0,0]
-            chartYears[DateModel().getYear()-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
-        }
-        
-        //loop through dict keys to get highest value. if current year != highest value append new dict with current year
-        let latestYear = chartYears.keys.max()
-        let currentYear = DateModel().getYear()
-        //test this
-        if currentYear > latestYear! {
-            chartYears[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
-        }
-    }
-    
-    func updateChart() {
-        
-        let calendar = Calendar.current
-        
-        //resets all charts to 0
-        for year in chartYears.keys {
-            chartYears[year] = [0,0,0,0,0,0,0,0,0,0,0,0]
-        }
-      
-        guard habitCoreData?.habitDates != nil else { return }
-        for date in habitCoreData!.habitDates! {
-            
-            let monthCalc = calendar.dateComponents([.month], from: date)
-            let yearCalc = calendar.dateComponents([.year], from: date)
-            let year = yearCalc.year!
-            let month = monthCalc.month!-1
-            //add if statement here to check if year in dict
-            if !chartYears.keys.contains(year) {
-                chartYears[year] = [0,0,0,0,0,0,0,0,0,0,0,0]
-            }
-            chartYears[year]![month] += 1
-        }
-        chartArray = []
-        for year in chartYears {
-            let chartYear = ChartYear(year: year.key, monthCount: year.value, color: GradientArray.array[Int(habitCoreData!.habitGradientIndex)])
-            chartArray.append(chartYear)
-        }
-        chartArray = chartArray.sorted { $0.year < $1.year }
-        
-        DispatchQueue.main.async {
-            self.habitDetailsChartView.collectionView.reloadData()
-        }
-    }
 }
 
 //MARK: - CollectionView
@@ -238,7 +186,7 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ChartCollectionViewCell.reuseID, for: indexPath) as! ChartCollectionViewCell
     
-        let chartYear = chartArray[indexPath.row]
+        let chartYear = chartYears[indexPath.row]
         cell.set(chartYear: chartYear)
         return cell
     }
