@@ -224,14 +224,14 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
             let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[index])
             
             
-            if habit.habitDates!.contains(selectedDate) {
-                button.layer.borderColor = UIColor.clear.cgColor
-                button.setTitle(nil, for: .normal)
-                button.setImage(SFSymbols.checkMark, for: .normal)
-            } else {
-                button.backgroundColor = .clear
-                button.layer.borderColor = UIColor.white.cgColor
-            }
+//            if habit.habitDates!.contains(selectedDate) {
+//                button.layer.borderColor = UIColor.clear.cgColor
+//                button.setTitle(nil, for: .normal)
+//                button.setImage(SFSymbols.checkMark, for: .normal)
+//            } else {
+//                button.backgroundColor = .clear
+//                button.layer.borderColor = UIColor.white.cgColor
+//            }
         }
         
         var completedDays = 0
@@ -249,7 +249,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
         //change this to a protocol instead?
-        vc.habitCoreData = habitArray[indexPath.row]
+        //vc.habitCoreData = habitArray[indexPath.row]
         
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         
