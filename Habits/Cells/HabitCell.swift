@@ -25,15 +25,13 @@ class HabitCell: UITableViewCell {
     let labelStackView    = UIStackView()
     let buttonStackView   = UIStackView()
    
-    var dateArray: [Date] = []
-    var dayArray: [Int]   = []
+    var dateArray: [Date] = DateModel.weeklyDateArray()
+    var dayArray: [Int]   = DateModel.weeklyDayArray()
     let dayButton: [DayButton] = [DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton(), DayButton()]
          
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
-        dateArray = dateModel.configureDays()
-        dayArray = dateModel.getDay(dateArray: dateArray)
         configureLabelStackView()
         configureButtonStackView()
         self.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -62,16 +60,19 @@ class HabitCell: UITableViewCell {
     }
     
     
-    func set(habit: HabitCoreData) {
-        habitName.text = habit.habitName
-        habitIcon.image = UIImage(named: habit.iconString ?? "")
+    func set(habit: HabitEntity) {
+        habitName.text = habit.name
+        habitIcon.image = UIImage(named: habit.icon ?? "")
         habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days "
+        habitGradient = GradientArray.array[Int(habit.gradient)]
         
-        switch habit.alarmBool {
+        switch habit.notificationBool {
         case true: habitAlarmIcon.image = SFSymbols.bell
         case false: habitAlarmIcon.image = SFSymbols.bellSlash
         }
     }
+    
+    
     
     
     func configureLabelStackView() {
@@ -93,7 +94,7 @@ class HabitCell: UITableViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         //this marks the current day of the week
-        dayLabels[dateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        dayLabels[DateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
     
     

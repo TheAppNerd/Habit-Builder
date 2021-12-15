@@ -20,7 +20,7 @@ class NewHabitVC: UITableViewController  {
     //move generator to its own class/protocol?
 //new habits that havent been saved yet wont create a habit. fix this. (alarmitem doesnt get filled until the load func.)``~QC4AQ4  `1awq
     
-    let context               = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+   
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     
     var nameArray             = [UITextField]()

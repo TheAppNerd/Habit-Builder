@@ -11,15 +11,12 @@ import CoreData
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
-    let coreDataStorage = CoreDataStorage()
-    
-    
-    
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView       = EmptyStateView()
-    static var habitArray           = [HabitCoreData]()
+    let habitArray = HabitEntities().loadHabitArray()
+    
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
@@ -33,7 +30,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCoreData()
         configureViewController()
         configureBarButtonItems()
         configureTableView()
@@ -46,7 +42,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     
     func showEmptyStateView() {
-        switch HabitHomeVC.habitArray.isEmpty {
+        switch habitArray.isEmpty {
         case true:  view.addSubview(emptyStateView)
             emptyStateView.frame = tableView.frame
         case false: emptyStateView.removeFromSuperview()
@@ -94,7 +90,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         let tableViewFooter = TableViewFooter()
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         tableView.tableFooterView = tableViewFooter
-        switch HabitHomeVC.habitArray.isEmpty {
+        switch habitArray.isEmpty {
         case true: tableViewFooter.isHidden = true
         case false: tableViewFooter.isHidden = false
         }
@@ -134,34 +130,28 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     
     @objc func dateButtonPressed(_ sender: UIButton) {
-        let habitCell = HabitCell()
-        let selectedDate = DateFuncs.startOfDay(date: habitCell.dateArray[sender.tag])
+        generator.impactOccurred()
+        let selectedDate = DateModel.weeklyDateArray()[sender.tag]
+        
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
-        generator.impactOccurred()
         
-        if sender.layer.borderColor == UIColor.white.cgColor {
-            HabitHomeVC.habitArray[indexPath.row].habitDates?.append(selectedDate)
-            CoreDataFuncs.saveCoreData()
-            self.tableView.reloadData()
+        if sender.image(for: .normal) == SFSymbols.checkMark {
+            //remove habit date
+            //save core data
+            //habitArray[indexPath.row]
+            //if habit date contains selected date (if weeklydateArray[sender.tag)
         } else {
-            HabitHomeVC.habitArray[indexPath.row].habitDates = HabitHomeVC.habitArray[indexPath.row].habitDates?.filter {$0 != selectedDate}
-            CoreDataFuncs.saveCoreData()
-            tableView.reloadData()
-        }
-    }
-    
-    //fix this and move to coredata funcs
-    func loadCoreData(with request: NSFetchRequest<HabitCoreData> = HabitCoreData.fetchRequest()) {
-        let context              = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        do {
-            let coreDataArray = try context.fetch(request)
-            HabitHomeVC.habitArray = coreDataArray
-        } catch {
-            print("error loading context: \(error)")
+            //add habit date
+            //save core data
+            //habitArray[indexPath.row]
+            //if habit date contains selected date
         }
         tableView.reloadData()
     }
+    
+    
+ 
     
     //MARK: - menu view
     
@@ -205,26 +195,34 @@ class HabitHomeVC: UIViewController, SettingsPush {
 
 extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return HabitHomeVC.habitArray.count
+        return habitArray.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
-        let habit = HabitHomeVC.habitArray[indexPath.row]
         
-        cell.habitGradient = [UIColor.clear.cgColor]
+        let habit = habitArray[indexPath.row]
+        let date = habit.datesSaved
+        let habitDate = HabitDates()
+        habitDate.date = Date()
+        date?.addingObjects(from: [habitDate])
+        //cell.habitGradient = [UIColor.clear.cgColor]
+        cell.set(habit: habit)
         
-
+        //find a way to search dates and compare them to current days fo week for completion count
+        //if habit.datesSaved?.allObjects.contains(where: <#T##(Any) throws -> Bool#>)
+        
         for (index,button) in cell.dayButton.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
-            button.setTitle("\(cell.dayArray[index])", for: .normal)
+            button.setTitle("\(DateModel.weeklyDayArray()[index])", for: .normal)
             button.setImage(nil, for: .normal)
             
             button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.tag = index
             
             let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[index])
+            
             
             if habit.habitDates!.contains(selectedDate) {
                 button.layer.borderColor = UIColor.clear.cgColor
@@ -244,16 +242,14 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.habitCompletedDays = completedDays
         
-        cell.habitGradient = GradientArray.array[Int(habit.habitGradientIndex)]
-        
-        cell.set(habit: habit)
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
-        vc.habitCoreData = HabitHomeVC.habitArray[indexPath.row]
+        //change this to a protocol instead?
+        vc.habitCoreData = habitArray[indexPath.row]
         
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         
