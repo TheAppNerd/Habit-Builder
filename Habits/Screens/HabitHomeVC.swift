@@ -15,8 +15,9 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView       = EmptyStateView()
-    let habitArray = HabitEntities().loadHabitArray()
     
+    let habitEntities = HabitEntities()
+    let habitArray    = HabitEntities().loadHabitArray()
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
@@ -249,7 +250,8 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
         //change this to a protocol instead?
-        //vc.habitCoreData = habitArray[indexPath.row]
+        
+        vc.habitEntity = habitArray[indexPath.row]
         
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         
