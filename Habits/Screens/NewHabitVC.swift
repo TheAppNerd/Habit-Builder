@@ -10,7 +10,7 @@ import CoreData
 
 class NewHabitVC: UITableViewController  {
     
-    var habitCoreData: HabitCoreData?
+    var habitEntity: HabitEntity?
     
     //fix alarm picker so date has to be selected if alarm is on. like the text field red circle.
     //fix alarm on or off background
@@ -48,20 +48,20 @@ class NewHabitVC: UITableViewController  {
     }
     
     func loadData() {
-            if habitCoreData != nil {
-            let habit       = habitCoreData!
-            name            = habit.habitName ?? ""
-            previousName    = habit.habitName ?? ""
+            if habitEntity != nil {
+            let habit       = habitEntity!
+            name            = habit.name ?? ""
+            previousName    = habit.name ?? ""
             frequency       = Int(habit.frequency)
-            colorIndex      = Int(habit.habitGradientIndex)
+            colorIndex      = Int(habit.gradient)
             colors          = GradientArray.array[colorIndex]
-            iconString      = habit.iconString ?? ""
+            iconString      = habit.icon ?? ""
             
-            alarmItem.title = name
-            alarmItem.days        = habit.alarmDays ?? []
-            alarmItem.alarmActivated = habit.alarmBool
-            alarmItem.hour = Int(habit.alarmHour)
-            alarmItem.minute = Int(habit.alarmMinute)
+//            alarmItem.title = name
+//            alarmItem.days        = habit.alarmDays ?? []
+//            alarmItem.alarmActivated = habit.alarmBool
+//            alarmItem.hour = Int(habit.alarmHour)
+//            alarmItem.minute = Int(habit.alarmMinute)
         }
     }
     
@@ -87,7 +87,7 @@ class NewHabitVC: UITableViewController  {
         let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(backButtonPressed))
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
         
-        switch habitCoreData != nil {
+        switch habitEntity != nil {
         case true: deleteButton.image = SFSymbols.trash
         case false: deleteButton.image = SFSymbols.trashSlash
         }
@@ -115,7 +115,7 @@ class NewHabitVC: UITableViewController  {
             
         UserNotifications.removeNotifications(title: self.previousName)
             
-            let habit = self.habitCoreData
+            let habit = self.habitEntity
           //  self.context.delete(habit!)
          //   for (index, habits) in HabitHomeVC.habitArray.enumerated() {
 //                if habits == habit {
@@ -130,36 +130,36 @@ class NewHabitVC: UITableViewController  {
         self.show(habitVC, sender: self)
         }))
         
-        if habitCoreData != nil {
+        if habitEntity != nil {
             generator.impactOccurred()
             present(deleteAlert, animated: true, completion: nil)
         }
     }
     
-    func createCoreDataHabit() {
-        var habit = HabitCoreData()
-        switch habitCoreData == nil {
-        case true: print("")//habit = HabitCoreData(context: context)
-        case false: habit = habitCoreData!
-        }
-        
-        habit.habitName          = name
-        habit.frequency          = Int16(frequency)
-        habit.iconString         = iconString
-        habit.habitGradientIndex = Int16(colorIndex)
-        habit.alarmDays          = alarmItem.days
-        habit.habitDates         = []
-        habit.alarmBool          = alarmItem.alarmActivated
-        if alarmItem.alarmActivated == true {
-        habit.alarmHour =  Int16(alarmItem.hour)
-        habit.alarmMinute = Int16(alarmItem.minute)
-        }
-        
-        if habitCoreData == nil {
-            habit.dateHabitCreated   = Date()
-          //  HabitHomeVC.habitArray.append(habit)
-        }
-    }
+//    func createCoreDataHabit() {
+//        var habit = HabitEntity()
+//        switch habitEntity == nil {
+//        case true: print("")//habit = HabitCoreData(context: context)
+//        case false: habit = habitCoreData!
+//        }
+//
+//        habit.name          = name
+//        habit.frequency          = Int16(frequency)
+//        habit.icon         = iconString
+//        habit.gradient = Int16(colorIndex)
+//        habit.alarmDays          = alarmItem.days
+//        habit.habitDates         = []
+//        habit.alarmBool          = alarmItem.alarmActivated
+//        if alarmItem.alarmActivated == true {
+//        habit.alarmHour =  Int16(alarmItem.hour)
+//        habit.alarmMinute = Int16(alarmItem.minute)
+//        }
+//
+//        if habitCoreData == nil {
+//            habit.dateHabitCreated   = Date()
+//          //  HabitHomeVC.habitArray.append(habit)
+//        }
+//    }
     
     
     @objc func saveButtonPressed(_ sender: GradientButton) {
@@ -172,7 +172,7 @@ class NewHabitVC: UITableViewController  {
         }
         nameArray[0].layer.borderWidth = 0
         setupNotifications()
-        createCoreDataHabit()
+        //createCoreDataHabit()
         CoreDataFuncs.saveCoreData()
         
         let habitVC = HabitHomeVC()
@@ -252,7 +252,7 @@ class NewHabitVC: UITableViewController  {
         case 0: let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
             cell.nameTextField.delegate = self
             nameArray.append(cell.nameTextField) // is this still needed?
-            if habitCoreData != nil {
+            if habitEntity != nil {
                 cell.nameTextField.text = name
             }
             return cell

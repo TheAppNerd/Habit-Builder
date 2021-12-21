@@ -8,22 +8,14 @@
 import UIKit
 import CoreData
 
-//all data connections should use the core data funcs
-//look at saved website for proper way to connect these.
-//need to find optimal way to update and save dates and notifications to the correct habit
-//notifications dont need to be seperate from habit entity. move them back and just make days and time optional
-
-//things the funcs need to do across app
-//1. load up data for tableview
-//2. add or remove a date then save
-//3. set notifications on or off
-//4. distinguish between new habit or existing habit
-//5 delete habit
+//Habit Home - load array of habits, add or remove dates from habits
+//new habit - save new habit or edit existing habit
+//habit details - add or remove dates. load array of dates
 
 class HabitEntities {
     
     let persistentContainer: NSPersistentContainer
-    
+
     
     init() {
         persistentContainer = NSPersistentContainer(name: "HabitEntities")
@@ -36,20 +28,16 @@ class HabitEntities {
 }
 
 extension HabitEntities {
-
-    func createHabit() {
-        
-        
-    }
     
-    func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date) {
+    //works
+    func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date, notificationBool: Bool) {
         let habit = HabitEntity(context: persistentContainer.viewContext)
         habit.name = name
         habit.icon = icon
         habit.frequency = frequency
         habit.gradient = gradient
         habit.dateCreated = dateCreated
-    
+        habit.notificationBool = notificationBool
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -58,6 +46,7 @@ extension HabitEntities {
         }
     }
     
+    //works. need a fetch request for habit dates?
     func loadHabitArray() -> [HabitEntity] {
         let fetchRequest: NSFetchRequest<HabitEntity> = HabitEntity.fetchRequest()
         
@@ -69,6 +58,7 @@ extension HabitEntities {
         }
     }
     
+    //works
     func deleteHabit(_ habit: HabitEntity) {
         persistentContainer.viewContext.delete(habit)
         
@@ -80,6 +70,7 @@ extension HabitEntities {
         }
     }
     
+    //works
     func updateHabit() {
         do {
             try persistentContainer.viewContext.save()
@@ -88,13 +79,15 @@ extension HabitEntities {
             print("Failed to save: \(error)")
         }
     }
-//
-//    func setNotifications(index: Int) {
-//        let entityArray = loadHabit()
-//        let notifications = entityArray[index].notifications
-//
-//
-//    }
+    
+    func setUserNotifications(_ habit: HabitEntity, days: String, time: String) {
+        if habit.notificationBool == true {
+            habit.notificationDays = days
+            habit.notificationTime = time
+            updateHabit()
+        }
+    }
+
     
     
     func addDate(habit: HabitEntity, date: Date) {
@@ -116,12 +109,7 @@ extension HabitEntities {
     }
     
     func removeDate(habit: HabitEntity, date: Date) {
-//        let dates = habit.datesSaved
-//       let set = dates as? Set<HabitDates> ?? []
-//        let dateSet = set.map {$0.date}
-//        return dateSet
-//
-//        updateHabit()
+// for this to work I need to loop through all habit dates and if the date matches remove that one
     }
     
     func loadHabitDates(habit: HabitEntity) -> [Date] {

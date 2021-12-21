@@ -12,11 +12,16 @@ class LoadingScreenVC: UIViewController {
     let iconCircle = UIImageView(image: UIImage(named: "iconCircle")?.addTintGradient(colors: GradientArray.array[5]))
     let icontick = UIImageView(image: UIImage(named: "iconTick")?.addTintGradient(colors: GradientArray.array[5]))
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         iconCircle.rotate()
         presentHabitVC()
+//        let array = HabitEntities().loadHabitArray()
+//        let date = HabitDates()
+//        date.date = Date()
+//        array[0].addToDatesSaved(date)
     }
     
     

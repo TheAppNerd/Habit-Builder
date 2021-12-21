@@ -38,7 +38,6 @@
 		FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* HabitColorCell.swift */; };
 		FA3D5ABE26BB67FA00752732 /* CoreDataFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3D5ABD26BB67FA00752732 /* CoreDataFuncs.swift */; };
 		FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60772762EA0C00A1A804 /* AlarmItem.swift */; };
-		FA3E607B2766C3C400A1A804 /* HabitEntities.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60792766C3C400A1A804 /* HabitEntities.xcdatamodeld */; };
 		FA3E607D2766CF8100A1A804 /* HabitEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E607C2766CF8100A1A804 /* HabitEntities.swift */; };
 		FA3E608127675E4500A1A804 /* CoreDataDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E608027675E4400A1A804 /* CoreDataDates.swift */; };
 		FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60842769AAC500A1A804 /* ChartModel.swift */; };
@@ -46,10 +45,10 @@
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
 		FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */; };
+		FA9C1BC0276C564300869E24 /* HabitEntities.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60792766C3C400A1A804 /* HabitEntities.xcdatamodeld */; };
 		FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */; };
 		FABA380A26C7DF650088254C /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380926C7DF650088254C /* GradientButton.swift */; };
 		FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* HabitSaveCell.swift */; };
-		FAC2F36F27507DDB00148EBC /* HabitCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAC2F36D27507DDB00148EBC /* HabitCoreData.xcdatamodeld */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
 		FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */; };
@@ -112,7 +111,6 @@
 		FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication + Ext.swift"; sourceTree = "<group>"; };
 		FABA380926C7DF650088254C /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		FABA380C26C9F1E00088254C /* HabitSaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSaveCell.swift; sourceTree = "<group>"; };
-		FAC2F36E27507DDB00148EBC /* HabitCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitCoreData.xcdatamodel; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 		FA1C72F9263636D800E63CBE = {
 			isa = PBXGroup;
 			children = (
-				FAC2F36D27507DDB00148EBC /* HabitCoreData.xcdatamodeld */,
 				FA1C7304263636D800E63CBE /* Habits */,
 				FA29042D26F00F5A00B7B00A /* Support */,
 				FA1C7303263636D800E63CBE /* Products */,
@@ -478,6 +475,7 @@
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
 				FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */,
 				FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */,
+				FA9C1BC0276C564300869E24 /* HabitEntities.xcdatamodeld in Sources */,
 				FA1C73242636406300E63CBE /* HabitHomeVC.swift in Sources */,
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
 				FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */,
@@ -494,7 +492,6 @@
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */,
 				FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */,
-				FA3E607B2766C3C400A1A804 /* HabitEntities.xcdatamodeld in Sources */,
 				FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */,
 				FA360BF626C6120100884B90 /* HabitIconCell.swift in Sources */,
@@ -507,7 +504,6 @@
 				FA360BEF26C603F400884B90 /* NewHabitVC.swift in Sources */,
 				FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */,
 				FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */,
-				FAC2F36F27507DDB00148EBC /* HabitCoreData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,17 +697,6 @@
 			);
 			currentVersion = FA3E607A2766C3C400A1A804 /* HabitEntities.xcdatamodel */;
 			path = HabitEntities.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		FAC2F36D27507DDB00148EBC /* HabitCoreData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				FAC2F36E27507DDB00148EBC /* HabitCoreData.xcdatamodel */,
-			);
-			currentVersion = FAC2F36E27507DDB00148EBC /* HabitCoreData.xcdatamodel */;
-			name = HabitCoreData.xcdatamodeld;
-			path = ../../../../Desktop/Habits/HabitCoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
