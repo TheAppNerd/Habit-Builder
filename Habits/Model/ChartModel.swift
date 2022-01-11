@@ -9,7 +9,7 @@ import UIKit
 
 class ChartModel {
 
-    static func setChartData(habit: HabitEntity) -> [ChartYear] {
+    static func setChartData(habit: HabitEnt) -> [ChartYear] {
         let calendar = Calendar.current
         let currentYear = DateModel.getYear()
         var chartYears: [Int: [Int]] = [:]
@@ -17,7 +17,7 @@ class ChartModel {
         chartYears[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
         chartYears[currentYear-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
         
-        let habitDates = HabitEntities().loadHabitDates(habit: habit)
+        let habitDates = HabitEntityFuncs().loadHabitDates(habit: habit)
         
         for date in habitDates {
             let monthCalc = calendar.dateComponents([.month], from: date)

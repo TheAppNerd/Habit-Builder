@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class HabitCell: UITableViewCell {
 
@@ -60,8 +61,8 @@ class HabitCell: UITableViewCell {
     }
     
     
-    func set(habit: HabitEntity) {
-        habitName.text = habit.name
+    func set(habit: HabitEnt) {
+        habitName.text = habit.name ?? ""
         habitIcon.image = UIImage(named: habit.icon ?? "")
         habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days "
         habitGradient = GradientArray.array[Int(habit.gradient)]

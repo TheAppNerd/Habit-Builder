@@ -16,8 +16,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView       = EmptyStateView()
     
-    let habitEntities = HabitEntities()
-    let habitArray    = HabitEntities().loadHabitArray()
+    let habitEntities = HabitEntityFuncs()
+//    let habitArray    = HabitEntityFuncs().loadHabitArray()
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
@@ -25,7 +25,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-     
     }
     
     
@@ -37,13 +36,11 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureEmptyState()
         configureTableViewFooter()
         configureMenuView()
-        
-
     }
     
     
     func showEmptyStateView() {
-        switch habitArray.isEmpty {
+        switch habitEntities.loadHabitArray().isEmpty {
         case true:  view.addSubview(emptyStateView)
             emptyStateView.frame = tableView.frame
         case false: emptyStateView.removeFromSuperview()
@@ -55,9 +52,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         title = Labels.HabitVCTitle
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         view.backgroundColor = .systemBackground
-        
         generator.prepare()
-        
     }
     
     
@@ -86,19 +81,17 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
+    
     func configureTableViewFooter() {
         
         let tableViewFooter = TableViewFooter()
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         tableView.tableFooterView = tableViewFooter
-        switch habitArray.isEmpty {
+        switch habitEntities.loadHabitArray().isEmpty {
         case true: tableViewFooter.isHidden = true
         case false: tableViewFooter.isHidden = false
         }
     }
-    
-    
-    
     
     
     func pushSettings(row: Int) {
@@ -151,9 +144,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.reloadData()
     }
     
-    
- 
-    
     //MARK: - menu view
     
     func configureMenuView() {
@@ -196,18 +186,15 @@ class HabitHomeVC: UIViewController, SettingsPush {
 
 extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habitArray.count
+        return habitEntities.loadHabitArray().count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-        let habit = habitArray[indexPath.row]
-        let date = habit.datesSaved
-        let habitDate = HabitDates()
-        habitDate.date = Date()
-        date?.addingObjects(from: [habitDate])
+        let habit = habitEntities.loadHabitArray()[indexPath.row]
+        
         //cell.habitGradient = [UIColor.clear.cgColor]
         cell.set(habit: habit)
         
@@ -251,7 +238,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
         let vc = HabitDetailsVC()
         //change this to a protocol instead?
         
-        vc.habitEntity = habitArray[indexPath.row]
+        vc.habitEntity = habitEntities.loadHabitArray()[indexPath.row]
         
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         

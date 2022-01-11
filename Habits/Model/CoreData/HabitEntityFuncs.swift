@@ -12,7 +12,7 @@ import CoreData
 //new habit - save new habit or edit existing habit
 //habit details - add or remove dates. load array of dates
 
-class HabitEntities {
+class HabitEntityFuncs {
     
     let persistentContainer: NSPersistentContainer
 
@@ -27,11 +27,11 @@ class HabitEntities {
     }
 }
 
-extension HabitEntities {
+extension HabitEntityFuncs {
     
     //works
     func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date, notificationBool: Bool) {
-        let habit = HabitEntity(context: persistentContainer.viewContext)
+        let habit = HabitEnt(context: persistentContainer.viewContext)
         habit.name = name
         habit.icon = icon
         habit.frequency = frequency
@@ -47,8 +47,8 @@ extension HabitEntities {
     }
     
     //works. need a fetch request for habit dates?
-    func loadHabitArray() -> [HabitEntity] {
-        let fetchRequest: NSFetchRequest<HabitEntity> = HabitEntity.fetchRequest()
+    func loadHabitArray() -> [HabitEnt] {
+        let fetchRequest: NSFetchRequest<HabitEnt> = HabitEnt.fetchRequest()
         
         do {
             return try persistentContainer.viewContext.fetch(fetchRequest)
@@ -59,7 +59,7 @@ extension HabitEntities {
     }
     
     //works
-    func deleteHabit(_ habit: HabitEntity) {
+    func deleteHabit(_ habit: HabitEnt) {
         persistentContainer.viewContext.delete(habit)
         
         do {
@@ -80,7 +80,7 @@ extension HabitEntities {
         }
     }
     
-    func setUserNotifications(_ habit: HabitEntity, days: String, time: String) {
+    func setUserNotifications(_ habit: HabitEnt, days: String, time: String) {
         if habit.notificationBool == true {
             habit.notificationDays = days
             habit.notificationTime = time
@@ -90,7 +90,7 @@ extension HabitEntities {
 
     
     
-    func addDate(habit: HabitEntity, date: Date) {
+    func addDate(habit: HabitEnt, date: Date) {
         let dates = habit.datesSaved
         let newDate = HabitDates()
         newDate.date = date
@@ -108,11 +108,11 @@ extension HabitEntities {
 //            }
     }
     
-    func removeDate(habit: HabitEntity, date: Date) {
+    func removeDate(habit: HabitEnt, date: Date) {
 // for this to work I need to loop through all habit dates and if the date matches remove that one
     }
     
-    func loadHabitDates(habit: HabitEntity) -> [Date] {
+    func loadHabitDates(habit: HabitEnt) -> [Date] {
         let dates = habit.datesSaved
         let set = dates as? Set<HabitDates> ?? []
         let dateSet = set.map {$0.date!}
@@ -123,7 +123,7 @@ extension HabitEntities {
         //how do we ensure this saves to right habit?
         let habitDates = HabitDates(context: persistentContainer.viewContext)
          habitDates.date = Date()
-        habitDates.dates?.addToDatesSaved(habitDates)
+        //habitDates.date?.addToDatesSaved(habitDates)
         
         let habitEntity = loadHabitArray()
         habitEntity[index].addToDatesSaved(habitDates)

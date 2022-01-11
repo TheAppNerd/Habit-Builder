@@ -11,7 +11,7 @@ import FSCalendar
 
 class HabitDetailsVC: UIViewController {
     
-    var habitEntity: HabitEntity? {
+    var habitEntity: HabitEnt? {
         didSet {
             let gradientColor = GradientArray.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
@@ -83,7 +83,7 @@ class HabitDetailsVC: UIViewController {
     }
     
     func configureCalendarDates() {
-        let dateArray = HabitEntities().loadHabitDates(habit: habitEntity!)
+        let dateArray = HabitEntityFuncs().loadHabitDates(habit: habitEntity!)
             for date in dateArray {
                 habitDetailsCalendarView.calendarView.select(date)
             }
@@ -91,7 +91,7 @@ class HabitDetailsVC: UIViewController {
     
     func updateStreaks() {
         let dateCreated = habitEntity?.dateCreated ?? Date()
-        let daysCompleted = HabitEntities().loadHabitDates(habit: habitEntity!).count
+        let daysCompleted = HabitEntityFuncs().loadHabitDates(habit: habitEntity!).count
         
         //make an extension?
         let dateFormatter = DateFormatter()
