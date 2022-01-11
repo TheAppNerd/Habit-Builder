@@ -10,7 +10,8 @@ import CoreData
 
 class NewHabitVC: UITableViewController  {
     
-    var habitEntity: HabitEntity?
+    var habitEntity: HabitEnt?
+    var habitEntities = HabitEntityFuncs()
     
     //fix alarm picker so date has to be selected if alarm is on. like the text field red circle.
     //fix alarm on or off background
@@ -18,7 +19,7 @@ class NewHabitVC: UITableViewController  {
     //move name, frequency colors etc striahgt to habit core array?
     //2 habits with same name doesnt work. ignore or fix?
     //move generator to its own class/protocol?
-//new habits that havent been saved yet wont create a habit. fix this. (alarmitem doesnt get filled until the load func.)``~QC4AQ4  `1awq
+//new habits that havent been saved yet wont create a habit. fix this. (alarmitem doesnt get filled until the load func.)
     
    
     let generator            = UIImpactFeedbackGenerator(style: .medium)
@@ -107,7 +108,7 @@ class NewHabitVC: UITableViewController  {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func deleteHabit() {
+    @objc func deleteHabit() { //move alerts to enum
         let deleteAlert = UIAlertController(title: Labels.deleteAlertTitle, message: Labels.deleteAlartMessage, preferredStyle: .alert)
         deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { UIAlertAction in
         }))
@@ -115,16 +116,9 @@ class NewHabitVC: UITableViewController  {
             
         UserNotifications.removeNotifications(title: self.previousName)
             
-            let habit = self.habitEntity
-          //  self.context.delete(habit!)
-         //   for (index, habits) in HabitHomeVC.habitArray.enumerated() {
-//                if habits == habit {
-//                    let habitIndex = index
-//                    HabitHomeVC.habitArray.remove(at: habitIndex)
-//             //   }
-//            }
-            
-        CoreDataFuncs.saveCoreData()
+            if let habit = self.habitEntity {
+                self.habitEntities.deleteHabit(habit)
+            }
         
         let habitVC = HabitHomeVC()
         self.show(habitVC, sender: self)
@@ -136,11 +130,27 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
+    func createHabit() {
+        
+        switch habitEntity == nil {
+        case true: habitEntities.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: false)
+        case false: var habit = habitEntity!
+            habit.name          = name
+            habit.frequency          = Int16(frequency)
+            habit.icon         = iconString
+            habit.gradient = Int16(colorIndex)
+            habitEntities.updateHabit()
+            //habit.alarmDays          = alarmItem.days
+           // habit.habitDates         = []
+        }
+    }
+    
+    //anyway I can move this func remotely?
 //    func createCoreDataHabit() {
 //        var habit = HabitEntity()
 //        switch habitEntity == nil {
-//        case true: print("")//habit = HabitCoreData(context: context)
-//        case false: habit = habitCoreData!
+//        case true: habit = HabitCoreData(context: context)
+//        case false: habit = habitEntity!
 //        }
 //
 //        habit.name          = name
@@ -165,15 +175,14 @@ class NewHabitVC: UITableViewController  {
     @objc func saveButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
-        print(alarmItem)
         guard name != "" else {
             nameArray[0].layer.borderWidth = 2
             return
         }
         nameArray[0].layer.borderWidth = 0
         setupNotifications()
-        //createCoreDataHabit()
-        CoreDataFuncs.saveCoreData()
+        createHabit()
+//        CoreDataFuncs.saveCoreData()
         
         let habitVC = HabitHomeVC()
         show(habitVC, sender: self)

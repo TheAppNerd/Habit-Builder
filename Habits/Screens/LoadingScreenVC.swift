@@ -12,6 +12,8 @@ class LoadingScreenVC: UIViewController {
     let iconCircle = UIImageView(image: UIImage(named: "iconCircle")?.addTintGradient(colors: GradientArray.array[5]))
     let icontick = UIImageView(image: UIImage(named: "iconTick")?.addTintGradient(colors: GradientArray.array[5]))
     
+   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,8 @@ class LoadingScreenVC: UIViewController {
         destVC.modalPresentationStyle = .fullScreen
         
         let seconds = 1.8
+        
+ 
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.present(destVC, animated: true)
         }
