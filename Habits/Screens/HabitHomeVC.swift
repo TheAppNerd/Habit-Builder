@@ -36,6 +36,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureEmptyState()
         configureTableViewFooter()
         configureMenuView()
+        
+    
     }
     
     
@@ -197,6 +199,9 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
         
         //cell.habitGradient = [UIColor.clear.cgColor]
         cell.set(habit: habit)
+
+        habitEntities.addDateTest(habit: habit, date: Date())
+        print(habit.datesSaved?.count)
         
         //find a way to search dates and compare them to current days fo week for completion count
         //if habit.datesSaved?.allObjects.contains(where: <#T##(Any) throws -> Bool#>)
