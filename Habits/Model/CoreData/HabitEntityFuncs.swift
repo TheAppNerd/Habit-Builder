@@ -92,7 +92,7 @@ extension HabitEntityFuncs {
     
     func addDate(habit: HabitEnt, date: Date) {
         let dates = habit.datesSaved
-        let newDate = HabitDates()
+        let newDate = HabitDates(context: persistentContainer.viewContext)
         newDate.date = date
         dates?.adding(newDate)
         updateHabit()
@@ -112,12 +112,20 @@ extension HabitEntityFuncs {
 // for this to work I need to loop through all habit dates and if the date matches remove that one
     }
     
-    func loadHabitDates(habit: HabitEnt) -> [Date] {
+    func loadHabitDates(habit: HabitEnt) -> [Date]{
         let dates = habit.datesSaved
         let set = dates as? Set<HabitDates> ?? []
         let dateSet = set.map {$0.date!}
         return dateSet
     }
+    
+    func loadDates(habit: HabitEnt) {
+        let dates = habit.datesSaved
+        let set = dates as? Set<HabitDates> ?? []
+        let dateSet = set.map {$0.date!}
+        print(dateSet)
+    }
+    
     
     func addHabitDate(index: Int) {
         //how do we ensure this saves to right habit?
@@ -129,7 +137,14 @@ extension HabitEntityFuncs {
         habitEntity[index].addToDatesSaved(habitDates)
         
     }
-     
+    
+    func addDateTest(habit: HabitEnt, date: Date) {
+        let habitDate = HabitDates(context: persistentContainer.viewContext)
+        habitDate.date = date
+        habit.addToDatesSaved(habitDate)
+        updateHabit()
+    }
+    
     func removeHabitDate(index: Int) {
         let entityArray = loadHabitArray()
         
