@@ -197,11 +197,14 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
         
         let habit = habitEntities.loadHabitArray()[indexPath.row]
         
+        habitEntities.addHabitDate(habit: habit, date: DateFuncs.startOfDay(date: Date()))
+        habitEntities.removeHabitDate(habit: habit, date: DateFuncs.startOfDay(date: Date()))
+        let dateArray = habitEntities.fetchHabitDates(habit: habit)
+        print(dateArray)
         //cell.habitGradient = [UIColor.clear.cgColor]
         cell.set(habit: habit)
 
-        habitEntities.addDateTest(habit: habit, date: Date())
-        print(habit.datesSaved?.count)
+      
         
         //find a way to search dates and compare them to current days fo week for completion count
         //if habit.datesSaved?.allObjects.contains(where: <#T##(Any) throws -> Bool#>)
