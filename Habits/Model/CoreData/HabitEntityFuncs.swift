@@ -46,7 +46,7 @@ extension HabitEntityFuncs {
         }
     }
     
-    //works. need a fetch request for habit dates?
+    //works
     func loadHabitArray() -> [HabitEnt] {
         let fetchRequest: NSFetchRequest<HabitEnt> = HabitEnt.fetchRequest()
         
@@ -80,6 +80,51 @@ extension HabitEntityFuncs {
         }
     }
     
+    //works. need to make sure date saved is start of day
+    func addHabitDate(habit: HabitEnt, date: Date) {
+        
+        let dateArray = fetchHabitDates(habit: habit)
+        
+        if !dateArray.contains(date) {
+        let habitDate = HabitDates(context: persistentContainer.viewContext)
+        habitDate.date = date
+        habit.addToDatesSaved(habitDate)
+        updateHabit()
+    }
+    }
+    
+    
+    //works
+    func removeHabitDate(habit: HabitEnt, date: Date) {
+        let dateArray = fetchHabitDates(habit: habit)
+        
+        if dateArray.contains(date) {
+        let habitDate = HabitDates(context: persistentContainer.viewContext)
+        habitDate.date = date
+            for dateItem in habit.datesSaved?.allObjects as! [HabitDates] {
+                if dateItem.date == date {
+                    habit.removeFromDatesSaved(dateItem)
+                }
+            }
+        updateHabit()
+    }
+    }
+    
+
+    
+    func fetchHabitDates(habit: HabitEnt) -> [Date] {
+        let dates = habit.datesSaved?.allObjects as! [HabitDates]
+        var dateArray: [Date] = []
+        for attrib in dates {
+            if let date = attrib.date {
+            dateArray.append(date)
+            }
+        }
+        return dateArray
+    }
+    
+    
+    
     func setUserNotifications(_ habit: HabitEnt, days: String, time: String) {
         if habit.notificationBool == true {
             habit.notificationDays = days
@@ -88,29 +133,6 @@ extension HabitEntityFuncs {
         }
     }
 
-    
-    
-    func addDate(habit: HabitEnt, date: Date) {
-        let dates = habit.datesSaved
-        let newDate = HabitDates(context: persistentContainer.viewContext)
-        newDate.date = date
-        dates?.adding(newDate)
-        updateHabit()
-        
-        //alternative option
-//        let myFetch:NSFetchRequest<entity2> = entity2.fetchRequest()
-//            let myPredicate = NSPredicate(format: "toEntity1-relationship == %@", (myTransferdObject?.name!)!)
-//            myFetch.predicate = myPredicate
-//            do {
-//                usersList = try myContext.fetch(myFetch)
-//            }catch{
-//                print(error)
-//            }
-    }
-    
-    func removeDate(habit: HabitEnt, date: Date) {
-// for this to work I need to loop through all habit dates and if the date matches remove that one
-    }
     
     func loadHabitDates(habit: HabitEnt) -> [Date]{
         let dates = habit.datesSaved
@@ -125,25 +147,9 @@ extension HabitEntityFuncs {
         let dateSet = set.map {$0.date!}
         print(dateSet)
     }
+
     
-    
-    func addHabitDate(index: Int) {
-        //how do we ensure this saves to right habit?
-        let habitDates = HabitDates(context: persistentContainer.viewContext)
-         habitDates.date = Date()
-        //habitDates.date?.addToDatesSaved(habitDates)
-        
-        let habitEntity = loadHabitArray()
-        habitEntity[index].addToDatesSaved(habitDates)
-        
-    }
-    
-    func addDateTest(habit: HabitEnt, date: Date) {
-        let habitDate = HabitDates(context: persistentContainer.viewContext)
-        habitDate.date = date
-        habit.addToDatesSaved(habitDate)
-        updateHabit()
-    }
+ 
     
     func removeHabitDate(index: Int) {
         let entityArray = loadHabitArray()
