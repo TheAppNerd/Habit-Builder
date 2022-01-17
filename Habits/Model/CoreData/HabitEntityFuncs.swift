@@ -61,7 +61,6 @@ extension HabitEntityFuncs {
     //works
     func deleteHabit(_ habit: HabitEnt) {
         persistentContainer.viewContext.delete(habit)
-        
         do {
             try persistentContainer.viewContext.save()
         } catch {

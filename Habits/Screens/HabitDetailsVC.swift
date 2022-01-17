@@ -11,8 +11,11 @@ import FSCalendar
 
 class HabitDetailsVC: UIViewController {
     
-    var habitEntity: HabitEnt? {
+    var habitEntity: HabitEnt?
+    
+    var habitIndex: Int? {
         didSet {
+        habitEntity = habitEntities.loadHabitArray()[habitIndex!]
             let gradientColor = GradientArray.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
             habitDetailsCalendarView.setColor(colors: gradientColor)
@@ -20,7 +23,10 @@ class HabitDetailsVC: UIViewController {
         }
     }
     
+
     var chartYears: [ChartYear] = []
+    
+    var habitEntities = HabitEntityFuncs()
     
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView = HabitDetailsStreakView()
@@ -114,10 +120,7 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)
-            //self.habitCoreData?.habitDates?.append(date)
-            CoreDataFuncs.saveCoreData()
-           
-           // self.updateChart()
+            self.habitEntities.addHabitDate(habit: self.habitEntity!, date: date)
             self.updateStreaks()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
@@ -131,9 +134,7 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
-            //self.habitCoreData?.habitDates = self.habitCoreData?.habitDates?.filter {$0 != date}
-            
-           // self.updateChart()
+            self.habitEntities.removeHabitDate(habit: self.habitEntity!, date: date)
             self.updateStreaks()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
@@ -163,7 +164,8 @@ class HabitDetailsVC: UIViewController {
     
     @objc func editHabit() {
         let newHabitVC = NewHabitVC()
-        //newHabitVC.habitCoreData = habitCoreData
+        newHabitVC.habitIndex = habitIndex
+        //newHabitVC.habitEntity = habitEntity
         show(newHabitVC, sender: self)
     }
     
