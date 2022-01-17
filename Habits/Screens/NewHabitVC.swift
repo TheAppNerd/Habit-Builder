@@ -11,6 +11,13 @@ import CoreData
 class NewHabitVC: UITableViewController  {
     
     var habitEntity: HabitEnt?
+    
+    var habitIndex: Int? {
+        didSet {
+            habitEntity = habitEntities.loadHabitArray()[habitIndex!]
+        }
+    }
+    
     var habitEntities = HabitEntityFuncs()
     
     //fix alarm picker so date has to be selected if alarm is on. like the text field red circle.

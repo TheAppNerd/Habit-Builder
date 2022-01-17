@@ -17,7 +17,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let emptyStateView       = EmptyStateView()
     
     let habitEntities = HabitEntityFuncs()
-//    let habitArray    = HabitEntityFuncs().loadHabitArray()
+
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
@@ -195,7 +195,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
         
     
         //cell.habitGradient = [UIColor.clear.cgColor]
-        cell.set(habit: habit)
+        
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)
         print(dateArray)
@@ -229,7 +229,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         cell.habitCompletedDays = completedDays
-        
+        cell.set(habit: habit)
         return cell
     }
     
@@ -238,8 +238,8 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
         let vc = HabitDetailsVC()
         //change this to a protocol instead?
         
-        vc.habitEntity = habitEntities.loadHabitArray()[indexPath.row]
-        
+        //vc.habitEntity = habitEntities.loadHabitArray()[indexPath.row]
+        vc.habitIndex = indexPath.row
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         
         //move this to an animations file
