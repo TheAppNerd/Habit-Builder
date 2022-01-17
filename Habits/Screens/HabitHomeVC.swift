@@ -132,16 +132,12 @@ class HabitHomeVC: UIViewController, SettingsPush {
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         
+        let habit = habitEntities.loadHabitArray()[indexPath.row]
+        
         if sender.image(for: .normal) == SFSymbols.checkMark {
-            //remove habit date
-            //save core data
-            //habitArray[indexPath.row]
-            //if habit date contains selected date (if weeklydateArray[sender.tag)
+            habitEntities.removeHabitDate(habit: habit, date: selectedDate)
         } else {
-            //add habit date
-            //save core data
-            //habitArray[indexPath.row]
-            //if habit date contains selected date
+            habitEntities.addHabitDate(habit: habit, date: selectedDate)
         }
         tableView.reloadData()
     }
@@ -197,17 +193,12 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
         
         let habit = habitEntities.loadHabitArray()[indexPath.row]
         
-        habitEntities.addHabitDate(habit: habit, date: DateFuncs.startOfDay(date: Date()))
-        habitEntities.removeHabitDate(habit: habit, date: DateFuncs.startOfDay(date: Date()))
-        let dateArray = habitEntities.fetchHabitDates(habit: habit)
-        print(dateArray)
+    
         //cell.habitGradient = [UIColor.clear.cgColor]
         cell.set(habit: habit)
-
-      
         
-        //find a way to search dates and compare them to current days fo week for completion count
-        //if habit.datesSaved?.allObjects.contains(where: <#T##(Any) throws -> Bool#>)
+        let dateArray = habitEntities.loadHabitDates(habit: habit)
+        print(dateArray)
         
         for (index,button) in cell.dayButton.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
@@ -220,14 +211,15 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
             let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[index])
             
             
-//            if habit.habitDates!.contains(selectedDate) {
-//                button.layer.borderColor = UIColor.clear.cgColor
-//                button.setTitle(nil, for: .normal)
-//                button.setImage(SFSymbols.checkMark, for: .normal)
-//            } else {
-//                button.backgroundColor = .clear
-//                button.layer.borderColor = UIColor.white.cgColor
-//            }
+            
+            if dateArray.contains(selectedDate) {
+                button.layer.borderColor = UIColor.clear.cgColor
+                button.setTitle(nil, for: .normal)
+                button.setImage(SFSymbols.checkMark, for: .normal)
+            } else {
+                button.backgroundColor = .clear
+                button.layer.borderColor = UIColor.white.cgColor
+            }
         }
         
         var completedDays = 0
