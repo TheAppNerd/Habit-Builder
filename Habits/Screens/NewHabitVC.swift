@@ -65,11 +65,11 @@ class NewHabitVC: UITableViewController  {
             colors          = GradientArray.array[colorIndex]
             iconString      = habit.icon ?? ""
             
-//            alarmItem.title = name
-//            alarmItem.days        = habit.alarmDays ?? []
-//            alarmItem.alarmActivated = habit.alarmBool
-//            alarmItem.hour = Int(habit.alarmHour)
-//            alarmItem.minute = Int(habit.alarmMinute)
+            alarmItem.title = name
+            alarmItem.days  = HabitEntityFuncs().convertStringArraytoBoolArray(habit: habit)
+            alarmItem.alarmActivated = habit.notificationBool
+            alarmItem.hour = Int(habit.notificationHour)
+            alarmItem.minute = Int(habit.notificationMinute)
         }
     }
     
@@ -141,7 +141,7 @@ class NewHabitVC: UITableViewController  {
         
         switch habitEntity == nil {
         case true: habitEntities.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: false)
-        case false: var habit = habitEntity!
+        case false: let habit = habitEntity!
             habit.name          = name
             habit.frequency          = Int16(frequency)
             habit.icon         = iconString
@@ -189,7 +189,7 @@ class NewHabitVC: UITableViewController  {
         nameArray[0].layer.borderWidth = 0
         setupNotifications()
         createHabit()
-//        CoreDataFuncs.saveCoreData()
+
         
         let habitVC = HabitHomeVC()
         show(habitVC, sender: self)
