@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="20G314" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HabitDates" representedClassName="HabitDates" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="habit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="HabitEnt" inverseName="datesSaved" inverseEntity="HabitEnt"/>
@@ -12,11 +12,12 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="notificationBool" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="notificationDays" optional="YES" attributeType="String"/>
-        <attribute name="notificationTime" optional="YES" attributeType="String"/>
+        <attribute name="notificationHour" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="notificationMinute" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="datesSaved" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HabitDates" inverseName="habit" inverseEntity="HabitDates"/>
     </entity>
     <elements>
         <element name="HabitDates" positionX="-287.150390625" positionY="33.58270263671875" width="128" height="73"/>
-        <element name="HabitEnt" positionX="-103.3704223632813" positionY="-57.38272094726563" width="128" height="178"/>
+        <element name="HabitEnt" positionX="-103.3704223632813" positionY="-57.38272094726563" width="128" height="193"/>
     </elements>
 </model>

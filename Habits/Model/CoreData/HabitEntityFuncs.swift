@@ -30,14 +30,21 @@ class HabitEntityFuncs {
 extension HabitEntityFuncs {
     
     //works
-    func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date, notificationBool: Bool) {
+    
+    //MAKE A HABIT STRUCT AND ELIMINATE NEED FOR DATE STRUCT
+    func saveHabit(habitStruct: habitStruct) {
         let habit = HabitEnt(context: persistentContainer.viewContext)
-        habit.name = name
-        habit.icon = icon
-        habit.frequency = frequency
-        habit.gradient = gradient
-        habit.dateCreated = dateCreated
-        habit.notificationBool = notificationBool
+        habit.dateCreated = habitStruct.dateCreated
+        habit.frequency = habitStruct.frequency
+        habit.gradient = habitStruct.gradientIndex
+        habit.icon = habitStruct.icon
+        habit.name = habitStruct.name
+        
+        habit.notificationBool = habitStruct.notificationActivated
+        //habit.notificationDays = //convert Array to string
+        habit.notificationHour = habitStruct.notificationHour!
+        habit.notificationMinute = habitStruct.notificationMinute!
+        
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -123,13 +130,19 @@ extension HabitEntityFuncs {
     }
     
     
-    
-    func setUserNotifications(_ habit: HabitEnt, days: String, time: String) {
-        if habit.notificationBool == true {
-            habit.notificationDays = days
-            habit.notificationTime = time
-            updateHabit()
+    func convertStringToBoolArray(string: String) -> [Bool] {
+        var boolArray: [Bool] = []
+        let dayArray = Array(string)
+        
+        for day in dayArray {
+            if day == "T" {
+                boolArray.append(true)
+            } else {
+                boolArray.append(false)
+            }
         }
+    
+        return boolArray
     }
 
     
@@ -140,20 +153,6 @@ extension HabitEntityFuncs {
         return dateSet
     }
     
-    func loadDates(habit: HabitEnt) {
-        let dates = habit.datesSaved
-        let set = dates as? Set<HabitDates> ?? []
-        let dateSet = set.map {$0.date!}
-        print(dateSet)
-    }
-
-    
- 
-    
-    func removeHabitDate(index: Int) {
-        let entityArray = loadHabitArray()
-        
-    }
     
     
   
@@ -162,4 +161,5 @@ extension HabitEntityFuncs {
         
     }
     
+
 
