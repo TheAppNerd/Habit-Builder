@@ -32,19 +32,14 @@ extension HabitEntityFuncs {
     //works
     
     //MAKE A HABIT STRUCT AND ELIMINATE NEED FOR DATE STRUCT
-    func saveHabit(habitStruct: habitStruct) {
+    func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date, notificationBool: Bool) {
         let habit = HabitEnt(context: persistentContainer.viewContext)
-        habit.dateCreated = habitStruct.dateCreated
-        habit.frequency = habitStruct.frequency
-        habit.gradient = habitStruct.gradientIndex
-        habit.icon = habitStruct.icon
-        habit.name = habitStruct.name
-        
-        habit.notificationBool = habitStruct.notificationActivated
-        //habit.notificationDays = //convert Array to string
-        habit.notificationHour = habitStruct.notificationHour!
-        habit.notificationMinute = habitStruct.notificationMinute!
-        
+        habit.name = name
+        habit.icon = icon
+        habit.frequency = frequency
+        habit.gradient = gradient
+        habit.dateCreated = dateCreated
+        habit.notificationBool = notificationBool
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -130,9 +125,10 @@ extension HabitEntityFuncs {
     }
     
     
-    func convertStringToBoolArray(string: String) -> [Bool] {
+    func convertStringArraytoBoolArray(habit: HabitEnt) -> [Bool] {
         var boolArray: [Bool] = []
-        let dayArray = Array(string)
+        if let dayString = habit.notificationDays {
+        let dayArray = Array(dayString)
         
         for day in dayArray {
             if day == "T" {
@@ -141,7 +137,7 @@ extension HabitEntityFuncs {
                 boolArray.append(false)
             }
         }
-    
+    }
         return boolArray
     }
 

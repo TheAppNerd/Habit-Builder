@@ -65,11 +65,11 @@ class NewHabitVC: UITableViewController  {
             colors          = GradientArray.array[colorIndex]
             iconString      = habit.icon ?? ""
             
-            alarmItem.title = name
-            alarmItem.days  = HabitEntityFuncs().convertStringArraytoBoolArray(habit: habit)
-            alarmItem.alarmActivated = habit.notificationBool
-            alarmItem.hour = Int(habit.notificationHour)
-            alarmItem.minute = Int(habit.notificationMinute)
+//            alarmItem.title = name
+//            alarmItem.days  = HabitEntityFuncs().convertStringArraytoBoolArray(habit: habit)
+//            alarmItem.alarmActivated = habit.notificationBool
+//            alarmItem.hour = Int(habit.notificationHour)
+//            alarmItem.minute = Int(habit.notificationMinute)
         }
     }
     
