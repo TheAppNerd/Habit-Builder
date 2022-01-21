@@ -122,7 +122,8 @@ class HabitDetailsVC: UIViewController {
             self.habitDetailsCalendarView.calendarView.select(date)
             self.habitEntities.addHabitDate(habit: self.habitEntity!, date: date)
             self.updateStreaks()
-            //self.habitDetailsChartView.collectionView.reloadData()
+            self.chartYears = ChartModel.setChartData(habit: self.habitEntity!)
+            self.habitDetailsChartView.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
@@ -137,7 +138,8 @@ class HabitDetailsVC: UIViewController {
             self.habitDetailsCalendarView.calendarView.deselect(date)
             self.habitEntities.removeHabitDate(habit: self.habitEntity!, date: date)
             self.updateStreaks()
-            //self.habitDetailsChartView.collectionView.reloadData()
+            self.chartYears = ChartModel.setChartData(habit: self.habitEntity!)
+            self.habitDetailsChartView.collectionView.reloadData()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.select(date)
