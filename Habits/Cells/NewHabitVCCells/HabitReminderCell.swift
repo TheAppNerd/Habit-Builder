@@ -55,8 +55,9 @@ class HabitReminderCell: UITableViewCell {
         
         dateSegment.translatesAutoresizingMaskIntoConstraints = false
         dateSegment.layer.cornerRadius       = 10
-        dateSegment.setBackgroundImage(rectangleGradient, for: .normal, barMetrics: .default)
-        
+        dateSegment.layer.borderWidth = 1.5
+        dateSegment.layer.borderColor = GradientArray.array[5][0]
+        dateSegment.setGradientColors()
         
         dayStackView.translatesAutoresizingMaskIntoConstraints = false
         dayStackView.axis         = .horizontal

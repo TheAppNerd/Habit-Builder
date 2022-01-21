@@ -222,6 +222,9 @@ class NewHabitVC: UITableViewController  {
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
         generator.impactOccurred()
         
+        sender.setGradientColors()
+        
+        
         switch sender.selectedSegmentIndex {
         case 0: alarmItem.alarmActivated = false
         case 1: alarmItem.alarmActivated = true
