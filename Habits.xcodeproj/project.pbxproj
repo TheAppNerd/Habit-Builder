@@ -48,6 +48,7 @@
 		FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */; };
 		FABA380A26C7DF650088254C /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380926C7DF650088254C /* GradientButton.swift */; };
 		FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* HabitSaveCell.swift */; };
+		FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
 		FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */; };
@@ -109,6 +110,7 @@
 		FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication + Ext.swift"; sourceTree = "<group>"; };
 		FABA380926C7DF650088254C /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		FABA380C26C9F1E00088254C /* HabitSaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSaveCell.swift; sourceTree = "<group>"; };
+		FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */,
 				FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */,
 				FA1D6D8226E729AB005AA4B2 /* Animations.swift */,
+				FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */,
 				FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */,
 				FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */,
+				FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */,
