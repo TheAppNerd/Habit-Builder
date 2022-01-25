@@ -23,8 +23,8 @@ class SideMenuVC: UIViewController, MFMailComposeViewControllerDelegate {
         configureTableView()
     }
     
-    let menuItems  = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode"]
-    var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle"]
+    let menuItems  = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode", "Notifications"]
+    var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle", "bell.and.waveform"]
     
     
     func configureTableView() {
@@ -47,7 +47,11 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell             = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseID) as! MenuCell
+        if indexPath.row < 7 {
         cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])?.addTintGradient(colors: GradientArray.array[indexPath.row])
+        } else {
+            cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])?.addTintGradient(colors: GradientArray.array[indexPath.row - 7])
+        }
         cell.cellLabel.text  = menuItems[indexPath.row]
         return cell
     }
@@ -69,6 +73,9 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
         case 4: print("TBD") //privacy policy. link to website I make with privacy policy
         case 5: delegate?.pushSettings(row: 5)
         case 6:delegate?.pushSettings(row: 6)
+        case 7: if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+            UIApplication.shared.open(appSettings)
+        }
         default: print("error")
             
         }
