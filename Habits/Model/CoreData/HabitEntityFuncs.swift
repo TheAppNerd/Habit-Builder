@@ -81,6 +81,22 @@ extension HabitEntityFuncs {
         }
     }
     
+    //NEED TO FIGURE OUT HOW TO UPDATE CORE DATA ORDER
+    //give each core data object an index number when saved. and in load habit array, use sort on the fetch
+    func updateHabitOrder(sourceIndex: Int, destinationIndex: Int) {
+        print(persistentContainer.viewContext.registeredObjects)
+        let array = loadHabitArray()
+//        let mover = array.remove(at: sourceIndex)
+//        array.insert(mover, at: destinationIndex)
+//
+//        for habit in array {
+//            persistentContainer.viewContext.insert(habit)
+//        }
+//
+//        updateHabit()
+    }
+    
+    
     //works. need to make sure date saved is start of day
     func addHabitDate(habit: HabitEnt, date: Date) {
         
