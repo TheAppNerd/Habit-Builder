@@ -11,6 +11,8 @@ import CoreData
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
+    
+    
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
@@ -74,6 +76,9 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.frame           = view.bounds
         tableView.backgroundColor = .systemBackground
         tableView.separatorStyle  = .none
+        
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
         
         //Sizing fix for older iphone models
         if view.frame.size.height < 800 {
@@ -182,7 +187,27 @@ class HabitHomeVC: UIViewController, SettingsPush {
 
 //MARK: - TableViewDelegate, TableViewDataSource
 
-extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource {
+extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        
+        generator.impactOccurred()
+        let array = habitEntities.loadHabitArray()
+        
+        let dragItem = UIDragItem(itemProvider: NSItemProvider())
+        
+        dragItem.localObject = array[indexPath.row]
+        return [dragItem]
+    }
+    
+   
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        habitEntities.updateHabitOrder(sourceIndex: sourceIndexPath.row, destinationIndex: destinationIndexPath.row)
+    }
+    
+   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return habitEntities.loadHabitArray().count
     }

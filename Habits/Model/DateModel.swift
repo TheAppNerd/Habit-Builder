@@ -31,7 +31,7 @@ class DateModel {
         var dateArray: [Date] = []
         guard let sunday = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())) else { return [] }
         
-        for index in 1...7 {
+        for index in 0...6 {
             guard let day = calendar.date(byAdding: .day, value: index, to: sunday) else { return [] }
             dateArray.append(day)
         }

@@ -57,6 +57,8 @@ class NewHabitVC: UITableViewController  {
     
     func loadData() {
             if habitEntity != nil {
+                title = "Edit Habit"
+                
             let habit       = habitEntity!
             name            = habit.name ?? ""
             previousName    = habit.name ?? ""
@@ -70,7 +72,9 @@ class NewHabitVC: UITableViewController  {
 //            alarmItem.alarmActivated = habit.notificationBool
 //            alarmItem.hour = Int(habit.notificationHour)
 //            alarmItem.minute = Int(habit.notificationMinute)
-        }
+            } else {
+                title = "Create Habit"
+            }
     }
     
     private func registerCells() {
@@ -84,8 +88,6 @@ class NewHabitVC: UITableViewController  {
     
     private func configure() {
         tableView.backgroundColor = .systemBackground
-        
-        title = Labels.AddHabitVCTitle
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         generator.prepare()
