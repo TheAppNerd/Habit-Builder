@@ -51,7 +51,8 @@ extension HabitEntityFuncs {
     //works
     func loadHabitArray() -> [HabitEnt] {
         let fetchRequest: NSFetchRequest<HabitEnt> = HabitEnt.fetchRequest()
-        
+        let sortDescriptor = NSSortDescriptor(key: "habitOrder", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         do {
             return try persistentContainer.viewContext.fetch(fetchRequest)
         } catch {
@@ -84,16 +85,19 @@ extension HabitEntityFuncs {
     //NEED TO FIGURE OUT HOW TO UPDATE CORE DATA ORDER
     //give each core data object an index number when saved. and in load habit array, use sort on the fetch
     func updateHabitOrder(sourceIndex: Int, destinationIndex: Int) {
-        print(persistentContainer.viewContext.registeredObjects)
-        let array = loadHabitArray()
-//        let mover = array.remove(at: sourceIndex)
-//        array.insert(mover, at: destinationIndex)
-//
-//        for habit in array {
-//            persistentContainer.viewContext.insert(habit)
-//        }
-//
-//        updateHabit()
+        
+        var array = loadHabitArray()
+        let mover = array.remove(at: sourceIndex)
+        array.insert(mover, at: destinationIndex)
+
+        for (index, habit) in array.enumerated() {
+            habit.habitOrder = Int16(index)
+        }
+        updateHabit()
+        let newArray = loadHabitArray()
+        for item in newArray {
+            print(item.habitOrder)
+        }
     }
     
     

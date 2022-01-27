@@ -40,11 +40,11 @@ class HabitDetailsVC: UIViewController {
         configureViews()
         configureBarButtons()
         
-        title = habitEntity?.name
-        configureCollectionView()
     }
 
     func configureViews() {
+        title = habitEntity?.name
+        configureCollectionView()
         view.backgroundColor = .systemBackground
         habitDetailsCalendarView.calendarView.dataSource = self
         habitDetailsCalendarView.calendarView.delegate = self
@@ -92,8 +92,9 @@ class HabitDetailsVC: UIViewController {
         let dateArray = HabitEntityFuncs().loadHabitDates(habit: habitEntity!)
             for date in dateArray {
                 habitDetailsCalendarView.calendarView.select(date)
-            }
+                }
     }
+    
     
     func updateStreaks() {
         let dateCreated = habitEntity?.dateCreated ?? Date()
@@ -210,6 +211,5 @@ extension HabitDetailsVC: FSCalendarDataSource, FSCalendarDelegate {
         presentAlertToRemoveHabit(date: date)
     }
     
-
 }
 
