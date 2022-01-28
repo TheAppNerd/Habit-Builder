@@ -8,6 +8,7 @@
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="frequency" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="gradient" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="habitOrder" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="notificationBool" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -18,6 +19,6 @@
     </entity>
     <elements>
         <element name="HabitDates" positionX="-287.150390625" positionY="33.58270263671875" width="128" height="73"/>
-        <element name="HabitEnt" positionX="-103.3704223632813" positionY="-57.38272094726563" width="128" height="193"/>
+        <element name="HabitEnt" positionX="-103.3704223632813" positionY="-57.38272094726563" width="128" height="208"/>
     </elements>
 </model>

@@ -28,5 +28,9 @@ class FSCalendarView: FSCalendar {
        appearance.titleDefaultColor   = .secondaryLabel
        appearance.titleSelectionColor = .label
        placeholderType                = .none
+        appearance.todayColor = .purple
+        appearance.borderRadius = 0.5
+        
+        }
     }
-}
+

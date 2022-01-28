@@ -37,11 +37,13 @@ class HabitDetailsChartView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.estimatedItemSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .tertiarySystemBackground
         collectionView.isScrollEnabled = true
+        
         
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
