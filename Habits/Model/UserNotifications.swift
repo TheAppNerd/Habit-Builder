@@ -53,12 +53,13 @@ class UserNotifications {
     static func scheduleNotifications(alarmItem: AlarmItem) {
         let center  = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
+        let dayArray = HabitEntityFuncs().convertStringArraytoBoolArray(alarmItem: alarmItem)
         content.title              = alarmItem.title
         content.body               = "Time to \(alarmItem.title). You can do it"
         content.categoryIdentifier = "alarm"
         content.sound              = UNNotificationSound.default
         
-        for (index, bool) in alarmItem.days.enumerated() {
+        for (index, bool) in dayArray.enumerated() {
             if bool == true {
             var dateComponents         = DateComponents()
             dateComponents.weekday     = index + 1

@@ -10,7 +10,7 @@ import UIKit
 struct AlarmItem {
     var alarmActivated: Bool
     var title: String
-    var days: [Bool]
+    var days: String
     var hour: Int
     var minute: Int
 }

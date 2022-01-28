@@ -223,7 +223,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)
-        print(dateArray)
+        
         
         for (index,button) in cell.dayButton.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor

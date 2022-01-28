@@ -39,7 +39,7 @@ class NewHabitVC: UITableViewController  {
     var colorIndex            = Int()
     var iconString: String    = ""
     
-    var alarmItem             = AlarmItem(alarmActivated: false, title: "", days: [], hour: 0, minute: 0)
+    var alarmItem             = AlarmItem(alarmActivated: false, title: "", days: "", hour: 0, minute: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,14 +67,15 @@ class NewHabitVC: UITableViewController  {
             colors          = GradientArray.array[colorIndex]
             iconString      = habit.icon ?? ""
             
-//            alarmItem.title = name
-//            alarmItem.days  = HabitEntityFuncs().convertStringArraytoBoolArray(habit: habit)
-//            alarmItem.alarmActivated = habit.notificationBool
-//            alarmItem.hour = Int(habit.notificationHour)
-//            alarmItem.minute = Int(habit.notificationMinute)
+                alarmItem.title = habit.name ?? ""
+                alarmItem.days  = habit.notificationDays ?? ""
+            alarmItem.alarmActivated = habit.notificationBool
+            alarmItem.hour = Int(habit.notificationHour)
+            alarmItem.minute = Int(habit.notificationMinute)
             } else {
                 title = "Create Habit"
             }
+        print(alarmItem)
     }
     
     private func registerCells() {
@@ -142,43 +143,18 @@ class NewHabitVC: UITableViewController  {
     func createHabit() {
         
         switch habitEntity == nil {
-        case true: habitEntities.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: false)
+        case true: habitEntities.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: alarmItem.alarmActivated, alarmItem: alarmItem)
         case false: let habit = habitEntity!
             habit.name          = name
             habit.frequency          = Int16(frequency)
             habit.icon         = iconString
             habit.gradient = Int16(colorIndex)
+            habit.notificationBool = alarmItem.alarmActivated
+            habitEntities.saveAlarmData(habit: habit, alarmItem: alarmItem)
             habitEntities.updateHabit()
-            //habit.alarmDays          = alarmItem.days
-           // habit.habitDates         = []
         }
+        
     }
-    
-    //anyway I can move this func remotely?
-//    func createCoreDataHabit() {
-//        var habit = HabitEntity()
-//        switch habitEntity == nil {
-//        case true: habit = HabitCoreData(context: context)
-//        case false: habit = habitEntity!
-//        }
-//
-//        habit.name          = name
-//        habit.frequency          = Int16(frequency)
-//        habit.icon         = iconString
-//        habit.gradient = Int16(colorIndex)
-//        habit.alarmDays          = alarmItem.days
-//        habit.habitDates         = []
-//        habit.alarmBool          = alarmItem.alarmActivated
-//        if alarmItem.alarmActivated == true {
-//        habit.alarmHour =  Int16(alarmItem.hour)
-//        habit.alarmMinute = Int16(alarmItem.minute)
-//        }
-//
-//        if habitCoreData == nil {
-//            habit.dateHabitCreated   = Date()
-//          //  HabitHomeVC.habitArray.append(habit)
-//        }
-//    }
     
     
     @objc func saveButtonPressed(_ sender: GradientButton) {
@@ -318,7 +294,11 @@ class NewHabitVC: UITableViewController  {
             
             cell.dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
             cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
-            for (index, bool) in alarmItem.days.enumerated() {
+            print("testitem\(alarmItem.days)")
+            var boolArray = habitEntities.convertStringArraytoBoolArray(alarmItem: alarmItem)
+            
+            print("bool\(boolArray)")
+            for (index, bool) in boolArray.enumerated() {
                 if bool == true {
                     cell.buttonArray[index].sendActions(for: .touchUpInside)
                 }
@@ -353,7 +333,7 @@ extension NewHabitVC: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         name = textField.text ?? ""
-        print("did end editing")
+       
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -381,7 +361,7 @@ extension NewHabitVC: passColorsData, passIconData, passDayData, passFrequencyDa
     }
     
     
-    func passDayData(dayArray: [Bool]) {
+    func passDayData(dayArray: String) {
         alarmItem.days = dayArray
     }
 }

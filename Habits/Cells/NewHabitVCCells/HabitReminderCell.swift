@@ -8,7 +8,7 @@
 import UIKit
 
 protocol passDayData: AnyObject {
-    func passDayData(dayArray: [Bool])
+    func passDayData(dayArray: String)
 }
 
 class HabitReminderCell: UITableViewCell {
@@ -106,23 +106,26 @@ class HabitReminderCell: UITableViewCell {
         sender.bounceAnimation()
         generator.impactOccurred()
         sender.isSelected.toggle()
-        
-        var dayArray: [Bool] = [false, false, false, false, false, false, false]
+        var stringWeek: String = ""
+        var dayArray: [String] = ["", "", "", "", "", "", ""]
         
         for (index, button) in buttonArray.enumerated() {
             if button.isSelected == false {
                 button.setTitleColor(.secondaryLabel, for: .normal)
                 button.backgroundColor = .secondarySystemBackground
                 button.colors          = GradientColors.clearGradient
-                dayArray[index]        = false
+                dayArray[index]        = "f"
             } else {
                 button.setTitleColor(.white, for: .normal)
                 button.backgroundColor = .clear
                 button.colors          = Gradients().darkBlueGradient
-                dayArray[index]        = true
+                dayArray[index]        = "t"
             }
+            stringWeek = dayArray.joined(separator: "")
+            
         }
-        delegate?.passDayData(dayArray: dayArray)
+        print("string\(stringWeek)")
+        delegate?.passDayData(dayArray: stringWeek)
     }
 }
 
