@@ -30,9 +30,8 @@ class HabitEntityFuncs {
 extension HabitEntityFuncs {
     
     //works
-    
-    //MAKE A HABIT STRUCT AND ELIMINATE NEED FOR DATE STRUCT
-    func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date, notificationBool: Bool) {
+  
+    func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date, notificationBool: Bool, alarmItem: AlarmItem) {
         let habit = HabitEnt(context: persistentContainer.viewContext)
         habit.name = name
         habit.icon = icon
@@ -40,6 +39,7 @@ extension HabitEntityFuncs {
         habit.gradient = gradient
         habit.dateCreated = dateCreated
         habit.notificationBool = notificationBool
+        saveAlarmData(habit: habit, alarmItem: alarmItem)
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -82,8 +82,7 @@ extension HabitEntityFuncs {
         }
     }
     
-    //NEED TO FIGURE OUT HOW TO UPDATE CORE DATA ORDER
-    //give each core data object an index number when saved. and in load habit array, use sort on the fetch
+    
     func updateHabitOrder(sourceIndex: Int, destinationIndex: Int) {
         
         var array = loadHabitArray()
@@ -93,11 +92,7 @@ extension HabitEntityFuncs {
         for (index, habit) in array.enumerated() {
             habit.habitOrder = Int16(index)
         }
-        updateHabit()
-        let newArray = loadHabitArray()
-        for item in newArray {
-            print(item.habitOrder)
-        }
+        updateHabit() 
     }
     
     
@@ -145,21 +140,23 @@ extension HabitEntityFuncs {
     }
     
     
-    func convertStringArraytoBoolArray(habit: HabitEnt) -> [Bool] {
+    func convertStringArraytoBoolArray(alarmItem: AlarmItem) -> [Bool] {
         var boolArray: [Bool] = []
-        if let dayString = habit.notificationDays {
+        let dayString = alarmItem.days
         let dayArray = Array(dayString)
         
         for day in dayArray {
-            if day == "T" {
+            if day == "t" {
                 boolArray.append(true)
             } else {
                 boolArray.append(false)
             }
         }
-    }
+    
         return boolArray
     }
+    
+   
 
     
     func loadHabitDates(habit: HabitEnt) -> [Date]{
@@ -169,8 +166,19 @@ extension HabitEntityFuncs {
         return dateSet
     }
     
+    func saveAlarmData(habit: HabitEnt, alarmItem: AlarmItem) {
+        if alarmItem.alarmActivated == true {
+            habit.notificationBool = true
+            habit.notificationDays = alarmItem.days
+            habit.notificationHour = Int16(alarmItem.hour)
+            habit.notificationMinute = Int16(alarmItem.minute)
+        }
+        
+    }
     
-    
+    func loadAlarmData() {
+        
+    }
   
         
         
