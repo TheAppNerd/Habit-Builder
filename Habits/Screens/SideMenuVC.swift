@@ -70,7 +70,9 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
 //         https://itunes.apple.com/us/app/appName/idAPP_ID?mt=8&action=write-review
         case 2: emailFeedback.email(vc: self)
         case 3: delegate?.pushSettings(row: 3)
-        case 4: print("TBD") //privacy policy. link to website I make with privacy policy
+        case 4: guard let url = URL(string: SocialMedia.privacyPolicyURL) else { return }
+            UIApplication.shared.open(url)
+                        
         case 5: delegate?.pushSettings(row: 5)
         case 6:delegate?.pushSettings(row: 6)
         case 7: if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {

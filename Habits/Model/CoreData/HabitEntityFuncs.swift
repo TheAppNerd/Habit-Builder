@@ -14,11 +14,12 @@ import CoreData
 
 class HabitEntityFuncs {
     
-    let persistentContainer: NSPersistentContainer
+    let persistentContainer: NSPersistentCloudKitContainer
 
     
     init() {
-        persistentContainer = NSPersistentContainer(name: "HabitEntities")
+        persistentContainer = NSPersistentCloudKitContainer(name: "HabitEntities")
+        persistentContainer.persistentStoreDescriptions.first!.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         persistentContainer.loadPersistentStores { description, error in
             if let error = error {
                 print("Core Data Error: \(error)")
