@@ -48,6 +48,7 @@
 		FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */; };
 		FABA380A26C7DF650088254C /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380926C7DF650088254C /* GradientButton.swift */; };
 		FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* HabitSaveCell.swift */; };
+		FABD431027A55A4000612896 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABD430F27A55A4000612896 /* CloudKit.framework */; };
 		FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
@@ -110,6 +111,8 @@
 		FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication + Ext.swift"; sourceTree = "<group>"; };
 		FABA380926C7DF650088254C /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		FABA380C26C9F1E00088254C /* HabitSaveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSaveCell.swift; sourceTree = "<group>"; };
+		FABD430E27A559B800612896 /* Habits.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Habits.entitlements; sourceTree = "<group>"; };
+		FABD430F27A55A4000612896 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
@@ -132,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CC551A27B6840B7BDF879AB /* Pods_Habits.framework in Frameworks */,
+				FABD431027A55A4000612896 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +145,7 @@
 		640066CB0149AB90DF9191D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FABD430F27A55A4000612896 /* CloudKit.framework */,
 				838E44C3241E759CB1015ADF /* Pods_Habits.framework */,
 			);
 			name = Frameworks;
@@ -177,6 +182,7 @@
 		FA1C7304263636D800E63CBE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
+				FABD430E27A559B800612896 /* Habits.entitlements */,
 				FA6A49F9275EBDE00084EFCC /* Utilities */,
 				FAF4E6D0264A309E0029E50D /* Extensions */,
 				FA212C4B263A3DCD00BFDA3F /* Model */,
@@ -632,6 +638,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Habits/Habits.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R8V696537A;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
@@ -652,6 +659,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Habits/Habits.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = R8V696537A;
 				INFOPLIST_FILE = "$(SRCROOT)/Support/Info.plist";
