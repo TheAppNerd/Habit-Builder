@@ -32,30 +32,31 @@ class DarkModeVC: UIViewController {
     }
     
     private func configureButtons() {
-        darkModeView.automaticButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
+        darkModeView.deviceButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         darkModeView.lightButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         darkModeView.darkButton.addTarget(self, action: #selector(darkModeValueChanged), for: .touchUpInside)
         darkModeView.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
     }
     
-    @objc func darkModeValueChanged(sender: UIButton) {
+    @objc func darkModeValueChanged(sender: GradientButton) {
         sender.bounceAnimation()
         let defaults = UserDefaults.standard
         
-        let buttonArray = [darkModeView.automaticButton, darkModeView.lightButton, darkModeView.darkButton]
+        let buttonArray = [darkModeView.deviceButton, darkModeView.lightButton, darkModeView.darkButton]
         for button in buttonArray {
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.layer.borderColor = UIColor.label.cgColor
-            button.backgroundColor   = .secondarySystemBackground
+            //button.backgroundColor   = .secondarySystemBackground
+            button.colors = GradientColors.clearGradient
         }
         
-        sender.backgroundColor = .systemBackground
+        sender.colors = GradientArray.array[5]
         sender.setTitleColor(.label, for: .normal)
         var mode = traitCollection.userInterfaceStyle
         
         switch sender.title(for: .normal) {
-        case "Automatic": mode = UITraitCollection.current.userInterfaceStyle
-            defaults.set("Automatic", forKey: "darkmode")
+        case "Device": mode = UITraitCollection.current.userInterfaceStyle
+            defaults.set("Device", forKey: "darkmode")
             
         case "Light": mode = UIUserInterfaceStyle.light
             defaults.set("Light", forKey: "darkMode")

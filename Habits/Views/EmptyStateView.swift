@@ -12,12 +12,13 @@ class EmptyStateView: UIView {
 
     let message = TitleLabel(textAlignment: .center, fontSize: 16)
     let imageView = UIImageView()
-    let addHabitButton = GradientButton(colors: Gradients().pinkGradient)
+    let addHabitButton = GradientButton(colors: Gradients().lightBlueGradient)
     let howToUseButton = GradientButton(colors: Gradients().purpleGradient)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        print(addHabitButton.titleLabel?.text)
     }
     
     required init?(coder: NSCoder) {
@@ -32,23 +33,31 @@ class EmptyStateView: UIView {
         
         message.numberOfLines             = 0
         message.text                      = """
+                
+                Welcome to Habit Builder!
+                
                 There are no habits here yet.
-                Press the Add Habit button
-                to get started or press
-                How To Use for a guide on how to use this app.
+                
+                Press the Add Habit button to get
+                
+                started or press How To Use for a guide
+                
+                on how to use this app.
                 """
         
         message.textColor                 = .label
-        imageView.image                   = UIImage(named: "habitIcon")
+        imageView.image                   = UIImage(named: "iconClear")
         imageView.layer.masksToBounds     = true
         imageView.layer.cornerRadius      = 10
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         addHabitButton.layer.cornerRadius = 10
-        addHabitButton.setTitle("Add Habit", for: .normal)
+        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
+        addHabitButton.setTitle(" Add Habit", for: .normal)
        
         howToUseButton.layer.cornerRadius = 10
-        howToUseButton.setTitle("How to Use", for: .normal)
+        howToUseButton.setImage(UIImage(systemName: "map.fill"), for: .normal)
+        howToUseButton.setTitle(" How to Use", for: .normal)
       
         
         NSLayoutConstraint.activate([
@@ -58,12 +67,12 @@ class EmptyStateView: UIView {
             imageView.widthAnchor.constraint(equalToConstant: 200),
             
             message.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            message.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            message.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             message.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             message.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
           
             addHabitButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            addHabitButton.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 40),
+            addHabitButton.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 30),
             addHabitButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             addHabitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
             addHabitButton.heightAnchor.constraint(equalToConstant: 50),
@@ -72,7 +81,7 @@ class EmptyStateView: UIView {
             howToUseButton.topAnchor.constraint(equalTo: addHabitButton.bottomAnchor, constant: 10),
             howToUseButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             howToUseButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
-            howToUseButton.heightAnchor.constraint(equalToConstant: 50)
+            howToUseButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
