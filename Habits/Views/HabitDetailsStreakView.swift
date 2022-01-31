@@ -9,6 +9,7 @@ import UIKit
 
 class HabitDetailsStreakView: UIView {
 
+    
     let dateCreatedLabel = UILabel()
     let dateCreatedResultLabel = UILabel()
     
@@ -21,6 +22,8 @@ class HabitDetailsStreakView: UIView {
     
     let labelStack = UIStackView()
     let resultStack = UIStackView()
+    
+    let streakImage = UIImageView()
     
     
     override init(frame: CGRect) {
@@ -36,13 +39,30 @@ class HabitDetailsStreakView: UIView {
         dateCreatedResultLabel.text = "\(date)"
         totalCountResultLabel.text = "\(count)"
         averageCountResultLabel.text = "\(average)"
-        
     }
+    
+    func setColor(colors: [CGColor] ) {
+        DispatchQueue.main.async {
+            self.streakImage.image = UIImage(systemName: "checkmark.square.fill")?.addTintGradient(colors: colors)
+        }
+    }
+
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10
         backgroundColor    = .tertiarySystemBackground
+        
+        
+        let line = UIView()
+        line.backgroundColor = UIColor.label
+        line.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        streakImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        let streakLabel = BodyLabel(textInput: "Streaks", textAlignment: .left, fontSize: 18)
+        streakLabel.translatesAutoresizingMaskIntoConstraints = false
         
         dateCreatedLabel.text = "Date Habit Created:"
         totalCountLabel.text = "Total Days Completed:"
@@ -70,18 +90,35 @@ class HabitDetailsStreakView: UIView {
         resultStack.addArrangedSubview(totalCountResultLabel)
         resultStack.addArrangedSubview(averageCountResultLabel)
         
-        addSubviews(labelStack, resultStack)
+        addSubviews(line, streakImage, streakLabel, labelStack, resultStack)
         
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
+            
+            streakImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            streakImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -5),
+            streakImage.heightAnchor.constraint(equalToConstant: 30),
+            streakImage.widthAnchor.constraint(equalToConstant: 30),
+            
+            streakLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: 5),
+            streakLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            streakLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            line.topAnchor.constraint(equalTo: streakLabel.bottomAnchor, constant: 5),
+            line.leadingAnchor.constraint(equalTo: streakImage.leadingAnchor),
+            line.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            line.heightAnchor.constraint(equalToConstant: 1),
+            
             labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            labelStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            labelStack.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
             labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
             labelStack.trailingAnchor.constraint(equalTo: resultStack.leadingAnchor, constant: padding),
             
             resultStack.leadingAnchor.constraint(equalTo: labelStack.trailingAnchor, constant: padding),
-            resultStack.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            resultStack.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
             resultStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             resultStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
         ])

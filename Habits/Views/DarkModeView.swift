@@ -10,9 +10,9 @@ import UIKit
 class DarkModeView: UIView {
 
     let lightLabel      = UILabel()
-    let automaticButton = UIButton()
-    let lightButton     = UIButton()
-    let darkButton      = UIButton()
+    let deviceButton    = GradientButton()
+    let lightButton     = GradientButton()
+    let darkButton      = GradientButton()
     let doneButton      = GradientButton()
     
     override init(frame: CGRect) {
@@ -29,27 +29,31 @@ class DarkModeView: UIView {
         self.backgroundColor    = .secondarySystemBackground
         self.layer.cornerRadius = 10
         
-        let buttonArray         = [automaticButton, lightButton, darkButton, doneButton]
+        let buttonArray         = [deviceButton, lightButton, darkButton, doneButton]
         for button in buttonArray {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitleColor(.label, for: .normal)
-            button.layer.cornerRadius = 10
-            button.backgroundColor    = .secondarySystemBackground
-            button.layer.borderColor  = UIColor.label.cgColor
+            button.layer.cornerRadius = 5
+            button.backgroundColor    = .systemBackground
+            
         }
         
         lightLabel.translatesAutoresizingMaskIntoConstraints = false
-        lightLabel.text          = "Light / Dark Mode"
+        //lightLabel.text          = "Dark Mode"
         lightLabel.textAlignment = .center
         lightLabel.font          = UIFont.systemFont(ofSize: 18, weight: .bold)
+        lightLabel.attributedText = NSAttributedString(string: "Dark Mode", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
         
-        automaticButton.setTitle("Automatic", for: .normal)
+        deviceButton.setTitle("Device", for: .normal)
+        deviceButton.setImage(UIImage(systemName: "iphone"), for: .normal)
         lightButton.setTitle("Light", for: .normal)
+        lightButton.setImage(UIImage(systemName: "sun.max"), for: .normal)
         darkButton.setTitle("Dark", for: .normal)
+        darkButton.setImage(UIImage(systemName: "moon"), for: .normal)
         doneButton.setTitle("Done", for: .normal)
-        doneButton.colors = Gradients().pinkGradient
+        doneButton.colors = Gradients().darkBlueGradient
         
-        self.addSubviews(lightLabel, automaticButton, lightButton, darkButton, doneButton)
+        self.addSubviews(lightLabel, deviceButton, lightButton, darkButton, doneButton)
         
         let padding: CGFloat = 10
         NSLayoutConstraint.activate([
@@ -57,14 +61,14 @@ class DarkModeView: UIView {
             lightLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             lightLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             lightLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            lightLabel.bottomAnchor.constraint(equalTo: automaticButton.topAnchor, constant: -padding),
+            lightLabel.bottomAnchor.constraint(equalTo: deviceButton.topAnchor, constant: -padding),
             
-            automaticButton.topAnchor.constraint(equalTo: lightLabel.bottomAnchor, constant: padding),
-            automaticButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            automaticButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            automaticButton.bottomAnchor.constraint(equalTo: lightButton.topAnchor, constant: -padding),
+            deviceButton.topAnchor.constraint(equalTo: lightLabel.bottomAnchor, constant: padding),
+            deviceButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
+            deviceButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            deviceButton.bottomAnchor.constraint(equalTo: lightButton.topAnchor, constant: -padding),
             
-            lightButton.topAnchor.constraint(equalTo: automaticButton.bottomAnchor, constant: padding),
+            lightButton.topAnchor.constraint(equalTo: deviceButton.bottomAnchor, constant: padding),
             lightButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             lightButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             lightButton.bottomAnchor.constraint(equalTo: darkButton.topAnchor, constant: -padding),

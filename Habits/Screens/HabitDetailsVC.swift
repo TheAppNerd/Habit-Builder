@@ -19,6 +19,7 @@ class HabitDetailsVC: UIViewController {
             let gradientColor = GradientArray.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
             habitDetailsCalendarView.setColor(colors: gradientColor)
+            habitDetailsStreakView.setColor(colors: gradientColor)
             chartYears = ChartModel.setChartData(habit: habitEntity!)
         }
     }
@@ -57,7 +58,7 @@ class HabitDetailsVC: UIViewController {
         habitDetailsCalendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         habitDetailsCalendarView.bottomAnchor.constraint(equalTo: habitDetailsStreakView.topAnchor,constant: -padding),
-        habitDetailsCalendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34),
+        habitDetailsCalendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.32),
                                                                                     
         habitDetailsStreakView.topAnchor.constraint(equalTo: habitDetailsCalendarView.bottomAnchor, constant: padding),
         habitDetailsStreakView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -68,7 +69,7 @@ class HabitDetailsVC: UIViewController {
         habitDetailsChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         habitDetailsChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -padding * 2),
-        habitDetailsChartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.34)
+        habitDetailsChartView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.32)
         ])
         }
     

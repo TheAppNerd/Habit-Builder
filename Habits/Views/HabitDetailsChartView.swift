@@ -9,7 +9,7 @@ import UIKit
 
 class HabitDetailsChartView: UIView {
     
-    var gradientIndex: Int?
+   
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let layout = UICollectionViewFlowLayout()
     var collectionImage = UIImageView()
