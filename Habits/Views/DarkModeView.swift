@@ -39,7 +39,6 @@ class DarkModeView: UIView {
         }
         
         lightLabel.translatesAutoresizingMaskIntoConstraints = false
-        //lightLabel.text          = "Dark Mode"
         lightLabel.textAlignment = .center
         lightLabel.font          = UIFont.systemFont(ofSize: 18, weight: .bold)
         lightLabel.attributedText = NSAttributedString(string: "Dark Mode", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])

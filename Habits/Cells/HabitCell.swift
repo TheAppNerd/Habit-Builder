@@ -135,7 +135,7 @@ class HabitCell: UITableViewCell {
         habitIcon.tintColor = .white
         
         habitFrequency.textColor = .white
-        habitFrequency.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        habitFrequency.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         habitFrequency.adjustsFontSizeToFitWidth = true
         habitFrequency.minimumScaleFactor = 0.7
         
@@ -167,12 +167,12 @@ class HabitCell: UITableViewCell {
             habitFrequency.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             habitFrequency.trailingAnchor.constraint(equalTo: habitAlarmIcon.leadingAnchor, constant: -10),
             habitFrequency.heightAnchor.constraint(equalToConstant: padding * 1.5),
-            habitFrequency.widthAnchor.constraint(equalToConstant: contentView.frame.size.width / 5.5),
+            //habitFrequency.widthAnchor.constraint(equalToConstant: contentView.frame.size.width / 5.5),
 
-            habitAlarmIcon.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
+            habitAlarmIcon.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding * 1.2 ),
             habitAlarmIcon.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
-            habitAlarmIcon.heightAnchor.constraint(equalToConstant: padding * 1.3),
-            habitAlarmIcon.widthAnchor.constraint(equalToConstant: padding * 1.3),
+            habitAlarmIcon.heightAnchor.constraint(equalToConstant: padding),
+            habitAlarmIcon.widthAnchor.constraint(equalToConstant: padding),
           
             labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
             labelStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),

@@ -24,5 +24,6 @@ class PageControl: UIPageControl {
         pageIndicatorTintColor        = .secondaryLabel
         currentPageIndicatorTintColor = .label
         backgroundColor               = .secondarySystemBackground
+        
     }
 }
