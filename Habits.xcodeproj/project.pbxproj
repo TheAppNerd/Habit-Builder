@@ -50,6 +50,7 @@
 		FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* HabitSaveCell.swift */; };
 		FABD431027A55A4000612896 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABD430F27A55A4000612896 /* CloudKit.framework */; };
 		FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */; };
+		FAE8EACF27A8AF8300FBA6F3 /* HabitSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EACE27A8AF8300FBA6F3 /* HabitSuccessView.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
 		FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */; };
@@ -114,6 +115,7 @@
 		FABD430E27A559B800612896 /* Habits.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Habits.entitlements; sourceTree = "<group>"; };
 		FABD430F27A55A4000612896 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl + Ext.swift"; sourceTree = "<group>"; };
+		FAE8EACE27A8AF8300FBA6F3 /* HabitSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitSuccessView.swift; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */,
 				FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
+				FAE8EACE27A8AF8300FBA6F3 /* HabitSuccessView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				FA360BF826C6151600884B90 /* HabitReminderCell.swift in Sources */,
 				FAF4E716265F445E0029E50D /* PageControl.swift in Sources */,
 				FA1C7308263636D800E63CBE /* SceneDelegate.swift in Sources */,
+				FAE8EACF27A8AF8300FBA6F3 /* HabitSuccessView.swift in Sources */,
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
 				FAFF09AE27046E93008E8569 /* ChartCollectionViewCell.swift in Sources */,
 				FABA380A26C7DF650088254C /* GradientButton.swift in Sources */,

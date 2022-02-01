@@ -86,7 +86,7 @@ class HabitReminderCell: UITableViewCell {
             datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             datePicker.trailingAnchor.constraint(equalTo: dateSegment.leadingAnchor, constant: -padding),
             datePicker.bottomAnchor.constraint(equalTo: dayStackView.topAnchor, constant: -padding),
-            datePicker.heightAnchor.constraint(equalToConstant: 40),
+            datePicker.heightAnchor.constraint(equalToConstant: 45),
             
             dateSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
