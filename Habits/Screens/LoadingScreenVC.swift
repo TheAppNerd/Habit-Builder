@@ -20,10 +20,7 @@ class LoadingScreenVC: UIViewController {
         configure()
         iconCircle.rotate()
         presentHabitVC()
-//        let array = HabitEntities().loadHabitArray()
-//        let date = HabitDates()
-//        date.date = Date()
-//        array[0].addToDatesSaved(date)
+
     }
     
     
@@ -48,13 +45,13 @@ class LoadingScreenVC: UIViewController {
         ])
     }
     
+    
     func presentHabitVC() {
         let destVC = UINavigationController(rootViewController: HabitHomeVC())
         destVC.modalPresentationStyle = .fullScreen
         
         let seconds = 1.8
         
- 
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.present(destVC, animated: true)
         }
