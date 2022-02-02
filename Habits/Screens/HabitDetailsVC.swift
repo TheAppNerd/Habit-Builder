@@ -112,8 +112,9 @@ class HabitDetailsVC: UIViewController {
         if totalWeeks < 1 {
             totalWeeks = 1
         }
-        let averagePerWeek = Double(daysCompleted) / totalWeeks
-        let averageString = String(format: "%.1f", averagePerWeek)
+    
+        let averagePerWeek = daysCompleted / Int(totalWeeks)
+        let averageString = String(averagePerWeek)
         
         habitDetailsStreakView.setLabels(date: date, count: daysCompleted, average: averageString)
     }

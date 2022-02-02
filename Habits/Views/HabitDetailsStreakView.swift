@@ -61,7 +61,7 @@ class HabitDetailsStreakView: UIView {
         
         streakImage.translatesAutoresizingMaskIntoConstraints = false
         
-        let streakLabel = BodyLabel(textInput: "Streaks", textAlignment: .left, fontSize: 18)
+        let streakLabel = BodyLabel(textInput: "Habit Details", textAlignment: .left, fontSize: 18)
         streakLabel.translatesAutoresizingMaskIntoConstraints = false
         
         dateCreatedLabel.text = "Date Habit Created:"
