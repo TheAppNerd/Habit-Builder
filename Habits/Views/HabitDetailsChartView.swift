@@ -54,7 +54,7 @@ class HabitDetailsChartView: UIView {
         collectionImage.translatesAutoresizingMaskIntoConstraints = false
         
         let collectionLabel = BodyLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
-        let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
+        let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 12)
         
         self.addSubviews(collectionImage, collectionLabel, infoLabel, collectionView, line)
         let padding: CGFloat = 20

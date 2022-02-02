@@ -67,10 +67,17 @@ class HabitCell: UITableViewCell {
         habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days  "
         habitGradient = GradientArray.array[Int(habit.gradient)]
         
-        habitFrequency.layer.borderWidth = 0
-        if habitCompletedDays >= habit.frequency {
+        let intFrequency = Int(habit.frequency)
+        
+        if habitCompletedDays == intFrequency && habitFrequency.layer.borderWidth == 0 {
+            habitFrequency.labelBorderBounce()
             habitFrequency.layer.borderWidth = 1.5
+        } else if habitCompletedDays > intFrequency {
+            habitFrequency.layer.borderWidth = 1.5
+        } else if habitCompletedDays < intFrequency {
+            habitFrequency.layer.borderWidth = 0
         }
+    
         
         switch habit.notificationBool {
         case true: habitAlarmIcon.image = SFSymbols.bell

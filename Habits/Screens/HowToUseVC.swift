@@ -72,6 +72,11 @@ to change any habit details
             let page             = UIView(frame: CGRect(x: CGFloat(num) * view.frame.size.width, y: 0, width: view.frame.size.width, height: scrollView.frame.size.height))
             page.backgroundColor = .systemBackground
             
+            //add gradient here instead of background color
+            //use previewed of something to actually show phone.
+            //use white bold text at top
+            //mention cloudkit 
+            
             let label                       = UILabel()
             label.text                      = helpText[num]
             label.textAlignment             = .center

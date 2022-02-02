@@ -47,10 +47,10 @@ class HabitDetailsCalendarView: UIView {
         line.translatesAutoresizingMaskIntoConstraints = false
            
         
-        let calendarLabel = BodyLabel(textInput: "Habits Calendar", textAlignment: .left, fontSize: 18)
+        let calendarLabel = BodyLabel(textInput: "Habit Calendar", textAlignment: .left, fontSize: 18)
         calendarLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 18)
+        let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 12)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
             
         calendarImage.layer.cornerRadius = 10

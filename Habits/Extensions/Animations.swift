@@ -20,6 +20,20 @@ extension UIButton {
     }
 }
 
+extension UILabel {
+    
+    func labelBorderBounce() {
+        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
+            self.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        } completion: { (_) in
+            UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseInOut) {
+                self.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+        }
+    }
+   
+}
+
 
 extension UIImageView {
     
