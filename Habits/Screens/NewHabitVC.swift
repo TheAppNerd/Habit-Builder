@@ -50,6 +50,8 @@ class NewHabitVC: UITableViewController  {
         configureBarButtons()
         dismissKeyboard()
         
+        
+        
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
         }
@@ -206,10 +208,23 @@ class NewHabitVC: UITableViewController  {
         switch sender.selectedSegmentIndex {
         case 0: alarmItem.alarmActivated = false
         case 1: alarmItem.alarmActivated = true
+           
             let current = UNUserNotificationCenter.current()
+            
             current.getNotificationSettings { (settings) in
+                if settings.authorizationStatus == .authorized {
+                    DispatchQueue.main.async {
+                        sender.selectedSegmentIndex = 1
+                    }
+                }
                 if settings.authorizationStatus == .denied {
+                    
                     let deniedAlert = UIAlertController(title: Labels.notificationDeniedTitle, message: Labels.notificationDeniedMessage, preferredStyle: .alert)
+                    deniedAlert.addAction(UIAlertAction(title: "App Settings", style: .default, handler: { (alert) in
+                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+                            UIApplication.shared.open(appSettings)
+                        }
+                    }))
                     deniedAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                     DispatchQueue.main.async {
                         self.present(deniedAlert, animated: true) {
@@ -272,6 +287,8 @@ class NewHabitVC: UITableViewController  {
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: HabitIconCell.reuseID, for: indexPath) as! HabitIconCell
             cell.delegate = self
             cell.colors = colors
+            
+            
             for (index, button) in cell.buttonArray.enumerated() {
                 if button.imageView!.image == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
@@ -285,6 +302,12 @@ class NewHabitVC: UITableViewController  {
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: HabitReminderCell.reuseID, for: indexPath) as! HabitReminderCell
             cell.colors = colors
             cell.delegate = self
+            
+            //safety check here if alarms allowed. if no set index to 0
+            
+            let userNotifications = UserNotifications()
+            userNotifications.confirmRegisteredNotifications(segment: cell.dateSegment)
+        
             
             switch alarmItem.alarmActivated {
             case true: cell.dateSegment.selectedSegmentIndex = 1

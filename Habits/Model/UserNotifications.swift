@@ -32,6 +32,7 @@ class UserNotifications {
     static func scheduleNotification(title: String, day: Int ,hour: Int, minute: Int) {
         let center  = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
+        
         content.title              = title
         content.body               = "Time to \(title). You can do it"
         content.categoryIdentifier = "alarm"
@@ -79,8 +80,7 @@ class UserNotifications {
     
 
     
-    func confirmRegisteredNotifications() -> String { // made this func in new habit vc. should use this one and find way to present alert if denied. (input view to present?)
-        var str = ""
+    func confirmRegisteredNotifications(segment: UISegmentedControl) { // made this func in new habit vc. should use this one and find way to present alert if denied. (input view to present?)
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings { (settings) in
             switch settings.authorizationStatus {
@@ -88,9 +88,10 @@ class UserNotifications {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
-                str = "authorised"
             case .denied:
-                str = "denied"
+                DispatchQueue.main.async {
+                    segment.selectedSegmentIndex = 0
+                }
                 
             case .notDetermined:
                 self.requestUserAuthorisation()
@@ -102,7 +103,6 @@ class UserNotifications {
                 break
             }
         }
-        return str
     }
     
 }

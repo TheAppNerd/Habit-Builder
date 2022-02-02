@@ -18,7 +18,7 @@ class EmptyStateView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        print(addHabitButton.titleLabel?.text)
+       
     }
     
     required init?(coder: NSCoder) {

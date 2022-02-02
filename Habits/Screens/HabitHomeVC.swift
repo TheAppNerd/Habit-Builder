@@ -255,6 +255,8 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         }
         cell.habitCompletedDays = completedDays
         cell.set(habit: habit)
+
+        
         return cell
     }
     

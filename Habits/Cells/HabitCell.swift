@@ -15,7 +15,7 @@ class HabitCell: UITableViewCell {
     
     let habitName          = TitleLabel(textAlignment: .left, fontSize: 22)
     let habitIcon          = UIImageView()
-    let habitFrequency     = BodyLabel(textInput: "", textAlignment: .right, fontSize: 18)
+    let habitFrequency     = BodyLabel(textInput: "", textAlignment: .center, fontSize: 18)
     let habitAlarmIcon     = UIImageView()
     var habitGradient      = [CGColor]()
     
@@ -64,8 +64,13 @@ class HabitCell: UITableViewCell {
     func set(habit: HabitEnt) {
         habitName.text = habit.name ?? ""
         habitIcon.image = UIImage(named: habit.icon ?? "")
-        habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days "
+        habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days  "
         habitGradient = GradientArray.array[Int(habit.gradient)]
+        
+        habitFrequency.layer.borderWidth = 0
+        if habitCompletedDays >= habit.frequency {
+            habitFrequency.layer.borderWidth = 1.5
+        }
         
         switch habit.notificationBool {
         case true: habitAlarmIcon.image = SFSymbols.bell
@@ -138,6 +143,8 @@ class HabitCell: UITableViewCell {
         habitFrequency.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         habitFrequency.adjustsFontSizeToFitWidth = true
         habitFrequency.minimumScaleFactor = 0.7
+        habitFrequency.layer.borderColor = UIColor.white.cgColor
+        habitFrequency.layer.cornerRadius = 10
         
         habitAlarmIcon.tintColor = .white
         habitAlarmIcon.image = SFSymbols.bellSlash
