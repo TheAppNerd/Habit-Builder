@@ -50,7 +50,7 @@ class LoadingScreenVC: UIViewController {
         let destVC = UINavigationController(rootViewController: HabitHomeVC())
         destVC.modalPresentationStyle = .fullScreen
         
-        let seconds = 1.8
+        let seconds = 1.2
         
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.present(destVC, animated: true)

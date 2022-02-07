@@ -13,7 +13,7 @@ class AboutAppVC: UIViewController {
     let versionLabel    = UILabel()
     let nameLabel       = UILabel()
     let tableView       = UITableView()
-    let topGradientView = UIView()
+    let detailsView     = UIView()
     
     let iconArray       = ["linkedIn", "Instagram", "GitHub"]
     let usernameArray   = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername]
@@ -59,63 +59,63 @@ class AboutAppVC: UIViewController {
     }
     
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        topGradientView.addGradient(colors: Gradients().darkBlueGradient)
-    }
-    
-    
     private func configure() {
-        topGradientView.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        let count = 0...GradientArray.array.count - 1
+        let random = count.randomElement() ?? 5
+        view.addGradient(colors: GradientArray.array[random])
         
-        iconImage.image               = UIImage(named: "habitIcon")
+        detailsView.backgroundColor = .secondarySystemBackground
+        detailsView.layer.cornerRadius = 10
+        detailsView.translatesAutoresizingMaskIntoConstraints = false
+        
+        iconImage.image               = UIImage(named: "iconClear")
+        iconImage.backgroundColor = .secondarySystemBackground
         iconImage.layer.masksToBounds = true
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         
         versionLabel.text                = " Habits - Version \(UIApplication.appVersion!)  "
         versionLabel.textAlignment       = .center
-        versionLabel.backgroundColor     = .white
-        versionLabel.layer.cornerRadius  = 10
-        versionLabel.layer.masksToBounds = true
-        versionLabel.textColor           = .black
-        versionLabel.sizeToFit()
+        versionLabel.font                = UIFont.systemFont(ofSize: 18, weight: .bold)
+        versionLabel.backgroundColor     = .clear
+        versionLabel.textColor           = .label
         versionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         nameLabel.text                   = " Made by Alex Thompson  "
         nameLabel.textAlignment          = .center
-        nameLabel.backgroundColor        = .white
-        nameLabel.layer.cornerRadius     = 10
-        nameLabel.layer.masksToBounds    = true
-        nameLabel.textColor              = .black
-        nameLabel.sizeToFit()
+        nameLabel.font                   = UIFont.systemFont(ofSize: 18, weight: .bold)
+        nameLabel.backgroundColor        = .clear
+        nameLabel.textColor              = .label
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubviews(topGradientView ,iconImage, versionLabel, nameLabel, tableView)
+        view.addSubviews(detailsView, iconImage, versionLabel, nameLabel, tableView)
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            topGradientView.topAnchor.constraint(equalTo: view.topAnchor),
-            topGradientView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            topGradientView.heightAnchor.constraint(equalToConstant: view.frame.size.height / 2.5),
+            detailsView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.size.height / 4),
+            detailsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            detailsView.heightAnchor.constraint(equalTo: detailsView.widthAnchor, multiplier: 0.4),
+            detailsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            detailsView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -padding),
             
-            iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            iconImage.heightAnchor.constraint(equalTo: iconImage.widthAnchor),
-            iconImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
-            iconImage.bottomAnchor.constraint(equalTo: versionLabel.topAnchor, constant: -padding),
+            iconImage.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: 5),
+            iconImage.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: 5),
+            iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor),
+            iconImage.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -5),
             
-            versionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            versionLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: padding),
-            versionLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -padding),
-            versionLabel.heightAnchor.constraint(equalToConstant: 30),
+            versionLabel.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor, constant: 5),
+            versionLabel.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: 10),
+            versionLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -5),
+            versionLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -5),
+            versionLabel.heightAnchor.constraint(equalToConstant: padding),
             
-            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nameLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: padding),
-            nameLabel.bottomAnchor.constraint(equalTo: topGradientView.bottomAnchor, constant: -padding),
-            nameLabel.heightAnchor.constraint(equalToConstant: 30),
+            nameLabel.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor, constant: 5),
+            nameLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: padding / 2),
+            nameLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -5),
+            nameLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -5),
+            nameLabel.heightAnchor.constraint(equalToConstant: padding),
             
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: topGradientView.bottomAnchor, constant: padding * 2),
+            tableView.topAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: padding * 2),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8)
         ])
