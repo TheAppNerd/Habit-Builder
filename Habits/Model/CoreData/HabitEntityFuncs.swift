@@ -174,16 +174,9 @@ extension HabitEntityFuncs {
             habit.notificationHour = Int16(alarmItem.hour)
             habit.notificationMinute = Int16(alarmItem.minute)
         }
-        
     }
     
-    func loadAlarmData() {
-        
-    }
   
-        
-        
-        
     }
     
 

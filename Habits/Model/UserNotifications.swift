@@ -25,32 +25,13 @@ class UserNotifications {
     
     static func removeNotifications(title: String) {
         let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: [title])
+        for num in 1...7 {
+            center.removePendingNotificationRequests(withIdentifiers: ["\(title)\(num)"])
+        }
+        
     }
     
-    
-    static func scheduleNotification(title: String, day: Int ,hour: Int, minute: Int) {
-        let center  = UNUserNotificationCenter.current()
-        let content = UNMutableNotificationContent()
-        
-        content.title              = title
-        content.body               = "Time to \(title). You can do it"
-        content.categoryIdentifier = "alarm"
-        content.sound              = UNNotificationSound.default
-        
-        var dateComponents         = DateComponents()
-        dateComponents.weekday     = day
-        dateComponents.hour        = hour
-        dateComponents.minute      = minute
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: title, content: content, trigger: trigger)
-        
-        center.add(request)
-        print("center: \(center)")
-    }
-    
+
     static func scheduleNotifications(alarmItem: AlarmItem) {
         let center  = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
@@ -66,16 +47,16 @@ class UserNotifications {
             dateComponents.weekday     = index + 1
             dateComponents.hour        = alarmItem.hour
             dateComponents.minute      = alarmItem.minute
-                print("weekday\(dateComponents.weekday)")
-            print("weekdaycentre\(center)")
+                print("weekday\(dateComponents.weekday), hour: \(dateComponents.hour), minute: \(dateComponents.minute)")
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
             
-            let request = UNNotificationRequest(identifier: alarmItem.title, content: content, trigger: trigger)
+            let request = UNNotificationRequest(identifier: "\(alarmItem.title)\(index)", content: content, trigger: trigger)
             
             center.add(request)
+        
         }
     }
-      
+        print("weekday\(center)")
     }
     
 
