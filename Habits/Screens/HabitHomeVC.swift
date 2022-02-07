@@ -217,9 +217,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
         let habit = habitEntities.loadHabitArray()[indexPath.row]
-        
-    
-        //cell.habitGradient = [UIColor.clear.cgColor]
+        print("order\(habit.habitOrder)")
         
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)

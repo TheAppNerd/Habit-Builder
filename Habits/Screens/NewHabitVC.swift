@@ -143,9 +143,11 @@ class NewHabitVC: UITableViewController  {
     }
     
     func createHabit() {
+        let count = habitEntities.loadHabitArray().count
+        
         
         switch habitEntity == nil {
-        case true: habitEntities.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: alarmItem.alarmActivated, alarmItem: alarmItem)
+        case true: habitEntities.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), index: count, gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: alarmItem.alarmActivated, alarmItem: alarmItem)
         case false: let habit = habitEntity!
             habit.name          = name
             habit.frequency          = Int16(frequency)

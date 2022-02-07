@@ -32,10 +32,11 @@ extension HabitEntityFuncs {
     
     //works
   
-    func saveHabit(name: String, icon: String, frequency: Int16, gradient: Int16, dateCreated: Date, notificationBool: Bool, alarmItem: AlarmItem) {
+    func saveHabit(name: String, icon: String, frequency: Int16, index: Int,  gradient: Int16, dateCreated: Date, notificationBool: Bool, alarmItem: AlarmItem) {
         let habit = HabitEnt(context: persistentContainer.viewContext)
         habit.name = name
         habit.icon = icon
+        habit.habitOrder = Int16(index)
         habit.frequency = frequency
         habit.gradient = gradient
         habit.dateCreated = dateCreated
