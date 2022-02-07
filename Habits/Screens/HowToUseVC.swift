@@ -12,6 +12,8 @@ class HowToUseVC: UIViewController {
     let pageControl = PageControl()
     let scrollView = ScrollView()
     
+    //need a page constant for all this and pagecontrol
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
@@ -53,24 +55,41 @@ class HowToUseVC: UIViewController {
     }
     
     private func configureScrollView() {
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 3, height: scrollView.frame.size.height)
-        let imageNames: [String] = ["addHabitImage", "mainPageImage", "habitDetailsImage"]
-        let helpText: [String] = ["Create a habit you want to track",
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.frame.size.height)
+        let imageNames: [String] = ["addScreen", "mainScreen", "detailScreen", "menuScreen"]
+        let helpText: [String] = ["""
+Create a habit you want to work on
+and set reminders to stay on track.
+
+Automatic Cloud Kit synchronization
+preserves all your data across devices
+""",
+                                  
                                   """
 Tap the date button to mark off
 a habit or select the background
-to load the habits details
+to load the habits details.
+
+Press and hold the habit to change
+the habit order however you like.
 """,
                                   """
 Tap a date on the calendar to
 mark off a habit or tap edit
 in the top right of the screen
 to change any habit details
-"""]
+""",
+                                  """
+Press the button in the top left
+to access the menu for extra app
+information and functionality
+"""
+        ]
         
-        for num in 0...2 {
+        for num in 0...3 {
             let page             = UIView(frame: CGRect(x: CGFloat(num) * view.frame.size.width, y: 0, width: view.frame.size.width, height: scrollView.frame.size.height))
-            page.backgroundColor = .systemBackground
+            //page.backgroundColor = .systemBackground
+            page.addGradient(colors: GradientArray.array[num])
             
             //add gradient here instead of background color
             //use previewed of something to actually show phone.
@@ -80,7 +99,8 @@ to change any habit details
             let label                       = UILabel()
             label.text                      = helpText[num]
             label.textAlignment             = .center
-            label.numberOfLines             = 4
+            label.font                      = UIFont.systemFont(ofSize: 16, weight: .bold)
+            label.numberOfLines = 6
             label.adjustsFontSizeToFitWidth = true
             label.translatesAutoresizingMaskIntoConstraints = false
             
