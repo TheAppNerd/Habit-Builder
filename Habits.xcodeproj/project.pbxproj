@@ -50,6 +50,9 @@
 		FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* HabitSaveCell.swift */; };
 		FABD431027A55A4000612896 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABD430F27A55A4000612896 /* CloudKit.framework */; };
 		FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */; };
+		FAE8EAD127B3187D00FBA6F3 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */; };
+		FAE8EAD327B35C9100FBA6F3 /* Quotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */; };
+		FAE8EAD527B35CE600FBA6F3 /* QuotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD427B35CE600FBA6F3 /* QuotesManager.swift */; };
 		FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6CA2648F30B0029E50D /* DatePicker.swift */; };
 		FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */; };
 		FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */; };
@@ -114,6 +117,9 @@
 		FABD430E27A559B800612896 /* Habits.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Habits.entitlements; sourceTree = "<group>"; };
 		FABD430F27A55A4000612896 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl + Ext.swift"; sourceTree = "<group>"; };
+		FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
+		FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quotes.swift; sourceTree = "<group>"; };
+		FAE8EAD427B35CE600FBA6F3 /* QuotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesManager.swift; sourceTree = "<group>"; };
 		FAF4E6CA2648F30B0029E50D /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Ext.swift"; sourceTree = "<group>"; };
 		FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
@@ -251,6 +257,7 @@
 				FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */,
 				FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
+				FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -278,6 +285,8 @@
 				FAFF09AB2702E3FA008E8569 /* ChartYear.swift */,
 				FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */,
 				FA3E60842769AAC500A1A804 /* ChartModel.swift */,
+				FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */,
+				FAE8EAD427B35CE600FBA6F3 /* QuotesManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -464,6 +473,7 @@
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
 				FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */,
 				FAF4E6E6265608830029E50D /* EmptyStateView.swift in Sources */,
+				FAE8EAD127B3187D00FBA6F3 /* QuoteView.swift in Sources */,
 				FA224D6926F17216005CC9F1 /* HabitDetailsVC.swift in Sources */,
 				FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */,
 				FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */,
@@ -482,7 +492,9 @@
 				FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */,
 				FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */,
 				FA9C1BC0276C564300869E24 /* HabitEntities.xcdatamodeld in Sources */,
+				FAE8EAD527B35CE600FBA6F3 /* QuotesManager.swift in Sources */,
 				FA1C73242636406300E63CBE /* HabitHomeVC.swift in Sources */,
+				FAE8EAD327B35C9100FBA6F3 /* Quotes.swift in Sources */,
 				FAF4E6DC265222320029E50D /* UserNotifications.swift in Sources */,
 				FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */,
 				FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */,
