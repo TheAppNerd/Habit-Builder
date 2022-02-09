@@ -17,7 +17,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView       = EmptyStateView()
-    
+    var quoteButtonTapped    = Bool()
     let habitEntities = HabitEntityFuncs()
 
     
@@ -38,10 +38,13 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureEmptyState()
         configureTableViewFooter()
         configureMenuView()
-        
+        quoteButtonTapped = false
+        let a = QuotesManager().parse()
+        for quote in a {
+            print(quote.author)
+        }
     
     }
-    
     
     func showEmptyStateView() {
         switch habitEntities.loadHabitArray().isEmpty {
@@ -60,11 +63,14 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     
+    
     func configureBarButtonItems() {
         let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
+        let quoteButton = UIBarButtonItem(image: UIImage(systemName: "quote.bubble"), style: .done, target: self, action: #selector(quoteButtonPressed))
         navigationItem.setLeftBarButton(menuButton, animated: true)
-        navigationItem.setRightBarButton(addButton, animated: true)
+       // navigationItem.setRightBarButton(addButton, animated: true)
+        navigationItem.setRightBarButtonItems([addButton, quoteButton], animated: true)
     }
     
     
@@ -129,6 +135,12 @@ class HabitHomeVC: UIViewController, SettingsPush {
         show(newHabitVC, sender: self)
     }
     
+    @objc func quoteButtonPressed() {
+        generator.impactOccurred()
+        quoteButtonTapped.toggle()
+        tableView.reloadData()
+    }
+    
     
     @objc func dateButtonPressed(_ sender: UIButton) {
         generator.impactOccurred()
@@ -189,6 +201,19 @@ class HabitHomeVC: UIViewController, SettingsPush {
 
 extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        quoteButtonTapped ? 40 : CGFloat.leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let quoteView = QuoteView()
+        switch quoteButtonTapped {
+        case true: return quoteView
+        case false: return nil
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         
         generator.impactOccurred()
@@ -217,7 +242,6 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
         let habit = habitEntities.loadHabitArray()[indexPath.row]
-        print("order\(habit.habitOrder)")
         
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)

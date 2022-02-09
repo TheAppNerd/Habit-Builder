@@ -23,5 +23,7 @@ struct EmailFeedback {
             vc.present(emailAlert, animated: true)
         }
     }
+    
+  //  func mailComposeController(<#T##MFMailComposeViewController#>, didFinishWith: <#T##MFMailComposeResult#>, error: <#T##Error?#>)
 }
 
