@@ -19,7 +19,9 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let emptyStateView       = EmptyStateView()
     var quoteButtonTapped    = Bool()
     let habitEntities = HabitEntityFuncs()
-
+    var quotesManager = QuotesManager()
+    var quotesArray: [Quote] = []
+   
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
@@ -39,9 +41,10 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureTableViewFooter()
         configureMenuView()
         quoteButtonTapped = false
-        let a = QuotesManager().parse()
-        for quote in a {
-            print(quote.author)
+        
+        quotesManager.delegate = self
+        DispatchQueue.global(qos: .background).async {
+            self.quotesManager.parse()
         }
     
     }
@@ -96,6 +99,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     
     func configureTableViewFooter() {
+        tableView.register(QuoteView.self, forHeaderFooterViewReuseIdentifier: "header")
+        
         
         let tableViewFooter = TableViewFooter()
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
@@ -136,6 +141,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     @objc func quoteButtonPressed() {
+        print(QuotesManager().parse())
         generator.impactOccurred()
         quoteButtonTapped.toggle()
         tableView.reloadData()
@@ -156,6 +162,13 @@ class HabitHomeVC: UIViewController, SettingsPush {
         } else {
             habitEntities.addHabitDate(habit: habit, date: selectedDate)
         }
+        tableView.reloadData()
+    }
+    
+    @objc func quoteNextButtonPressed(_ sender: UIButton) {
+        sender.bounceAnimation()
+        generator.impactOccurred()
+        
         tableView.reloadData()
     }
     
@@ -197,20 +210,42 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
 }
 
+
+
+//MARK: - QuotesManagerDelegate
+
+extension HabitHomeVC: QuotesManagerDelegate {
+    
+    func updateQuotes(_ quotes: [Quote]) {
+        DispatchQueue.main.async {
+            self.quotesArray = quotes
+            self.tableView.reloadData()
+        }
+        
+    }
+}
+
+
 //MARK: - TableViewDelegate, TableViewDataSource
 
 extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        quoteButtonTapped ? 40 : CGFloat.leastNormalMagnitude
+        quoteButtonTapped ? 100 : CGFloat.leastNormalMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let quoteView = QuoteView()
-        switch quoteButtonTapped {
-        case true: return quoteView
-        case false: return nil
+        
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! QuoteView
+        view.quoteButton.addTarget(self, action: #selector(quoteNextButtonPressed), for: .touchUpInside)
+        let gradientIndex = (0...GradientArray.array.count - 1).randomElement() ?? 0
+        view.quoteView.addGradient(colors: GradientArray.array[gradientIndex])
+        let randomIndex = (0...quotesArray.count - 1).randomElement() ?? 0
+        if quotesArray.isEmpty != true {
+                view.quoteLabel.text = quotesArray[randomIndex].text
+                view.nameLabel.text = quotesArray[randomIndex].author
         }
+        return view
     }
     
     
