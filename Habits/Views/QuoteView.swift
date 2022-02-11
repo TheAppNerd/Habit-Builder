@@ -7,14 +7,16 @@
 
 import UIKit
 
-class QuoteView: UIView {
+class QuoteView: UITableViewHeaderFooterView {
     
+    let quoteView = UIView()
     let quoteLabel = UILabel()
     let nameLabel  = UILabel()
+    let quoteButton = UIButton()
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         configure()
     }
     
@@ -23,33 +25,59 @@ class QuoteView: UIView {
     }
     
     
+    @objc func quoteButtonPressed(sender: UIButton) {
+        sender.bounceAnimation()
+    }
+    
     private func configure() {
-        self.frame.size = .init(width: 40, height: 40)
+        quoteView.translatesAutoresizingMaskIntoConstraints = false
+        
         quoteLabel.translatesAutoresizingMaskIntoConstraints = false
+        quoteLabel.font = UIFont.italicSystemFont(ofSize: 16)
+        quoteLabel.numberOfLines = 3
+        quoteLabel.adjustsFontSizeToFitWidth = true
+        quoteLabel.textAlignment = .center
+        
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        quoteLabel.text = "test"
-        nameLabel.text = "test"
+        nameLabel.textAlignment = .right
+        nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.font = UIFont.systemFont(ofSize: 12)
+        
+        quoteButton.translatesAutoresizingMaskIntoConstraints = false
+        quoteButton.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+        quoteButton.addTarget(self, action: #selector(quoteButtonPressed), for: .touchUpInside)
+        
+        quoteView.layer.cornerRadius = 10
         
         let padding: CGFloat = 5
-        self.addSubviews(quoteLabel, nameLabel)
+        self.addSubviews(quoteView, quoteLabel, nameLabel, quoteButton)
         
         NSLayoutConstraint.activate([
-            quoteLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            quoteLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            quoteLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
+            
+            quoteView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            quoteView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            quoteView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            quoteView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            
+            quoteLabel.topAnchor.constraint(equalTo: quoteView.topAnchor, constant: padding),
+            quoteLabel.leadingAnchor.constraint(equalTo: quoteView.leadingAnchor, constant: padding),
+            quoteLabel.trailingAnchor.constraint(equalTo: quoteButton.leadingAnchor, constant: -padding),
             quoteLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: quoteLabel.bottomAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            nameLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
-        
+            nameLabel.leadingAnchor.constraint(equalTo: quoteView.leadingAnchor, constant: padding),
+            nameLabel.trailingAnchor.constraint(equalTo: quoteButton.leadingAnchor, constant: -padding),
+            nameLabel.bottomAnchor.constraint(equalTo: quoteView.bottomAnchor, constant: -padding),
+            
+            quoteButton.topAnchor.constraint(equalTo: quoteView.topAnchor, constant: 10),
+            quoteButton.leadingAnchor.constraint(equalTo: quoteLabel.trailingAnchor, constant: padding),
+            quoteButton.trailingAnchor.constraint(equalTo: quoteView.trailingAnchor, constant: -10),
+            quoteButton.bottomAnchor.constraint(equalTo: quoteView.bottomAnchor, constant: -10),
+            quoteButton.widthAnchor.constraint(equalTo: quoteButton.heightAnchor)
+            
+            
         ])
-        
-        
-        
-        self.layer.cornerRadius = 10
-        self.backgroundColor = .systemGreen
+    
     }
     
 }

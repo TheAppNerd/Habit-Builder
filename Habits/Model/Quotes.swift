@@ -7,9 +7,6 @@
 
 import Foundation
 
-struct Quotes: Codable {
-    var quotes: [Quote]
-}
 
 struct Quote: Codable {
     let text: String?
