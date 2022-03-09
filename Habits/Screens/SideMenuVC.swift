@@ -23,6 +23,8 @@ class SideMenuVC: UIViewController, MFMailComposeViewControllerDelegate {
         configureTableView()
     }
     
+    //add all these to constants. make an array of constants in constants tab 
+    
     let menuItems  = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode", "App Settings"]
     var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle", "gearshape"]
     

@@ -15,12 +15,12 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
-    let generator            = UIImpactFeedbackGenerator(style: .medium)
+    let generator            = UIImpactFeedbackGenerator(style: .medium) //move to protocol
     let emptyStateView       = EmptyStateView()
     var quoteButtonTapped    = Bool()
-    let habitEntities = HabitEntityFuncs()
+    let habitEntities = HabitEntityFuncs() //need to rename
     var quotesManager = QuotesManager()
-    var quotesArray: [Quote] = []
+    var quotesArray: [Quote] = [] //move externally?
    
     
     var isSlideInMenuPressed = false
@@ -70,9 +70,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
     func configureBarButtonItems() {
         let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
-        let quoteButton = UIBarButtonItem(image: UIImage(systemName: "quote.bubble"), style: .done, target: self, action: #selector(quoteButtonPressed))
+        let quoteButton = UIBarButtonItem(image: UIImage(systemName: "quote.bubble"), style: .done, target: self, action: #selector(quoteButtonPressed)) //add to constants?
         navigationItem.setLeftBarButton(menuButton, animated: true)
-       // navigationItem.setRightBarButton(addButton, animated: true)
         navigationItem.setRightBarButtonItems([addButton, quoteButton], animated: true)
     }
     
@@ -89,7 +88,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self
         
-        //Sizing fix for older iphone models
+        //Sizing fix for older iphone models. evaluate how to improve upon this?
         if view.frame.size.height < 800 {
             tableView.rowHeight = tableView.frame.height / 4.5
         } else {
@@ -112,7 +111,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     
-    func pushSettings(row: Int) {
+    func pushSettings(row: Int) { //move cases away from numbers. use descriptive terms
         switch row {
         case 3: let vc = HowToUseVC()
             navigationController?.pushViewController(vc, animated: true)
@@ -129,6 +128,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
+    //use mark to seperate @objc funcs
     
     @objc func helpButtonPressed() {
         let helpVC = HowToUseVC()
@@ -221,7 +221,6 @@ extension HabitHomeVC: QuotesManagerDelegate {
             self.quotesArray = quotes
             self.tableView.reloadData()
         }
-        
     }
 }
 
@@ -276,7 +275,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-        let habit = habitEntities.loadHabitArray()[indexPath.row]
+        let habit = habitEntities.loadHabitArray()[indexPath.row] //is it acceptable to write it like this? break it down into two lines. 
         
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)

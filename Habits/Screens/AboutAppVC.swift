@@ -60,15 +60,16 @@ class AboutAppVC: UIViewController {
     
     
     private func configure() {
-        let count = 0...GradientArray.array.count - 1
-        let random = count.randomElement() ?? 5
-        view.addGradient(colors: GradientArray.array[random])
+//        let count = 0...GradientArray.array.count - 1
+//        let random = count.randomElement() ?? 5
+//        view.addGradient(colors: GradientArray.array[random])
+        view.backgroundColor = .systemBackground
         
         detailsView.backgroundColor = .secondarySystemBackground
         detailsView.layer.cornerRadius = 10
         detailsView.translatesAutoresizingMaskIntoConstraints = false
         
-        iconImage.image               = UIImage(named: "iconClear")
+        iconImage.image               = UIImage(named: "IconClear")
         iconImage.backgroundColor = .secondarySystemBackground
         iconImage.layer.masksToBounds = true
         iconImage.translatesAutoresizingMaskIntoConstraints = false
@@ -88,34 +89,35 @@ class AboutAppVC: UIViewController {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubviews(detailsView, iconImage, versionLabel, nameLabel, tableView)
-        let padding: CGFloat = 20
+        let padding: CGFloat = 5
         
         NSLayoutConstraint.activate([
             detailsView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.size.height / 4),
             detailsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            detailsView.heightAnchor.constraint(equalTo: detailsView.widthAnchor, multiplier: 0.4),
+            detailsView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
             detailsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            detailsView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -padding),
+            detailsView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20),
             
-            iconImage.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: 5),
-            iconImage.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: 5),
+            iconImage.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: padding * 4),
+            iconImage.centerXAnchor.constraint(equalTo: detailsView.centerXAnchor),
+            iconImage.heightAnchor.constraint(equalTo: detailsView.heightAnchor, multiplier: 0.5),
             iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor),
-            iconImage.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -5),
+            //iconImage.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 5),
             
-            versionLabel.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor, constant: 5),
-            versionLabel.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: 10),
-            versionLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -5),
-            versionLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -5),
-            versionLabel.heightAnchor.constraint(equalToConstant: padding),
+            nameLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: padding),
+            nameLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: padding * 2),
+            nameLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -padding),
+            nameLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -padding * 2),
+            nameLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            nameLabel.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor, constant: 5),
-            nameLabel.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: padding / 2),
-            nameLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -5),
-            nameLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -5),
-            nameLabel.heightAnchor.constraint(equalToConstant: padding),
+            versionLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: padding),
+//            versionLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 10),
+            versionLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -padding),
+            versionLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -padding),
+            versionLabel.heightAnchor.constraint(equalToConstant: 20),
             
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: padding * 2),
+            tableView.topAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: 40),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8)
         ])

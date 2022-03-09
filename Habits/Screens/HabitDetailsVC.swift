@@ -11,7 +11,7 @@ import FSCalendar
 
 class HabitDetailsVC: UIViewController {
     
-    var habitEntity: HabitEnt?
+    var habitEntity: HabitEnt? //naming conventions
     
     var habitIndex: Int? {
         didSet {

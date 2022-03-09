@@ -54,6 +54,8 @@ class HowToUseVC: UIViewController {
         }
     }
     
+    //move all these to constants
+    
     private func configureScrollView() {
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.frame.size.height)
         let imageNames: [String] = ["addScreen", "mainScreen", "detailScreen", "menuScreen"]
