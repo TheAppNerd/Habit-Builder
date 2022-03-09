@@ -20,14 +20,7 @@ class NewHabitVC: UITableViewController  {
     
     var habitEntities = HabitEntityFuncs()
     
-    //fix alarm picker so date has to be selected if alarm is on. like the text field red circle.
-    //fix alarm on or off background
     //fix nameArray functionality?
-    //move name, frequency colors etc striahgt to habit core array?
-    //2 habits with same name doesnt work. ignore or fix?
-    //move generator to its own class/protocol?
-//new habits that havent been saved yet wont create a habit. fix this. (alarmitem doesnt get filled until the load func.)
-    
    
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     
@@ -59,7 +52,7 @@ class NewHabitVC: UITableViewController  {
     
     func loadData() {
             if habitEntity != nil {
-                title = "Edit Habit"
+                title = "Edit Habit" //move to constants
                 
             let habit       = habitEntity!
             name            = habit.name ?? ""
@@ -75,7 +68,7 @@ class NewHabitVC: UITableViewController  {
             alarmItem.hour = Int(habit.notificationHour)
             alarmItem.minute = Int(habit.notificationMinute)
             } else {
-                title = "Create Habit"
+                title = "Create Habit" //move to constants
             }
         print(alarmItem)
     }
@@ -291,7 +284,7 @@ class NewHabitVC: UITableViewController  {
             cell.colors = colors
             
             
-            for (index, button) in cell.buttonArray.enumerated() {
+            for (index, button) in cell.buttonArray.enumerated() { //remove index?
                 if button.imageView!.image == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
                 }
