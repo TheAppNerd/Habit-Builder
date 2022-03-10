@@ -22,8 +22,9 @@ enum Labels {
 enum SFSymbols {
     static let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
     
-    static let menuButton           = UIImage(systemName: "sidebar.leading", withConfiguration: boldConfig)
-    static let addHabitButton       = UIImage(systemName: "plus.app", withConfiguration: boldConfig)
+    static let menuButton           = UIImage(systemName: "sidebar.leading")
+    static let addHabitButton       = UIImage(systemName: "plus.app")
+    static let quoteButton          = UIImage(systemName: "quote.bubble")
     static let checkMark            = UIImage(systemName: "checkmark", withConfiguration: boldConfig)
     static let bell                 = UIImage(systemName: "bell.fill")
     static let bellSlash            = UIImage(systemName: "bell.slash.fill")
