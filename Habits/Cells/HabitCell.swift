@@ -68,14 +68,14 @@ class HabitCell: UITableViewCell {
         habitGradient = GradientArray.array[Int(habit.gradient)]
         
         let intFrequency = Int(habit.frequency)
-        
-        if habitCompletedDays == intFrequency && habitFrequency.layer.borderWidth == 0 {
+
+        if habitCompletedDays == intFrequency && habitFrequency.layer.borderWidth == 0.0 {
             habitFrequency.labelBorderBounce()
             habitFrequency.layer.borderWidth = 1.5
         } else if habitCompletedDays > intFrequency {
             habitFrequency.layer.borderWidth = 1.5
         } else if habitCompletedDays < intFrequency {
-            habitFrequency.layer.borderWidth = 0
+            habitFrequency.layer.borderWidth = 0.0
         }
     
         

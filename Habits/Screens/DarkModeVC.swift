@@ -11,6 +11,10 @@ class DarkModeVC: UIViewController {
     
     let darkModeView = DarkModeView()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        selectCurrentMode()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +22,16 @@ class DarkModeVC: UIViewController {
         configureButtons()
     }
     
+    
+    private func selectCurrentMode() {
+        if traitCollection.userInterfaceStyle == .light {
+            darkModeView.lightButton.sendActions(for: .touchUpInside)
+        } else if traitCollection.userInterfaceStyle == .dark {
+            darkModeView.darkButton.sendActions(for: .touchUpInside)
+        } else {
+            darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        }
+    }
     
     private func configure() {
         view.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.7)
