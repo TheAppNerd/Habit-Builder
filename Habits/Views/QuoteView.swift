@@ -30,17 +30,16 @@ class QuoteView: UITableViewHeaderFooterView {
     }
     
     private func configure() {
-        quoteView.translatesAutoresizingMaskIntoConstraints = false
         
+        quoteView.translatesAutoresizingMaskIntoConstraints = false
         quoteLabel.translatesAutoresizingMaskIntoConstraints = false
-        quoteLabel.font = UIFont.italicSystemFont(ofSize: 16)
+        quoteLabel.font = UIFont.italicSystemFont(ofSize: 14)
         quoteLabel.numberOfLines = 3
         quoteLabel.adjustsFontSizeToFitWidth = true
         quoteLabel.textAlignment = .center
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textAlignment = .right
-        nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.font = UIFont.systemFont(ofSize: 12)
         
         quoteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -59,8 +58,8 @@ class QuoteView: UITableViewHeaderFooterView {
             quoteView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             quoteView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             
-            quoteLabel.topAnchor.constraint(equalTo: quoteView.topAnchor, constant: padding),
-            quoteLabel.leadingAnchor.constraint(equalTo: quoteView.leadingAnchor, constant: padding),
+            quoteLabel.topAnchor.constraint(equalTo: quoteView.topAnchor, constant: 10),
+            quoteLabel.leadingAnchor.constraint(equalTo: quoteView.leadingAnchor, constant: 10),
             quoteLabel.trailingAnchor.constraint(equalTo: quoteButton.leadingAnchor, constant: -padding),
             quoteLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor),
             
@@ -69,13 +68,10 @@ class QuoteView: UITableViewHeaderFooterView {
             nameLabel.trailingAnchor.constraint(equalTo: quoteButton.leadingAnchor, constant: -padding),
             nameLabel.bottomAnchor.constraint(equalTo: quoteView.bottomAnchor, constant: -padding),
             
-            quoteButton.topAnchor.constraint(equalTo: quoteView.topAnchor, constant: 10),
-            quoteButton.leadingAnchor.constraint(equalTo: quoteLabel.trailingAnchor, constant: padding),
-            quoteButton.trailingAnchor.constraint(equalTo: quoteView.trailingAnchor, constant: -10),
-            quoteButton.bottomAnchor.constraint(equalTo: quoteView.bottomAnchor, constant: -10),
-            quoteButton.widthAnchor.constraint(equalTo: quoteButton.heightAnchor)
-            
-            
+            quoteButton.centerYAnchor.constraint(equalTo: quoteView.centerYAnchor),
+            quoteButton.heightAnchor.constraint(equalTo: quoteView.heightAnchor, multiplier: 0.3),
+            quoteButton.widthAnchor.constraint(equalTo: quoteButton.heightAnchor),
+            quoteButton.trailingAnchor.constraint(equalTo: quoteView.trailingAnchor, constant: -10)
         ])
     
     }

@@ -70,7 +70,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     func configureBarButtonItems() {
         let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
-        let quoteButton = UIBarButtonItem(image: UIImage(systemName: "quote.bubble"), style: .done, target: self, action: #selector(quoteButtonPressed)) //add to constants?
+        let quoteButton = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed)) //add to constants?
         navigationItem.setLeftBarButton(menuButton, animated: true)
         navigationItem.setRightBarButtonItems([addButton, quoteButton], animated: true)
     }
@@ -141,9 +141,11 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     @objc func quoteButtonPressed() {
-        print(QuotesManager().parse())
         generator.impactOccurred()
         quoteButtonTapped.toggle()
+        guard quotesArray.isEmpty == false else {
+            return
+            }
         tableView.reloadData()
     }
     
@@ -168,7 +170,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
     @objc func quoteNextButtonPressed(_ sender: UIButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
-        
         tableView.reloadData()
     }
     
@@ -235,16 +236,15 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! QuoteView
-        view.quoteButton.addTarget(self, action: #selector(quoteNextButtonPressed), for: .touchUpInside)
-        let gradientIndex = (0...GradientArray.array.count - 1).randomElement() ?? 0
-        view.quoteView.addGradient(colors: GradientArray.array[gradientIndex])
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! QuoteView
+        headerView.quoteButton.addTarget(self, action: #selector(quoteNextButtonPressed), for: .touchUpInside)
+       
         let randomIndex = (0...quotesArray.count - 1).randomElement() ?? 0
         if quotesArray.isEmpty != true {
-                view.quoteLabel.text = quotesArray[randomIndex].text
-                view.nameLabel.text = quotesArray[randomIndex].author
+            headerView.quoteLabel.text = quotesArray[randomIndex].text
+            headerView.nameLabel.text = quotesArray[randomIndex].author
         }
-        return view
+        return headerView
     }
     
     
