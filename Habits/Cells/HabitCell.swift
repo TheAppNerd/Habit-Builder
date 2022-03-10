@@ -135,9 +135,9 @@ class HabitCell: UITableViewCell {
     private func configure() {
         contentView.isUserInteractionEnabled = true
         addSubviews(habitIcon, cellView, habitName, labelStackView, buttonStackView, habitAlarmIcon, habitFrequency)
-        
+        backgroundColor = BackgroundColors.mainBackGround
         cellView.translatesAutoresizingMaskIntoConstraints = false
-        cellView.backgroundColor = .tertiarySystemBackground
+        cellView.backgroundColor = BackgroundColors.secondaryBackground
         cellView.layer.cornerRadius = 10
         
         habitName.adjustsFontSizeToFitWidth = true

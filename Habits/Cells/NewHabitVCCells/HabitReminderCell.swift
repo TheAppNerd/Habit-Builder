@@ -48,7 +48,7 @@ class HabitReminderCell: UITableViewCell {
     
     
     private func configure() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = BackgroundColors.secondaryBackground
         self.layer.cornerRadius = 10
         generator.prepare()
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
@@ -70,7 +70,7 @@ class HabitReminderCell: UITableViewCell {
             dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
             dayButton.setTitle(weekArray[index], for: .normal)
             dayButton.setTitleColor(.secondaryLabel, for: .normal)
-            dayButton.backgroundColor    = .secondarySystemBackground
+            dayButton.backgroundColor    = BackgroundColors.secondaryBackground
             dayButton.layer.cornerRadius = 10
             
             dayStackView.addArrangedSubview(dayButton)
@@ -112,7 +112,7 @@ class HabitReminderCell: UITableViewCell {
         for (index, button) in buttonArray.enumerated() {
             if button.isSelected == false {
                 button.setTitleColor(.secondaryLabel, for: .normal)
-                button.backgroundColor = .secondarySystemBackground
+                button.backgroundColor = BackgroundColors.secondaryBackground
                 button.colors          = GradientColors.clearGradient
                 dayArray[index]        = "f"
             } else {
@@ -124,7 +124,6 @@ class HabitReminderCell: UITableViewCell {
             stringWeek = dayArray.joined(separator: "")
             
         }
-        print("string\(stringWeek)")
         delegate?.passDayData(dayArray: stringWeek)
     }
 }

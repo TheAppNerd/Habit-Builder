@@ -46,7 +46,7 @@ class HabitDetailsVC: UIViewController {
     func configureViews() {
         title = habitEntity?.name
         configureCollectionView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BackgroundColors.mainBackGround
         habitDetailsCalendarView.calendarView.dataSource = self
         habitDetailsCalendarView.calendarView.delegate = self
         view.addSubviews(habitDetailsCalendarView, habitDetailsStreakView, habitDetailsChartView)
@@ -57,15 +57,15 @@ class HabitDetailsVC: UIViewController {
         habitDetailsCalendarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
         habitDetailsCalendarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsCalendarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-        habitDetailsCalendarView.bottomAnchor.constraint(equalTo: habitDetailsStreakView.topAnchor,constant: -padding),
+        habitDetailsCalendarView.bottomAnchor.constraint(equalTo: habitDetailsStreakView.topAnchor,constant: -padding * 2),
         habitDetailsCalendarView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.32),
                                                                                     
-        habitDetailsStreakView.topAnchor.constraint(equalTo: habitDetailsCalendarView.bottomAnchor, constant: padding),
+        habitDetailsStreakView.topAnchor.constraint(equalTo: habitDetailsCalendarView.bottomAnchor, constant: padding * 2),
         habitDetailsStreakView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsStreakView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-        habitDetailsStreakView.bottomAnchor.constraint(equalTo: habitDetailsChartView.topAnchor,constant: -padding),
+        habitDetailsStreakView.bottomAnchor.constraint(equalTo: habitDetailsChartView.topAnchor,constant: -padding * 2),
             
-        habitDetailsChartView.topAnchor.constraint(equalTo: habitDetailsStreakView.bottomAnchor, constant: padding),
+        habitDetailsChartView.topAnchor.constraint(equalTo: habitDetailsStreakView.bottomAnchor, constant: padding * 2),
         habitDetailsChartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
         habitDetailsChartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
         habitDetailsChartView.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -padding * 2),
@@ -81,6 +81,7 @@ class HabitDetailsVC: UIViewController {
         let indexPath = IndexPath(item: lastItemIndex, section: section)
         habitDetailsChartView.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
         habitDetailsChartView.collectionView.isPagingEnabled = true
+        
     }
     
     func configureCollectionView() {

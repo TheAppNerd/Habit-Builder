@@ -83,7 +83,7 @@ class ChartCollectionViewCell: UICollectionViewCell {
             let progressBar = UIProgressView()
             progressBar.layer.cornerRadius = 5
             progressBar.progress = 0.0
-            progressBar.backgroundColor = .tertiarySystemBackground
+            progressBar.backgroundColor = .quaternaryLabel
             progressBar.tintColor = .blue
             progressBar.clipsToBounds = true
             progressBar.translatesAutoresizingMaskIntoConstraints = false

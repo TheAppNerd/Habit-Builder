@@ -83,7 +83,7 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configure() {
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = BackgroundColors.mainBackGround
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         generator.prepare()
@@ -157,10 +157,12 @@ class NewHabitVC: UITableViewController  {
     @objc func saveButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
+        
         guard name != "" else {
             nameArray[0].layer.borderWidth = 2
             return
         }
+
         nameArray[0].layer.borderWidth = 0
         setupNotifications()
         createHabit()
@@ -297,9 +299,7 @@ class NewHabitVC: UITableViewController  {
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: HabitReminderCell.reuseID, for: indexPath) as! HabitReminderCell
             cell.colors = colors
             cell.delegate = self
-            
-            //safety check here if alarms allowed. if no set index to 0
-            
+           
             let userNotifications = UserNotifications()
             userNotifications.confirmRegisteredNotifications(segment: cell.dateSegment)
         
