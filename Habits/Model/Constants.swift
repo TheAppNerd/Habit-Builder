@@ -39,8 +39,8 @@ enum GradientColors {
 }
 
 enum BackgroundColors {
-    static let mainBackGround       = UIColor(named: "mainBackground")
-    static let secondaryBackground  = UIColor(named: "secondaryBackground")
+    static let mainBackGround       = UIColor.systemBackground
+    static let secondaryBackground  = UIColor.secondarySystemBackground
 }
 
 
