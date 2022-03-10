@@ -61,7 +61,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     func configureViewController() {
         title = Labels.HabitVCTitle
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BackgroundColors.mainBackGround
         generator.prepare()
     }
     
@@ -82,7 +82,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.delegate        = self
         tableView.dataSource      = self
         tableView.frame           = view.bounds
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = BackgroundColors.mainBackGround
         tableView.separatorStyle  = .none
         
         tableView.dragInteractionEnabled = true

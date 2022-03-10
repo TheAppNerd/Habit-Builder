@@ -47,7 +47,7 @@ class HabitFrequencyCell: UITableViewCell {
     }
     
     private func configure() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = BackgroundColors.secondaryBackground
         generator.prepare()
         self.layer.cornerRadius = 10
         frequencyStackView.translatesAutoresizingMaskIntoConstraints = false

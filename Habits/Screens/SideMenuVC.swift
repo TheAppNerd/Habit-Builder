@@ -30,7 +30,7 @@ class SideMenuVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     
     func configureTableView() {
-        tableView.backgroundColor    = .secondarySystemBackground
+        tableView.backgroundColor    = BackgroundColors.secondaryBackground
         tableView.frame              = view.bounds
         tableView.delegate           = self
         tableView.dataSource         = self

@@ -22,7 +22,7 @@ class HowToUseVC: UIViewController {
     }
     
     private func configureLayout() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BackgroundColors.mainBackGround
         view.addSubview(pageControl)
         view.addSubview(scrollView)
         pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)

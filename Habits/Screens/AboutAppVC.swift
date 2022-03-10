@@ -34,6 +34,7 @@ class AboutAppVC: UIViewController {
         super.viewDidLayoutSubviews()
         tableView.frame.size.height = tableView.contentSize.height
         iconImage.layer.cornerRadius  = iconImage.frame.size.width / 2
+        
     }
     
     
@@ -50,7 +51,7 @@ class AboutAppVC: UIViewController {
         tableView.dataSource         = self
         tableView.separatorStyle     = .none
         tableView.rowHeight          = 50
-        tableView.backgroundColor    = .secondarySystemBackground
+        tableView.backgroundColor    = BackgroundColors.secondaryBackground
         tableView.bounces            = false
         tableView.layer.cornerRadius = 10
         tableView.frame.size.height  = tableView.contentSize.height
@@ -63,14 +64,14 @@ class AboutAppVC: UIViewController {
 //        let count = 0...GradientArray.array.count - 1
 //        let random = count.randomElement() ?? 5
 //        view.addGradient(colors: GradientArray.array[random])
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BackgroundColors.mainBackGround
         
-        detailsView.backgroundColor = .secondarySystemBackground
+        detailsView.backgroundColor = BackgroundColors.secondaryBackground
         detailsView.layer.cornerRadius = 10
         detailsView.translatesAutoresizingMaskIntoConstraints = false
         
         iconImage.image               = UIImage(named: "IconClear")
-        iconImage.backgroundColor = .secondarySystemBackground
+        iconImage.backgroundColor = BackgroundColors.secondaryBackground
         iconImage.layer.masksToBounds = true
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         

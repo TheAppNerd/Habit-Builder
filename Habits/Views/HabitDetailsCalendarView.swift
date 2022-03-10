@@ -40,7 +40,7 @@ class HabitDetailsCalendarView: UIView {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius   = 10
-        backgroundColor      = .tertiarySystemBackground
+        backgroundColor      = BackgroundColors.secondaryBackground
        
         let line = UIView()
         line.backgroundColor = UIColor.label

@@ -25,7 +25,7 @@ class LoadingScreenVC: UIViewController {
     
     
     private func configure() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BackgroundColors.mainBackGround
         
         iconCircle.translatesAutoresizingMaskIntoConstraints = false
         icontick.translatesAutoresizingMaskIntoConstraints = false

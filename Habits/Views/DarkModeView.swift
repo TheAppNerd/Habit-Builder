@@ -26,7 +26,7 @@ class DarkModeView: UIView {
     
     private func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor    = .secondarySystemBackground
+        self.backgroundColor    = BackgroundColors.secondaryBackground
         self.layer.cornerRadius = 10
         
         let buttonArray         = [deviceButton, lightButton, darkButton, doneButton]
@@ -34,7 +34,7 @@ class DarkModeView: UIView {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitleColor(.label, for: .normal)
             button.layer.cornerRadius = 5
-            button.backgroundColor    = .systemBackground
+            button.backgroundColor    = BackgroundColors.mainBackGround
             
         }
         

@@ -49,9 +49,10 @@ class HabitDetailsStreakView: UIView {
 
     
     private func configure() {
+        addShadow()
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 10
-        backgroundColor    = .tertiarySystemBackground
+        backgroundColor    = BackgroundColors.secondaryBackground
         
         
         let line = UIView()

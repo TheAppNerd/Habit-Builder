@@ -30,7 +30,7 @@ class HabitColorCell: UITableViewCell {
     }
     
     private func configure() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = BackgroundColors.secondaryBackground
         layer.cornerRadius = 10
         generator.prepare()
         stackView.translatesAutoresizingMaskIntoConstraints = false
