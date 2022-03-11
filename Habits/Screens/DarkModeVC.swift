@@ -44,7 +44,7 @@ class DarkModeVC: UIViewController {
         NSLayoutConstraint.activate([
             darkModeView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             darkModeView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            darkModeView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            darkModeView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             darkModeView.heightAnchor.constraint(equalTo: darkModeView.widthAnchor)
         ])
     }
