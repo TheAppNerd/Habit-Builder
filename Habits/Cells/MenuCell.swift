@@ -26,7 +26,7 @@ class MenuCell: UITableViewCell {
     private func configure() {
         contentView.isUserInteractionEnabled = true
         addSubviews(cellImage, cellLabel)
-        self.backgroundColor = .secondarySystemBackground
+        self.backgroundColor = BackgroundColors.secondaryBackground
       
         cellLabel.textColor  = .label
         cellLabel.translatesAutoresizingMaskIntoConstraints = false

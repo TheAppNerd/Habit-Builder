@@ -23,7 +23,7 @@ class PageControl: UIPageControl {
         numberOfPages                 = 4
         pageIndicatorTintColor        = .secondaryLabel
         currentPageIndicatorTintColor = .label
-        backgroundColor               = .secondarySystemBackground
+        backgroundColor               = BackgroundColors.secondaryBackground
         
     }
 }

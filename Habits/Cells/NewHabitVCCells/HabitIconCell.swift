@@ -39,7 +39,7 @@ class HabitIconCell: UITableViewCell {
     }
     
     private func configure() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = BackgroundColors.secondaryBackground
         self.layer.cornerRadius = 10
         generator.prepare()
         let stackArray = [stackViewOne, stackViewTwo, stackViewThree, stackViewFour]

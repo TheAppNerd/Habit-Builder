@@ -23,8 +23,9 @@ class HabitNameCell: UITableViewCell {
     }
     
     private func configure() {
-        backgroundColor = .secondarySystemBackground
+        backgroundColor = BackgroundColors.secondaryBackground
         self.layer.cornerRadius = 10
+        nameTextField.backgroundColor = BackgroundColors.secondaryBackground
         nameTextField.placeholder       = Labels.placeholder
         nameTextField.layer.borderColor = UIColor.red.cgColor
         nameTextField.text              = ""

@@ -68,14 +68,14 @@ class HabitCell: UITableViewCell {
         habitGradient = GradientArray.array[Int(habit.gradient)]
         
         let intFrequency = Int(habit.frequency)
-        
-        if habitCompletedDays == intFrequency && habitFrequency.layer.borderWidth == 0 {
+
+        if habitCompletedDays == intFrequency && habitFrequency.layer.borderWidth == 0.0 {
             habitFrequency.labelBorderBounce()
             habitFrequency.layer.borderWidth = 1.5
         } else if habitCompletedDays > intFrequency {
             habitFrequency.layer.borderWidth = 1.5
         } else if habitCompletedDays < intFrequency {
-            habitFrequency.layer.borderWidth = 0
+            habitFrequency.layer.borderWidth = 0.0
         }
     
         
@@ -135,9 +135,9 @@ class HabitCell: UITableViewCell {
     private func configure() {
         contentView.isUserInteractionEnabled = true
         addSubviews(habitIcon, cellView, habitName, labelStackView, buttonStackView, habitAlarmIcon, habitFrequency)
-        
+        backgroundColor = BackgroundColors.mainBackGround
         cellView.translatesAutoresizingMaskIntoConstraints = false
-        cellView.backgroundColor = .tertiarySystemBackground
+        cellView.backgroundColor = BackgroundColors.secondaryBackground
         cellView.layer.cornerRadius = 10
         
         habitName.adjustsFontSizeToFitWidth = true

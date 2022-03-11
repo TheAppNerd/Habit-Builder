@@ -31,7 +31,7 @@ class HabitDetailsChartView: UIView {
     
      func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .tertiarySystemBackground
+         backgroundColor = BackgroundColors.secondaryBackground
         layer.cornerRadius = 10
         
         let layout = UICollectionViewFlowLayout()
@@ -41,7 +41,7 @@ class HabitDetailsChartView: UIView {
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .tertiarySystemBackground
+         collectionView.backgroundColor = BackgroundColors.secondaryBackground
         collectionView.isScrollEnabled = true
         
         

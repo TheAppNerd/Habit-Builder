@@ -11,6 +11,10 @@ class DarkModeVC: UIViewController {
     
     let darkModeView = DarkModeView()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        selectCurrentMode()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +23,20 @@ class DarkModeVC: UIViewController {
     }
     
     
+    private func selectCurrentMode() {
+        let defaults = UserDefaults.standard
+       
+        switch defaults.object(forKey: "darkMode") as? String {
+        case "Device": darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        case "Light": darkModeView.lightButton.sendActions(for: .touchUpInside)
+        case "Dark": darkModeView.darkButton.sendActions(for: .touchUpInside)
+        case nil: darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        default:
+            darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        }
+
+    }
+    
     private func configure() {
         view.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.7)
         view.addSubview(darkModeView)
@@ -26,7 +44,7 @@ class DarkModeVC: UIViewController {
         NSLayoutConstraint.activate([
             darkModeView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             darkModeView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            darkModeView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            darkModeView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
             darkModeView.heightAnchor.constraint(equalTo: darkModeView.widthAnchor)
         ])
     }
@@ -42,11 +60,11 @@ class DarkModeVC: UIViewController {
         sender.bounceAnimation()
         let defaults = UserDefaults.standard
         
+    
         let buttonArray = [darkModeView.deviceButton, darkModeView.lightButton, darkModeView.darkButton]
         for button in buttonArray {
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.layer.borderColor = UIColor.label.cgColor
-            //button.backgroundColor   = .secondarySystemBackground
             button.colors = GradientColors.clearGradient
         }
         
@@ -54,9 +72,12 @@ class DarkModeVC: UIViewController {
         sender.setTitleColor(.label, for: .normal)
         var mode = traitCollection.userInterfaceStyle
         
+        //move key to a constant
+        
+       
         switch sender.title(for: .normal) {
-        case "Device": mode = UITraitCollection.current.userInterfaceStyle
-            defaults.set("Device", forKey: "darkmode")
+        case "Device": mode = UIScreen.main.traitCollection.userInterfaceStyle
+            defaults.set("Device", forKey: "darkMode")
             
         case "Light": mode = UIUserInterfaceStyle.light
             defaults.set("Light", forKey: "darkMode")

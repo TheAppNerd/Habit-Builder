@@ -22,7 +22,7 @@ class HowToUseVC: UIViewController {
     }
     
     private func configureLayout() {
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = BackgroundColors.mainBackGround
         view.addSubview(pageControl)
         view.addSubview(scrollView)
         pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
@@ -53,6 +53,8 @@ class HowToUseVC: UIViewController {
             configureScrollView()
         }
     }
+    
+    //move all these to constants
     
     private func configureScrollView() {
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 4, height: scrollView.frame.size.height)
