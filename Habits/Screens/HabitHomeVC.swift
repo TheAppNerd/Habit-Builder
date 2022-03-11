@@ -276,7 +276,9 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
         let habit = habitEntities.loadHabitArray()[indexPath.row] //is it acceptable to write it like this? break it down into two lines. 
-        
+        if habitEntities.loadHabitArray().isEmpty == false {
+            emptyStateView.removeFromSuperview()
+        }
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)
         
