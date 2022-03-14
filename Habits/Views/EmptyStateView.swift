@@ -46,7 +46,7 @@ class EmptyStateView: UIView {
                 """
         
         message.textColor                 = .label
-        imageView.image                   = UIImage(named: "iconClear")
+        imageView.image                   = UIImage(named: "IconClear")
         imageView.layer.masksToBounds     = true
         imageView.layer.cornerRadius      = 10
         imageView.translatesAutoresizingMaskIntoConstraints = false

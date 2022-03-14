@@ -89,6 +89,7 @@ class ChartCollectionViewCell: UICollectionViewCell {
             progressBar.translatesAutoresizingMaskIntoConstraints = false
             progressBarArray.append(progressBar)
             barView.addArrangedSubview(progressBar)
+            
         }
         barView.translatesAutoresizingMaskIntoConstraints = false
         barView.axis = .vertical
@@ -110,9 +111,9 @@ class ChartCollectionViewCell: UICollectionViewCell {
             
             barView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             barView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
-            barView.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.70),
+            barView.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.65),
             barView.heightAnchor.constraint(equalTo: self.widthAnchor),
-            
+
             monthStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             monthStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             monthStack.bottomAnchor.constraint(equalTo: yearLabel.topAnchor),

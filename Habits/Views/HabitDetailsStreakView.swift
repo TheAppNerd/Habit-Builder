@@ -74,6 +74,14 @@ class HabitDetailsStreakView: UIView {
         totalCountLabel.text = "Total Days Completed:"
         averageCountLabel.text = "Average habits per week:"
         
+        dateCreatedLabel.adjustsFontSizeToFitWidth = true
+        totalCountLabel.adjustsFontSizeToFitWidth = true
+        averageCountLabel.adjustsFontSizeToFitWidth = true
+        
+        dateCreatedResultLabel.adjustsFontSizeToFitWidth = true
+        totalCountResultLabel.adjustsFontSizeToFitWidth = true
+        averageCountResultLabel.adjustsFontSizeToFitWidth = true
+        
         dateCreatedLabel.font = UIFont.boldSystemFont(ofSize: 16)
         totalCountLabel.font = UIFont.boldSystemFont(ofSize: 16)
         averageCountLabel.font = UIFont.boldSystemFont(ofSize: 16)
@@ -111,13 +119,13 @@ class HabitDetailsStreakView: UIView {
         
         NSLayoutConstraint.activate([
             
-            streakImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            streakImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
             streakImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -5),
             streakImage.heightAnchor.constraint(equalToConstant: 30),
             streakImage.widthAnchor.constraint(equalToConstant: 30),
             
-            streakLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            streakLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
             streakLabel.leadingAnchor.constraint(equalTo: streakImage.trailingAnchor, constant: 5),
             streakLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
             streakLabel.heightAnchor.constraint(equalToConstant: 40),
@@ -129,13 +137,13 @@ class HabitDetailsStreakView: UIView {
             
             labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             labelStack.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
-            labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding / 2),
             labelStack.trailingAnchor.constraint(equalTo: resultStack.leadingAnchor, constant: padding),
             
             resultStack.leadingAnchor.constraint(equalTo: labelStack.trailingAnchor, constant: padding),
             resultStack.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
             resultStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            resultStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
+            resultStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding / 2)
         ])
     }
 }

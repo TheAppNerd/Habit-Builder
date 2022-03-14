@@ -21,6 +21,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let habitEntities = HabitEntityFuncs() //need to rename
     var quotesManager = QuotesManager()
     var quotesArray: [Quote] = [] //move externally?
+    
+    
    
     
     var isSlideInMenuPressed = false
@@ -72,7 +74,13 @@ class HabitHomeVC: UIViewController, SettingsPush {
         let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
         let quoteButton = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed)) //add to constants?
         navigationItem.setLeftBarButton(menuButton, animated: true)
-        navigationItem.setRightBarButtonItems([addButton, quoteButton], animated: true)
+        
+        switch habitEntities.loadHabitArray().isEmpty {
+        case true: navigationItem.setRightBarButtonItems([addButton], animated: true)
+        case false: navigationItem.setRightBarButtonItems([addButton, quoteButton], animated: true)
+        }
+        
+        
     }
     
     

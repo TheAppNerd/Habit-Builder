@@ -34,7 +34,6 @@ class HabitDetailsCalendarView: UIView {
             cell.addGradient(colors: GradientArray.array[5])
         }
                 
-                
     }
     
     private func configure() {
@@ -47,12 +46,13 @@ class HabitDetailsCalendarView: UIView {
         line.translatesAutoresizingMaskIntoConstraints = false
            
         
+      
         let calendarLabel = BodyLabel(textInput: "Habit Calendar", textAlignment: .left, fontSize: 18)
         calendarLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 12)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
-            
+     
         calendarImage.layer.cornerRadius = 10
         calendarImage.backgroundColor = UIColor.clear
         calendarImage.translatesAutoresizingMaskIntoConstraints = false
@@ -62,18 +62,18 @@ class HabitDetailsCalendarView: UIView {
             let padding: CGFloat = 20
             NSLayoutConstraint.activate([
                 
-                calendarImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+                calendarImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
                 calendarImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
                 calendarImage.trailingAnchor.constraint(equalTo: calendarLabel.leadingAnchor, constant: -5),
                 calendarImage.heightAnchor.constraint(equalToConstant: 30),
-                calendarImage.widthAnchor.constraint(equalToConstant: 30),
+                calendarImage.widthAnchor.constraint(equalTo: calendarImage.heightAnchor),
                 
-                calendarLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+                calendarLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
                 calendarLabel.leadingAnchor.constraint(equalTo: calendarImage.trailingAnchor, constant: 5),
                 calendarLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding),
                 calendarLabel.heightAnchor.constraint(equalToConstant: 40),
                 
-                infoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+                infoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
                 infoLabel.leadingAnchor.constraint(equalTo: calendarLabel.trailingAnchor, constant: padding),
                 infoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
                 infoLabel.heightAnchor.constraint(equalToConstant: 40),
@@ -83,7 +83,7 @@ class HabitDetailsCalendarView: UIView {
                 line.trailingAnchor.constraint(equalTo: infoLabel.trailingAnchor),
                 line.heightAnchor.constraint(equalToConstant: 1),
                 
-                calendarView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 10),
+                calendarView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
                 calendarView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
                 calendarView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
                 calendarView.bottomAnchor.constraint(equalTo: self.bottomAnchor)

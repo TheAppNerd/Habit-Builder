@@ -60,18 +60,18 @@ class HabitDetailsChartView: UIView {
         let padding: CGFloat = 20
         NSLayoutConstraint.activate([
             
-            collectionImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            collectionImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
             collectionImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             collectionImage.trailingAnchor.constraint(equalTo: collectionLabel.leadingAnchor, constant: -5),
             collectionImage.heightAnchor.constraint(equalToConstant: 30),
             collectionImage.widthAnchor.constraint(equalToConstant: 30),
             
-            collectionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            collectionLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
             collectionLabel.leadingAnchor.constraint(equalTo: collectionImage.trailingAnchor, constant: 5),
             collectionLabel.trailingAnchor.constraint(equalTo: infoLabel.leadingAnchor, constant: -padding),
             collectionLabel.heightAnchor.constraint(equalToConstant: 40),
             
-            infoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
+            infoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
             infoLabel.leadingAnchor.constraint(equalTo: collectionLabel.trailingAnchor, constant: padding),
             infoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             infoLabel.heightAnchor.constraint(equalToConstant: 40),
@@ -84,7 +84,7 @@ class HabitDetailsChartView: UIView {
             collectionView.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20)
+            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding / 2)
         ])
     }
 }

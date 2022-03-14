@@ -26,6 +26,8 @@ struct EmailFeedback {
         ]
 
         guard let url = components.url else {
+            
+            //create alert here?
             print("Failed to create mailto URL")
             return
         }

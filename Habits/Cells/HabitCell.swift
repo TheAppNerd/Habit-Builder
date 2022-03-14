@@ -69,15 +69,12 @@ class HabitCell: UITableViewCell {
         
         let intFrequency = Int(habit.frequency)
 
-        if habitCompletedDays == intFrequency && habitFrequency.layer.borderWidth == 0.0 {
-            habitFrequency.labelBorderBounce()
-            habitFrequency.layer.borderWidth = 1.5
-        } else if habitCompletedDays > intFrequency {
+      
+       if habitCompletedDays >= intFrequency {
             habitFrequency.layer.borderWidth = 1.5
         } else if habitCompletedDays < intFrequency {
             habitFrequency.layer.borderWidth = 0.0
         }
-    
         
         switch habit.notificationBool {
         case true: habitAlarmIcon.image = SFSymbols.bell

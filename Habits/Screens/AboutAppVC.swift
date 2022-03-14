@@ -93,20 +93,21 @@ class AboutAppVC: UIViewController {
         let padding: CGFloat = 5
         
         NSLayoutConstraint.activate([
-            detailsView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.size.height / 4),
+            detailsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+//            detailsView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.size.height / 4),
             detailsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            detailsView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            detailsView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             detailsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             detailsView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20),
             
-            iconImage.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: padding * 4),
+            iconImage.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: padding * 2),
             iconImage.centerXAnchor.constraint(equalTo: detailsView.centerXAnchor),
             iconImage.heightAnchor.constraint(equalTo: detailsView.heightAnchor, multiplier: 0.5),
             iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor),
             //iconImage.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 5),
             
             nameLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: padding),
-            nameLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: padding * 2),
+            nameLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: padding ),
             nameLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -padding),
             nameLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -padding * 2),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
@@ -119,7 +120,7 @@ class AboutAppVC: UIViewController {
             
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             tableView.topAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: 40),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
             tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8)
         ])
     }
