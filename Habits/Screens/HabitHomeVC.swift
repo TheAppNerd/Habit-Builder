@@ -48,7 +48,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         DispatchQueue.global(qos: .background).async {
             self.quotesManager.parse()
         }
-    
+        reviewCount()
     }
     
     func showEmptyStateView() {
@@ -67,6 +67,18 @@ class HabitHomeVC: UIViewController, SettingsPush {
         generator.prepare()
     }
     
+    
+    func reviewCount() {
+        let defaults = UserDefaults.standard
+        var retrievedCount = defaults.integer(forKey: "reviewCount") as Int
+        retrievedCount += 1
+        
+        if retrievedCount.isMultiple(of: 10) {
+            AppStoreManagerReview.requestReviewIfAppropriate()
+        }
+        
+        defaults.set(retrievedCount, forKey: "reviewCount")
+    }
     
     
     func configureBarButtonItems() {
@@ -172,7 +184,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
         } else {
             habitEntities.addHabitDate(habit: habit, date: selectedDate)
         }
-        tableView.reloadData()
+        
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
     
     @objc func quoteNextButtonPressed(_ sender: UIButton) {
