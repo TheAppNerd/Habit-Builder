@@ -44,6 +44,11 @@ class HabitDetailsStreakView: UIView {
     func setColor(colors: [CGColor] ) {
         DispatchQueue.main.async {
             self.streakImage.image = UIImage(systemName: "checkmark.square.fill")?.addTintGradient(colors: colors)
+            self.dateCreatedResultLabel.textColor = UIColor(cgColor: colors[0])
+            self.totalCountResultLabel.textColor = UIColor(cgColor: colors[0])
+            self.averageCountResultLabel.textColor = UIColor(cgColor: colors[0])
+         
+            
         }
     }
 
@@ -68,6 +73,15 @@ class HabitDetailsStreakView: UIView {
         dateCreatedLabel.text = "Date Habit Created:"
         totalCountLabel.text = "Total Days Completed:"
         averageCountLabel.text = "Average habits per week:"
+        
+        dateCreatedLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        totalCountLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        averageCountLabel.font = UIFont.boldSystemFont(ofSize: 16)
+
+        dateCreatedResultLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        totalCountResultLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        averageCountResultLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        
         
         dateCreatedResultLabel.textAlignment = .right
         totalCountResultLabel.textAlignment = .right

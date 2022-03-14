@@ -6,13 +6,12 @@
 //
 
 import UIKit
-import MessageUI
 
 protocol SettingsPush {
     func pushSettings(row: Int)
 }
 
-class SideMenuVC: UIViewController, MFMailComposeViewControllerDelegate {
+class SideMenuVC: UIViewController {
     
     let emailFeedback = EmailFeedback()
     let tableView = UITableView()
@@ -39,6 +38,7 @@ class SideMenuVC: UIViewController, MFMailComposeViewControllerDelegate {
         tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
         view.addSubview(tableView)
     }
+    
 }
 
 
@@ -70,7 +70,7 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
 //            vc.modalPresentationStyle = .fullScreen
 //            self.present(vc, animated: true)
 //         https://itunes.apple.com/us/app/appName/idAPP_ID?mt=8&action=write-review
-        case 2: emailFeedback.email(vc: self)
+        case 2: emailFeedback.newEmail()
         case 3: delegate?.pushSettings(row: 3)
         case 4: guard let url = URL(string: SocialMedia.privacyPolicyURL) else { return }
             UIApplication.shared.open(url)
