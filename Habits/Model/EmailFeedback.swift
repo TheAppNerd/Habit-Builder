@@ -13,9 +13,23 @@ struct EmailFeedback {
         //move to constants
         let address = "AlexThompsonDevelopment@gmail.com"
         let subject = "Habit Builder Feedback"
+    
+        let appVersion = UIApplication.appVersion
+        let systemVersion = UIDevice.current.systemVersion
+        let locale = Locale.current
+        let modelNumber = UIDevice().modelIdentifier()
+
+       
+        let body = """
 
 
-        let body = "hello"
+
+Habit Builder Version: \(appVersion ?? "Unable to Locate")
+iOS Version: \(systemVersion)
+Device: \(modelNumber)
+Location: \(locale)
+
+"""
 
         var components = URLComponents()
         components.scheme = "mailto"

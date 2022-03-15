@@ -65,11 +65,9 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0: shareApp()
-        case 1: print("hi")
-            //let vc = AboutViewController()
-//            vc.modalPresentationStyle = .fullScreen
-//            self.present(vc, animated: true)
-//         https://itunes.apple.com/us/app/appName/idAPP_ID?mt=8&action=write-review
+        case 1: let urlStr = "https://apps.apple.com/us/app/habit-builder/id1598204296"
+                guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
+                UIApplication.shared.open(url)
         case 2: emailFeedback.newEmail()
         case 3: delegate?.pushSettings(row: 3)
         case 4: guard let url = URL(string: SocialMedia.privacyPolicyURL) else { return }

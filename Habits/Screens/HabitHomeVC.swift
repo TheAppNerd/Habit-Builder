@@ -49,6 +49,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
             self.quotesManager.parse()
         }
         reviewCount()
+        
     }
     
     func showEmptyStateView() {
@@ -347,7 +348,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         //vc.habitEntity = habitEntities.loadHabitArray()[indexPath.row]
         vc.habitIndex = indexPath.row
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
-        
+        generator.impactOccurred()
         //move this to an animations file
         UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn) {
             currentCell.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
