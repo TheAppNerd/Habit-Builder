@@ -10,7 +10,7 @@ import UIKit
 
 class EmptyStateView: UIView {
 
-    let message = TitleLabel(textAlignment: .center, fontSize: 16)
+    let message = TitleLabel(textAlignment: .center, fontSize: 20)
     let imageView = UIImageView()
     let addHabitButton = GradientButton(colors: Gradients().lightBlueGradient)
     let howToUseButton = GradientButton(colors: Gradients().purpleGradient)
@@ -32,17 +32,15 @@ class EmptyStateView: UIView {
         
         
         message.numberOfLines             = 0
+        
+        //move to constants
+        
         message.text                      = """
                 
                 Welcome to Habit Builder!
                 
                 There are no habits here yet.
                 
-                Press the Add Habit button to get
-                
-                started or press How To Use for a guide
-                
-                on how to use this app.
                 """
         
         message.textColor                 = .label
