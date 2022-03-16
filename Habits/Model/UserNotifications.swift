@@ -11,7 +11,7 @@ import UserNotifications
 class UserNotifications {
     
     
-     func requestUserAuthorisation() {
+    func requestUserAuthorisation() {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if granted {
@@ -28,14 +28,13 @@ class UserNotifications {
         for num in 1...7 {
             center.removePendingNotificationRequests(withIdentifiers: ["\(title)\(num)"])
         }
-        
     }
     
-
+    
     static func scheduleNotifications(alarmItem: AlarmItem) {
-        let center  = UNUserNotificationCenter.current()
-        let content = UNMutableNotificationContent()
-        let dayArray = HabitEntityFuncs().convertStringArraytoBoolArray(alarmItem: alarmItem)
+        let dayArray               = CoreDataMethods().convertStringArraytoBoolArray(alarmItem: alarmItem)
+        let center                 = UNUserNotificationCenter.current()
+        let content                = UNMutableNotificationContent()
         content.title              = alarmItem.title
         content.body               = "Time to \(alarmItem.title). You can do it"
         content.categoryIdentifier = "alarm"
@@ -43,24 +42,25 @@ class UserNotifications {
         
         for (index, bool) in dayArray.enumerated() {
             if bool == true {
-            var dateComponents         = DateComponents()
-            dateComponents.weekday     = index + 1
-            dateComponents.hour        = alarmItem.hour
-            dateComponents.minute      = alarmItem.minute
-            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-            
-            let request = UNNotificationRequest(identifier: "\(alarmItem.title)\(index)", content: content, trigger: trigger)
-            
-            center.add(request)
+                var dateComponents         = DateComponents()
+                dateComponents.weekday     = index + 1
+                dateComponents.hour        = alarmItem.hour
+                dateComponents.minute      = alarmItem.minute
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                
+                let request = UNNotificationRequest(identifier: "\(alarmItem.title)\(index)", content: content, trigger: trigger)
+                
+                center.add(request)
+            }
         }
     }
-    }
     
-
     
-    func confirmRegisteredNotifications(segment: UISegmentedControl) { // made this func in new habit vc. should use this one and find way to present alert if denied. (input view to present?)
+    
+    func confirmRegisteredNotifications(segment: UISegmentedControl) {
         let center = UNUserNotificationCenter.current()
         center.getNotificationSettings { (settings) in
+            
             switch settings.authorizationStatus {
             case .authorized, .provisional:
                 DispatchQueue.main.async {
@@ -70,7 +70,6 @@ class UserNotifications {
                 DispatchQueue.main.async {
                     segment.selectedSegmentIndex = 0
                 }
-                
             case .notDetermined:
                 self.requestUserAuthorisation()
             case .ephemeral:

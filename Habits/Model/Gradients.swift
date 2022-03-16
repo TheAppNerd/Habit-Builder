@@ -7,14 +7,6 @@
 
 import UIKit
 
-
-//change to an enum that is case iterable
-//enum Gradients: CaseIterable {
-//    static var allCases: [Gradients]
-//
-//
-//}
-//or move to constants field
 struct Gradients {
     
     let pinkGradient = [UIColor(red: 241/255.0, green: 167/255.0, blue: 241/255.0, alpha: 1.0).cgColor, UIColor(red: 250/255.0, green: 208/255.0, blue: 196/255.0, alpha: 1.0).cgColor]
@@ -30,6 +22,7 @@ struct Gradients {
     let darkBlueGradient = [UIColor(red: 20/255.0, green: 85/255.0, blue: 123/255.0, alpha: 1.0).cgColor, UIColor(red: 127/255.0, green: 206/255.0, blue: 197/255.0, alpha: 1.0).cgColor]
     
     let purpleGradient = [UIColor(red: 114/255.0, green: 42/255.0, blue: 230/255.0, alpha: 1.0).cgColor, UIColor(red: 228/255.0, green: 181/255.0, blue: 203/255.0, alpha: 1.0).cgColor]
+    
 }
 
 struct GradientArray {

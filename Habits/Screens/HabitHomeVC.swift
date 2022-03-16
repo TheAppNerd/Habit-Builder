@@ -18,12 +18,10 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let generator            = UIImpactFeedbackGenerator(style: .medium) //move to protocol
     let emptyStateView       = EmptyStateView()
     var quoteButtonTapped    = Bool()
-    let habitEntities = HabitEntityFuncs() //need to rename
+    let habitEntities = CoreDataMethods() //need to rename
     var quotesManager = QuotesManager()
     var quotesArray: [Quote] = [] //move externally?
-    
-    
-   
+
     
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
@@ -62,7 +60,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     
     func configureViewController() {
-        title = Labels.HabitVCTitle
         self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         view.backgroundColor = BackgroundColors.mainBackGround
         generator.prepare()
@@ -297,9 +294,10 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-        let habit = habitEntities.loadHabitArray()[indexPath.row] //is it acceptable to write it like this? break it down into two lines. 
+       let habit = habitEntities.loadHabitArray()[indexPath.row] //is it acceptable to write it like this? break it down into two lines.
         if habitEntities.loadHabitArray().isEmpty == false {
             emptyStateView.removeFromSuperview()
+            title = Labels.HabitVCTitle
         }
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)
@@ -344,9 +342,8 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
         //change this to a protocol instead?
+       
         
-        //vc.habitEntity = habitEntities.loadHabitArray()[indexPath.row]
-        vc.habitIndex = indexPath.row
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         generator.impactOccurred()
         //move this to an animations file
@@ -356,6 +353,9 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
             UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn) {
                 currentCell.transform = CGAffineTransform(scaleX: 1, y: 1)
             } completion: { (_) in
+
+               vc.habitIndex = indexPath.row
+               
                 self.show(vc, sender: self)
             }
         }

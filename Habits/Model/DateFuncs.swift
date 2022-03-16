@@ -29,7 +29,6 @@ struct DateFuncs {
     }
 
 
-
 static func setupDatePickerDate(hour: Int, minute: Int) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "HH:mm"

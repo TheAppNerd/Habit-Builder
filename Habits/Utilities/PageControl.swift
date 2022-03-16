@@ -9,6 +9,9 @@ import UIKit
 
 class PageControl: UIPageControl {
     
+    
+//MARK: - Initialisers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -18,12 +21,13 @@ class PageControl: UIPageControl {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Funcs
+    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         numberOfPages                 = 4
         pageIndicatorTintColor        = .secondaryLabel
         currentPageIndicatorTintColor = .label
         backgroundColor               = BackgroundColors.secondaryBackground
-        
     }
 }

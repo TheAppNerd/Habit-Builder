@@ -9,9 +9,11 @@ import UIKit
 
 extension UIView {
     
+    //Utilises side menu bounce functionality
     func edgeTo(_ view: UIView, padding: CGFloat) {
         view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
             leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
@@ -20,7 +22,7 @@ extension UIView {
         ])
     }
     
-
+    //Utilises side menu bounce functionality
     func pinMenuTo(_ view: UIView, with constant: CGFloat) {
         view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false
@@ -52,10 +54,10 @@ extension UIView {
     }
     
     func addShadow() {
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
-        layer.shadowRadius = 3
-        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowPath    = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
+        layer.shadowRadius  = 3
+        layer.shadowOffset  = CGSize(width: 2, height: 2)
         layer.shadowOpacity = 0.7
-        layer.shadowColor = UIColor.label.cgColor
+        layer.shadowColor   = UIColor.label.cgColor
     }
 }

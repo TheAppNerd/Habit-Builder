@@ -8,16 +8,18 @@
 import UIKit
 import CoreData
 
-//Habit Home - load array of habits, add or remove dates from habits
-//new habit - save new habit or edit existing habit
-//habit details - add or remove dates. load array of dates
 
-class HabitEntityFuncs {
+class CoreDataMethods {
+    
+    //MARK: - Constants
     
     let persistentContainer: NSPersistentCloudKitContainer
-
+    
+    
+    //MARK: - Initialiser
     
     init() {
+        print("object was allocated in memory")
         persistentContainer = NSPersistentCloudKitContainer(name: "HabitEntities")
         persistentContainer.persistentStoreDescriptions.first!.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         persistentContainer.loadPersistentStores { description, error in
@@ -28,20 +30,21 @@ class HabitEntityFuncs {
     }
 }
 
-extension HabitEntityFuncs {
+extension CoreDataMethods {
+
+    //MARK: - Funcs
     
-    //works
-  
     func saveHabit(name: String, icon: String, frequency: Int16, index: Int,  gradient: Int16, dateCreated: Date, notificationBool: Bool, alarmItem: AlarmItem) {
-        let habit = HabitEnt(context: persistentContainer.viewContext)
-        habit.name = name
-        habit.icon = icon
-        habit.habitOrder = Int16(index)
-        habit.frequency = frequency
-        habit.gradient = gradient
-        habit.dateCreated = dateCreated
+        let habit              = HabitEnt(context: persistentContainer.viewContext)
+        habit.name             = name
+        habit.icon             = icon
+        habit.habitOrder       = Int16(index)
+        habit.frequency        = frequency
+        habit.gradient         = gradient
+        habit.dateCreated      = dateCreated
         habit.notificationBool = notificationBool
         saveAlarmData(habit: habit, alarmItem: alarmItem)
+        
         do {
             try persistentContainer.viewContext.save()
         } catch {
@@ -50,11 +53,12 @@ extension HabitEntityFuncs {
         }
     }
     
-    //works
+    
     func loadHabitArray() -> [HabitEnt] {
         let fetchRequest: NSFetchRequest<HabitEnt> = HabitEnt.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "habitOrder", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        
         do {
             return try persistentContainer.viewContext.fetch(fetchRequest)
         } catch {
@@ -63,7 +67,7 @@ extension HabitEntityFuncs {
         }
     }
     
-    //works
+    
     func deleteHabit(_ habit: HabitEnt) {
         persistentContainer.viewContext.delete(habit)
         do {
@@ -74,7 +78,7 @@ extension HabitEntityFuncs {
         }
     }
     
-    //works
+    
     func updateHabit() {
         do {
             try persistentContainer.viewContext.save()
@@ -86,62 +90,59 @@ extension HabitEntityFuncs {
     
     
     func updateHabitOrder(sourceIndex: Int, destinationIndex: Int) {
-        
         var array = loadHabitArray()
         let mover = array.remove(at: sourceIndex)
         array.insert(mover, at: destinationIndex)
-
+        
         for (index, habit) in array.enumerated() {
             habit.habitOrder = Int16(index)
         }
-        updateHabit() 
+        updateHabit()
     }
     
     
-    //works. need to make sure date saved is start of day
     func addHabitDate(habit: HabitEnt, date: Date) {
-        
         let dateArray = fetchHabitDates(habit: habit)
         
         if !dateArray.contains(date) {
-        let habitDate = HabitDates(context: persistentContainer.viewContext)
-        habitDate.date = date
-        habit.addToDatesSaved(habitDate)
-        updateHabit()
-    }
+            let habitDate = HabitDates(context: persistentContainer.viewContext)
+            habitDate.date = date
+            habit.addToDatesSaved(habitDate)
+            updateHabit()
+        }
     }
     
     
-    //works
     func removeHabitDate(habit: HabitEnt, date: Date) {
         let dateArray = fetchHabitDates(habit: habit)
         
         if dateArray.contains(date) {
-        let habitDate = HabitDates(context: persistentContainer.viewContext)
-        habitDate.date = date
+            let habitDate = HabitDates(context: persistentContainer.viewContext)
+            habitDate.date = date
             for dateItem in habit.datesSaved?.allObjects as! [HabitDates] {
                 if dateItem.date == date {
                     habit.removeFromDatesSaved(dateItem)
                 }
             }
-        updateHabit()
-    }
+            updateHabit()
+        }
     }
     
-
+    
     
     func fetchHabitDates(habit: HabitEnt) -> [Date] {
         let dates = habit.datesSaved?.allObjects as! [HabitDates]
         var dateArray: [Date] = []
         for attrib in dates {
             if let date = attrib.date {
-            dateArray.append(date)
+                dateArray.append(date)
             }
         }
         return dateArray
     }
     
     
+    //A method to convert days of the week for alarms into a single string in order to save to Core Data
     func convertStringArraytoBoolArray(alarmItem: AlarmItem) -> [Bool] {
         var boolArray: [Bool] = []
         let dayString = alarmItem.days
@@ -154,12 +155,9 @@ extension HabitEntityFuncs {
                 boolArray.append(false)
             }
         }
-    
         return boolArray
     }
     
-   
-
     
     func loadHabitDates(habit: HabitEnt) -> [Date]{
         let dates = habit.datesSaved
@@ -169,16 +167,16 @@ extension HabitEntityFuncs {
     }
     
     func saveAlarmData(habit: HabitEnt, alarmItem: AlarmItem) {
-        if alarmItem.alarmActivated == true {
-            habit.notificationBool = true
-            habit.notificationDays = alarmItem.days
-            habit.notificationHour = Int16(alarmItem.hour)
+        if alarmItem.alarmActivated  == true {
+            habit.notificationBool   = true
+            habit.notificationDays   = alarmItem.days
+            habit.notificationHour   = Int16(alarmItem.hour)
             habit.notificationMinute = Int16(alarmItem.minute)
         }
     }
     
     
-    }
-    
+}
+
 
 

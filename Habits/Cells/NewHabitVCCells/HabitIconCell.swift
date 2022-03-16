@@ -52,7 +52,7 @@ class HabitIconCell: UITableViewCell {
             
             for _ in 0...6 {
                 let iconButton                = GradientButton()
-                iconButton.imageEdgeInsets    = UIEdgeInsets(top: 8, left: 10, bottom: 8, right: 10)
+                iconButton.imageEdgeInsets    = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
                 iconButton.layer.cornerRadius = 10
                 iconButton.tintColor          = .secondaryLabel
                 iconButton.addTarget(self, action: #selector(iconButtonPressed), for: .touchUpInside)

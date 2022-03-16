@@ -20,20 +20,6 @@ extension UIButton {
     }
 }
 
-extension UILabel {
-    
-    func labelBorderBounce() {
-        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
-            self.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        } completion: { (_) in
-            UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseInOut) {
-                self.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-        }
-    }
-   
-}
-
 
 extension UIImageView {
     
@@ -44,8 +30,6 @@ extension UIImageView {
             UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseInOut) {
                 self.transform = CGAffineTransform(scaleX: 1, y: 1)
             }
-            
-            
         }
     }
 }
@@ -55,10 +39,10 @@ extension UIView {
     
     func rotate() {
         let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotation.toValue = NSNumber(value: Double.pi * 2)
-        rotation.duration = 2
+        rotation.toValue      = NSNumber(value: Double.pi * 2)
+        rotation.duration     = 2
         rotation.isCumulative = true
-        rotation.repeatCount = Float.greatestFiniteMagnitude
+        rotation.repeatCount  = Float.greatestFiniteMagnitude
         self.layer.add(rotation, forKey: "rotationAnimation")
     }
 }
