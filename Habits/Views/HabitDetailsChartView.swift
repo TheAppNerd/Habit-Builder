@@ -25,7 +25,8 @@ class HabitDetailsChartView: UIView {
 
     func setColor(colors: [CGColor] ) {
         DispatchQueue.main.async {
-            self.collectionImage.image = UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: colors)
+            [weak self] in
+            self?.collectionImage.image = UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: colors)
         }
     }
     

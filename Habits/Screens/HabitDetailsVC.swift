@@ -158,18 +158,11 @@ class HabitDetailsVC: UIViewController {
     
     
     private func configureBarButtons() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left" ), style: .plain, target: self, action: #selector(goBack))
         let editButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(editHabit))
-        
-        navigationItem.leftBarButtonItem = backButton
+ 
         navigationItem.rightBarButtonItem = editButton
     }
-    
-    
-    @objc func goBack() {
-        let habitVC = HabitHomeVC()
-        show(habitVC, sender: self)
-    }
+   
     
     @objc func editHabit() {
         let newHabitVC = NewHabitVC()

@@ -43,12 +43,11 @@ class HabitDetailsStreakView: UIView {
     
     func setColor(colors: [CGColor] ) {
         DispatchQueue.main.async {
-            self.streakImage.image = UIImage(systemName: "checkmark.square.fill")?.addTintGradient(colors: colors)
-            self.dateCreatedResultLabel.textColor = UIColor(cgColor: colors[0])
-            self.totalCountResultLabel.textColor = UIColor(cgColor: colors[0])
-            self.averageCountResultLabel.textColor = UIColor(cgColor: colors[0])
-         
-            
+            [weak self] in
+            self?.streakImage.image = UIImage(systemName: "checkmark.square.fill")?.addTintGradient(colors: colors)
+            self?.dateCreatedResultLabel.textColor = UIColor(cgColor: colors[0])
+            self?.totalCountResultLabel.textColor = UIColor(cgColor: colors[0])
+            self?.averageCountResultLabel.textColor = UIColor(cgColor: colors[0])
         }
     }
 

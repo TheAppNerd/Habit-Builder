@@ -19,7 +19,6 @@ class CoreDataMethods {
     //MARK: - Initialiser
     
     init() {
-        print("object was allocated in memory")
         persistentContainer = NSPersistentCloudKitContainer(name: "HabitEntities")
         persistentContainer.persistentStoreDescriptions.first!.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
         persistentContainer.loadPersistentStores { description, error in

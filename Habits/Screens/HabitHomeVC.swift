@@ -352,11 +352,11 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         } completion: { (_) in
             UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn) {
                 currentCell.transform = CGAffineTransform(scaleX: 1, y: 1)
-            } completion: { (_) in
+            } completion: { [weak self] _ in
 
                vc.habitIndex = indexPath.row
                
-                self.show(vc, sender: self)
+                self?.show(vc, sender: self)
             }
         }
     }
