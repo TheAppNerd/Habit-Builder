@@ -41,9 +41,9 @@ class ChartCollectionViewCell: UICollectionViewCell {
                 countLabelArray[num].alpha   = 1.0
             }
             
-            UIView.animate(withDuration: 1.0) {
+            UIView.animate(withDuration: 1.0) { [weak self] in
                 let progress: Float = 1.0 / 31
-                self.progressBarArray[num].setProgress(Float(chartYear.monthCount[num]) * progress, animated: true)
+                self?.progressBarArray[num].setProgress(Float(chartYear.monthCount[num]) * progress, animated: true)
             }
         }
     }

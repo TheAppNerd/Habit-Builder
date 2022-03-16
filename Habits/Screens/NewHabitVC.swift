@@ -10,15 +10,14 @@ import CoreData
 
 class NewHabitVC: UITableViewController  {
     
-    var habitEntity: HabitEnt?
+    var habitEntity: HabitEnt? = nil
     
     var habitIndex: Int? {
         didSet {
             habitEntity = habitEntities.loadHabitArray()[habitIndex!]
         }
     }
-    
-    var habitEntities = CoreDataMethods()
+    let habitEntities = CoreDataMethods()
     
     //fix nameArray functionality?
    
@@ -36,14 +35,12 @@ class NewHabitVC: UITableViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadData()
         registerCells()
         configure()
         configureBarButtons()
         dismissKeyboard()
-        
-        
+    
         
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
@@ -90,21 +87,15 @@ class NewHabitVC: UITableViewController  {
     }
     
     private func configureBarButtons() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .done, target: self, action: #selector(backButtonPressed))
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
         
         switch habitEntity != nil {
         case true: deleteButton.image = SFSymbols.trash
         case false: deleteButton.image = SFSymbols.trashSlash
         }
-        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = deleteButton
     }
-    
-    @objc func backButtonPressed() {
-        let habitVC = HabitHomeVC()
-        show(habitVC, sender: self)
-    }
+  
     
     func dismissKeyboard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))

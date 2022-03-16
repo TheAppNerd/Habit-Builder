@@ -53,6 +53,7 @@ class LoadingScreenVC: UIViewController {
         let seconds = 1.2
         
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            self.iconCircle.layer.removeAllAnimations()
             self.present(destVC, animated: true)
         }
     }
