@@ -17,7 +17,7 @@ class ChartModel {
         chartYears[currentYear] = [0,0,0,0,0,0,0,0,0,0,0,0]
         chartYears[currentYear-1] = [0,0,0,0,0,0,0,0,0,0,0,0]
         
-        let habitDates = HabitEntityFuncs().loadHabitDates(habit: habit)
+        let habitDates = CoreDataMethods().loadHabitDates(habit: habit)
         
         for date in habitDates {
             let monthCalc = calendar.dateComponents([.month], from: date)

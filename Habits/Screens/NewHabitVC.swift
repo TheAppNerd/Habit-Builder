@@ -18,7 +18,7 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    var habitEntities = HabitEntityFuncs()
+    var habitEntities = CoreDataMethods()
     
     //fix nameArray functionality?
    
@@ -102,7 +102,6 @@ class NewHabitVC: UITableViewController  {
     }
     
     @objc func backButtonPressed() {
-        CoreDataFuncs.saveCoreData() //stops tableview loading in random order on habitvc
         let habitVC = HabitHomeVC()
         show(habitVC, sender: self)
     }

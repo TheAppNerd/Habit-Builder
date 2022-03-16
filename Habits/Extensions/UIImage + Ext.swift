@@ -30,6 +30,4 @@ extension UIImage {
         
         return gradientImage!
     }
-    
-    
 }

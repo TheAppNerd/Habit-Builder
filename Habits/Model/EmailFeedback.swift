@@ -8,18 +8,18 @@
 import UIKit
 
 struct EmailFeedback {
-  
+    
     func newEmail() {
         //move to constants
         let address = "AlexThompsonDevelopment@gmail.com"
         let subject = "Habit Builder Feedback"
-    
+        
         let appVersion = UIApplication.appVersion
         let systemVersion = UIDevice.current.systemVersion
         let locale = Locale.current
         let modelNumber = UIDevice().modelIdentifier()
-
-       
+        
+        
         let body = """
 
 
@@ -30,26 +30,21 @@ Device: \(modelNumber)
 Location: \(locale)
 
 """
-
+        
         var components = URLComponents()
         components.scheme = "mailto"
         components.path = address
         components.queryItems = [
-              URLQueryItem(name: "subject", value: subject),
-              URLQueryItem(name: "body", value: body)
+            URLQueryItem(name: "subject", value: subject),
+            URLQueryItem(name: "body", value: body)
         ]
-
+        
         guard let url = components.url else {
-            
-            //create alert here?
             print("Failed to create mailto URL")
             return
         }
-
         UIApplication.shared.open(url)
-        
     }
-    
 }
 
 

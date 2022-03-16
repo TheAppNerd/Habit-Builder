@@ -21,6 +21,6 @@ struct DarkMode {
         default: return UITraitCollection.current.userInterfaceStyle
         }
     }
-    }
-    
+}
+
 

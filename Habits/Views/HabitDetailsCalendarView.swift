@@ -10,9 +10,10 @@ import FSCalendar
 
 class HabitDetailsCalendarView: UIView {
     
-    var gradientIndex: Int?
-    let calendarView = FSCalendarView()
-    var calendarImage = UIImageView()
+    //MARK: - Constants & Variables
+    
+    let calendarView  = FSCalendarView()
+    let calendarImage = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

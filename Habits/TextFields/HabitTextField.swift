@@ -21,7 +21,6 @@ class HabitTextField: UITextField {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        returnKeyType             = .done
         textColor                 = .label
         tintColor                 = .label
         textAlignment             = .left
@@ -31,7 +30,7 @@ class HabitTextField: UITextField {
         layer.cornerRadius        = 10
         backgroundColor           = .secondarySystemBackground
         autocorrectionType        = .no
-        returnKeyType             = .go
+        returnKeyType             = .done
         clearButtonMode           = .whileEditing
     }
     

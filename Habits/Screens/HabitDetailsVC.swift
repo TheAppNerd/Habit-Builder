@@ -11,11 +11,13 @@ import FSCalendar
 
 class HabitDetailsVC: UIViewController {
     
+    //rewrite everything up to view did load
+    
     var habitEntity: HabitEnt? //naming conventions
     
     var habitIndex: Int? {
         didSet {
-        habitEntity = habitEntities.loadHabitArray()[habitIndex!]
+            habitEntity = habitEntities.loadHabitArray()[habitIndex!]
             let gradientColor = GradientArray.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
             habitDetailsCalendarView.setColor(colors: gradientColor)
@@ -27,7 +29,7 @@ class HabitDetailsVC: UIViewController {
 
     var chartYears: [ChartYear] = []
     
-    var habitEntities = HabitEntityFuncs()
+    var habitEntities = CoreDataMethods()
     
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView = HabitDetailsStreakView()
@@ -41,8 +43,10 @@ class HabitDetailsVC: UIViewController {
         configureViews()
         configureBarButtons()
         
+        
+      
     }
-
+    
     func configureViews() {
         title = habitEntity?.name
         configureCollectionView()
@@ -91,7 +95,7 @@ class HabitDetailsVC: UIViewController {
     }
     
     func configureCalendarDates() {
-        let dateArray = HabitEntityFuncs().loadHabitDates(habit: habitEntity!)
+        let dateArray = CoreDataMethods().loadHabitDates(habit: habitEntity!)
             for date in dateArray {
                 habitDetailsCalendarView.calendarView.select(date)
                 }
@@ -100,7 +104,7 @@ class HabitDetailsVC: UIViewController {
     
     func updateStreaks() {
         let dateCreated = habitEntity?.dateCreated ?? Date()
-        let daysCompleted = HabitEntityFuncs().loadHabitDates(habit: habitEntity!).count
+        let daysCompleted = CoreDataMethods().loadHabitDates(habit: habitEntity!).count
         
         //make an extension?
         let dateFormatter = DateFormatter()
@@ -163,11 +167,8 @@ class HabitDetailsVC: UIViewController {
     
     
     @objc func goBack() {
-        CoreDataFuncs.saveCoreData() //stops tableview loading in random order on habitvc
-        let destVC = UINavigationController(rootViewController: HabitHomeVC())
-        destVC.modalPresentationStyle = .fullScreen
-        
-        present(destVC, animated: true)
+        let habitVC = HabitHomeVC()
+        show(habitVC, sender: self)
     }
     
     @objc func editHabit() {

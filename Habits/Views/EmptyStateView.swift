@@ -11,6 +11,7 @@ import UIKit
 class EmptyStateView: UIView {
 
     let message = TitleLabel(textAlignment: .center, fontSize: 20)
+    let secondaryMessage = TitleLabel(textAlignment: .center, fontSize: 16)
     let imageView = UIImageView()
     let addHabitButton = GradientButton(colors: Gradients().lightBlueGradient)
     let howToUseButton = GradientButton(colors: Gradients().purpleGradient)
@@ -27,23 +28,17 @@ class EmptyStateView: UIView {
     
     
     private func configure() {
-        addSubviews(message, imageView, addHabitButton, howToUseButton)
-        
-        
-        
-        message.numberOfLines             = 0
+        addSubviews(message, secondaryMessage, imageView, addHabitButton, howToUseButton)
         
         //move to constants
         
-        message.text                      = """
+        message.text = "Welcome to Habit Builder!"
                 
-                Welcome to Habit Builder!
+        secondaryMessage.text = "There are no habits here yet"
                 
-                There are no habits here yet.
-                
-                """
         
         message.textColor                 = .label
+        secondaryMessage.textColor        = .secondaryLabel
         imageView.image                   = UIImage(named: "IconClear")
         imageView.layer.masksToBounds     = true
         imageView.layer.cornerRadius      = 10
@@ -52,12 +47,13 @@ class EmptyStateView: UIView {
         addHabitButton.layer.cornerRadius = 10
         addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
         addHabitButton.setTitle(" Add Habit", for: .normal)
+        addHabitButton.tintColor = .white
        
         howToUseButton.layer.cornerRadius = 10
         howToUseButton.setImage(UIImage(systemName: "map.fill"), for: .normal)
         howToUseButton.setTitle(" How to Use", for: .normal)
-      
-        
+        howToUseButton.tintColor = .white
+
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -150),
@@ -68,9 +64,14 @@ class EmptyStateView: UIView {
             message.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
             message.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             message.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
+            
+            secondaryMessage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            secondaryMessage.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 20),
+            secondaryMessage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
+            secondaryMessage.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
           
             addHabitButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            addHabitButton.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 30),
+            addHabitButton.topAnchor.constraint(equalTo: secondaryMessage.bottomAnchor, constant: 40),
             addHabitButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
             addHabitButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
             addHabitButton.heightAnchor.constraint(equalToConstant: 50),

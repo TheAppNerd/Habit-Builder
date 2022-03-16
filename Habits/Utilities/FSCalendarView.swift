@@ -10,6 +10,8 @@ import FSCalendar
 
 class FSCalendarView: FSCalendar {
 
+    //MARK: - Initialiers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -19,6 +21,7 @@ class FSCalendarView: FSCalendar {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Funcs
     
     private func configure() {
        setCurrentPage(Date(), animated: false)
@@ -27,10 +30,9 @@ class FSCalendarView: FSCalendar {
        appearance.weekdayTextColor    = .label
        appearance.titleDefaultColor   = .secondaryLabel
        appearance.titleSelectionColor = .label
+       appearance.todayColor          = .purple
+       appearance.borderRadius        = 0.5
        placeholderType                = .none
-        appearance.todayColor = .purple
-        appearance.borderRadius = 0.5
-        
         }
     }
 

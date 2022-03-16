@@ -8,12 +8,18 @@
 import UIKit
 
 class DarkModeView: UIView {
-
+    
+    
+    //MARK: - Constants & Variables
+    
     let lightLabel      = UILabel()
     let deviceButton    = GradientButton()
     let lightButton     = GradientButton()
     let darkButton      = GradientButton()
     let doneButton      = GradientButton()
+    
+    
+    //MARK: - Initialisers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,6 +29,9 @@ class DarkModeView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //MARK: - Functions
     
     private func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -35,20 +44,22 @@ class DarkModeView: UIView {
             button.setTitleColor(.label, for: .normal)
             button.layer.cornerRadius = 5
             button.backgroundColor    = BackgroundColors.mainBackGround
-            
         }
         
         lightLabel.translatesAutoresizingMaskIntoConstraints = false
-        lightLabel.textAlignment = .center
-        lightLabel.font          = UIFont.systemFont(ofSize: 18, weight: .bold)
+        lightLabel.textAlignment  = .center
+        lightLabel.font           = UIFont.systemFont(ofSize: 18, weight: .bold)
         lightLabel.attributedText = NSAttributedString(string: "Dark Mode", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
         
         deviceButton.setTitle("Device", for: .normal)
         deviceButton.setImage(UIImage(systemName: "iphone"), for: .normal)
+        
         lightButton.setTitle("Light", for: .normal)
         lightButton.setImage(UIImage(systemName: "sun.max"), for: .normal)
+        
         darkButton.setTitle("Dark", for: .normal)
         darkButton.setImage(UIImage(systemName: "moon"), for: .normal)
+        
         doneButton.setTitle("Done", for: .normal)
         doneButton.colors = Gradients().darkBlueGradient
         
@@ -56,7 +67,6 @@ class DarkModeView: UIView {
         
         let padding: CGFloat = 10
         NSLayoutConstraint.activate([
-        
             lightLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             lightLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             lightLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
