@@ -65,7 +65,7 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0: shareApp()
-        case 1: let urlStr = "https://apps.apple.com/us/app/habit-builder/id1598204296"
+        case 1: let urlStr = "\(SocialMedia.appLink)?action=write-review"
                 guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
                 UIApplication.shared.open(url)
         case 2: emailFeedback.newEmail()

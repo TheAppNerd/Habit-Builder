@@ -60,8 +60,8 @@ enum SocialMedia {
     static let appBreweryURL        = "https://www.appbrewery.co"
     static let seanAllenURL         = "https://seanallen.co"
     
-    static let appLink              = "https://apps.apple.com/us/app/habit-builder/id1598204296"
-    
+    static let appLink              = "https://apps.apple.com/au/app/habit-builder/id1614197639"
+
     static let emailAddress         = "AlexThompsonDevelopment@gmail.com"
 }
 

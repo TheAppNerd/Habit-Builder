@@ -21,6 +21,8 @@ class CoreDataMethods {
     init() {
         persistentContainer = NSPersistentCloudKitContainer(name: "HabitEntities")
         persistentContainer.persistentStoreDescriptions.first!.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+       persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+
         persistentContainer.loadPersistentStores { description, error in
             if let error = error {
                 print("Core Data Error: \(error)")
