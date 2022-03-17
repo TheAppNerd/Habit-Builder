@@ -30,15 +30,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         super.viewWillAppear(animated)
         showEmptyStateView()
      
-        //This ensures data loads correctly when cloudkit loads. 
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            let habits = self.habitEntities.loadHabitArray()
-            self.tableView.reloadData()
-            print("Repeated")
-            if habits.isEmpty == false  {
-                timer.invalidate()
-            }
-        }
+      timerForCloudKit()
     }
     
     
@@ -138,6 +130,24 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
+    
+    func timerForCloudKit() {
+        var count = 0
+        //This ensures data loads correctly when cloudkit loads.
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
+            let habits = self.habitEntities.loadHabitArray()
+            self.tableView.reloadData()
+            print("Repeated")
+            count += 1
+            if habits.isEmpty == false  {
+                timer.invalidate()
+            }
+            if count == 10 {
+                timer.invalidate()
+            }
+            
+        }
+    }
     
     func pushSettings(row: Int) { //move cases away from numbers. use descriptive terms
         switch row {
