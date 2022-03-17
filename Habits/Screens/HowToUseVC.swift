@@ -59,50 +59,45 @@ class HowToUseVC: UIViewController {
     private func configureScrollView() {
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 6, height: scrollView.frame.size.height)
         let imageNames: [String] = ["addHabitScreen", "homeScreen", "detailsScreen", "sideMenuScreen", "quoteScreen", "darkModeScreen"]
-//        let helpText: [String] = ["""
-//Create a habit you want to work on
-//and set reminders to stay on track.
-//
-//Automatic Cloud Kit synchronization
-//preserves all your data across devices
-//""",
-//
-//                                  """
-//Tap the date button to mark off
-//a habit or select the background
-//to load the habits details.
-//
-//Press and hold the habit to change
-//the habit order however you like.
-//""",
-//                                  """
-//Tap a date on the calendar to
-//mark off a habit or tap edit
-//in the top right of the screen
-//to change any habit details
-//""",
-//                                  """
-//Press the button in the top left
-//to access the menu for extra app
-//information and functionality
-//""",
-//                                  "", ""
-//
- //       ]
-        
+       
         let helpText: [String] = [
-        "Customise each habit",
-        "Track your weekly habit goals",
-        "Keep track of all your progress",
-        "Manage app settings",
-        "Read through motivational quotes",
+        """
+Create a habit you want
+to work on and set reminders
+to stay on track.
+
+""",
+        """
+Tap a date to mark off a habit
+or select the background to
+load the habits details.
+
+""",
+        """
+Tap a date on the calendar to mark off
+a habit or tap edit in the top right of
+the screen to update any habit details.
+
+""",
+        """
+Share, review, edit and
+get detailed information
+about the app.
+
+""",
+        """
+Browse through quotes from famous
+figures throughout history.
+
+""",
         """
 Alternate between
-light & dark mode
+light & dark mode.
+
 """
         
         
-         ]
+        ]
         
         for num in 0...imageNames.count - 1 {
             let page             = UIView(frame: CGRect(x: CGFloat(num) * view.frame.size.width, y: 0, width: view.frame.size.width, height: scrollView.frame.size.height))
@@ -111,10 +106,11 @@ light & dark mode
             let label                       = UILabel()
             label.text                      = helpText[num]
             label.textAlignment             = .center
-            label.font                      = UIFont.systemFont(ofSize: 30, weight: .bold)
+            label.font                      = UIFont.systemFont(ofSize: 18, weight: .bold)
             label.numberOfLines = 6
             label.adjustsFontSizeToFitWidth = true
             label.translatesAutoresizingMaskIntoConstraints = false
+            
             
             let imageView         = UIImageView()
             imageView.contentMode = .scaleAspectFit
@@ -127,7 +123,7 @@ light & dark mode
                 label.topAnchor.constraint(equalTo: page.topAnchor, constant: padding),
                 label.leadingAnchor.constraint(equalTo: page.leadingAnchor, constant: padding),
                 label.trailingAnchor.constraint(equalTo: page.trailingAnchor, constant: -padding),
-                label.heightAnchor.constraint(equalToConstant: page.frame.size.height / 7),
+                label.heightAnchor.constraint(equalToConstant: page.frame.size.height / 6.5),
                 
                 imageView.topAnchor.constraint(equalTo: label.bottomAnchor),
                 imageView.leadingAnchor.constraint(equalTo: page.leadingAnchor),
