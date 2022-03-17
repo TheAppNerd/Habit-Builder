@@ -25,7 +25,7 @@ class PageControl: UIPageControl {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        numberOfPages                 = 4
+        numberOfPages                 = 6
         pageIndicatorTintColor        = .secondaryLabel
         currentPageIndicatorTintColor = .label
         backgroundColor               = BackgroundColors.secondaryBackground
