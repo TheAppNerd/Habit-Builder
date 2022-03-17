@@ -36,7 +36,7 @@ class UserNotifications {
         let center                 = UNUserNotificationCenter.current()
         let content                = UNMutableNotificationContent()
         content.title              = alarmItem.title
-        content.body               = "Time to \(alarmItem.title). You can do it"
+        content.body               = "Time to \(alarmItem.title). You can do it!"
         content.categoryIdentifier = "alarm"
         content.sound              = UNNotificationSound.default
         
