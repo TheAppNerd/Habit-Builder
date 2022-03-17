@@ -29,6 +29,16 @@ class HabitHomeVC: UIViewController, SettingsPush {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
+     
+        //This ensures data loads correctly when cloudkit loads. 
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            let habits = self.habitEntities.loadHabitArray()
+            self.tableView.reloadData()
+            print("Repeated")
+            if habits.isEmpty == false  {
+                timer.invalidate()
+            }
+        }
     }
     
     
