@@ -11,8 +11,7 @@ import CoreData
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
-    
-    
+
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium) //move to protocol
