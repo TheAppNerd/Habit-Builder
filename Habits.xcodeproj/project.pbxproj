@@ -51,6 +51,7 @@
 		FABA380D26C9F1E00088254C /* HabitSaveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABA380C26C9F1E00088254C /* HabitSaveCell.swift */; };
 		FABD431027A55A4000612896 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABD430F27A55A4000612896 /* CloudKit.framework */; };
 		FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */; };
+		FAD4655627FFD0A300E6CF7A /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */; };
 		FAE8EAD127B3187D00FBA6F3 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */; };
 		FAE8EAD327B35C9100FBA6F3 /* Quotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */; };
 		FAE8EAD527B35CE600FBA6F3 /* QuotesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD427B35CE600FBA6F3 /* QuotesManager.swift */; };
@@ -119,6 +120,7 @@
 		FABD430E27A559B800612896 /* Habits.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Habits.entitlements; sourceTree = "<group>"; };
 		FABD430F27A55A4000612896 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl + Ext.swift"; sourceTree = "<group>"; };
+		FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quotes.swift; sourceTree = "<group>"; };
 		FAE8EAD427B35CE600FBA6F3 /* QuotesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesManager.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		FA212C4B263A3DCD00BFDA3F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */,
 				FA224D7826F4177A005CC9F1 /* CoreData */,
 				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
@@ -502,6 +505,7 @@
 				FAF4E6D8264A47B90029E50D /* SideMenuVC.swift in Sources */,
 				FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */,
 				FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */,
+				FAD4655627FFD0A300E6CF7A /* EmailFeedback.swift in Sources */,
 				FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */,
 				FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
