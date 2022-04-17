@@ -16,7 +16,7 @@ class HabitDetailsVC: UIViewController {
     var habitEntity: HabitEnt? //naming conventions
     
     var habitIndex: Int? {
-        didSet {
+        didSet { // TODO: move these to a func
             habitEntity = habitEntities.loadHabitArray()[habitIndex!]
             let gradientColor = GradientArray.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
@@ -106,7 +106,7 @@ class HabitDetailsVC: UIViewController {
         let dateCreated = habitEntity?.dateCreated ?? Date()
         let daysCompleted = CoreDataMethods().loadHabitDates(habit: habitEntity!).count
         
-        //make an extension?
+        // TODO: make a date func
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM d, yyyy"
         let date = dateFormatter.string(from: dateCreated)
@@ -124,9 +124,11 @@ class HabitDetailsVC: UIViewController {
         habitDetailsStreakView.setLabels(date: date, count: daysCompleted, average: averageString)
     }
     
+    // TODO: remove alert. make it happen on button press
     func presentAlertToAddHabit(date: Date) {
         let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+            
             self.habitDetailsCalendarView.calendarView.select(date)
             self.habitEntities.addHabitDate(habit: self.habitEntity!, date: date)
             self.updateStreaks()
@@ -139,7 +141,7 @@ class HabitDetailsVC: UIViewController {
         }))
         present(alert, animated: true)
     }
-    
+    // TODO: remove alert. make it happen on button press
     func presentAlertToRemoveHabit(date: Date) {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
@@ -167,7 +169,6 @@ class HabitDetailsVC: UIViewController {
     @objc func editHabit() {
         let newHabitVC = NewHabitVC()
         newHabitVC.habitIndex = habitIndex
-        //newHabitVC.habitEntity = habitEntity
         show(newHabitVC, sender: self)
     }
     

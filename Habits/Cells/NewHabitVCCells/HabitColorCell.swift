@@ -59,7 +59,7 @@ class HabitColorCell: UITableViewCell {
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
         ])
     }
-    
+    // TODO: move funcs out of cell
     @objc func colorButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()

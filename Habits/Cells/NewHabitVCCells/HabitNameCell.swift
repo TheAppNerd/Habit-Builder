@@ -9,7 +9,7 @@ import UIKit
 
 class HabitNameCell: UITableViewCell {
 
- static let reuseID = "HabitNameCell"
+ static let reuseID = "HabitNameCell" // TODO: move to constants
     
     var nameTextField = HabitTextField()
 
@@ -21,7 +21,7 @@ class HabitNameCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    // TODO: make textfield func
     private func configure() {
         backgroundColor = BackgroundColors.secondaryBackground
         self.layer.cornerRadius = 10

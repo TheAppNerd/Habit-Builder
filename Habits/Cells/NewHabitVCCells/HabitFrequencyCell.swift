@@ -30,6 +30,7 @@ class HabitFrequencyCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // TODO: move funcs out of cell
     @objc func frequencyButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()

@@ -10,6 +10,7 @@ import CoreData
 
 class HabitCell: UITableViewCell {
 
+    // TODO:  way too much code in here.
     
     static let reuseID = "HabitCell"
     
@@ -84,7 +85,7 @@ class HabitCell: UITableViewCell {
     
     
     
-    
+    // TODO: move externally
     func configureLabelStackView() {
         let dayLabels: [DayLabel] = [ DayLabel(text: "Sun"),
                                       DayLabel(text: "Mon"),
@@ -107,7 +108,7 @@ class HabitCell: UITableViewCell {
         dayLabels[DateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
     
-    
+    // TODO: add a view behind buttons to make ti easier to select them without going to details screen. 
     func configureButtonStackView() {
         for (index, button) in dayButton.enumerated() {
             button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true

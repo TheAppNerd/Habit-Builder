@@ -9,6 +9,9 @@ import UIKit
 
 class ChartCollectionViewCell: UICollectionViewCell {
     
+    // TODO: move chart to own class?
+    // TODO: move funcs out of cell
+    
     static let reuseID = "ChartCellCollectionViewCell"
     
     let countStack = UIStackView()

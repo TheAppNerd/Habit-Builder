@@ -13,7 +13,7 @@ class NewHabitVC: UITableViewController  {
     var habitEntity: HabitEnt? = nil
     
     var habitIndex: Int? {
-        didSet {
+        didSet { // TODO: is this didset nessecary?
             habitEntity = habitEntities.loadHabitArray()[habitIndex!]
         }
     }
@@ -41,7 +41,7 @@ class NewHabitVC: UITableViewController  {
         configureBarButtons()
         dismissKeyboard()
     
-        
+        // TODO: test if this bug still exists
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
         }
@@ -70,6 +70,7 @@ class NewHabitVC: UITableViewController  {
         print(alarmItem)
     }
     
+    // TODO: create custom tableview with all these pre registered
     private func registerCells() {
         tableView.register(HabitNameCell.self, forCellReuseIdentifier: HabitNameCell.reuseID)
         tableView.register(HabitFrequencyCell.self, forCellReuseIdentifier: HabitFrequencyCell.reuseID)

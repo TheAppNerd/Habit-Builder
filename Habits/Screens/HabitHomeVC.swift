@@ -14,12 +14,12 @@ class HabitHomeVC: UIViewController, SettingsPush {
 
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
-    let generator            = UIImpactFeedbackGenerator(style: .medium) //move to protocol
+    let generator            = UIImpactFeedbackGenerator(style: .medium) // TODO: move to protocol
     let emptyStateView       = EmptyStateView()
     var quoteButtonTapped    = Bool()
     let habitEntities = CoreDataMethods() //need to rename
     var quotesManager = QuotesManager()
-    var quotesArray: [Quote] = [] //move externally?
+    var quotesArray: [Quote] = [] // TODO: move to func
 
     
     var isSlideInMenuPressed = false
@@ -29,7 +29,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         super.viewWillAppear(animated)
         showEmptyStateView()
      
-      timerForCloudKit()
+      timerForCloudKit() // TODO: move to completion closure
     }
     
     
@@ -51,7 +51,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         
     }
     
-    func showEmptyStateView() {
+    func showEmptyStateView() { // TODO:  move externally
         switch habitEntities.loadHabitArray().isEmpty {
         case true:  view.addSubview(emptyStateView)
             emptyStateView.frame = tableView.frame
@@ -67,7 +67,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     
-    func reviewCount() {
+    func reviewCount() { // TODO: move externally
         let defaults = UserDefaults.standard
         var retrievedCount = defaults.integer(forKey: "reviewCount") as Int
         retrievedCount += 1
@@ -148,7 +148,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
-    func pushSettings(row: Int) { //move cases away from numbers. use descriptive terms
+    func pushSettings(row: Int) { // TODO: complete mess. redo this
         switch row {
         case 3: let vc = HowToUseVC()
             navigationController?.pushViewController(vc, animated: true)
@@ -213,7 +213,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     //MARK: - menu view
     
-    func configureMenuView() {
+    func configureMenuView() { // TODO: move to class or view
         lazy var menuView: UIView = {
             let view = UIView()
             view.addSubview(menu.view)
@@ -243,7 +243,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
             self.isSlideInMenuPressed.toggle()
         }
     }
-    
+
     func configureEmptyState() {
         emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
@@ -314,7 +314,8 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-       let habit = habitEntities.loadHabitArray()[indexPath.row] //is it acceptable to write it like this? break it down into two lines.
+       let habit = habitEntities.loadHabitArray()[indexPath.row]
+        
         if habitEntities.loadHabitArray().isEmpty == false {
             emptyStateView.removeFromSuperview()
             title = Labels.HabitVCTitle
@@ -322,6 +323,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         
         let dateArray = habitEntities.loadHabitDates(habit: habit)
         
+        // TODO: move all view type data to the cell
         
         for (index,button) in cell.dayButton.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
@@ -361,9 +363,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
-        //change this to a protocol instead?
        
-        
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         generator.impactOccurred()
         //move this to an animations file

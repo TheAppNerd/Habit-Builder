@@ -101,7 +101,7 @@ class HabitReminderCell: UITableViewCell {
         ])
     }
     
-    
+    // TODO: move funcs out of cell
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
