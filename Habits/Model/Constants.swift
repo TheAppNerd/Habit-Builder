@@ -34,9 +34,11 @@ enum SFSymbols {
     static let chart                = UIImage(systemName: "chart.bar.xaxis")
 }
 
+
 enum GradientColors {
     static let clearGradient        = [UIColor.clear.cgColor, UIColor.clear.cgColor]
 }
+
 
 enum BackgroundColors {
     static let mainBackGround       = UIColor.systemBackground
@@ -54,15 +56,17 @@ enum SocialMedia {
     
     static let githubUsername       = "AlexThompsonDevelopment"
     static let githubURL            = "https://github.com/\(SocialMedia.githubUsername)"
-   
+    
     static let fSCalendarURL        = "https://github.com/WenchaoD/FSCalendar"
     static let flatIconURL          = "https://www.flaticon.com"
     static let appBreweryURL        = "https://www.appbrewery.co"
     static let seanAllenURL         = "https://seanallen.co"
     
     static let appLink              = "https://apps.apple.com/au/app/habit-builder/id1614197639"
-
-    static let emailAddress         = "AlexThompsonDevelopment@gmail.com"
 }
 
 
+enum feedback {
+    static let emailAddress         = "Alex@appNerd.com.au"
+    static let feedbackSubject      = "Habit Builder Feedback"
+}

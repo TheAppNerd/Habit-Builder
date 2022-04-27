@@ -9,6 +9,15 @@ import UIKit
 
 extension UIImage {
     
+    /// Adds a tint gradient to images.
+    ///
+    /// ```
+    /// image.addTintGradient(colors: Gradients.darkGreen)
+    /// ```
+    ///
+    /// - Warning: Must return an array of 2 CGColors
+    /// - Parameter colors: An array of 2 CGColors
+    /// - Returns: An image with color gradient applied
     func addTintGradient(colors: [CGColor]) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
         

@@ -9,13 +9,16 @@ import UIKit
 
 struct DateFuncs {
     
+    // TODO: Remove static on all
+    
+    ///Returns date as exact date at start of day to avoid duplicate dates.
     static func startOfDay(date: Date) -> Date {
         let calendarView = Calendar.current
         let startDate    = calendarView.startOfDay(for: date)
         return startDate
     }
     
-    
+    ///Takes time from date picker and seperates hours and minutes in order to set user notification.
     static func timeChanged(datePicker: DatePicker) -> [String] {
         let formatter          = DateFormatter()
         formatter.dateFormat   = "h:mm a"
@@ -27,12 +30,12 @@ struct DateFuncs {
         let twentyFourHourDate = formatter.string(from: date!)
         return twentyFourHourDate.components(separatedBy: ":")
     }
-
-
-static func setupDatePickerDate(hour: Int, minute: Int) -> Date {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "HH:mm"
-    guard let date = dateFormatter.date(from: "\(hour):\(minute)") else { return Date()}
-    return date
-}
+    
+    ///Used to pull previous alarm time saved in core data and reapply it to the date picker.
+    static func setupDatePickerDate(hour: Int, minute: Int) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        guard let date = dateFormatter.date(from: "\(hour):\(minute)") else { return Date()}
+        return date
+    }
 }

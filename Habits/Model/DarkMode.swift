@@ -8,8 +8,15 @@
 import UIKit
 
 struct DarkMode {
+    // TODO: - move dark mode out of scenedelegate
     
-    static func selectedDarkMode() -> UIUserInterfaceStyle {
+    /// Loads the saved dark mode status of the app from UserDefaults.
+    ///
+    /// ```
+    /// window?.overrideUserInterfaceStyle = DarkMode().selectedDarkMode()
+    /// ```
+    /// - Returns: UserInterfaceStyle dark mode scheme
+        func selectedDarkMode() -> UIUserInterfaceStyle {
         let defaults = UserDefaults.standard
         
         guard let selectedDarkMode = defaults.object(forKey: "darkMode") as? String else { return UITraitCollection.current.userInterfaceStyle}

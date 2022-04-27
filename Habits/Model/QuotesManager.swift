@@ -12,22 +12,24 @@ protocol QuotesManagerDelegate: AnyObject {
     func updateQuotes(_ quotes: [Quote] )
 }
 
+// TODO: - update the parsing better to accomodate response and error properly.
+// TODO: - add images to quotes.
 
 struct QuotesManager {
     
     weak var delegate: QuotesManagerDelegate?
     
+    ///parses quote data to delegate.
     func parse()  {
-        let decoder = JSONDecoder()
+        let decoder   = JSONDecoder()
         let urlString = "https://type.fit/api/quotes"
         guard let url = URL(string: urlString) else { return }
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task      = URLSession.shared.dataTask(with: url) { data, response, error in
             
             do {
                 guard let data = data else { return }
-                let quoteData = try decoder.decode([Quote].self, from: data)
+                let quoteData  = try decoder.decode([Quote].self, from: data)
                 self.delegate?.updateQuotes(quoteData)
-                
             } catch {
                 print(String(describing: error))
             }

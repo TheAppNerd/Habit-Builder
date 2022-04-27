@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
     
-    //Utilises side menu bounce functionality
+    ///Utilises side menu bounce functionality.
     func edgeTo(_ view: UIView, padding: CGFloat) {
         view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,8 @@ extension UIView {
         ])
     }
     
-    //Utilises side menu bounce functionality
+  
+    ///Utilises side menu bounce functionality.
     func pinMenuTo(_ view: UIView, with constant: CGFloat) {
         view.addSubview(self)
         translatesAutoresizingMaskIntoConstraints = false
@@ -36,23 +37,26 @@ extension UIView {
     }
     
     
+
+    ///Funcs to add all subviews in one line.
     func addSubviews(_ views: UIView...) {
         for view in views {
             addSubview(view)
         }
     }
     
-    
+    ///Allows a view to set a gradient background.
     func addGradient(colors: [CGColor]) {
         let gradientLayer: CAGradientLayer = CAGradientLayer()
-        gradientLayer.frame = bounds
-        gradientLayer.startPoint = CGPoint(x: 1, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.frame        = bounds
+        gradientLayer.startPoint   = CGPoint(x: 1, y: 0)
+        gradientLayer.endPoint     = CGPoint(x: 0, y: 1)
         gradientLayer.cornerRadius = layer.cornerRadius
-        gradientLayer.colors = colors
+        gradientLayer.colors       = colors
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    ///Adds Shadow to virew that works in light or dark mode.
     func addShadow() {
         layer.shadowPath    = UIBezierPath(roundedRect: bounds, cornerRadius: 10).cgPath
         layer.shadowRadius  = 3

@@ -41,6 +41,7 @@
 		FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */; };
 		FA798DA227DF0433005D647B /* AppStoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */; };
 		FA798DA427E03C60005D647B /* UIDevice + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA798DA327E03C60005D647B /* UIDevice + Ext.swift */; };
+		FA79D7532818C1C8004E0CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79D7522818C1C8004E0CAC /* Assets.xcassets */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
 		FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */; };
@@ -109,6 +110,7 @@
 		FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewManager.swift; sourceTree = "<group>"; };
 		FA798DA327E03C60005D647B /* UIDevice + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice + Ext.swift"; sourceTree = "<group>"; };
+		FA79D7522818C1C8004E0CAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
 		FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppVC.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				FA1C7304263636D800E63CBE /* Habits */,
+				FA79D7522818C1C8004E0CAC /* Assets.xcassets */,
 				FA29042D26F00F5A00B7B00A /* Support */,
 				FA1C7303263636D800E63CBE /* Products */,
 				8ECFE9FDD09F07713240F490 /* Pods */,
@@ -416,6 +419,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA79D7532818C1C8004E0CAC /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

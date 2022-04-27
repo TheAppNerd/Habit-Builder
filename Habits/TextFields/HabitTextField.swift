@@ -9,6 +9,8 @@ import UIKit
 
 class HabitTextField: UITextField {
     
+    //MARK: - Class Funcs
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -18,6 +20,7 @@ class HabitTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false

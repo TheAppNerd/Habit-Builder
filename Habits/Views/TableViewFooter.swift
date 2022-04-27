@@ -9,11 +9,11 @@ import UIKit
 
 class TableViewFooter: UIView {
     
-    //MARK: - Constants
+    //MARK: - Properties
     
     let addHabitButton = UIButton()
     
-    //MARK: - Initilisers
+    //MARK: - Class Funcs
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +25,7 @@ class TableViewFooter: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Funcs
+    //MARK: - Functions
     
     private func configure() {
         self.frame.size = .init(width: 100, height: 50)

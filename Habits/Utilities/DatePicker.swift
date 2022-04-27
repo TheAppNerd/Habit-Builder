@@ -9,7 +9,7 @@ import UIKit
 
 class DatePicker: UIDatePicker {
     
-    //MARK: - Initialisers
+    //MARK: - Class Funcs
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ class DatePicker: UIDatePicker {
     }
     
     
-    //MARK: - Funcs
+    //MARK: - Functions
     
     private func configure() {
         datePickerMode                            = .time

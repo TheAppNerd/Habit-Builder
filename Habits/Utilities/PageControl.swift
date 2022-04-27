@@ -10,7 +10,7 @@ import UIKit
 class PageControl: UIPageControl {
     
     
-//MARK: - Initialisers
+//MARK: - Class Funcs
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ class PageControl: UIPageControl {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Funcs
+    //MARK: - Functions
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false

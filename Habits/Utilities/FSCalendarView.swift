@@ -10,7 +10,7 @@ import FSCalendar
 
 class FSCalendarView: FSCalendar {
 
-    //MARK: - Initialiers
+    //MARK: - Class Funcs
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ class FSCalendarView: FSCalendar {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Funcs
+    //MARK: - Functions
     
     private func configure() {
        setCurrentPage(Date(), animated: false)

@@ -9,37 +9,38 @@ import UIKit
 
 struct EmailFeedback {
     
+    //MARK: - Properties
+    
+    let address           = feedback.emailAddress
+    let subject           = feedback.feedbackSubject
+    let appVersion        = UIApplication.appVersion
+    let systemVersion     = UIDevice.current.systemVersion
+    let locale            = Locale.current
+    let modelNumber       = UIDevice().modelIdentifier()
+   
+    //MARK: - Functions
+    
+    ///Generates a feedback email in users primary email service on their device. Automatically provided information on app version, system version, device type and location to assist with bug fixing.
+    ///
+    /// - Warning: If user has no email functionality set up, func wont work.
     func newEmail() {
-        //move to constants
-        let address = "Alex@appNerd.com.au"
-        let subject = "Habit Builder Feedback"
-        
-        let appVersion = UIApplication.appVersion
-        let systemVersion = UIDevice.current.systemVersion
-        let locale = Locale.current
-        let modelNumber = UIDevice().modelIdentifier()
-        
-        
-        let body = """
+        let body              = """
 
+    Aussie News Version: \(appVersion ?? "Unable to Locate")
+    iOS Version: \(systemVersion)
+    Device: \(modelNumber)
+    Location: \(locale)
 
-
-Aussie News Version: \(appVersion ?? "Unable to Locate")
-iOS Version: \(systemVersion)
-Device: \(modelNumber)
-Location: \(locale)
-
-"""
-        
-        var components = URLComponents()
-        components.scheme = "mailto"
-        components.path = address
+    """
+        var components        = URLComponents()
+        components.scheme     = "mailto"
+        components.path       = address
         components.queryItems = [
             URLQueryItem(name: "subject", value: subject),
             URLQueryItem(name: "body", value: body)
         ]
         
-        guard let url = components.url else {
+        guard let url         = components.url else {
             print("Failed to create mailto URL")
             return
         }

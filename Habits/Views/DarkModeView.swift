@@ -10,7 +10,7 @@ import UIKit
 class DarkModeView: UIView {
     
     
-    //MARK: - Constants & Variables
+    //MARK: - Properties
     
     let lightLabel      = UILabel()
     let deviceButton    = GradientButton()
@@ -19,11 +19,12 @@ class DarkModeView: UIView {
     let doneButton      = GradientButton()
     
     
-    //MARK: - Initialisers
+    //MARK: - Class Funcs
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
@@ -62,7 +63,10 @@ class DarkModeView: UIView {
         
         doneButton.setTitle("Done", for: .normal)
         doneButton.colors = Gradients().darkBlueGradient
-        
+    }
+    
+    
+    private func layoutUI() {
         self.addSubviews(lightLabel, deviceButton, lightButton, darkButton, doneButton)
         
         let padding: CGFloat = 10

@@ -8,49 +8,57 @@
 import UIKit
 
 class HabitDetailsStreakView: UIView {
-
     
-    let dateCreatedLabel = UILabel()
-    let dateCreatedResultLabel = UILabel()
+    //MARK: - Properties
     
-    let totalCountLabel = UILabel()
-    let totalCountResultLabel = UILabel()
+    var streakLabel             = BodyLabel(textInput: "Habit Details", textAlignment: .left, fontSize: 18)
     
-    let averageCountLabel = UILabel()
-    let averageCountResultLabel = UILabel()
+    var dateCreatedLabel        = BodyLabel(textInput: "Date Habit Created:", textAlignment: .left, fontSize: 16)
+    var dateCreatedResultLabel  = BodyLabel(textInput: "", textAlignment: .right, fontSize: 20)
     
+    var totalCountLabel         = BodyLabel(textInput: "Total Days Completed:", textAlignment: .left, fontSize: 16)
+    var totalCountResultLabel   = BodyLabel(textInput: "", textAlignment: .right, fontSize: 20)
     
-    let labelStack = UIStackView()
-    let resultStack = UIStackView()
+    var averageCountLabel       = BodyLabel(textInput: "Average habits per week:", textAlignment: .left, fontSize: 16)
+    var averageCountResultLabel = BodyLabel(textInput: "", textAlignment: .right, fontSize: 20)
     
-    let streakImage = UIImageView()
+    let labelStack              = UIStackView()
+    let resultStack             = UIStackView()
     
+    let streakImage             = UIImageView()
+    let line                    = UIView()
+    
+    //MARK: - Class Funcs
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        configureStackViews()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
+    
     func setLabels(date: String, count: Int, average: String) {
-        dateCreatedResultLabel.text = "\(date)"
-        totalCountResultLabel.text = "\(count)"
+        dateCreatedResultLabel.text  = "\(date)"
+        totalCountResultLabel.text   = "\(count)"
         averageCountResultLabel.text = "\(average)"
     }
     
+    
     func setColor(colors: [CGColor] ) {
-        DispatchQueue.main.async {
-            [weak self] in
-            self?.streakImage.image = UIImage(systemName: "checkmark.square.fill")?.addTintGradient(colors: colors)
-            self?.dateCreatedResultLabel.textColor = UIColor(cgColor: colors[0])
-            self?.totalCountResultLabel.textColor = UIColor(cgColor: colors[0])
+        DispatchQueue.main.async { [weak self] in
+            self?.streakImage.image                 = UIImage(systemName: "checkmark.square.fill")?.addTintGradient(colors: colors)
+            self?.dateCreatedResultLabel.textColor  = UIColor(cgColor: colors[0])
+            self?.totalCountResultLabel.textColor   = UIColor(cgColor: colors[0])
             self?.averageCountResultLabel.textColor = UIColor(cgColor: colors[0])
         }
     }
-
+    
     
     private func configure() {
         addShadow()
@@ -58,66 +66,39 @@ class HabitDetailsStreakView: UIView {
         layer.cornerRadius = 10
         backgroundColor    = BackgroundColors.secondaryBackground
         
-        
-        let line = UIView()
         line.backgroundColor = UIColor.label
         line.translatesAutoresizingMaskIntoConstraints = false
         
-        
         streakImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        let streakLabel = BodyLabel(textInput: "Habit Details", textAlignment: .left, fontSize: 18)
-        streakLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        dateCreatedLabel.text = "Date Habit Created:"
-        totalCountLabel.text = "Total Days Completed:"
-        averageCountLabel.text = "Average habits per week:"
-        
-        dateCreatedLabel.adjustsFontSizeToFitWidth = true
-        totalCountLabel.adjustsFontSizeToFitWidth = true
-        averageCountLabel.adjustsFontSizeToFitWidth = true
-        
-        dateCreatedResultLabel.adjustsFontSizeToFitWidth = true
-        totalCountResultLabel.adjustsFontSizeToFitWidth = true
-        averageCountResultLabel.adjustsFontSizeToFitWidth = true
-        
-        dateCreatedLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        totalCountLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        averageCountLabel.font = UIFont.boldSystemFont(ofSize: 16)
-
-        dateCreatedResultLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        totalCountResultLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        averageCountResultLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        
-        
-        dateCreatedResultLabel.textAlignment = .right
-        totalCountResultLabel.textAlignment = .right
-        averageCountResultLabel.textAlignment = .right
-        
+    }
+    
+    
+    private func configureStackViews() {
         labelStack.translatesAutoresizingMaskIntoConstraints = false
-        labelStack.axis = .vertical
-        labelStack.distribution = .fillEqually
-        labelStack.spacing = 6
-        
-        resultStack.translatesAutoresizingMaskIntoConstraints = false
-        resultStack.axis = .vertical
-        resultStack.distribution = .fillEqually
-        resultStack.spacing = 6
+        labelStack.axis          = .vertical
+        labelStack.distribution  = .fillEqually
+        labelStack.spacing       = 6
         
         labelStack.addArrangedSubview(dateCreatedLabel)
         labelStack.addArrangedSubview(totalCountLabel)
         labelStack.addArrangedSubview(averageCountLabel)
         
+        resultStack.translatesAutoresizingMaskIntoConstraints = false
+        resultStack.axis         = .vertical
+        resultStack.distribution = .fillEqually
+        resultStack.spacing      = 6
+        
         resultStack.addArrangedSubview(dateCreatedResultLabel)
         resultStack.addArrangedSubview(totalCountResultLabel)
         resultStack.addArrangedSubview(averageCountResultLabel)
-        
+    }
+    
+    
+    private func layoutUI() {
         addSubviews(line, streakImage, streakLabel, labelStack, resultStack)
-        
         let padding: CGFloat = 20
         
         NSLayoutConstraint.activate([
-            
             streakImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
             streakImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             streakImage.trailingAnchor.constraint(equalTo: streakLabel.leadingAnchor, constant: -5),
