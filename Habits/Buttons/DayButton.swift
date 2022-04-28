@@ -8,7 +8,9 @@
 import UIKit
 
 class DayButton: UIButton {
-
+    
+    //MARK: - Class Funcs
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -18,12 +20,18 @@ class DayButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
+    
     private func configure() {
-        
-        self.clipsToBounds = true
-        self.backgroundColor = .clear
-        self.setTitleColor(.label, for: .normal)
         translatesAutoresizingMaskIntoConstraints = false
+        setTitleColor(.white, for: .normal)
+        clipsToBounds     = true
+        backgroundColor   = .clear
+        titleLabel?.font  = UIFont.systemFont(ofSize: 18, weight: .bold)
+        tintColor         = .white
+        layer.borderColor = UIColor.white.cgColor
+        backgroundColor   = .clear
+        layer.borderWidth = 2
     }
     
 }

@@ -9,32 +9,40 @@ import UIKit
 
 class MenuCell: UITableViewCell {
 
-    static let reuseID = "MenuCell"
+    //MARK: - Properties
     
+    static let reuseID = "MenuCell"
     let cellImage      = UIImageView()
     let cellLabel      = TitleLabel(textAlignment: .left, fontSize: 20)
         
+    //MARK: - Class Funcs
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
+    
     private func configure() {
         contentView.isUserInteractionEnabled = true
-        addSubviews(cellImage, cellLabel)
-        self.backgroundColor = BackgroundColors.secondaryBackground
+        backgroundColor = BackgroundColors.secondaryBackground
       
         cellLabel.textColor  = .label
         cellLabel.translatesAutoresizingMaskIntoConstraints = false
         cellImage.translatesAutoresizingMaskIntoConstraints = false
-       
+    }
+    
+    private func layoutUI() {
+        addSubviews(cellImage, cellLabel)
         let padding: CGFloat = 10
+        
         NSLayoutConstraint.activate([
-            
             cellImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding * 2),
             cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
@@ -47,4 +55,5 @@ class MenuCell: UITableViewCell {
             cellLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
         ])
     }
+    
 }

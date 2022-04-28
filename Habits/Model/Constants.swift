@@ -16,6 +16,8 @@ enum Labels {
     static let placeholder               = "  Eg. Workout, meditate, etc"
     static let notificationDeniedTitle   = "Permission Denied"
     static let notificationDeniedMessage = "To enable notifications please activate them in the settings for this app"
+    static let daysArray                 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    static let monthArray                = ["01","02","03","04","05","06","07","08","09","10","11","12",]
 }
 
 
@@ -33,7 +35,6 @@ enum SFSymbols {
     static let flame                = UIImage(systemName: "flame.fill")
     static let chart                = UIImage(systemName: "chart.bar.xaxis")
 }
-
 
 enum GradientColors {
     static let clearGradient        = [UIColor.clear.cgColor, UIColor.clear.cgColor]

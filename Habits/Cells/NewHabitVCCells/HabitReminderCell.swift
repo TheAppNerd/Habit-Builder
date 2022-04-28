@@ -66,6 +66,7 @@ class HabitReminderCell: UITableViewCell {
         
         let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         for index in 0...6 {
+            //change name of day button
             let dayButton = GradientButton()
             dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
             dayButton.setTitle(weekArray[index], for: .normal)

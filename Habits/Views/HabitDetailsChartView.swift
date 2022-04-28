@@ -8,59 +8,64 @@
 import UIKit
 
 class HabitDetailsChartView: UIView {
-    
    
-    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let layout = UICollectionViewFlowLayout()
+    //MARK: - Properties
+    var collectionView  = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let layout          = UICollectionViewFlowLayout()
     var collectionImage = UIImageView()
+    let collectionLabel = BodyLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
+    let infoLabel       = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 12)
+    let line            = UIView()
+    
+    //MARK: - Class Funcs
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        layoutUI()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
+    
+    //MARK: - Functions
     func setColor(colors: [CGColor] ) {
-        DispatchQueue.main.async {
-            [weak self] in
+        DispatchQueue.main.async { [weak self] in
             self?.collectionImage.image = UIImage(systemName: "chart.bar.xaxis")?.addTintGradient(colors: colors)
         }
     }
     
+    
      func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-         backgroundColor = BackgroundColors.secondaryBackground
+        backgroundColor    = BackgroundColors.secondaryBackground
         layer.cornerRadius = 10
         
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection   = .horizontal
         layout.estimatedItemSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-         collectionView.backgroundColor = BackgroundColors.secondaryBackground
+        collectionView.backgroundColor = BackgroundColors.secondaryBackground
         collectionView.isScrollEnabled = true
-        
-        
-        let line = UIView()
+       
         line.translatesAutoresizingMaskIntoConstraints = false
         line.backgroundColor = .label
         
         collectionImage.layer.cornerRadius = 10
         collectionImage.backgroundColor = UIColor.clear
         collectionImage.translatesAutoresizingMaskIntoConstraints = false
-        
-        let collectionLabel = BodyLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
-        let infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 12)
-        
-        self.addSubviews(collectionImage, collectionLabel, infoLabel, collectionView, line)
+    }
+    
+    private func layoutUI() {
+        addSubviews(collectionImage, collectionLabel, infoLabel, collectionView, line)
         let padding: CGFloat = 20
+        
         NSLayoutConstraint.activate([
-            
             collectionImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding / 2),
             collectionImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             collectionImage.trailingAnchor.constraint(equalTo: collectionLabel.leadingAnchor, constant: -5),
@@ -88,4 +93,5 @@ class HabitDetailsChartView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding / 2)
         ])
     }
+    
 }
