@@ -9,6 +9,8 @@ import UIKit
 
 
 class EmptyStateView: UIView {
+    
+    //MARK: - Properties
 
     let message = TitleLabel(textAlignment: .center, fontSize: 20)
     let secondaryMessage = TitleLabel(textAlignment: .center, fontSize: 16)
@@ -16,27 +18,26 @@ class EmptyStateView: UIView {
     let addHabitButton = GradientButton(colors: Gradients().lightBlueGradient)
     let howToUseButton = GradientButton(colors: Gradients().purpleGradient)
     
+    //MARK: - Class Funcs
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-       
+        layoutUI()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
     
     private func configure() {
-        addSubviews(message, secondaryMessage, imageView, addHabitButton, howToUseButton)
-        
-        //move to constants
-        
-        message.text = "Welcome to Habit Builder!"
+    // TODO: -  move to constants
+        message.text                      = "Welcome to Habit Builder!"
+        secondaryMessage.text             = "There are no habits here yet"
                 
-        secondaryMessage.text = "There are no habits here yet"
-                
-        
         message.textColor                 = .label
         secondaryMessage.textColor        = .secondaryLabel
         imageView.image                   = UIImage(named: "IconClear")
@@ -53,7 +54,12 @@ class EmptyStateView: UIView {
         howToUseButton.setImage(UIImage(systemName: "map.fill"), for: .normal)
         howToUseButton.setTitle(" How to Use", for: .normal)
         howToUseButton.tintColor = .white
-
+    }
+    
+    
+    private func layoutUI() {
+        addSubviews(message, secondaryMessage, imageView, addHabitButton, howToUseButton)
+        
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -150),
@@ -83,4 +89,5 @@ class EmptyStateView: UIView {
             howToUseButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
+    
 }

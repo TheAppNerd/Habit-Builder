@@ -325,7 +325,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         
         // TODO: move all view type data to the cell
         
-        for (index,button) in cell.dayButton.enumerated() {
+        for (index,button) in cell.dayButtons.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
             button.setTitle("\(DateModel.weeklyDayArray()[index])", for: .normal)
             button.setImage(nil, for: .normal)
@@ -348,7 +348,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         }
         
         var completedDays = 0
-        for button in cell.dayButton {
+        for button in cell.dayButtons {
             if button.image(for: .normal) == SFSymbols.checkMark {
                 completedDays += 1
             }

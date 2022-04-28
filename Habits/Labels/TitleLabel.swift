@@ -9,6 +9,7 @@ import UIKit
 
 class TitleLabel: UILabel {
 
+    //MARK: - Class Funcs
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -24,12 +25,13 @@ class TitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
     private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
         textColor                 = .white
         adjustsFontSizeToFitWidth = true
-        
         minimumScaleFactor        = 0.9
         lineBreakMode             = .byTruncatingTail
-        translatesAutoresizingMaskIntoConstraints = false
     }
+    
 }

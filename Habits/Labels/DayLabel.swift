@@ -9,6 +9,8 @@ import UIKit
 
 class DayLabel: UILabel {
     
+    //MARK: - Class Funcs
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -23,6 +25,8 @@ class DayLabel: UILabel {
         self.text = text
     }
     
+    //MARK: - Functions
+    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         textColor                 = .white
@@ -31,7 +35,6 @@ class DayLabel: UILabel {
         adjustsFontSizeToFitWidth = true
         layer.masksToBounds       = true
         layer.cornerRadius        = 5
-        
     }
     
 }

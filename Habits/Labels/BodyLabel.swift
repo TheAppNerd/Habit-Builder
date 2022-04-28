@@ -9,6 +9,8 @@ import UIKit
 
 class BodyLabel: UILabel {
 
+    //MARK: - Class Funcs
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -25,8 +27,10 @@ class BodyLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Functions
     
     private func configure() {
+        translatesAutoresizingMaskIntoConstraints = false
         textColor                         = .label
         font                              = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontSizeToFitWidth         = true
@@ -34,6 +38,6 @@ class BodyLabel: UILabel {
         minimumScaleFactor                = 0.75
         lineBreakMode                     = .byWordWrapping
         adjustsFontSizeToFitWidth         = true
-        translatesAutoresizingMaskIntoConstraints = false
     }
+    
 }
