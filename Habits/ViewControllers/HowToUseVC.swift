@@ -9,25 +9,36 @@ import UIKit
 
 class HowToUseVC: UIViewController {
     
+    //MARK: - Properties
+    
     let pageControl = PageControl()
     let scrollView = ScrollView()
     
     //need a page constant for all this and pagecontrol
     
+    //MARK: - Class Funcs
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
         scrollView.delegate = self
-        
     }
+    
+    override func viewDidLayoutSubviews() {
+        if scrollView.subviews.count == 2 {
+            configureScrollView()
+        }
+    }
+    
+    //MARK: - Functions
     
     private func configureLayout() {
         view.backgroundColor = BackgroundColors.mainBackGround
-        view.addSubview(pageControl)
+        view.addSubviews(pageControl, scrollView)
         view.addSubview(scrollView)
+
+        // TODO: - move this elsewhere
         pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
-        
-        
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -48,63 +59,19 @@ class HowToUseVC: UIViewController {
         scrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
     }
     
-    override func viewDidLayoutSubviews() {
-        if scrollView.subviews.count == 2 {
-            configureScrollView()
-        }
-    }
+  
     
     //move all these to constants
     
     private func configureScrollView() {
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 6, height: scrollView.frame.size.height)
-        let imageNames: [String] = ["addHabitScreen", "homeScreen", "detailsScreen", "sideMenuScreen", "quoteScreen", "darkModeScreen"]
        
-        let helpText: [String] = [
-        """
-Create a habit you want
-to work on and set reminders
-to stay on track.
-
-""",
-        """
-Tap a date to mark off a habit
-or select the background to
-load the habits details.
-
-""",
-        """
-Tap a date on the calendar to mark off
-a habit or tap edit in the top right of
-the screen to update any habit details.
-
-""",
-        """
-Share, review, edit and
-get detailed information
-about the app.
-
-""",
-        """
-Browse through quotes from famous
-figures throughout history.
-
-""",
-        """
-Alternate between
-light & dark mode.
-
-"""
-        
-        
-        ]
-        
-        for num in 0...imageNames.count - 1 {
+        for num in 0...helpPage.imageNames.count - 1 {
             let page             = UIView(frame: CGRect(x: CGFloat(num) * view.frame.size.width, y: 0, width: view.frame.size.width, height: scrollView.frame.size.height))
-            page.addGradient(colors: GradientArray.array[num])
+            page.addGradient(colors: gradients.array[num])
             
             let label                       = UILabel()
-            label.text                      = helpText[num]
+            label.text                      = helpPage.helpText[num]
             label.textAlignment             = .center
             label.font                      = UIFont.systemFont(ofSize: 18, weight: .bold)
             label.numberOfLines = 6
@@ -114,7 +81,7 @@ light & dark mode.
             
             let imageView         = UIImageView()
             imageView.contentMode = .scaleAspectFit
-            imageView.image       = UIImage(named: imageNames[num])
+            imageView.image       = UIImage(named: helpPage.imageNames[num])
             imageView.translatesAutoresizingMaskIntoConstraints = false
             
             page.addSubviews(label, imageView)

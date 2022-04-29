@@ -12,23 +12,29 @@ protocol passFrequencyData: AnyObject {
 }
 
 class HabitFrequencyCell: UITableViewCell {
-    weak var delegate: passFrequencyData?
-    static let reuseID = "HabitFrequencyCell"
-
     
-    let frequencyStackView = UIStackView()
+    //MARK: - Properties
+    
+    // TODO: - move all reuseID's to constants
+    weak var delegate: passFrequencyData?
+    static let reuseID       = "HabitFrequencyCell"
+    let frequencyStackView   = UIStackView()
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     var frequencyButtonArray = [GradientButton]()
 
+    //MARK: - Class Funcs
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - Functions
     
     // TODO: move funcs out of cell
     @objc func frequencyButtonPressed(_ sender: GradientButton) {
@@ -48,13 +54,13 @@ class HabitFrequencyCell: UITableViewCell {
     }
     
     private func configure() {
-        backgroundColor = BackgroundColors.secondaryBackground
-        generator.prepare()
-        self.layer.cornerRadius = 10
+        generator.prepare() // TODO: - move this out of here as @objc func is leaving
+        backgroundColor                 = BackgroundColors.secondaryBackground
+        layer.cornerRadius              = 10
         frequencyStackView.translatesAutoresizingMaskIntoConstraints = false
-        frequencyStackView.axis = .horizontal
+        frequencyStackView.axis         = .horizontal
         frequencyStackView.distribution = .fillEqually
-        frequencyStackView.spacing = 6
+        frequencyStackView.spacing      = 6
     
         for count in 0...6 {
             let frequencyButton = GradientButton()
@@ -66,8 +72,10 @@ class HabitFrequencyCell: UITableViewCell {
             frequencyStackView.addArrangedSubview(frequencyButton)
         }
     
+    }
+    
+    private func layoutUI() {
         contentView.addSubviews(frequencyStackView)
-        
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
@@ -77,4 +85,5 @@ class HabitFrequencyCell: UITableViewCell {
             frequencyStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
         ])
     }
+    
 }

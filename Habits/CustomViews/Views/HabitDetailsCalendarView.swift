@@ -38,7 +38,7 @@ class HabitDetailsCalendarView: UIView {
         }
         calendarView.appearance.selectionColor = UIColor(cgColor: colors[0])
         calendarView.visibleCells().forEach { (cell) in
-            cell.addGradient(colors: GradientArray.array[5])
+            cell.addGradient(colors: gradients.array[5])
         }
     }
     

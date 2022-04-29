@@ -44,7 +44,7 @@ class ChartModel {
         }
         var chartArray: [ChartYear] = []
         for year in chartYears {
-            let chartYear = ChartYear(year: year.key, monthCount: year.value, color: GradientArray.array[Int(habit.gradient)])
+            let chartYear = ChartYear(year: year.key, monthCount: year.value, color: gradients.array[Int(habit.gradient)])
             chartArray.append(chartYear)
         }
         chartArray = chartArray.sorted { $0.year < $1.year }

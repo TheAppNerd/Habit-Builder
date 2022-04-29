@@ -38,7 +38,6 @@
 		FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60772762EA0C00A1A804 /* AlarmItem.swift */; };
 		FA3E607D2766CF8100A1A804 /* CoreDataMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E607C2766CF8100A1A804 /* CoreDataMethods.swift */; };
 		FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60842769AAC500A1A804 /* ChartModel.swift */; };
-		FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */; };
 		FA798DA227DF0433005D647B /* AppStoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */; };
 		FA798DA427E03C60005D647B /* UIDevice + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA798DA327E03C60005D647B /* UIDevice + Ext.swift */; };
 		FA79D7532818C1C8004E0CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79D7522818C1C8004E0CAC /* Assets.xcassets */; };
@@ -80,7 +79,6 @@
 		FA1C7302263636D800E63CBE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1C7305263636D800E63CBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA1C7307263636D800E63CBE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FA1C7313263636DA00E63CBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA1C73232636406300E63CBE /* HabitHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitHomeVC.swift; sourceTree = "<group>"; };
 		FA1C73282636491A00E63CBE /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
 		FA1C732F26365AFC00E63CBE /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
@@ -108,11 +106,11 @@
 		FA3E607A2766C3C400A1A804 /* HabitEntities.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitEntities.xcdatamodel; sourceTree = "<group>"; };
 		FA3E607C2766CF8100A1A804 /* CoreDataMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMethods.swift; sourceTree = "<group>"; };
 		FA3E60842769AAC500A1A804 /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
-		FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewManager.swift; sourceTree = "<group>"; };
 		FA798DA327E03C60005D647B /* UIDevice + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice + Ext.swift"; sourceTree = "<group>"; };
 		FA79D7522818C1C8004E0CAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA79D754281A22B8004E0CAC /* ChartProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartProgressView.swift; sourceTree = "<group>"; };
+		FA79D75F281BA871004E0CAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/alex/Documents/xcode projects/Personal Projects/Habits/Support/Info.plist"; sourceTree = "<absolute>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
 		FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppVC.swift; sourceTree = "<group>"; };
@@ -161,6 +159,7 @@
 				838E44C3241E759CB1015ADF /* Pods_Habits.framework */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		8ECFE9FDD09F07713240F490 /* Pods */ = {
@@ -169,18 +168,14 @@
 				2FF57C4A93B664F2B8DAF532 /* Pods-Habits.debug.xcconfig */,
 				2B9A87DC47397BE1B1C251BF /* Pods-Habits.release.xcconfig */,
 			);
-			path = Pods;
+			name = Pods;
+			path = ../Pods;
 			sourceTree = "<group>";
 		};
 		FA1C72F9263636D800E63CBE = {
 			isa = PBXGroup;
 			children = (
 				FA1C7304263636D800E63CBE /* Habits */,
-				FA79D7522818C1C8004E0CAC /* Assets.xcassets */,
-				FA29042D26F00F5A00B7B00A /* Support */,
-				FA1C7303263636D800E63CBE /* Products */,
-				8ECFE9FDD09F07713240F490 /* Pods */,
-				640066CB0149AB90DF9191D8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -190,48 +185,31 @@
 				FA1C7302263636D800E63CBE /* Habits.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		FA1C7304263636D800E63CBE /* Habits */ = {
 			isa = PBXGroup;
 			children = (
 				FABD430E27A559B800612896 /* Habits.entitlements */,
+				FA79D758281BA19A004E0CAC /* ViewControllers */,
+				FA1C7327263648F400E63CBE /* Cells */,
+				FA79D759281BA217004E0CAC /* CustomViews */,
+				FA212C4B263A3DCD00BFDA3F /* Model */,
 				FA6A49F9275EBDE00084EFCC /* Utilities */,
 				FAF4E6D0264A309E0029E50D /* Extensions */,
-				FA212C4B263A3DCD00BFDA3F /* Model */,
-				FA212C48263917FE00BFDA3F /* TextFields */,
-				FA1C73412637CD1C00E63CBE /* Views */,
-				FA1C733626379DC900E63CBE /* Buttons */,
-				FA1C732E263659D100E63CBE /* Labels */,
-				FA1C7327263648F400E63CBE /* Cells */,
-				FA1C73222636404500E63CBE /* Screens */,
-				FA29042C26F00F1E00B7B00A /* Controller */,
+				FA29042D26F00F5A00B7B00A /* Support */,
+				8ECFE9FDD09F07713240F490 /* Pods */,
+				640066CB0149AB90DF9191D8 /* Frameworks */,
 			);
 			path = Habits;
-			sourceTree = "<group>";
-		};
-		FA1C73222636404500E63CBE /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				FA1C73232636406300E63CBE /* HabitHomeVC.swift */,
-				FA360BEE26C603F400884B90 /* NewHabitVC.swift */,
-				FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */,
-				FAF4E713265F43270029E50D /* HowToUseVC.swift */,
-				FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */,
-				FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */,
-				FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */,
-				FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */,
-			);
-			path = Screens;
 			sourceTree = "<group>";
 		};
 		FA1C7327263648F400E63CBE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				FA1C73282636491A00E63CBE /* HabitCell.swift */,
-				FAF4E6D9264A48EC0029E50D /* MenuCell.swift */,
-				FAFF09AD27046E93008E8569 /* ChartCollectionViewCell.swift */,
-				FA360BF026C6058500884B90 /* NewHabitVCCells */,
+				FA79D761281BAA9C004E0CAC /* CollectionViewCells */,
+				FA79D760281BAA95004E0CAC /* TableViewCells */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -280,21 +258,12 @@
 		FA212C4B263A3DCD00BFDA3F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */,
 				FA224D7826F4177A005CC9F1 /* CoreData */,
-				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
-				FA360BEC26C4C86300884B90 /* Gradients.swift */,
-				FA29042A26EF6B9100B7B00A /* DarkMode.swift */,
-				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
-				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
-				FA29E0DB26FAA53300426F97 /* DateModel.swift */,
 				FA3E60772762EA0C00A1A804 /* AlarmItem.swift */,
 				FAFF09AB2702E3FA008E8569 /* ChartYear.swift */,
-				FA6A49FC275EC49C0084EFCC /* EmailFeedback.swift */,
 				FA3E60842769AAC500A1A804 /* ChartModel.swift */,
 				FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */,
 				FAE8EAD427B35CE600FBA6F3 /* QuotesManager.swift */,
-				FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -308,21 +277,17 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
-		FA29042C26F00F1E00B7B00A /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
 		FA29042D26F00F5A00B7B00A /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				FA1C7303263636D800E63CBE /* Products */,
 				FA1C7305263636D800E63CBE /* AppDelegate.swift */,
 				FA1C7307263636D800E63CBE /* SceneDelegate.swift */,
-				FA1C7313263636DA00E63CBE /* Info.plist */,
+				FA79D75F281BA871004E0CAC /* Info.plist */,
+				FA79D7522818C1C8004E0CAC /* Assets.xcassets */,
 			);
-			path = Support;
+			name = Support;
+			path = ../Support;
 			sourceTree = "<group>";
 		};
 		FA360BF026C6058500884B90 /* NewHabitVCCells */ = {
@@ -341,13 +306,97 @@
 		FA6A49F9275EBDE00084EFCC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
-				FAF4E715265F445E0029E50D /* PageControl.swift */,
-				FAF4E717265F456E0029E50D /* ScrollView.swift */,
+				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
+				FA29E0DB26FAA53300426F97 /* DateModel.swift */,
+				FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */,
+				FA29042A26EF6B9100B7B00A /* DarkMode.swift */,
+				FA360BEC26C4C86300884B90 /* Gradients.swift */,
+				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
+				FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */,
+				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
 				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
-				FA79D754281A22B8004E0CAC /* ChartProgressView.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FA79D758281BA19A004E0CAC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C73232636406300E63CBE /* HabitHomeVC.swift */,
+				FA360BEE26C603F400884B90 /* NewHabitVC.swift */,
+				FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */,
+				FAF4E713265F43270029E50D /* HowToUseVC.swift */,
+				FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */,
+				FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */,
+				FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */,
+				FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		FA79D759281BA217004E0CAC /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				FA79D765281BEF07004E0CAC /* PageControls */,
+				FA79D764281BAC46004E0CAC /* DatePickers */,
+				FA79D763281BAC35004E0CAC /* ScrollViews */,
+				FA79D762281BABFB004E0CAC /* ProgressViews */,
+				FA1C733626379DC900E63CBE /* Buttons */,
+				FA212C48263917FE00BFDA3F /* TextFields */,
+				FA1C732E263659D100E63CBE /* Labels */,
+				FA1C73412637CD1C00E63CBE /* Views */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		FA79D760281BAA95004E0CAC /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C73282636491A00E63CBE /* HabitCell.swift */,
+				FAF4E6D9264A48EC0029E50D /* MenuCell.swift */,
+				FA360BF026C6058500884B90 /* NewHabitVCCells */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		FA79D761281BAA9C004E0CAC /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				FAFF09AD27046E93008E8569 /* ChartCollectionViewCell.swift */,
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		FA79D762281BABFB004E0CAC /* ProgressViews */ = {
+			isa = PBXGroup;
+			children = (
+				FA79D754281A22B8004E0CAC /* ChartProgressView.swift */,
+			);
+			path = ProgressViews;
+			sourceTree = "<group>";
+		};
+		FA79D763281BAC35004E0CAC /* ScrollViews */ = {
+			isa = PBXGroup;
+			children = (
+				FAF4E717265F456E0029E50D /* ScrollView.swift */,
+			);
+			path = ScrollViews;
+			sourceTree = "<group>";
+		};
+		FA79D764281BAC46004E0CAC /* DatePickers */ = {
+			isa = PBXGroup;
+			children = (
+				FAF4E6CA2648F30B0029E50D /* DatePicker.swift */,
+			);
+			path = DatePickers;
+			sourceTree = "<group>";
+		};
+		FA79D765281BEF07004E0CAC /* PageControls */ = {
+			isa = PBXGroup;
+			children = (
+				FAF4E715265F445E0029E50D /* PageControl.swift */,
+			);
+			path = PageControls;
 			sourceTree = "<group>";
 		};
 		FAF4E6D0264A309E0029E50D /* Extensions */ = {
@@ -475,7 +524,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA6A49FD275EC49C0084EFCC /* EmailFeedback.swift in Sources */,
 				FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HowToUseVC.swift in Sources */,

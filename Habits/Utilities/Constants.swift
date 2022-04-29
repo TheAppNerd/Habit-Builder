@@ -71,3 +71,57 @@ enum feedback {
     static let emailAddress         = "Alex@appNerd.com.au"
     static let feedbackSubject      = "Habit Builder Feedback"
 }
+
+enum icons {
+    static let iconArray = ["bicycle", "blender", "deadline", "desktopcomputer", "dumbbell", "guitar", "hammer", "jogging", "kettlebell", "meditation", "notebook", "painting", "pills", "plantpot", "reading", "refund", "shower", "taoism", "tea", "tooth", "vegetable", "washingmachine", "water", "watermelon", "alarmclock", "music", "pillow", "laughing"]
+}
+
+enum menuPage {
+    
+    static let menuTitles = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode", "App Settings"]
+    
+    static let menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle", "gearshape"]
+    
+}
+
+enum helpPage {
+    static let imageNames = ["addHabitScreen", "homeScreen", "detailsScreen", "sideMenuScreen", "quoteScreen", "darkModeScreen"]
+    
+    static let helpText = [
+        """
+Create a habit you want
+to work on and set reminders
+to stay on track.
+
+""",
+        """
+Tap a date to mark off a habit
+or select the background to
+load the habits details.
+
+""",
+        """
+Tap a date on the calendar to mark off
+a habit or tap edit in the top right of
+the screen to update any habit details.
+
+""",
+        """
+Share, review, edit and
+get detailed information
+about the app.
+
+""",
+        """
+Browse through quotes from famous
+figures throughout history.
+
+""",
+        """
+Alternate between
+light & dark mode.
+
+"""
+        ]
+}
+

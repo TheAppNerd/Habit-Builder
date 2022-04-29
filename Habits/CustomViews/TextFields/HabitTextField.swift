@@ -31,10 +31,13 @@ class HabitTextField: UITextField {
         adjustsFontSizeToFitWidth = true
         minimumFontSize           = 12
         layer.cornerRadius        = 10
-        backgroundColor           = .secondarySystemBackground
+        backgroundColor           = BackgroundColors.secondaryBackground
         autocorrectionType        = .no
         returnKeyType             = .done
         clearButtonMode           = .whileEditing
+        placeholder               = Labels.placeholder
+        layer.borderColor         = UIColor.red.cgColor
+        text                      = ""
     }
     
     

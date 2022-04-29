@@ -10,6 +10,8 @@ import CoreData
 
 class NewHabitVC: UITableViewController  {
     
+    //MARK: - Properties
+    
     var habitEntity: HabitEnt? = nil
     
     var habitIndex: Int? {
@@ -30,8 +32,9 @@ class NewHabitVC: UITableViewController  {
     var colors                = [CGColor]()
     var colorIndex            = Int()
     var iconString: String    = ""
-    
     var alarmItem             = AlarmItem(alarmActivated: false, title: "", days: "", hour: 0, minute: 0)
+    
+    //MARK: - Class Funcs
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +50,9 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
+    
+    //MARK: - Functions
+    
     func loadData() {
             if habitEntity != nil {
                 title = "Edit Habit" //move to constants
@@ -56,7 +62,7 @@ class NewHabitVC: UITableViewController  {
             previousName    = habit.name ?? ""
             frequency       = Int(habit.frequency)
             colorIndex      = Int(habit.gradient)
-            colors          = GradientArray.array[colorIndex]
+            colors          = gradients.array[colorIndex]
             iconString      = habit.icon ?? ""
             
                 alarmItem.title = habit.name ?? ""
@@ -231,7 +237,8 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    // MARK: - Table view data source
+    // MARK: - TableView - UITableViewDelegate, UITableViewDataSource
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 6
     }
@@ -297,16 +304,16 @@ class NewHabitVC: UITableViewController  {
             cell.delegate = self
            
             let userNotifications = UserNotifications()
-            userNotifications.confirmRegisteredNotifications(segment: cell.dateSegment)
+            userNotifications.confirmRegisteredNotifications(segment: cell.alarmSegment)
         
             
             switch alarmItem.alarmActivated {
-            case true: cell.dateSegment.selectedSegmentIndex = 1
+            case true: cell.alarmSegment.selectedSegmentIndex = 1
                 cell.datePicker.date = DateFuncs.setupDatePickerDate(hour: alarmItem.hour, minute: alarmItem.minute)
-            case false: cell.dateSegment.selectedSegmentIndex = 0
+            case false: cell.alarmSegment.selectedSegmentIndex = 0
             }
             
-            cell.dateSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
+            cell.alarmSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
             cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
             print("testitem\(alarmItem.days)")
             var boolArray = habitEntities.convertStringArraytoBoolArray(alarmItem: alarmItem)
@@ -347,7 +354,6 @@ extension NewHabitVC: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         name = textField.text ?? ""
-       
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

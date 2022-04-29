@@ -9,35 +9,38 @@ import UIKit
 
 class AboutAppVC: UIViewController {
     
+    //MARK: - Properties
+    
     let iconImage       = UIImageView()
     let versionLabel    = UILabel()
     let nameLabel       = UILabel()
     let tableView       = UITableView()
     let detailsView     = UIView()
-    
     let iconArray       = ["linkedIn", "Instagram", "GitHub"]
     let usernameArray   = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername]
-    
     let thanksArray     = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
     let urlArray        = [SocialMedia.fSCalendarURL, SocialMedia.flatIconURL, SocialMedia.appBreweryURL, SocialMedia.seanAllenURL]
     
     
+    //MARK: - Class Funcs
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        layoutUI()
         configureTableView()
         tableViewHeaderPadding()
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame.size.height = tableView.contentSize.height
         iconImage.layer.cornerRadius  = iconImage.frame.size.width / 2
-        
     }
     
+    //MARK: - Functions
     
+    // TODO: - move externally.
     func tableViewHeaderPadding() {
         //to rectify xcode tableview error
         if #available(iOS 15.0, *) {
@@ -61,18 +64,15 @@ class AboutAppVC: UIViewController {
     
     
     private func configure() {
-//        let count = 0...GradientArray.array.count - 1
-//        let random = count.randomElement() ?? 5
-//        view.addGradient(colors: GradientArray.array[random])
         view.backgroundColor = BackgroundColors.mainBackGround
         
-        detailsView.backgroundColor = BackgroundColors.secondaryBackground
-        detailsView.layer.cornerRadius = 10
+        detailsView.backgroundColor      = BackgroundColors.secondaryBackground
+        detailsView.layer.cornerRadius   = 10
         detailsView.translatesAutoresizingMaskIntoConstraints = false
         
-        iconImage.image               = UIImage(named: "IconClear")
-        iconImage.backgroundColor = BackgroundColors.secondaryBackground
-        iconImage.layer.masksToBounds = true
+        iconImage.image                  = UIImage(named: "IconClear")
+        iconImage.backgroundColor        = BackgroundColors.secondaryBackground
+        iconImage.layer.masksToBounds    = true
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         
         versionLabel.text                = " Habits - Version \(UIApplication.appVersion!)  "
@@ -88,13 +88,15 @@ class AboutAppVC: UIViewController {
         nameLabel.backgroundColor        = .clear
         nameLabel.textColor              = .label
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+    }
+    
+    
+    private func layoutUI() {
         view.addSubviews(detailsView, iconImage, versionLabel, nameLabel, tableView)
         let padding: CGFloat = 5
         
         NSLayoutConstraint.activate([
             detailsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-//            detailsView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -view.frame.size.height / 4),
             detailsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             detailsView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             detailsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -104,7 +106,6 @@ class AboutAppVC: UIViewController {
             iconImage.centerXAnchor.constraint(equalTo: detailsView.centerXAnchor),
             iconImage.heightAnchor.constraint(equalTo: detailsView.heightAnchor, multiplier: 0.5),
             iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor),
-            //iconImage.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 5),
             
             nameLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: padding),
             nameLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: padding ),
@@ -113,7 +114,6 @@ class AboutAppVC: UIViewController {
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
             
             versionLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: padding),
-//            versionLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor, constant: 10),
             versionLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -padding),
             versionLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -padding),
             versionLabel.heightAnchor.constraint(equalToConstant: 20),
@@ -126,19 +126,22 @@ class AboutAppVC: UIViewController {
     }
     
     
+    // TODO: - move outside vc
     func loadSocialMedia(urlString: String) {
         guard let url = URL(string: urlString) else { return }
         UIApplication.shared.open(url)
     }
+    
 }
 
-//MARK: - UITableViewDelegate, UITableViewDataSource
+
+//MARK: - TableView - UITableViewDelegate, UITableViewDataSource
+
 extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
@@ -153,15 +156,14 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseID) as! MenuCell
         if indexPath[0] == 0 {
-            cell.cellLabel.text = usernameArray[indexPath.row]
+            cell.cellLabel.text  = usernameArray[indexPath.row]
             cell.cellImage.image = UIImage(named: iconArray[indexPath.row])
         } else {
-            cell.cellImage.image = UIImage(systemName: "heart.circle")?.addTintGradient(colors: GradientArray.array[indexPath.row])
-            cell.cellLabel.text = thanksArray[indexPath.row]
+            cell.cellImage.image = UIImage(systemName: "heart.circle")?.addTintGradient(colors: gradients.array[indexPath.row])
+            cell.cellLabel.text  = thanksArray[indexPath.row]
         }
-        
-        cell.cellLabel.font = UIFont.systemFont(ofSize: 12)
-        cell.accessoryType = .disclosureIndicator
+        cell.cellLabel.font      = UIFont.systemFont(ofSize: 12)
+        cell.accessoryType       = .disclosureIndicator
         return cell
     }
     

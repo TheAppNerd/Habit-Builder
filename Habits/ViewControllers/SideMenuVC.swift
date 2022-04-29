@@ -13,20 +13,20 @@ protocol SettingsPush {
 
 class SideMenuVC: UIViewController {
     
+    
+    //MARK: - Properties
+    
     let emailFeedback = EmailFeedback()
     let tableView = UITableView()
     var delegate: SettingsPush?
+    
+    
+    //MARK: - Class Funcs
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
     }
-    
-    //add all these to constants. make an array of constants in constants tab 
-    
-    let menuItems  = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode", "App Settings"]
-    var menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle", "gearshape"]
-    
     
     func configureTableView() {
         tableView.backgroundColor    = BackgroundColors.secondaryBackground
@@ -41,20 +41,22 @@ class SideMenuVC: UIViewController {
     
 }
 
-
+//MARK: - TableView - UITableViewDelegate, UITableViewDataSource
 extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuItems.count
+        return menuPage.menuTitles.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell             = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseID) as! MenuCell
-        if indexPath.row < 7 {
-        cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])?.addTintGradient(colors: GradientArray.array[indexPath.row])
+        if indexPath.row < 7 { // TODO: -  stops nil error due to limited gradients. implement a better way to do this.
+            cell.cellImage.image = UIImage(systemName: menuPage.menuImages[indexPath.row])?.addTintGradient(colors: gradients.array[indexPath.row])
         } else {
-            cell.cellImage.image = UIImage(systemName: menuImages[indexPath.row])?.addTintGradient(colors: GradientArray.array[indexPath.row - 7])
+            cell.cellImage.image = UIImage(systemName: menuPage.menuImages[indexPath.row])?.addTintGradient(colors: gradients.array[indexPath.row - 7])
         }
-        cell.cellLabel.text  = menuItems[indexPath.row]
+        cell.cellLabel.text  = menuPage.menuTitles[indexPath.row]
         return cell
     }
     
@@ -62,17 +64,17 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
         let currentCell = tableView.cellForRow(at: indexPath)! as! MenuCell
         currentCell.cellImage.bounceAnimation()
         
-        
+        // TODO: - move all this to a func with enum?
         switch indexPath.row {
         case 0: shareApp()
         case 1: let urlStr = "\(SocialMedia.appLink)?action=write-review"
-                guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
-                UIApplication.shared.open(url)
+            guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
+            UIApplication.shared.open(url)
         case 2: emailFeedback.newEmail()
         case 3: delegate?.pushSettings(row: 3)
         case 4: guard let url = URL(string: SocialMedia.privacyPolicyURL) else { return }
             UIApplication.shared.open(url)
-                        
+            
         case 5: delegate?.pushSettings(row: 5)
         case 6:delegate?.pushSettings(row: 6)
         case 7: if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
@@ -81,24 +83,17 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
         default: print("error")
             
         }
-        //make a func here for push all the vcs so in habitVc can just call the func name.
     }
     
     //MARK: - Share Functionality
     
     func shareApp() {
-        //let shareString: String = "Look at this app I use"
         if let urlString = NSURL(string: SocialMedia.appLink) {
             let activityItems = [urlString]
-
-        
-        let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        
-//        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.markupAsPDF, UIActivity.ActivityType.print, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.saveToCameraRoll, UIActivity.ActivityType.openInIBooks]
-//
-        
-        activityViewController.isModalInPresentation = true
-        self.present(activityViewController, animated: true, completion: nil)
+            
+            let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+            activityViewController.isModalInPresentation = true
+            self.present(activityViewController, animated: true, completion: nil)
         }
     }
     

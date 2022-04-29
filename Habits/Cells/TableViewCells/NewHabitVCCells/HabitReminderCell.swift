@@ -13,32 +13,34 @@ protocol passDayData: AnyObject {
 
 class HabitReminderCell: UITableViewCell {
     
-    static let reuseID = "ReminderCell"
+    //MARK: - Properties
     
-    let generator            = UIImpactFeedbackGenerator(style: .medium)
+    static let reuseID    = "ReminderCell"
+    let generator         = UIImpactFeedbackGenerator(style: .medium)
     weak var delegate: passDayData?
+    let datePicker        = DatePicker()
+    let alarmSegment      = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
+    let dayStackView      = UIStackView() //rename
+    var hour              = Int()
+    var minute            = Int()
+    var buttonArray       = [GradientButton]()
+    var colors            = [CGColor]()
+    let rectangleGradient = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: gradients.array[5])
     
-    let datePicker       = DatePicker()
-    let dateSegment      = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
-    let dayStackView        = UIStackView() //rename
-    
-    
-    
-    var hour             = Int()
-    var minute           = Int()
-    var buttonArray      = [GradientButton]()
-    var colors           = [CGColor]()
-    let rectangleGradient     = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: GradientArray.array[5])
-    
+    //MARK: - Class Funcs
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    //MARK: - Functions
     
     @objc func timeChanged() {
         let time = DateFuncs.timeChanged(datePicker: datePicker)
@@ -49,27 +51,26 @@ class HabitReminderCell: UITableViewCell {
     
     private func configure() {
         backgroundColor = BackgroundColors.secondaryBackground
-        self.layer.cornerRadius = 10
+        layer.cornerRadius = 10
         generator.prepare()
         datePicker.addTarget(self, action: #selector(timeChanged), for: .valueChanged)
         
-        dateSegment.translatesAutoresizingMaskIntoConstraints = false
-        dateSegment.layer.cornerRadius       = 10
-        dateSegment.layer.borderWidth = 1.5
-        dateSegment.layer.borderColor = GradientArray.array[5][0]
-        dateSegment.setGradientColors()
+        alarmSegment.translatesAutoresizingMaskIntoConstraints = false
+        alarmSegment.layer.cornerRadius = 10
+        alarmSegment.layer.borderWidth  = 1.5
+        alarmSegment.layer.borderColor  = gradients.array[5][0]
+        alarmSegment.setGradientColors()
         
         dayStackView.translatesAutoresizingMaskIntoConstraints = false
         dayStackView.axis         = .horizontal
         dayStackView.distribution = .fillEqually
         dayStackView.spacing      = 6
         
-        let weekArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         for index in 0...6 {
             //change name of day button
             let dayButton = GradientButton()
             dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
-            dayButton.setTitle(weekArray[index], for: .normal)
+            dayButton.setTitle(Labels.daysArray[index], for: .normal)
             dayButton.setTitleColor(.secondaryLabel, for: .normal)
             dayButton.backgroundColor    = BackgroundColors.secondaryBackground
             dayButton.layer.cornerRadius = 10
@@ -78,21 +79,25 @@ class HabitReminderCell: UITableViewCell {
             buttonArray.append(dayButton)
         }
         
-        contentView.addSubviews(datePicker, dayStackView, dateSegment)
+       
+    }
+    
+    private func layoutUI() {
+        contentView.addSubviews(datePicker, dayStackView, alarmSegment)
         
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
             datePicker.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             datePicker.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: dateSegment.leadingAnchor, constant: -padding),
+            datePicker.trailingAnchor.constraint(equalTo: alarmSegment.leadingAnchor, constant: -padding),
             datePicker.bottomAnchor.constraint(equalTo: dayStackView.topAnchor, constant: -padding),
             datePicker.heightAnchor.constraint(equalToConstant: 45),
             
-            dateSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            dateSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
-            dateSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            dateSegment.bottomAnchor.constraint(equalTo: dayStackView.topAnchor, constant: -padding),
+            alarmSegment.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            alarmSegment.leadingAnchor.constraint(equalTo: datePicker.trailingAnchor, constant: padding),
+            alarmSegment.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            alarmSegment.bottomAnchor.constraint(equalTo: dayStackView.topAnchor, constant: -padding),
             
             dayStackView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: padding),
             dayStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),

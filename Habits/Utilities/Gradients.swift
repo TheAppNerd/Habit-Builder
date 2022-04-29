@@ -26,13 +26,8 @@ struct Gradients {
     
 }
 
-struct GradientArray {
-    
+enum gradients {
     static let array = [Gradients().pinkGradient, Gradients().orangeGradient, Gradients().limeGradient, Gradients().lightBlueGradient, Gradients().redGradient, Gradients().darkBlueGradient, Gradients().purpleGradient]
-    
 }
-
-    
-
 
 
