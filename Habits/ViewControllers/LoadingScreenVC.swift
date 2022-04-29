@@ -9,20 +9,23 @@ import UIKit
 
 class LoadingScreenVC: UIViewController {
     
-    let iconCircle = UIImageView(image: UIImage(named: "iconCircle")?.addTintGradient(colors: GradientArray.array[5]))
-    let icontick = UIImageView(image: UIImage(named: "iconTick")?.addTintGradient(colors: GradientArray.array[5]))
     
-   
+    //MARK: - Properties
     
+    let iconCircle = UIImageView(image: UIImage(named: "iconCircle")?.addTintGradient(colors: gradients.array[5]))
+    let icontick   = UIImageView(image: UIImage(named: "iconTick")?.addTintGradient(colors: gradients.array[5]))
+    
+   //MARK: - Class Funcs
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         iconCircle.rotate()
         presentHabitVC()
-
+        layoutUI()
     }
     
+    //MARK: -  Functions
     
     private func configure() {
         view.backgroundColor = BackgroundColors.mainBackGround
@@ -30,6 +33,10 @@ class LoadingScreenVC: UIViewController {
         iconCircle.translatesAutoresizingMaskIntoConstraints = false
         icontick.translatesAutoresizingMaskIntoConstraints = false
         
+        
+    }
+    
+    private func layoutUI() {
         view.addSubviews(iconCircle, icontick)
         
         NSLayoutConstraint.activate([

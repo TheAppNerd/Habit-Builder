@@ -9,25 +9,36 @@ import UIKit
 
 class HabitSaveCell: UITableViewCell {
     
+    //MARK: - Properties
+    
     static let reuseID = "SaveCell"
 
     let saveButton = GradientButton(colors: Gradients().darkBlueGradient)
     
+    
+    //MARK: - Class Funcs
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: - Functions
+    
     private func configure() {
-        
         saveButton.setTitle("Save Habit", for: .normal)
         saveButton.layer.cornerRadius = 10
-        contentView.addSubview(saveButton)
         
+    }
+    
+    private func layoutUI() {
+        contentView.addSubview(saveButton)
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
@@ -37,4 +48,5 @@ class HabitSaveCell: UITableViewCell {
             saveButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
+    
 }

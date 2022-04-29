@@ -12,7 +12,9 @@ protocol passIconData: AnyObject {
 }
 
 class HabitIconCell: UITableViewCell {
-    let generator            = UIImpactFeedbackGenerator(style: .medium)
+    
+    //MARK: - Properties
+    let generator      = UIImpactFeedbackGenerator(style: .medium)
     weak var delegate: passIconData?
     
     static let reuseID = "IconCell"
@@ -21,22 +23,23 @@ class HabitIconCell: UITableViewCell {
     let stackViewThree = UIStackView()
     let stackViewFour  = UIStackView()
     
-    var colors = [CGColor]()
+    var colors         = [CGColor]()
     
-    var buttonArray = [GradientButton]()
+    var buttonArray: [GradientButton] = []
     
-    //add these to constants?
-    var iconArray = ["bicycle", "blender", "deadline", "desktopcomputer", "dumbbell", "guitar", "hammer", "jogging", "kettlebell", "meditation", "notebook", "painting", "pills", "plantpot", "reading", "refund", "shower", "taoism", "tea", "tooth", "vegetable", "washingmachine", "water", "watermelon", "alarmclock", "music", "pillow", "laughing"]
-    
+    //MARK: - Class Funcs
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        layoutUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: - Functions
     
     private func configure() {
         backgroundColor = BackgroundColors.secondaryBackground
@@ -63,11 +66,13 @@ class HabitIconCell: UITableViewCell {
         }
         
         for count in 0...buttonArray.count - 1 {
-            buttonArray[count].setImage(UIImage(named: iconArray[count]), for: .normal)
+            buttonArray[count].setImage(UIImage(named: icons.iconArray[count]), for: .normal)
         }
-        
+    }
+    
+    
+    private func layoutUI() {
         contentView.addSubviews(stackViewOne, stackViewTwo, stackViewThree, stackViewFour)
-        
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
@@ -113,7 +118,7 @@ class HabitIconCell: UITableViewCell {
         
         for (index,item) in buttonArray.enumerated() {
             if item.isSelected == true {
-                delegate?.passIconData(iconString: iconArray[index])
+                delegate?.passIconData(iconString: icons.iconArray[index])
             }
         }
     }

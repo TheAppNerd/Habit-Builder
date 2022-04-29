@@ -11,27 +11,28 @@ import CoreData
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
-
+    //MARK: - Properties
+    
     let tableView            = UITableView()
     let menu                 = SideMenuVC()
     let generator            = UIImpactFeedbackGenerator(style: .medium) // TODO: move to protocol
     let emptyStateView       = EmptyStateView()
     var quoteButtonTapped    = Bool()
-    let habitEntities = CoreDataMethods() //need to rename
-    var quotesManager = QuotesManager()
+    let habitEntities        = CoreDataMethods() //need to rename
+    var quotesManager        = QuotesManager()
     var quotesArray: [Quote] = [] // TODO: move to func
-
     
+    // TODO: - rework side menu
     var isSlideInMenuPressed = false
     lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
+    
+    //MARK: - Class Funcs
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-     
-      timerForCloudKit() // TODO: move to completion closure
+        timerForCloudKit() // TODO: move to completion closure
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureMenuView()
         quoteButtonTapped = false
         
+        // TODO: - move these into own func
         quotesManager.delegate = self
         DispatchQueue.global(qos: .background).async {
             self.quotesManager.parse()
@@ -50,6 +52,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
         reviewCount()
         
     }
+    
+    //MARK: - Functions
     
     func showEmptyStateView() { // TODO:  move externally
         switch habitEntities.loadHabitArray().isEmpty {
@@ -61,7 +65,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     
     func configureViewController() {
-        self.navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
+        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         view.backgroundColor = BackgroundColors.mainBackGround
         generator.prepare()
     }
@@ -75,7 +79,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
         if retrievedCount.isMultiple(of: 10) {
             AppStoreManagerReview.requestReviewIfAppropriate()
         }
-        
         defaults.set(retrievedCount, forKey: "reviewCount")
     }
     
@@ -90,9 +93,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
         case true: navigationItem.setRightBarButtonItems([addButton], animated: true)
         case false: navigationItem.setRightBarButtonItems([addButton, quoteButton], animated: true)
         }
-        
-        
     }
+    
     
     
     func configureTableView() {
@@ -103,7 +105,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.frame           = view.bounds
         tableView.backgroundColor = BackgroundColors.mainBackGround
         tableView.separatorStyle  = .none
-        
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self
         
@@ -118,8 +119,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     func configureTableViewFooter() {
         tableView.register(QuoteView.self, forHeaderFooterViewReuseIdentifier: "header")
-        
-        
         let tableViewFooter = TableViewFooter()
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         tableView.tableFooterView = tableViewFooter
@@ -129,7 +128,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
-    
+    // TODO: - change this do a completion closure
     func timerForCloudKit() {
         var count = 0
         //This ensures data loads correctly when cloudkit loads.
@@ -149,6 +148,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     func pushSettings(row: Int) { // TODO: complete mess. redo this
+                                  //change to named funcs so I know what im calling?
         switch row {
         case 3: let vc = HowToUseVC()
             navigationController?.pushViewController(vc, animated: true)
@@ -164,54 +164,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
             print("Error")
         }
     }
-    
-    //use mark to seperate @objc funcs
-    
-    @objc func helpButtonPressed() {
-        let helpVC = HowToUseVC()
-        show(helpVC, sender: self)
-    }
-    
-    @objc func addHabitPressed() {
-        let newHabitVC = NewHabitVC()
-        show(newHabitVC, sender: self)
-    }
-    
-    @objc func quoteButtonPressed() {
-        generator.impactOccurred()
-        quoteButtonTapped.toggle()
-        guard quotesArray.isEmpty == false else {
-            return
-            }
-        tableView.reloadData()
-    }
-    
-    
-    @objc func dateButtonPressed(_ sender: UIButton) {
-        generator.impactOccurred()
-        let selectedDate = DateModel.weeklyDateArray()[sender.tag]
-        
-        let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
-        guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
-        
-        let habit = habitEntities.loadHabitArray()[indexPath.row]
-        
-        if sender.image(for: .normal) == SFSymbols.checkMark {
-            habitEntities.removeHabitDate(habit: habit, date: selectedDate)
-        } else {
-            habitEntities.addHabitDate(habit: habit, date: selectedDate)
-        }
-        
-        tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    @objc func quoteNextButtonPressed(_ sender: UIButton) {
-        sender.bounceAnimation()
-        generator.impactOccurred()
-        tableView.reloadData()
-    }
-    
-    //MARK: - menu view
     
     func configureMenuView() { // TODO: move to class or view
         lazy var menuView: UIView = {
@@ -232,9 +184,67 @@ class HabitHomeVC: UIViewController, SettingsPush {
         menu.delegate = self
     }
     
+    func configureEmptyState() {
+        emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
+        emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
+    }
+    
+   
+    //MARK: - @objc Funcs
+
+    @objc func helpButtonPressed() {
+        let helpVC = HowToUseVC()
+        show(helpVC, sender: self)
+    }
+    
+
+    @objc func addHabitPressed() {
+        let newHabitVC = NewHabitVC()
+        show(newHabitVC, sender: self)
+    }
+    
+    ///Toggles the tableViewHeader to appear which shows quotes.
+    @objc func quoteButtonPressed() {
+        generator.impactOccurred()
+        quoteButtonTapped.toggle()
+        guard quotesArray.isEmpty == false else { return }
+        tableView.reloadData()
+    }
+    
+    
+    /// When button is pressed, the selected button's date is saved the the corresponding habits core data dates list. If date is already in there, it is instead removed from the list.
+    ///
+    /// - Parameter UIButton: This func is attached to all 7 date buttons on tableView Cells.
+    @objc func dateButtonPressed(_ sender: UIButton) {
+        generator.impactOccurred()
+        
+        let selectedDate = DateModel.weeklyDateArray()[sender.tag]
+        
+        let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
+        guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
+        
+        let habit = habitEntities.loadHabitArray()[indexPath.row]
+        
+        // TODO: - dont use image to confirm something.
+        if sender.image(for: .normal) == SFSymbols.checkMark {
+            habitEntities.removeHabitDate(habit: habit, date: selectedDate)
+        } else {
+            habitEntities.addHabitDate(habit: habit, date: selectedDate)
+        }
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    ///Loads new quote on tableview header.
+    @objc func quoteNextButtonPressed(_ sender: UIButton) {
+        sender.bounceAnimation()
+        generator.impactOccurred()
+        tableView.reloadData()
+    }
+    
+    
     @objc func menuBarButtonPressed() { //change this to a push. can then load button presses from menuview, dismiss back to here and have it much cleaner.
         // move to animation file
-
+        
         generator.impactOccurred()
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveLinear) {
             self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
@@ -243,11 +253,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
             self.isSlideInMenuPressed.toggle()
         }
     }
-
-    func configureEmptyState() {
-        emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
-        emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
-    }
+    
+   
 }
 
 
@@ -265,7 +272,7 @@ extension HabitHomeVC: QuotesManagerDelegate {
 }
 
 
-//MARK: - TableViewDelegate, TableViewDataSource
+//MARK: - TableView - UITableViewDelegate, UITableViewDataSource
 
 extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
     
@@ -277,7 +284,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! QuoteView
         headerView.quoteButton.addTarget(self, action: #selector(quoteNextButtonPressed), for: .touchUpInside)
-       
+        
         let randomIndex = (0...quotesArray.count - 1).randomElement() ?? 0
         if quotesArray.isEmpty != true {
             headerView.quoteLabel.text = quotesArray[randomIndex].text
@@ -298,13 +305,13 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         return [dragItem]
     }
     
-   
+    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
         habitEntities.updateHabitOrder(sourceIndex: sourceIndexPath.row, destinationIndex: destinationIndexPath.row)
     }
     
-   
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return habitEntities.loadHabitArray().count
@@ -314,7 +321,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-       let habit = habitEntities.loadHabitArray()[indexPath.row]
+        let habit = habitEntities.loadHabitArray()[indexPath.row]
         
         if habitEntities.loadHabitArray().isEmpty == false {
             emptyStateView.removeFromSuperview()
@@ -355,7 +362,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         }
         cell.habitCompletedDays = completedDays
         cell.set(habit: habit)
-
+        
         
         return cell
     }
@@ -363,19 +370,19 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = HabitDetailsVC()
-       
+        
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         generator.impactOccurred()
-        //move this to an animations file
+        // TODO: -  move this to an animations file. user a timer combined with animation to show vc.
         UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn) {
             currentCell.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
         } completion: { (_) in
             UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn) {
                 currentCell.transform = CGAffineTransform(scaleX: 1, y: 1)
             } completion: { [weak self] _ in
-
-               vc.habitIndex = indexPath.row
-               
+                
+                vc.habitIndex = indexPath.row
+                
                 self?.show(vc, sender: self)
             }
         }

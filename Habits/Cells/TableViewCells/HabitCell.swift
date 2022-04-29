@@ -101,7 +101,7 @@ class HabitCell: UITableViewCell {
         habitName.text      = habit.name ?? ""
         habitIcon.image     = UIImage(named: habit.icon ?? "")
         habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days  "
-        habitGradient       = GradientArray.array[Int(habit.gradient)]
+        habitGradient       = gradients.array[Int(habit.gradient)]
         
         let intFrequency    = Int(habit.frequency)
         if habitCompletedDays >= intFrequency {
