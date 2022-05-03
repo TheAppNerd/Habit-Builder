@@ -12,22 +12,19 @@ class HowToUseVC: UIViewController {
     //MARK: - Properties
     
     let pageControl = PageControl()
-    let scrollView = ScrollView()
-    
-    //need a page constant for all this and pagecontrol
+    let scrollView  = ScrollView()
     
     //MARK: - Class Funcs
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
+        configureScrollView()
         scrollView.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
-        if scrollView.subviews.count == 2 {
-            configureScrollView()
-        }
+       configureScrollView()
     }
     
     //MARK: - Functions
@@ -35,9 +32,7 @@ class HowToUseVC: UIViewController {
     private func configureLayout() {
         view.backgroundColor = BackgroundColors.mainBackGround
         view.addSubviews(pageControl, scrollView)
-        view.addSubview(scrollView)
 
-        // TODO: - move this elsewhere
         pageControl.addTarget(self, action: #selector(pageControlChanged(_:)), for: .valueChanged)
         
         NSLayoutConstraint.activate([
@@ -53,52 +48,27 @@ class HowToUseVC: UIViewController {
             pageControl.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
+
+    
+    private func configureScrollView() {
+        let numberOfPages: CGFloat = 6
+        scrollView.contentSize     = CGSize(width: scrollView.frame.size.width * numberOfPages, height: scrollView.frame.size.height)
+       
+        for num in 0...Int(numberOfPages) - 1 {
+            let page               = ScrollViewPage(frame: CGRect(x: CGFloat(num) * view.frame.size.width, y: 0, width: view.frame.size.width, height: scrollView.frame.size.height))
+            page.addGradient(colors: gradients.array[num])
+            page.label.text        = helpPage.helpText[num]
+            page.imageView.image   = UIImage(named: helpPage.imageNames[num])
+         
+            scrollView.addSubview(page)
+        }
+    }
+    
+    //MARK: - @Objc Funcs
     
     @objc func pageControlChanged(_ sender: UIPageControl) {
         let current = sender.currentPage
         scrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
-    }
-    
-  
-    
-    //move all these to constants
-    
-    private func configureScrollView() {
-        scrollView.contentSize = CGSize(width: scrollView.frame.size.width * 6, height: scrollView.frame.size.height)
-       
-        for num in 0...helpPage.imageNames.count - 1 {
-            let page             = UIView(frame: CGRect(x: CGFloat(num) * view.frame.size.width, y: 0, width: view.frame.size.width, height: scrollView.frame.size.height))
-            page.addGradient(colors: gradients.array[num])
-            
-            let label                       = UILabel()
-            label.text                      = helpPage.helpText[num]
-            label.textAlignment             = .center
-            label.font                      = UIFont.systemFont(ofSize: 18, weight: .bold)
-            label.numberOfLines = 6
-            label.adjustsFontSizeToFitWidth = true
-            label.translatesAutoresizingMaskIntoConstraints = false
-            
-            
-            let imageView         = UIImageView()
-            imageView.contentMode = .scaleAspectFit
-            imageView.image       = UIImage(named: helpPage.imageNames[num])
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            
-            page.addSubviews(label, imageView)
-            let padding: CGFloat = 20
-            NSLayoutConstraint.activate([
-                label.topAnchor.constraint(equalTo: page.topAnchor, constant: padding),
-                label.leadingAnchor.constraint(equalTo: page.leadingAnchor, constant: padding),
-                label.trailingAnchor.constraint(equalTo: page.trailingAnchor, constant: -padding),
-                label.heightAnchor.constraint(equalToConstant: page.frame.size.height / 6.5),
-                
-                imageView.topAnchor.constraint(equalTo: label.bottomAnchor),
-                imageView.leadingAnchor.constraint(equalTo: page.leadingAnchor),
-                imageView.trailingAnchor.constraint(equalTo: page.trailingAnchor),
-                imageView.bottomAnchor.constraint(equalTo: page.bottomAnchor, constant: -padding)
-            ])
-            scrollView.addSubview(page)
-        }
     }
     
 }

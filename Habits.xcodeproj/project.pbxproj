@@ -42,6 +42,8 @@
 		FA798DA427E03C60005D647B /* UIDevice + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA798DA327E03C60005D647B /* UIDevice + Ext.swift */; };
 		FA79D7532818C1C8004E0CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79D7522818C1C8004E0CAC /* Assets.xcassets */; };
 		FA79D755281A22B8004E0CAC /* ChartProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79D754281A22B8004E0CAC /* ChartProgressView.swift */; };
+		FA79D7672820F318004E0CAC /* SettingsFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79D7662820F318004E0CAC /* SettingsFuncs.swift */; };
+		FA79D76928213F37004E0CAC /* ScrollViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79D76828213F37004E0CAC /* ScrollViewPage.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
 		FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */; };
@@ -111,6 +113,8 @@
 		FA79D7522818C1C8004E0CAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA79D754281A22B8004E0CAC /* ChartProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartProgressView.swift; sourceTree = "<group>"; };
 		FA79D75F281BA871004E0CAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/alex/Documents/xcode projects/Personal Projects/Habits/Support/Info.plist"; sourceTree = "<absolute>"; };
+		FA79D7662820F318004E0CAC /* SettingsFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFuncs.swift; sourceTree = "<group>"; };
+		FA79D76828213F37004E0CAC /* ScrollViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewPage.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
 		FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppVC.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 				FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 				FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */,
+				FA79D76828213F37004E0CAC /* ScrollViewPage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 				FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */,
 				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
 				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
+				FA79D7662820F318004E0CAC /* SettingsFuncs.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -558,6 +564,7 @@
 				FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */,
 				FAD4655627FFD0A300E6CF7A /* EmailFeedback.swift in Sources */,
 				FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */,
+				FA79D76928213F37004E0CAC /* ScrollViewPage.swift in Sources */,
 				FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
 				FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */,
@@ -566,6 +573,7 @@
 				FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */,
 				FA79D755281A22B8004E0CAC /* ChartProgressView.swift in Sources */,
 				FA798DA427E03C60005D647B /* UIDevice + Ext.swift in Sources */,
+				FA79D7672820F318004E0CAC /* SettingsFuncs.swift in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */,

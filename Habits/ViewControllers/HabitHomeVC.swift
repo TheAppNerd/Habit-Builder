@@ -143,21 +143,18 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
-    func pushSettings(row: Int) { // TODO: complete mess. redo this
-        //change to named funcs so I know what im calling?
+    func sideMenuItemPressed(row: Int) {
+        let settingsFuncs = SettingsFuncs()
         switch row {
-        case 3: let vc = HowToUseVC()
-            navigationController?.pushViewController(vc, animated: true)
-        case 5:
-            let vc = AboutAppVC()
-            navigationController?.pushViewController(vc, animated: true)
-        case 6: let vc = DarkModeVC()
-            vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            self.navigationController?.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
-            vc.modalTransitionStyle = .crossDissolve
-            self.present(vc, animated: true, completion: nil)
-        default:
-            print("Error")
+        case 0: settingsFuncs.shareApp(vc: self)
+        case 1: settingsFuncs.reviewApp()
+        case 2: EmailFeedback().newEmail()
+        case 3: settingsFuncs.pushHowToUse(vc: self)
+        case 4: settingsFuncs.openPrivacy()
+        case 5: settingsFuncs.pushAbout(vc: self)
+        case 6: settingsFuncs.presentDarkMode(vc: self)
+        case 7: settingsFuncs.openAppSettings()
+        default: print("error")
         }
     }
     
