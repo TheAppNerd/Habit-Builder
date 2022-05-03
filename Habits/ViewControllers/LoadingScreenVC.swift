@@ -20,7 +20,6 @@ class LoadingScreenVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
-        iconCircle.rotate()
         presentHabitVC()
         layoutUI()
     }
@@ -29,12 +28,23 @@ class LoadingScreenVC: UIViewController {
     
     private func configure() {
         view.backgroundColor = BackgroundColors.mainBackGround
-        
+        iconCircle.rotate()
         iconCircle.translatesAutoresizingMaskIntoConstraints = false
         icontick.translatesAutoresizingMaskIntoConstraints = false
-        
-        
     }
+    
+    
+    func presentHabitVC() {
+        let destVC = UINavigationController(rootViewController: HabitHomeVC())
+        destVC.modalPresentationStyle = .fullScreen
+        
+        let seconds = 1.2
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+            self.iconCircle.layer.removeAllAnimations()
+            self.present(destVC, animated: true)
+        }
+    }
+    
     
     private func layoutUI() {
         view.addSubviews(iconCircle, icontick)
@@ -50,19 +60,6 @@ class LoadingScreenVC: UIViewController {
             icontick.heightAnchor.constraint(equalTo: iconCircle.heightAnchor, multiplier: 0.45),
             icontick.widthAnchor.constraint(equalTo: icontick.heightAnchor),
         ])
-    }
-    
-    
-    func presentHabitVC() {
-        let destVC = UINavigationController(rootViewController: HabitHomeVC())
-        destVC.modalPresentationStyle = .fullScreen
-        
-        let seconds = 1.2
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-            self.iconCircle.layer.removeAllAnimations()
-            self.present(destVC, animated: true)
-        }
     }
     
 }

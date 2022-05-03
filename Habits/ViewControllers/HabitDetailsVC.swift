@@ -18,7 +18,7 @@ class HabitDetailsVC: UIViewController {
     
     var habitIndex: Int? {
         didSet { // TODO: move these to a func
-            habitEntity = habitEntities.loadHabitArray()[habitIndex!]
+            habitEntity = coreData.loadHabitArray()[habitIndex!]
             let gradientColor = gradients.array[Int(habitEntity!.gradient)]
             habitDetailsChartView.setColor(colors: gradientColor)
             habitDetailsCalendarView.setColor(colors: gradientColor)
@@ -29,7 +29,7 @@ class HabitDetailsVC: UIViewController {
     
     
     var chartYears: [ChartYear]  = []
-    var habitEntities            = CoreDataMethods()
+    var coreData            = CoreDataMethods()
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView   = HabitDetailsStreakView()
     let habitDetailsChartView    = HabitDetailsChartView()
@@ -136,7 +136,7 @@ class HabitDetailsVC: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             
             self.habitDetailsCalendarView.calendarView.select(date)
-            self.habitEntities.addHabitDate(habit: self.habitEntity!, date: date)
+            self.coreData.addHabitDate(habit: self.habitEntity!, date: date)
             self.updateStreaks()
             self.chartYears = ChartModel.setChartData(habit: self.habitEntity!)
             self.habitDetailsChartView.collectionView.reloadData()
@@ -152,7 +152,7 @@ class HabitDetailsVC: UIViewController {
         let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
             self.habitDetailsCalendarView.calendarView.deselect(date)
-            self.habitEntities.removeHabitDate(habit: self.habitEntity!, date: date)
+            self.coreData.removeHabitDate(habit: self.habitEntity!, date: date)
             self.updateStreaks()
             self.chartYears = ChartModel.setChartData(habit: self.habitEntity!)
             self.habitDetailsChartView.collectionView.reloadData()

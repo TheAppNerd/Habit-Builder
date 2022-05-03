@@ -8,6 +8,8 @@
 import UIKit
 import CoreData
 
+// TODO: - FIX icon by removing square in sketch
+
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
@@ -18,7 +20,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let generator            = UIImpactFeedbackGenerator(style: .medium) // TODO: move to protocol
     let emptyStateView       = EmptyStateView()
     var quoteButtonTapped    = Bool()
-    let habitEntities        = CoreDataMethods() //need to rename
+    let coreData             = CoreDataMethods()
     var quotesManager        = QuotesManager()
     var quotesArray: [Quote] = [] // TODO: move to func
     
@@ -43,78 +45,72 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureTableViewFooter()
         configureMenuView()
         quoteButtonTapped = false
+        configureQuotesManager()
         
-        // TODO: - move these into own func
-        quotesManager.delegate = self
-        DispatchQueue.global(qos: .background).async {
-            self.quotesManager.parse()
-        }
-        reviewCount()
+        AppStoreManagerReview.reviewCount()
         
     }
     
     //MARK: - Functions
     
-    func showEmptyStateView() { // TODO:  move externally
-        switch habitEntities.loadHabitArray().isEmpty {
-        case true:  view.addSubview(emptyStateView)
-            emptyStateView.frame = tableView.frame
-        case false: emptyStateView.removeFromSuperview()
-        }
-    }
-    
-    
-    func configureViewController() {
+    private func configureViewController() {
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         view.backgroundColor = BackgroundColors.mainBackGround
         generator.prepare()
     }
     
-    
-    func reviewCount() { // TODO: move externally
-        let defaults = UserDefaults.standard
-        var retrievedCount = defaults.integer(forKey: "reviewCount") as Int
-        retrievedCount += 1
-        
-        if retrievedCount.isMultiple(of: 10) {
-            AppStoreManagerReview.requestReviewIfAppropriate()
-        }
-        defaults.set(retrievedCount, forKey: "reviewCount")
-    }
-    
-    
-    func configureBarButtonItems() {
+    private func configureBarButtonItems() {
         let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
         let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
-        let quoteButton = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed)) //add to constants?
+        let quoteButton = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed))
         navigationItem.setLeftBarButton(menuButton, animated: true)
         
-        switch habitEntities.loadHabitArray().isEmpty {
+        //This prevents quote button being active when empty state is up as tableview is not active then, thus the quote header view wont function properly.
+        switch coreData.loadHabitArray().isEmpty {
         case true: navigationItem.setRightBarButtonItems([addButton], animated: true)
         case false: navigationItem.setRightBarButtonItems([addButton, quoteButton], animated: true)
         }
     }
     
-    
-    
-    func configureTableView() {
+    private func configureTableView() {
         view.addSubview(tableView)
         tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
-        tableView.delegate        = self
-        tableView.dataSource      = self
-        tableView.frame           = view.bounds
-        tableView.backgroundColor = BackgroundColors.mainBackGround
-        tableView.separatorStyle  = .none
+        tableView.delegate               = self
+        tableView.dataSource             = self
+        tableView.frame                  = view.bounds
+        tableView.backgroundColor        = BackgroundColors.mainBackGround
+        tableView.separatorStyle         = .none
         tableView.dragInteractionEnabled = true
-        tableView.dragDelegate = self
-        
-        //Sizing fix for older iphone models. evaluate how to improve upon this?
-        if view.frame.size.height < 800 {
-            tableView.rowHeight = tableView.frame.height / 4.5
-        } else {
-            tableView.rowHeight = tableView.frame.height / 6
+        tableView.dragDelegate           = self
+    }
+    
+    
+    private func configureQuotesManager() {
+        quotesManager.delegate = self
+        DispatchQueue.global(qos: .background).async {
+            self.quotesManager.parse()
         }
     }
+    
+    
+    private func showEmptyStateView() {
+        switch coreData.loadHabitArray().isEmpty {
+        case true:  view.addSubview(emptyStateView)
+                    emptyStateView.frame = tableView.frame
+        case false: emptyStateView.removeFromSuperview()
+                    title = Labels.HabitVCTitle
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func configureTableViewFooter() {
@@ -122,7 +118,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         let tableViewFooter = TableViewFooter()
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         tableView.tableFooterView = tableViewFooter
-        switch habitEntities.loadHabitArray().isEmpty {
+        switch coreData.loadHabitArray().isEmpty {
         case true: tableViewFooter.isHidden = true
         case false: tableViewFooter.isHidden = false
         }
@@ -133,7 +129,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         var count = 0
         //This ensures data loads correctly when cloudkit loads.
         Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
-            let habits = self.habitEntities.loadHabitArray()
+            let habits = self.coreData.loadHabitArray()
             self.tableView.reloadData()
             print("Repeated")
             count += 1
@@ -148,7 +144,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     func pushSettings(row: Int) { // TODO: complete mess. redo this
-                                  //change to named funcs so I know what im calling?
+        //change to named funcs so I know what im calling?
         switch row {
         case 3: let vc = HowToUseVC()
             navigationController?.pushViewController(vc, animated: true)
@@ -189,15 +185,15 @@ class HabitHomeVC: UIViewController, SettingsPush {
         emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
     }
     
-   
+    
     //MARK: - @objc Funcs
-
+    
     @objc func helpButtonPressed() {
         let helpVC = HowToUseVC()
         show(helpVC, sender: self)
     }
     
-
+    
     @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
         show(newHabitVC, sender: self)
@@ -223,13 +219,12 @@ class HabitHomeVC: UIViewController, SettingsPush {
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         
-        let habit = habitEntities.loadHabitArray()[indexPath.row]
+        let habit = coreData.loadHabitArray()[indexPath.row]
         
-        // TODO: - dont use image to confirm something.
         if sender.image(for: .normal) == SFSymbols.checkMark {
-            habitEntities.removeHabitDate(habit: habit, date: selectedDate)
+            coreData.removeHabitDate(habit: habit, date: selectedDate)
         } else {
-            habitEntities.addHabitDate(habit: habit, date: selectedDate)
+            coreData.addHabitDate(habit: habit, date: selectedDate)
         }
         tableView.reloadRows(at: [indexPath], with: .none)
     }
@@ -254,7 +249,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
-   
+    
 }
 
 
@@ -294,76 +289,45 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     }
     
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //Sizing fix for older iphone models.
+        if view.frame.size.height < 800 {
+            return tableView.frame.size.height / 4.5
+        } else {
+            return tableView.frame.size.height / 6
+        }
+    }
+    
+    ///Initialises the current state of the tableView to set it up for changing the order of habits.
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        
         generator.impactOccurred()
-        let array = habitEntities.loadHabitArray()
-        
-        let dragItem = UIDragItem(itemProvider: NSItemProvider())
-        
+        let array            = coreData.loadHabitArray()
+        let dragItem         = UIDragItem(itemProvider: NSItemProvider())
         dragItem.localObject = array[indexPath.row]
         return [dragItem]
     }
     
-    
+    ///Updates habit order and saves to core data when user moves habit.
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        habitEntities.updateHabitOrder(sourceIndex: sourceIndexPath.row, destinationIndex: destinationIndexPath.row)
+        coreData.updateHabitOrder(sourceIndex: sourceIndexPath.row, destinationIndex: destinationIndexPath.row)
     }
     
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habitEntities.loadHabitArray().count
+        return coreData.loadHabitArray().count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         
-        let habit = habitEntities.loadHabitArray()[indexPath.row]
-        
-        if habitEntities.loadHabitArray().isEmpty == false {
-            emptyStateView.removeFromSuperview()
-            title = Labels.HabitVCTitle
-        }
-        
-        let dateArray = habitEntities.loadHabitDates(habit: habit)
-        
-        // TODO: move all view type data to the cell
-        
+        let habit = coreData.loadHabitArray()[indexPath.row]
+    
         for (index,button) in cell.dayButtons.enumerated() {
-            button.layer.borderColor = UIColor.white.cgColor
-            button.setTitle("\(DateModel.weeklyDayArray()[index])", for: .normal)
-            button.setImage(nil, for: .normal)
-            
             button.addTarget(self, action: #selector(dateButtonPressed), for: .touchUpInside)
             button.tag = index
-            
-            let selectedDate = DateFuncs.startOfDay(date: cell.dateArray[index])
-            
-            
-            
-            if dateArray.contains(selectedDate) {
-                button.layer.borderColor = UIColor.clear.cgColor
-                button.setTitle(nil, for: .normal)
-                button.setImage(SFSymbols.checkMark, for: .normal)
-            } else {
-                button.backgroundColor = .clear
-                button.layer.borderColor = UIColor.white.cgColor
-            }
         }
-        
-        var completedDays = 0
-        for button in cell.dayButtons {
-            if button.image(for: .normal) == SFSymbols.checkMark {
-                completedDays += 1
-            }
-        }
-        cell.habitCompletedDays = completedDays
         cell.set(habit: habit)
-        
-        
         return cell
     }
     

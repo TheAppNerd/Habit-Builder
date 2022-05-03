@@ -10,9 +10,12 @@ import CoreData
 
 class HabitCell: UITableViewCell {
     
-    // TODO:  way too much code in here.
-    
     //MARK: - Properties
+    
+    
+    // TODO: add a view behind buttons to make ti easier to select them without going to details screen.
+  
+    
     
     static let reuseID = "HabitCell"
     
@@ -23,14 +26,11 @@ class HabitCell: UITableViewCell {
     var habitGradient           = [CGColor]()
     
     var habitCompletedDays      = Int()
-    let dateModel               = DateModel()
     let cellView                = UIView()
     
     let labelStackView          = UIStackView()
     let buttonStackView         = UIStackView()
     
-    var dateArray: [Date]       = DateModel.weeklyDateArray()
-    var dayArray: [Int]         = DateModel.weeklyDayArray()
     var dayButtons: [DayButton] = []
     
     //MARK: - Class Funcs
@@ -61,7 +61,7 @@ class HabitCell: UITableViewCell {
     //MARK: - Functions
     
     private func configure() {
-        contentView.isUserInteractionEnabled = true
+        contentView.isUserInteractionEnabled     = true
         self.selectionStyle                      = UITableViewCell.SelectionStyle.none
         backgroundColor                          = BackgroundColors.mainBackGround
         
@@ -87,36 +87,7 @@ class HabitCell: UITableViewCell {
         habitAlarmIcon.image                     = SFSymbols.bellSlash
     }
     
-    ///Prevents gradient changes from cell reuse which is an issue that was occuring.
-    func layoutGradient() {
-        if ((cellView.layer.sublayers?.first as? CAGradientLayer) != nil) {
-            cellView.layer.sublayers?.remove(at: 0)
-        }
-        cellView.addGradient(colors: habitGradient)
-    }
-    
-    
-    ///Called from tableView to fill cell with habit details.
-    func set(habit: HabitEnt) {
-        habitName.text      = habit.name ?? ""
-        habitIcon.image     = UIImage(named: habit.icon ?? "")
-        habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days  "
-        habitGradient       = gradients.array[Int(habit.gradient)]
-        
-        let intFrequency    = Int(habit.frequency)
-        if habitCompletedDays >= intFrequency {
-            habitFrequency.layer.borderWidth = 1.5
-        } else if habitCompletedDays < intFrequency {
-            habitFrequency.layer.borderWidth = 0.0
-        }
-        
-        switch habit.notificationBool {
-        case true: habitAlarmIcon.image  = SFSymbols.bell
-        case false: habitAlarmIcon.image = SFSymbols.bellSlash
-        }
-    }
-    
-    func configureLabelStackView() {
+    private func configureLabelStackView() {
         var dayLabels: [DayLabel] = []
         
         for index in 0...6 {
@@ -135,23 +106,22 @@ class HabitCell: UITableViewCell {
         dayLabels[DateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
     
-    // TODO: add a view behind buttons to make ti easier to select them without going to details screen.
-    func configureButtonStackView() {
-        for index in 0...6 {
-            let dayButton = DayButton()
-            dayButton.widthAnchor.constraint(equalTo: dayButton.heightAnchor).isActive = true
-            dayButton.setTitle("\(dayArray[index])", for: .normal)
-            buttonStackView.addArrangedSubview(dayButton)
-            dayButtons.append(dayButton)
-        }
-        
-        buttonStackView.axis = .horizontal
-        buttonStackView.spacing = 10
-        buttonStackView.distribution = .equalCentering
-        buttonStackView.alignment = .fill
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
+    private func configureButtonStackView() {
+         let dayArray = DateModel.weeklyDayArray()
+         for index in 0...6 {
+             let dayButton = DayButton()
+             dayButton.widthAnchor.constraint(equalTo: dayButton.heightAnchor).isActive = true
+             dayButton.setTitle("\(dayArray[index])", for: .normal)
+             buttonStackView.addArrangedSubview(dayButton)
+             dayButtons.append(dayButton)
+         }
+         
+         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+         buttonStackView.axis         = .horizontal
+         buttonStackView.spacing      = 10
+         buttonStackView.distribution = .equalCentering
+         buttonStackView.alignment    = .fill
+     }
     
     private func layoutUI() {
         addSubviews(habitIcon, cellView, habitName, labelStackView, buttonStackView, habitAlarmIcon, habitFrequency)
@@ -196,5 +166,72 @@ class HabitCell: UITableViewCell {
             buttonStackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10)
         ])
     }
+    
+    
+    ///Prevents gradient changes from cell reuse which is an issue that was occuring.
+    private func layoutGradient() {
+        if ((cellView.layer.sublayers?.first as? CAGradientLayer) != nil) {
+            cellView.layer.sublayers?.remove(at: 0)
+        }
+        cellView.addGradient(colors: habitGradient)
+    }
+    
+
+    ///Called from tableView to fill cell with habit details.
+    func set(habit: HabitEnt) {
+        updateButtons(habit: habit)
+        habitName.text      = habit.name ?? ""
+        habitIcon.image     = UIImage(named: habit.icon ?? "")
+        habitFrequency.text = " \(habitCompletedDays) / \(habit.frequency) days  "
+        habitGradient       = gradients.array[Int(habit.gradient)]
+        
+        let intFrequency    = Int(habit.frequency)
+        if habitCompletedDays >= intFrequency {
+            habitFrequency.layer.borderWidth = 1.5
+        } else if habitCompletedDays < intFrequency {
+            habitFrequency.layer.borderWidth = 0.0
+        }
+        
+        switch habit.notificationBool {
+        case true: habitAlarmIcon.image  = SFSymbols.bell
+        case false: habitAlarmIcon.image = SFSymbols.bellSlash
+        }
+    }
+    
+   
+    /// Updates all day buttons on the cell depending on whether the dates associated with them have been pressed or not.
+    ///
+    /// - Parameter habit: The core data habit entity to pull the current completed dates
+    func updateButtons(habit: HabitEnt) {
+        let dateArray = DateModel.weeklyDateArray()
+        let dates = CoreDataMethods().loadHabitDates(habit: habit)
+        for (index,button) in dayButtons.enumerated() {
+            button.layer.borderColor = UIColor.white.cgColor
+            button.setTitle("\(DateModel.weeklyDayArray()[index])", for: .normal)
+            button.setImage(nil, for: .normal)
+        
+            let selectedDate = DateFuncs.startOfDay(date: dateArray[index])
+            
+            if dates.contains(selectedDate) {
+                button.layer.borderColor = UIColor.clear.cgColor
+                button.setTitle(nil, for: .normal)
+                button.setImage(SFSymbols.checkMark, for: .normal)
+            } else {
+                button.layer.borderColor = UIColor.white.cgColor
+            }
+        }
+        
+        var completedDays = 0
+        for button in dayButtons {
+            if button.image(for: .normal) == SFSymbols.checkMark {
+                completedDays += 1
+            }
+        }
+        habitCompletedDays = completedDays
+    }
+    
+    
+    
+   
     
 }
