@@ -66,6 +66,10 @@ enum SocialMedia {
     static let appLink              = "https://apps.apple.com/au/app/habit-builder/id1614197639"
 }
 
+enum dates {
+    static let weeklyDateArray            = DateModel.weeklyDateArray()
+}
+
 
 enum feedback {
     static let emailAddress         = "Alex@appNerd.com.au"
@@ -123,5 +127,12 @@ light & dark mode.
 
 """
         ]
+}
+
+enum darkMode {
+    static let device      = "Device"
+    static let light       = "Light"
+    static let dark        = "Dark"
+    static let key         = "darkMode"
 }
 

@@ -32,17 +32,17 @@ class AboutAppVC: UIViewController {
         tableViewHeaderPadding()
     }
     
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame.size.height = tableView.contentSize.height
+        tableView.frame.size.height   = tableView.contentSize.height
         iconImage.layer.cornerRadius  = iconImage.frame.size.width / 2
     }
     
     //MARK: - Functions
     
-    // TODO: - move externally.
+    ///Rectifies xcode tableview error.
     func tableViewHeaderPadding() {
-        //to rectify xcode tableview error
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
         }
@@ -184,7 +184,7 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
             case 1: loadSocialMedia(urlString: SocialMedia.instagramURL)
             case 2: loadSocialMedia(urlString: SocialMedia.githubURL)
             default:
-                print("Error") //create a default error func to utilise across app
+                print("Error") // TODO: -  create a default error func to utilise across app
             }
         }
         
@@ -195,6 +195,6 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return view.frame.size.height / 18
     }
 }

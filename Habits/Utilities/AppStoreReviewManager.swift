@@ -15,4 +15,16 @@ enum AppStoreManagerReview {
             SKStoreReviewController.requestReview(in: scene)
         }
     }
+    
+    ///Adds a counter to homeVC which will request user review app every 10 times which func is called.
+    static func reviewCount() { // TODO: move externally
+        let defaults = UserDefaults.standard
+        var retrievedCount = defaults.integer(forKey: "reviewCount") as Int
+        retrievedCount += 1
+
+        if retrievedCount.isMultiple(of: 10) {
+            AppStoreManagerReview.requestReviewIfAppropriate()
+        }
+        defaults.set(retrievedCount, forKey: "reviewCount")
+    }
 }

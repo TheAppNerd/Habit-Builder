@@ -16,10 +16,10 @@ class NewHabitVC: UITableViewController  {
     
     var habitIndex: Int? {
         didSet { // TODO: is this didset nessecary?
-            habitEntity = habitEntities.loadHabitArray()[habitIndex!]
+            habitEntity = coreData.loadHabitArray()[habitIndex!]
         }
     }
-    let habitEntities = CoreDataMethods()
+    let coreData = CoreDataMethods()
     
     //fix nameArray functionality?
    
@@ -48,6 +48,7 @@ class NewHabitVC: UITableViewController  {
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
         }
+
     }
     
     
@@ -73,7 +74,6 @@ class NewHabitVC: UITableViewController  {
             } else {
                 title = "Create Habit" //move to constants
             }
-        print(alarmItem)
     }
     
     // TODO: create custom tableview with all these pre registered
@@ -119,7 +119,7 @@ class NewHabitVC: UITableViewController  {
         UserNotifications.removeNotifications(title: self.previousName)
             
             if let habit = self.habitEntity {
-                self.habitEntities.deleteHabit(habit)
+                self.coreData.deleteHabit(habit)
             }
         
         let habitVC = HabitHomeVC()
@@ -133,20 +133,20 @@ class NewHabitVC: UITableViewController  {
     }
     
     func createHabit() {
-        let count = habitEntities.loadHabitArray().count
+        let count = coreData.loadHabitArray().count
         
         switch habitEntity == nil {
         case true:
                 
-            habitEntities.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), index: count, gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: alarmItem.alarmActivated, alarmItem: alarmItem)
+            coreData.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), index: count, gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: alarmItem.alarmActivated, alarmItem: alarmItem)
         case false: let habit = habitEntity!
             habit.name          = name
             habit.frequency          = Int16(frequency)
             habit.icon         = iconString
             habit.gradient = Int16(colorIndex)
             habit.notificationBool = alarmItem.alarmActivated
-            habitEntities.saveAlarmData(habit: habit, alarmItem: alarmItem)
-            habitEntities.updateHabit()
+            coreData.saveAlarmData(habit: habit, alarmItem: alarmItem)
+            coreData.updateHabit()
         }
         
     }
@@ -316,7 +316,7 @@ class NewHabitVC: UITableViewController  {
             cell.alarmSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
             cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
             print("testitem\(alarmItem.days)")
-            var boolArray = habitEntities.convertStringArraytoBoolArray(alarmItem: alarmItem)
+            var boolArray = coreData.convertStringArraytoBoolArray(alarmItem: alarmItem)
             
             print("bool\(boolArray)")
             for (index, bool) in boolArray.enumerated() {

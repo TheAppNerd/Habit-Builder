@@ -24,20 +24,6 @@ class DarkModeVC: UIViewController {
     
     //MARK: - Functions
     
-    private func selectCurrentMode() {
-        let defaults = UserDefaults.standard
-        // TODO: - move strings to constants
-        switch defaults.object(forKey: "darkMode") as? String {
-        case "Device": darkModeView.deviceButton.sendActions(for: .touchUpInside)
-        case "Light": darkModeView.lightButton.sendActions(for: .touchUpInside)
-        case "Dark": darkModeView.darkButton.sendActions(for: .touchUpInside)
-        case nil: darkModeView.deviceButton.sendActions(for: .touchUpInside)
-        default:
-            darkModeView.deviceButton.sendActions(for: .touchUpInside)
-        }
-    }
-    
-    
     private func configure() {
         view.backgroundColor = UIColor.systemBackground.withAlphaComponent(0.7)
         view.addSubview(darkModeView)
@@ -58,6 +44,20 @@ class DarkModeVC: UIViewController {
         darkModeView.doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
     }
     
+    ///Selects the correct dark mode button based on what setting is saved in UserDefaults.
+    private func selectCurrentMode() {
+        let defaults = UserDefaults.standard
+        // TODO: - move strings to constants
+        switch defaults.object(forKey: darkMode.key) as? String {
+        case darkMode.device: darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        case darkMode.light: darkModeView.lightButton.sendActions(for: .touchUpInside)
+        case darkMode.dark: darkModeView.darkButton.sendActions(for: .touchUpInside)
+        case nil: darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        default:
+            darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        }
+    }
+    
     
     ///When one of the buttons to change dark mode is selected, all the buttons go back to default color scheme while the selected button gets gradeitn color applied. SetDarkMode is then called to actually apply dark mode settings.
     @objc func darkModeValueChanged(sender: GradientButton) {
@@ -75,6 +75,7 @@ class DarkModeVC: UIViewController {
         setDarkMode(to: (sender.titleLabel?.text!)!)
     }
     
+    
     /// Saves selected dark mode to UserDefaults and applies that setting across the whole app.
     ///
     /// ```
@@ -87,14 +88,14 @@ class DarkModeVC: UIViewController {
         
         //move key to a constant
         switch str {
-        case "Device": mode = UIScreen.main.traitCollection.userInterfaceStyle
-            defaults.set("Device", forKey: "darkMode")
+        case darkMode.device: mode = UIScreen.main.traitCollection.userInterfaceStyle
+            defaults.set(darkMode.device, forKey: darkMode.key)
             
-        case "Light": mode = UIUserInterfaceStyle.light
-            defaults.set("Light", forKey: "darkMode")
+        case darkMode.light: mode = UIUserInterfaceStyle.light
+            defaults.set(darkMode.light, forKey: darkMode.key)
             
-        case "Dark": mode = UIUserInterfaceStyle.dark
-            defaults.set("Dark", forKey: "darkMode")
+        case darkMode.dark: mode = UIUserInterfaceStyle.dark
+            defaults.set(darkMode.dark, forKey: darkMode.key)
             
         default: mode = UITraitCollection.current.userInterfaceStyle
         }
@@ -116,4 +117,6 @@ class DarkModeVC: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    
 }
