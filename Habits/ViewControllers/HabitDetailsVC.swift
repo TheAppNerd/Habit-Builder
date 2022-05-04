@@ -11,25 +11,12 @@ import FSCalendar
 
 class HabitDetailsVC: UIViewController {
     
-    //rewrite everything up to view did load
-    
     //MARK: - Properties
-    var habitEntity: HabitEnt? //naming conventions
     
-    var habitIndex: Int? {
-        didSet { // TODO: move these to a func
-            habitEntity = coreData.loadHabitArray()[habitIndex!]
-            let gradientColor = gradients.array[Int(habitEntity!.gradient)]
-            habitDetailsChartView.setColor(colors: gradientColor)
-            habitDetailsCalendarView.setColor(colors: gradientColor)
-            habitDetailsStreakView.setColor(colors: gradientColor)
-            chartYears = ChartModel.setChartData(habit: habitEntity!)
-        }
-    }
-    
-    
+    var habitIndex: Int?
+    var habitEntity: HabitEnt?
     var chartYears: [ChartYear]  = []
-    var coreData            = CoreDataMethods()
+    var coreData                 = CoreDataMethods()
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView   = HabitDetailsStreakView()
     let habitDetailsChartView    = HabitDetailsChartView()
@@ -39,12 +26,13 @@ class HabitDetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateStreaks()
         configureCalendarDates()
         configureViews()
         configureBarButtons()
         configureCollectionView()
         layoutUI()
+        setColors()
+        updateStreaks()
     }
     
     override func viewDidLayoutSubviews() {
@@ -55,10 +43,17 @@ class HabitDetailsVC: UIViewController {
         let indexPath = IndexPath(item: lastItemIndex, section: section)
         habitDetailsChartView.collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
         habitDetailsChartView.collectionView.isPagingEnabled = true
-        
     }
     
     //MARK: - Functions
+    
+    ///Takes all dates from habits dates in core data and selects them in the calendar.
+    private func configureCalendarDates() {
+        let dateArray = CoreDataMethods().loadHabitDates(habit: habitEntity!)
+        for date in dateArray {
+            habitDetailsCalendarView.calendarView.select(date)
+        }
+    }
     
     private func configureViews() {
         title = habitEntity?.name
@@ -67,9 +62,19 @@ class HabitDetailsVC: UIViewController {
         habitDetailsCalendarView.calendarView.delegate = self
     }
     
+    private func configureBarButtons() {
+        let editButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(editHabit))
+        navigationItem.rightBarButtonItem = editButton
+    }
+    
+    func configureCollectionView() {
+        habitDetailsChartView.collectionView.dataSource = self
+        habitDetailsChartView.collectionView.delegate = self
+        habitDetailsChartView.collectionView.register(ChartCollectionViewCell.self, forCellWithReuseIdentifier: ChartCollectionViewCell.reuseID)
+    }
+    
     private func layoutUI() {
         view.addSubviews(habitDetailsCalendarView, habitDetailsStreakView, habitDetailsChartView)
-        
         let padding: CGFloat = 10
         
         NSLayoutConstraint.activate([
@@ -92,89 +97,60 @@ class HabitDetailsVC: UIViewController {
         ])
     }
     
-   
-    
-    func configureCollectionView() {
-        habitDetailsChartView.collectionView.dataSource = self
-        habitDetailsChartView.collectionView.delegate = self
-        habitDetailsChartView.collectionView.register(ChartCollectionViewCell.self, forCellWithReuseIdentifier: ChartCollectionViewCell.reuseID)
+    ///Called from homeVC to setup this VC.
+    func set(index: Int) {
+        let habit = coreData.loadHabitArray()[index]
+        habitEntity = habit
+        habitIndex = index
+        chartYears = ChartModel.setChartData(habit: habit)
+        setColors()
     }
     
-    func configureCalendarDates() {
-        let dateArray = CoreDataMethods().loadHabitDates(habit: habitEntity!)
-        for date in dateArray {
-            habitDetailsCalendarView.calendarView.select(date)
-        }
+    ///Sets gradient colors in all views.
+    func setColors() {
+        let gradientColor = gradients.array[Int(habitEntity!.gradient)]
+        habitDetailsChartView.setColor(colors: gradientColor)
+        habitDetailsCalendarView.setColor(colors: gradientColor)
+        habitDetailsStreakView.setColor(colors: gradientColor)
     }
     
-    
+    ///Updates streak numbers whenever dates changed.
     func updateStreaks() {
-        let dateCreated = habitEntity?.dateCreated ?? Date()
-        let daysCompleted = CoreDataMethods().loadHabitDates(habit: habitEntity!).count
+        guard let dateCreated = habitEntity?.dateCreated else { return }
+        let daysCompleted     = CoreDataMethods().loadHabitDates(habit: habitEntity!).count
+        let averageString     = DateModel.calculateAverageStreak(with: dateCreated, days: daysCompleted)
+        let dateString        = DateModel.convertDateToString(using: dateCreated)
         
-        // TODO: make a date func
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        let date = dateFormatter.string(from: dateCreated)
-        
-        let timeSinceCreated = Date().timeIntervalSince(dateCreated)
-        let week: Double = 86400 * 7
-        var totalWeeks = timeSinceCreated / week
-        if totalWeeks < 1 {
-            totalWeeks = 1
+        habitDetailsStreakView.setLabels(date: dateString, count: daysCompleted, average: averageString)
+    }
+    
+    /// Using FS calendar didSelect and didDeselect methods this updates everything with new habit date data.
+    ///
+    /// ```
+    /// updateDates(amend: .addDate, date: date)
+    /// ```
+    ///
+    /// - Parameter amend: amendDates enum to choose between adding or removing date
+    /// - Parameter date: the date being added or removed. Listed in the FSCalendar method.
+    func updateDates(amend: amendDates, date: Date) {
+        switch amend {
+        case .addDate:
+            habitDetailsCalendarView.calendarView.select(date)
+            coreData.addHabitDate(habit: habitEntity!, date: date)
+        case .removeDate:
+            habitDetailsCalendarView.calendarView.deselect(date)
+            coreData.removeHabitDate(habit: habitEntity!, date: date)
         }
-        
-        let averagePerWeek = Double(daysCompleted) / totalWeeks
-        let averageString = String(format: "%.1f", averagePerWeek)
-        
-        habitDetailsStreakView.setLabels(date: date, count: daysCompleted, average: averageString)
+        updateStreaks()
+        chartYears = ChartModel.setChartData(habit: self.habitEntity!)
+        habitDetailsChartView.collectionView.reloadData()
     }
     
-    // TODO: remove alert. make it happen on button press
-    func presentAlertToAddHabit(date: Date) {
-        let alert = UIAlertController(title: "Add Habit?", message: "Would you like to add a habit for this date?", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            
-            self.habitDetailsCalendarView.calendarView.select(date)
-            self.coreData.addHabitDate(habit: self.habitEntity!, date: date)
-            self.updateStreaks()
-            self.chartYears = ChartModel.setChartData(habit: self.habitEntity!)
-            self.habitDetailsChartView.collectionView.reloadData()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
-            self.habitDetailsCalendarView.calendarView.deselect(date)
-            return
-        }))
-        present(alert, animated: true)
-    }
-    // TODO: remove alert. make it happen on button press
-    func presentAlertToRemoveHabit(date: Date) {
-        let alert = UIAlertController(title: "Remove Habit?", message: "Would you like to remove the habit for this date?", preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
-            self.habitDetailsCalendarView.calendarView.deselect(date)
-            self.coreData.removeHabitDate(habit: self.habitEntity!, date: date)
-            self.updateStreaks()
-            self.chartYears = ChartModel.setChartData(habit: self.habitEntity!)
-            self.habitDetailsChartView.collectionView.reloadData()
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { UIAlertAction in
-            self.habitDetailsCalendarView.calendarView.select(date)
-            return
-        }))
-        present(alert, animated: true)
-    }
-    
-    
-    private func configureBarButtons() {
-        let editButton = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(editHabit))
-        
-        navigationItem.rightBarButtonItem = editButton
-    }
     
     //MARK: - @Objc Funcs
     
     @objc func editHabit() {
-        let newHabitVC = NewHabitVC()
+        let newHabitVC        = NewHabitVC()
         newHabitVC.habitIndex = habitIndex
         show(newHabitVC, sender: self)
     }
@@ -203,17 +179,18 @@ extension HabitDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource, 
     }
 }
 
-//MARK: - FSCalendar
+//MARK: - FSCalendar - FSCalendarDataSource, FSCalendarDelegate
 
 extension HabitDetailsVC: FSCalendarDataSource, FSCalendarDelegate {
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        presentAlertToAddHabit(date: date)
+        updateDates(amend: .addDate, date: date)
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        presentAlertToRemoveHabit(date: date)
+        updateDates(amend: .removeDate, date: date)
     }
     
 }
+
 

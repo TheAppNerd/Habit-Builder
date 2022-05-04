@@ -45,14 +45,14 @@ class HowToUseVC: UIViewController {
             pageControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            pageControl.heightAnchor.constraint(equalToConstant: 70)
+            pageControl.heightAnchor.constraint(equalToConstant: view.frame.size.height / 13)
         ])
     }
 
     
     private func configureScrollView() {
-        let numberOfPages: CGFloat = 6
-        scrollView.contentSize     = CGSize(width: scrollView.frame.size.width * numberOfPages, height: scrollView.frame.size.height)
+        let numberOfPages = 6
+        scrollView.contentSize     = CGSize(width: scrollView.frame.size.width * CGFloat(numberOfPages), height: scrollView.frame.size.height)
        
         for num in 0...Int(numberOfPages) - 1 {
             let page               = ScrollViewPage(frame: CGRect(x: CGFloat(num) * view.frame.size.width, y: 0, width: view.frame.size.width, height: scrollView.frame.size.height))

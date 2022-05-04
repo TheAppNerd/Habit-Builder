@@ -12,14 +12,14 @@ class DateModel {
     //MARK: - Properties
     
     // TODO: remove static to let calendar work
-//    let calendar = Calendar.current
+    //    let calendar = Calendar.current
     
     ///Returns current date as day of the week diplayed as an int.
     static func getDayOfWeek() -> Int {
         let calendar = Calendar.current
         let today    = calendar.startOfDay(for: Date())
         let weekDay  = calendar.component(.weekday, from: today)
-
+        
         return weekDay
     }
     
@@ -56,5 +56,30 @@ class DateModel {
             dayArray.append(day)
         }
         return dayArray
+    }
+    
+    ///Takes the date habit was created and amount of habits completed and works out the average habits completed per week.
+    static func calculateAverageStreak(with dateCreated: Date, days daysCompleted: Int) -> String {
+        let dateFormatter        = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        let date                 = dateFormatter.string(from: dateCreated)
+        
+        let timeSinceCreated     = Date().timeIntervalSince(dateCreated)
+        let week: Double         = 86400 * 7
+        var totalWeeks           = timeSinceCreated / week
+        if totalWeeks < 1 {
+            totalWeeks = 1
+        }
+        
+        let averagePerWeek       = Double(daysCompleted) / totalWeeks
+        let averageString        = String(format: "%.1f", averagePerWeek)
+        return averageString
+    }
+    
+    static func convertDateToString(using dateCreated: Date) -> String {
+        let dateFormatter        = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        let date                 = dateFormatter.string(from: dateCreated)
+        return date
     }
 }

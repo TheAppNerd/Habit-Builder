@@ -103,16 +103,6 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func configureTableViewFooter() {
         tableView.register(QuoteView.self, forHeaderFooterViewReuseIdentifier: "header")
         let tableViewFooter = TableViewFooter()
@@ -342,8 +332,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
                 currentCell.transform = CGAffineTransform(scaleX: 1, y: 1)
             } completion: { [weak self] _ in
                 
-                vc.habitIndex = indexPath.row
-                
+                vc.set(index: indexPath.row)
                 self?.show(vc, sender: self)
             }
         }
