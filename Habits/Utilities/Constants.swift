@@ -70,6 +70,11 @@ enum dates {
     static let weeklyDateArray            = DateModel.weeklyDateArray()
 }
 
+enum amendDates {
+    case addDate
+    case removeDate
+}
+
 
 enum feedback {
     static let emailAddress         = "Alex@appNerd.com.au"
