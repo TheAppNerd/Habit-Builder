@@ -22,9 +22,6 @@ class HabitIconCell: UITableViewCell {
     let stackViewTwo   = UIStackView()
     let stackViewThree = UIStackView()
     let stackViewFour  = UIStackView()
-    
-    var colors         = [CGColor]()
-    
     var buttonArray: [GradientButton] = []
     
     //MARK: - Class Funcs
@@ -55,7 +52,7 @@ class HabitIconCell: UITableViewCell {
             
             for _ in 0...6 {
                 let iconButton                = GradientButton()
-                iconButton.imageEdgeInsets    = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+                iconButton.imageEdgeInsets    = UIEdgeInsets(top: 6, left: 9, bottom: 6, right: 9)
                 iconButton.layer.cornerRadius = 10
                 iconButton.tintColor          = .secondaryLabel
                 iconButton.addTarget(self, action: #selector(iconButtonPressed), for: .touchUpInside)
@@ -102,7 +99,7 @@ class HabitIconCell: UITableViewCell {
         ])
     }
     
-    // TODO: move funcs out of cell
+    
     @objc func iconButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()

@@ -11,7 +11,6 @@ import UIKit
 class EmptyStateView: UIView {
     
     //MARK: - Properties
-
     let message = TitleLabel(textAlignment: .center, fontSize: 20)
     let secondaryMessage = TitleLabel(textAlignment: .center, fontSize: 16)
     let imageView = UIImageView()
