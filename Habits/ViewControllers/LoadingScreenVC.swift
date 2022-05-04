@@ -37,8 +37,10 @@ class LoadingScreenVC: UIViewController {
     func presentHabitVC() {
         let destVC = UINavigationController(rootViewController: HabitHomeVC())
         destVC.modalPresentationStyle = .fullScreen
+        destVC.modalTransitionStyle = .crossDissolve
         
         let seconds = 1.2
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             self.iconCircle.layer.removeAllAnimations()
             self.present(destVC, animated: true)
@@ -62,6 +64,7 @@ class LoadingScreenVC: UIViewController {
         ])
     }
     
+
 }
 
 

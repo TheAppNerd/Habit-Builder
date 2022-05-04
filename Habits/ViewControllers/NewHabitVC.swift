@@ -13,12 +13,7 @@ class NewHabitVC: UITableViewController  {
     //MARK: - Properties
     
     var habitEntity: HabitEnt? = nil
-    
-    var habitIndex: Int? {
-        didSet { // TODO: is this didset nessecary?
-            habitEntity = coreData.loadHabitArray()[habitIndex!]
-        }
-    }
+   
     let coreData = CoreDataMethods()
     
     //fix nameArray functionality?
@@ -103,6 +98,10 @@ class NewHabitVC: UITableViewController  {
         navigationItem.rightBarButtonItem = deleteButton
     }
   
+    func set(index: Int) {
+        let habit = coreData.loadHabitArray()[index]
+        habitEntity = habit
+    }
     
     func dismissKeyboard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
@@ -286,7 +285,6 @@ class NewHabitVC: UITableViewController  {
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: HabitIconCell.reuseID, for: indexPath) as! HabitIconCell
             cell.delegate = self
-            cell.colors = colors
             
             
             for (index, button) in cell.buttonArray.enumerated() { //remove index?
@@ -300,7 +298,6 @@ class NewHabitVC: UITableViewController  {
             return cell
             
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: HabitReminderCell.reuseID, for: indexPath) as! HabitReminderCell
-            cell.colors = colors
             cell.delegate = self
            
             let userNotifications = UserNotifications()
@@ -370,8 +367,7 @@ extension NewHabitVC: passColorsData, passIconData, passDayData, passFrequencyDa
         self.frequency = frequency
     }
     
-    func passColorsData(colors: [CGColor], colorIndex: Int) {
-        self.colors = colors
+    func passColorsData(colorIndex: Int) {
         self.colorIndex = colorIndex
     }
     

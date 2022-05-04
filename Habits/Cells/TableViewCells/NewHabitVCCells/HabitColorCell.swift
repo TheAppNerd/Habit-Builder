@@ -8,17 +8,17 @@
 import UIKit
 
 protocol passColorsData: AnyObject {
-    func passColorsData(colors: [CGColor], colorIndex: Int)
+    func passColorsData(colorIndex: Int)
 }
 
 class HabitColorCell: UITableViewCell {
-
+    
     //MARK: - Properties
     
     weak var delegate: passColorsData?
     
     static let reuseID = "ColorCell"
-    let colorStack      = UIStackView()
+    let colorStack     = UIStackView()
     var buttonArray    = [GradientButton]()
     let generator      = UIImpactFeedbackGenerator(style: .medium)
     
@@ -27,6 +27,7 @@ class HabitColorCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        configureColorButtons()
         layoutUI()
     }
     
@@ -37,14 +38,20 @@ class HabitColorCell: UITableViewCell {
     //MARK: - Functions
     
     private func configure() {
+        generator.prepare()
         backgroundColor          = BackgroundColors.secondaryBackground
         layer.cornerRadius       = 10
-        generator.prepare()
+        
         colorStack.translatesAutoresizingMaskIntoConstraints = false
         colorStack.axis          = .horizontal
         colorStack.distribution  = .fillEqually
         colorStack.spacing       = 6
         
+        
+        
+    }
+    
+    private func configureColorButtons() {
         for index in 0...6 {
             let colorButton                = GradientButton(colors: gradients.array[index])
             colorButton.layer.cornerRadius = 10
@@ -53,21 +60,19 @@ class HabitColorCell: UITableViewCell {
             colorStack.addArrangedSubview(colorButton)
             buttonArray.append(colorButton)
         }
-       
     }
     
-    // TODO: move funcs out of cell
+    
     @objc func colorButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
         for button in buttonArray {
             button.layer.borderWidth = 0
         }
-     
-        sender.layer.borderWidth   = 2
-        let color                      = sender.colors
-        let index                  = buttonArray.firstIndex(of: sender)!
-        delegate?.passColorsData(colors: color, colorIndex: index)
+        
+        sender.layer.borderWidth     = 2
+        let index                    = buttonArray.firstIndex(of: sender)!
+        delegate?.passColorsData(colorIndex: index)
     }
     
     

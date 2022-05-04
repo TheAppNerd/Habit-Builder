@@ -24,7 +24,6 @@ class HabitReminderCell: UITableViewCell {
     var hour              = Int()
     var minute            = Int()
     var buttonArray       = [GradientButton]()
-    var colors            = [CGColor]()
     let rectangleGradient = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: gradients.array[5])
     
     //MARK: - Class Funcs
@@ -107,7 +106,6 @@ class HabitReminderCell: UITableViewCell {
         ])
     }
     
-    // TODO: move funcs out of cell
     @objc func dayButtonpressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()

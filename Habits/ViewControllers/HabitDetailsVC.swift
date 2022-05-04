@@ -151,7 +151,9 @@ class HabitDetailsVC: UIViewController {
     
     @objc func editHabit() {
         let newHabitVC        = NewHabitVC()
-        newHabitVC.habitIndex = habitIndex
+        if let index = habitIndex {
+        newHabitVC.set(index: index)
+        }
         show(newHabitVC, sender: self)
     }
     

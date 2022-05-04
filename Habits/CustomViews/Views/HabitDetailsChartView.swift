@@ -11,7 +11,6 @@ class HabitDetailsChartView: UIView {
    
     //MARK: - Properties
     var collectionView  = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    let layout          = UICollectionViewFlowLayout()
     var collectionImage = UIImageView()
     let collectionLabel = BodyLabel(textInput: "Monthly Count", textAlignment: .left, fontSize: 18)
     let infoLabel       = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 12)
