@@ -193,6 +193,17 @@ extension CoreDataMethods {
         }
     }
     
+    ///Determines whether a specific date is already saved to a habits dates & either adds or removes the date from the list.
+    func updateDates(selectedDate: Date, index: Int) {
+        let habit = loadHabitArray()[index]
+        let dates = loadHabitDates(habit: habit)
+        if dates.contains(selectedDate) {
+            removeHabitDate(habit: habit, date: selectedDate)
+        } else {
+            addHabitDate(habit: habit, date: selectedDate)
+        }
+    }
+    
 }
 
 

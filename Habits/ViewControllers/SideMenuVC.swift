@@ -16,7 +16,6 @@ class SideMenuVC: UIViewController {
     
     //MARK: - Properties
     
-    let emailFeedback = EmailFeedback()
     let tableView     = UITableView()
     var delegate: SettingsPush?
     
