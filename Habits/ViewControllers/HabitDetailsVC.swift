@@ -16,7 +16,7 @@ class HabitDetailsVC: UIViewController {
     var habitIndex: Int?
     var habitEntity: HabitEnt?
     var chartYears: [ChartYear]  = []
-    var coreData                 = CoreDataMethods()
+    var coreData                 = CoreDataMethods.shared
     let habitDetailsCalendarView = HabitDetailsCalendarView()
     let habitDetailsStreakView   = HabitDetailsStreakView()
     let habitDetailsChartView    = HabitDetailsChartView()
@@ -49,7 +49,7 @@ class HabitDetailsVC: UIViewController {
     
     ///Takes all dates from habits dates in core data and selects them in the calendar.
     private func configureCalendarDates() {
-        let dateArray = CoreDataMethods().loadHabitDates(habit: habitEntity!)
+        let dateArray = coreData.loadHabitDates(habit: habitEntity!)
         for date in dateArray {
             habitDetailsCalendarView.calendarView.select(date)
         }
@@ -117,7 +117,7 @@ class HabitDetailsVC: UIViewController {
     ///Updates streak numbers whenever dates changed.
     func updateStreaks() {
         guard let dateCreated = habitEntity?.dateCreated else { return }
-        let daysCompleted     = CoreDataMethods().loadHabitDates(habit: habitEntity!).count
+        let daysCompleted     = coreData.loadHabitDates(habit: habitEntity!).count
         let averageString     = DateModel.calculateAverageStreak(with: dateCreated, days: daysCompleted)
         let dateString        = DateModel.convertDateToString(using: dateCreated)
         

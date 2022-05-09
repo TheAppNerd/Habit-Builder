@@ -35,7 +35,7 @@ class UserNotifications {
     // TODO: Remove static
     ///Implements notifications for single habit using day array to confirm which days of the week the user has selected for the alarm.
     static func scheduleNotifications(alarmItem: AlarmItem) {
-        let dayArray               = CoreDataMethods().convertStringArraytoBoolArray(alarmItem: alarmItem)
+        let dayArray               = CoreDataMethods.shared.convertStringArraytoBoolArray(alarmItem: alarmItem)
         let center                 = UNUserNotificationCenter.current()
         let content                = UNMutableNotificationContent()
         content.title              = alarmItem.title
