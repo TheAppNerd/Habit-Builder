@@ -8,32 +8,25 @@
 import UIKit
 import CoreData
 
-// TODO: - FIX icon by removing square in sketch
-
 
 class HabitHomeVC: UIViewController, SettingsPush {
     
     //MARK: - Properties
     
-    let tableView            = UITableView()
-    let menu                 = SideMenuVC()
-    let generator            = UIImpactFeedbackGenerator(style: .medium) // TODO: move to protocol
-    let emptyStateView       = EmptyStateView()
-    var quoteButtonTapped    = Bool()
-    let coreData             = CoreDataMethods()
-    var quotesManager        = QuotesManager()
-    var quotesArray: [Quote] = [] // TODO: move to func
-    
-    // TODO: - rework side menu
-    var isSlideInMenuPressed = false
-    lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
+    let tableView               = UITableView()
+    let sideMenuVC              = SideMenuVC()
+    let generator               = UIImpactFeedbackGenerator(style: .medium)
+    let emptyStateView          = EmptyStateView()
+    let coreData                = CoreDataMethods()
+    var quotesArray: [Quote]    = []
+    var quoteButtonTapped: Bool = false
+    var menuButtonPressed       = false
     
     //MARK: - Class Funcs
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showEmptyStateView()
-        timerForCloudKit() // TODO: move to completion closure
     }
     
     override func viewDidLoad() {
@@ -44,11 +37,8 @@ class HabitHomeVC: UIViewController, SettingsPush {
         configureEmptyState()
         configureTableViewFooter()
         configureMenuView()
-        quoteButtonTapped = false
         configureQuotesManager()
-        
         AppStoreManagerReview.reviewCount()
-        
     }
     
     //MARK: - Functions
@@ -84,11 +74,12 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.dragDelegate           = self
     }
     
-    
+    ///Populates an array with quotes for tableview header.
     private func configureQuotesManager() {
+        var quotesManager        = QuotesManager()
         quotesManager.delegate = self
         DispatchQueue.global(qos: .background).async {
-            self.quotesManager.parse()
+            quotesManager.parse()
         }
     }
     
@@ -102,7 +93,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
-    
+    ///Registers TableViewFooter & hides it if empty state view is active.
     func configureTableViewFooter() {
         tableView.register(QuoteView.self, forHeaderFooterViewReuseIdentifier: "header")
         let tableViewFooter = TableViewFooter()
@@ -114,64 +105,38 @@ class HabitHomeVC: UIViewController, SettingsPush {
         }
     }
     
-    // TODO: - change this do a completion closure
-    func timerForCloudKit() {
-        var count = 0
-        //This ensures data loads correctly when cloudkit loads.
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { timer in
-            let habits = self.coreData.loadHabitArray()
-            self.tableView.reloadData()
-            print("Repeated")
-            count += 1
-            if habits.isEmpty == false  {
-                timer.invalidate()
-            }
-            if count == 10 {
-                timer.invalidate()
-            }
-            
-        }
-    }
-    
+    ///Protocol func from side menu buttons to load actions from button presses in UINavigation Controller.
     func sideMenuItemPressed(row: Int) {
         let settingsFuncs = SettingsFuncs()
-        switch row {
-        case 0: settingsFuncs.shareApp(vc: self)
-        case 1: settingsFuncs.reviewApp()
-        case 2: EmailFeedback().newEmail()
-        case 3: settingsFuncs.pushHowToUse(vc: self)
-        case 4: settingsFuncs.openPrivacy()
-        case 5: settingsFuncs.pushAbout(vc: self)
-        case 6: settingsFuncs.presentDarkMode(vc: self)
-        case 7: settingsFuncs.openAppSettings()
-        default: print("error")
-        }
+        settingsFuncs.activateSettings(row: row, vc: self)
     }
     
-    func configureMenuView() { // TODO: move to class or view
+    
+    func configureMenuView() {
+        let menuBarPadding: CGFloat = self.view.frame.width * 0.50
         lazy var menuView: UIView = {
             let view = UIView()
-            view.addSubview(menu.view)
-            menu.view.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(sideMenuVC.view)
+            sideMenuVC.view.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                menu.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                menu.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                menu.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                menu.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                sideMenuVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                sideMenuVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                sideMenuVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                sideMenuVC.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
             return view
         }()
         
-        menuView.pinMenuTo(view, with: slideInMenuPadding)
+        menuView.pinMenuTo(view, with: menuBarPadding)
         tableView.edgeTo(view, padding: 0)
-        menu.delegate = self
+        sideMenuVC.delegate = self
     }
+    
     
     func configureEmptyState() {
         emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
     }
-    
     
     //MARK: - @objc Funcs
     
@@ -194,25 +159,14 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.reloadData()
     }
     
-    
     /// When button is pressed, the selected button's date is saved the the corresponding habits core data dates list. If date is already in there, it is instead removed from the list.
-    ///
     /// - Parameter UIButton: This func is attached to all 7 date buttons on tableView Cells.
     @objc func dateButtonPressed(_ sender: UIButton) {
         generator.impactOccurred()
-        
-        let selectedDate = DateModel.weeklyDateArray()[sender.tag]
-        
+        let selectedDate            = DateModel.weeklyDateArray()[sender.tag]
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
-        guard let indexPath = self.tableView.indexPathForRow(at: buttonPosition) else { return }
-        
-        let habit = coreData.loadHabitArray()[indexPath.row]
-        
-        if sender.image(for: .normal) == SFSymbols.checkMark {
-            coreData.removeHabitDate(habit: habit, date: selectedDate)
-        } else {
-            coreData.addHabitDate(habit: habit, date: selectedDate)
-        }
+        guard let indexPath         = self.tableView.indexPathForRow(at: buttonPosition) else { return }
+        coreData.updateDates(selectedDate: selectedDate, index: indexPath.row)
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
@@ -223,23 +177,18 @@ class HabitHomeVC: UIViewController, SettingsPush {
         tableView.reloadData()
     }
     
-    
-    @objc func menuBarButtonPressed() { //change this to a push. can then load button presses from menuview, dismiss back to here and have it much cleaner.
-        // move to animation file
-        
+    ///Animates the SideMenuVC to either slide into view or slide away.
+    @objc func menuBarButtonPressed() {
+        let menuBarPadding: CGFloat = self.view.frame.width * 0.50
         generator.impactOccurred()
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveLinear) {
-            self.emptyStateView.frame.origin.x = self.isSlideInMenuPressed ? 0 : self.emptyStateView.frame.width - self.slideInMenuPadding
-            self.tableView.frame.origin.x      = self.isSlideInMenuPressed ? 0 : self.tableView.frame.width - self.slideInMenuPadding
-        } completion: { (finished) in
-            self.isSlideInMenuPressed.toggle()
+            self.menuButtonPressed.toggle()
+            self.emptyStateView.frame.origin.x = self.menuButtonPressed ? 0 : self.emptyStateView.frame.width - menuBarPadding
+            self.tableView.frame.origin.x      = self.menuButtonPressed ? 0 : self.tableView.frame.width - menuBarPadding
         }
     }
     
-    
 }
-
-
 
 //MARK: - QuotesManagerDelegate
 
@@ -253,7 +202,6 @@ extension HabitHomeVC: QuotesManagerDelegate {
     }
 }
 
-
 //MARK: - TableView - UITableViewDelegate, UITableViewDataSource
 
 extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDragDelegate {
@@ -262,8 +210,8 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
         quoteButtonTapped ? 100 : CGFloat.leastNormalMagnitude
     }
     
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as! QuoteView
         headerView.quoteButton.addTarget(self, action: #selector(quoteNextButtonPressed), for: .touchUpInside)
         
@@ -306,8 +254,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
-        
+        let cell  = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
         let habit = coreData.loadHabitArray()[indexPath.row]
     
         for (index,button) in cell.dayButtons.enumerated() {
@@ -320,21 +267,14 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = HabitDetailsVC()
-        
+        let vc          = HabitDetailsVC()
         let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
         generator.impactOccurred()
-        // TODO: -  move this to an animations file. user a timer combined with animation to show vc.
-        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseIn) {
-            currentCell.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
-        } completion: { (_) in
-            UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseIn) {
-                currentCell.transform = CGAffineTransform(scaleX: 1, y: 1)
-            } completion: { [weak self] _ in
-                
-                vc.set(index: indexPath.row)
-                self?.show(vc, sender: self)
-            }
+        currentCell.bounce()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
+            vc.set(index: indexPath.row)
+            self.show(vc, sender: self)
         }
     }
+    
 }

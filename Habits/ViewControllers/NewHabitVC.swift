@@ -15,16 +15,12 @@ class NewHabitVC: UITableViewController  {
     var habitEntity: HabitEnt? = nil
    
     let coreData = CoreDataMethods()
-    
-    //fix nameArray functionality?
-   
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     
-    var nameArray             = [UITextField]()
+    var nameTextField         = UITextField()
     var previousName          = String() //using this prevents alarms from being messed with as name is name of title
     var name                  = String()
     var frequency             = 1
-    var colors                = [CGColor]()
     var colorIndex            = Int()
     var iconString: String    = ""
     var alarmItem             = AlarmItem(alarmActivated: false, title: "", days: "", hour: 0, minute: 0)
@@ -58,7 +54,6 @@ class NewHabitVC: UITableViewController  {
             previousName    = habit.name ?? ""
             frequency       = Int(habit.frequency)
             colorIndex      = Int(habit.gradient)
-            colors          = gradients.array[colorIndex]
             iconString      = habit.icon ?? ""
             
                 alarmItem.title = habit.name ?? ""
@@ -156,11 +151,11 @@ class NewHabitVC: UITableViewController  {
         generator.impactOccurred()
         
         guard name != "" else {
-            nameArray[0].layer.borderWidth = 2
+            nameTextField.layer.borderWidth = 2
             return
         }
 
-        nameArray[0].layer.borderWidth = 0
+       nameTextField.layer.borderWidth = 0
         alarmItem.title = name // This is here to ensure alarm sets properly when habit first created
         createHabit()
         setupNotifications()
@@ -262,7 +257,7 @@ class NewHabitVC: UITableViewController  {
         switch indexPath.section {
         case 0: let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
             cell.nameTextField.delegate = self
-            nameArray.append(cell.nameTextField) // is this still needed?
+            nameTextField = cell.nameTextField
             if habitEntity != nil {
                 cell.nameTextField.text = name
             }
@@ -287,7 +282,7 @@ class NewHabitVC: UITableViewController  {
             cell.delegate = self
             
             
-            for (index, button) in cell.buttonArray.enumerated() { //remove index?
+            for button in cell.buttonArray {
                 if button.imageView!.image == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
                 }
@@ -313,7 +308,7 @@ class NewHabitVC: UITableViewController  {
             cell.alarmSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
             cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
             print("testitem\(alarmItem.days)")
-            var boolArray = coreData.convertStringArraytoBoolArray(alarmItem: alarmItem)
+            let boolArray = coreData.convertStringArraytoBoolArray(alarmItem: alarmItem)
             
             print("bool\(boolArray)")
             for (index, bool) in boolArray.enumerated() {
