@@ -17,7 +17,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     let sideMenuVC              = SideMenuVC()
     let generator               = UIImpactFeedbackGenerator(style: .medium)
     let emptyStateView          = EmptyStateView()
-    let coreData                = CoreDataMethods()
+    let coreData                = CoreDataMethods.shared
     var quotesArray: [Quote]    = []
     var quoteButtonTapped: Bool = false
     var menuButtonPressed       = false
@@ -26,6 +26,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
         showEmptyStateView()
     }
     

@@ -14,7 +14,7 @@ class NewHabitVC: UITableViewController  {
     
     var habitEntity: HabitEnt? = nil
    
-    let coreData = CoreDataMethods()
+    let coreData = CoreDataMethods.shared
     let generator            = UIImpactFeedbackGenerator(style: .medium)
     
     var nameTextField         = UITextField()

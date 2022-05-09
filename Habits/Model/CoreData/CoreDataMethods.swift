@@ -12,22 +12,24 @@ import CoreData
 class CoreDataMethods {
     
     //MARK: - Properties
-    
-    let persistentContainer: NSPersistentCloudKitContainer
-    
+        
+    static let shared = CoreDataMethods()
     
     //MARK: - Class Funcs
     
-    init() {
-        persistentContainer = NSPersistentCloudKitContainer(name: "HabitEntities")
-        persistentContainer.persistentStoreDescriptions.first!.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
-        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-        persistentContainer.loadPersistentStores { description, error in
+    private init() {}
+        
+    lazy var persistentContainer: NSPersistentCloudKitContainer = {
+        let container = NSPersistentCloudKitContainer(name: "HabitEntities")
+        container.persistentStoreDescriptions.first!.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.loadPersistentStores { description, error in
             if let error = error {
                 print("Core Data Error: \(error)")
             }
         }
-    }
+        return container
+    }()
 }
 
 extension CoreDataMethods {

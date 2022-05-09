@@ -204,7 +204,7 @@ class HabitCell: UITableViewCell {
     /// - Parameter habit: The core data habit entity to pull the current completed dates
     func updateButtons(habit: HabitEnt) {
         let dateArray = DateModel.weeklyDateArray()
-        let dates = CoreDataMethods().loadHabitDates(habit: habit)
+        let dates = CoreDataMethods.shared.loadHabitDates(habit: habit)
         for (index,button) in dayButtons.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
             button.setTitle("\(DateModel.weeklyDayArray()[index])", for: .normal)
