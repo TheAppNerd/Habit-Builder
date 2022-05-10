@@ -50,16 +50,10 @@ class AboutAppVC: UIViewController {
     
     
     private func configureTableView() {
+        TableViewFuncs().setupTableView(for: .AboutAppVC, using: tableView)
         tableView.delegate           = self
         tableView.dataSource         = self
-        tableView.separatorStyle     = .none
-        tableView.rowHeight          = 50
-        tableView.backgroundColor    = BackgroundColors.secondaryBackground
-        tableView.bounces            = false
-        tableView.layer.cornerRadius = 10
         tableView.frame.size.height  = tableView.contentSize.height
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
     }
     
     

@@ -46,9 +46,6 @@ class HabitColorCell: UITableViewCell {
         colorStack.axis          = .horizontal
         colorStack.distribution  = .fillEqually
         colorStack.spacing       = 6
-        
-        
-        
     }
     
     private func configureColorButtons() {

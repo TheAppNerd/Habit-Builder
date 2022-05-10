@@ -65,14 +65,11 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     private func configureTableView() {
         view.addSubview(tableView)
-        tableView.register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
+        TableViewFuncs().setupTableView(for: .HabitHomeVC, using: tableView)
         tableView.delegate               = self
         tableView.dataSource             = self
-        tableView.frame                  = view.bounds
-        tableView.backgroundColor        = BackgroundColors.mainBackGround
-        tableView.separatorStyle         = .none
-        tableView.dragInteractionEnabled = true
         tableView.dragDelegate           = self
+        tableView.frame                  = view.bounds
     }
     
     ///Populates an array with quotes for tableview header.

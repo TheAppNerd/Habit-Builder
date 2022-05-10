@@ -28,13 +28,10 @@ class SideMenuVC: UIViewController {
     }
     
     func configureTableView() {
-        tableView.backgroundColor    = BackgroundColors.secondaryBackground
+        TableViewFuncs().setupTableView(for: .SideMenuVC, using: tableView)
         tableView.frame              = view.bounds
         tableView.delegate           = self
         tableView.dataSource         = self
-        tableView.estimatedRowHeight = 70
-        tableView.separatorStyle     = .none
-        tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
         view.addSubview(tableView)
     }
     

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3CC551A27B6840B7BDF879AB /* Pods_Habits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 838E44C3241E759CB1015ADF /* Pods_Habits.framework */; };
 		FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */; };
+		FA0D65DF2829F0AD000DB768 /* TableViewFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D65DE2829F0AD000DB768 /* TableViewFuncs.swift */; };
 		FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */; };
 		FA1AB1C52822B69C0097A3AA /* NewHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1AB1C42822B69C0097A3AA /* NewHabitVC.swift */; };
 		FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C7305263636D800E63CBE /* AppDelegate.swift */; };
@@ -78,6 +79,7 @@
 		2FF57C4A93B664F2B8DAF532 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 		838E44C3241E759CB1015ADF /* Pods_Habits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ext.swift"; sourceTree = "<group>"; };
+		FA0D65DE2829F0AD000DB768 /* TableViewFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewFuncs.swift; sourceTree = "<group>"; };
 		FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenVC.swift; sourceTree = "<group>"; };
 		FA1AB1C42822B69C0097A3AA /* NewHabitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHabitVC.swift; sourceTree = "<group>"; };
 		FA1C7302263636D800E63CBE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -323,6 +325,7 @@
 				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
 				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
 				FA79D7662820F318004E0CAC /* SettingsFuncs.swift */,
+				FA0D65DE2829F0AD000DB768 /* TableViewFuncs.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */,
+				FA0D65DF2829F0AD000DB768 /* TableViewFuncs.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HowToUseVC.swift in Sources */,
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
