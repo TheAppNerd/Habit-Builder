@@ -83,6 +83,31 @@ class UserNotifications {
         }
     }
     
+    func dateSegmentChanged(segment: UISegmentedControl, vc: UIViewController) {
+        let current = UNUserNotificationCenter.current()
+        current.getNotificationSettings { (settings) in
+            if settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    segment.selectedSegmentIndex = 1
+                }
+            }
+            if settings.authorizationStatus == .denied {
+                let deniedAlert = UIAlertController(title: Labels.notificationDeniedTitle, message: Labels.notificationDeniedMessage, preferredStyle: .alert)
+                deniedAlert.addAction(UIAlertAction(title: "App Settings", style: .default, handler: { (alert) in
+                    if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
+                        UIApplication.shared.open(appSettings)
+                    }
+                }))
+                deniedAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                DispatchQueue.main.async {
+                    vc.present(deniedAlert, animated: true) {
+                        segment.selectedSegmentIndex = 0
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 

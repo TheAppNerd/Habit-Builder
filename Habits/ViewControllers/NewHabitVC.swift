@@ -12,91 +12,74 @@ class NewHabitVC: UITableViewController  {
     
     //MARK: - Properties
     
+    let coreData               = CoreDataMethods.shared
+    let generator              = UIImpactFeedbackGenerator(style: .medium)
     var habitEntity: HabitEnt? = nil
-   
-    let coreData = CoreDataMethods.shared
-    let generator            = UIImpactFeedbackGenerator(style: .medium)
-    
-    var nameTextField         = UITextField()
-    var previousName          = String() //using this prevents alarms from being messed with as name is name of title
-    var name                  = String()
-    var frequency             = 1
-    var colorIndex            = Int()
-    var iconString: String    = ""
-    var alarmItem             = AlarmItem(alarmActivated: false, title: "", days: "", hour: 0, minute: 0)
+    var nameTextField          = UITextField()
+    var name                   = String()
+    var frequency              = 1
+    var colorIndex             = Int()
+    var iconString: String     = ""
+    var alarmItem              = AlarmItem(alarmActivated: false, title: "", days: "", hour: 0, minute: 0)
     
     //MARK: - Class Funcs
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
-        registerCells()
         configure()
         configureBarButtons()
         dismissKeyboard()
-    
-        // TODO: test if this bug still exists
-        if #available(iOS 15.0, *) {
-            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
-        }
-
     }
     
     
     //MARK: - Functions
     
     func loadData() {
-            if habitEntity != nil {
-                title = "Edit Habit" //move to constants
-                
-            let habit       = habitEntity!
-            name            = habit.name ?? ""
-            previousName    = habit.name ?? ""
-            frequency       = Int(habit.frequency)
-            colorIndex      = Int(habit.gradient)
-            iconString      = habit.icon ?? ""
+        if habitEntity != nil {
+            title = "Edit Habit"
+            let habit                = habitEntity!
+            name                     = habit.name ?? ""
+            frequency                = Int(habit.frequency)
+            colorIndex               = Int(habit.gradient)
+            iconString               = habit.icon ?? ""
             
-                alarmItem.title = habit.name ?? ""
-                alarmItem.days  = habit.notificationDays ?? ""
+            alarmItem.title          = habit.name ?? ""
+            alarmItem.days           = habit.notificationDays ?? ""
             alarmItem.alarmActivated = habit.notificationBool
-            alarmItem.hour = Int(habit.notificationHour)
-            alarmItem.minute = Int(habit.notificationMinute)
-            } else {
-                title = "Create Habit" //move to constants
-            }
+            alarmItem.hour           = Int(habit.notificationHour)
+            alarmItem.minute         = Int(habit.notificationMinute)
+        } else {
+            title = "Create Habit"
+        }
     }
-    
-    // TODO: create custom tableview with all these pre registered
-    private func registerCells() {
-        tableView.register(HabitNameCell.self, forCellReuseIdentifier: HabitNameCell.reuseID)
-        tableView.register(HabitFrequencyCell.self, forCellReuseIdentifier: HabitFrequencyCell.reuseID)
-        tableView.register(HabitIconCell.self, forCellReuseIdentifier: HabitIconCell.reuseID)
-        tableView.register(HabitReminderCell.self, forCellReuseIdentifier: HabitReminderCell.reuseID)
-        tableView.register(HabitColorCell.self, forCellReuseIdentifier: HabitColorCell.reuseID)
-        tableView.register(HabitSaveCell.self, forCellReuseIdentifier: HabitSaveCell.reuseID)
-    }
+
     
     private func configure() {
-        tableView.backgroundColor = BackgroundColors.mainBackGround
-        tableView.allowsSelection = false
-        tableView.separatorStyle = .none
+        //Fixes a bug with section header padding size.
+        if #available(iOS 15.0, *) {
+            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
+        }
+        TableViewFuncs().setupTableView(for: .NewHabitVC, using: tableView)
         generator.prepare()
     }
     
+    
     private func configureBarButtons() {
         let deleteButton = UIBarButtonItem(image: SFSymbols.trash, style: .done, target: self, action: #selector(deleteHabit))
-        
         switch habitEntity != nil {
-        case true: deleteButton.image = SFSymbols.trash
+        case true: deleteButton.image  = SFSymbols.trash
         case false: deleteButton.image = SFSymbols.trashSlash
         }
         navigationItem.rightBarButtonItem = deleteButton
     }
-  
+    
+    ///Injects the coreData entity here when page is entered from HabitDetailsVC.
     func set(index: Int) {
-        let habit = coreData.loadHabitArray()[index]
+        let habit   = coreData.loadHabitArray()[index]
         habitEntity = habit
     }
+    
     
     func dismissKeyboard() {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing(_:)))
@@ -104,48 +87,43 @@ class NewHabitVC: UITableViewController  {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func deleteHabit() { //move alerts to enum
+    
+    ///Prompts alert to delete habit. If user accepts, all userNotifications are cleared, the core data habit is cleared and the user is pushed back to HabitHomeVC.
+    @objc func deleteHabit() {
         let deleteAlert = UIAlertController(title: Labels.deleteAlertTitle, message: Labels.deleteAlartMessage, preferredStyle: .alert)
-        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { UIAlertAction in
-        }))
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel , handler: { UIAlertAction in }))
         deleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { UIAlertAction in
-            
-        UserNotifications.removeNotifications(title: self.previousName)
-            
+            UserNotifications.removeNotifications(title: self.habitEntity?.name ?? self.name)
             if let habit = self.habitEntity {
                 self.coreData.deleteHabit(habit)
             }
-        
-        let habitVC = HabitHomeVC()
-        self.show(habitVC, sender: self)
+            let habitVC = HabitHomeVC()
+            self.show(habitVC, sender: self)
         }))
-        
         if habitEntity != nil {
             generator.impactOccurred()
             present(deleteAlert, animated: true, completion: nil)
         }
     }
     
+    ///Determines whether a new habit is being created or existing habit is being updated. Saves all the relevent data
     func createHabit() {
         let count = coreData.loadHabitArray().count
-        
         switch habitEntity == nil {
         case true:
-                
             coreData.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), index: count, gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: alarmItem.alarmActivated, alarmItem: alarmItem)
-        case false: let habit = habitEntity!
-            habit.name          = name
-            habit.frequency          = Int16(frequency)
-            habit.icon         = iconString
-            habit.gradient = Int16(colorIndex)
+        case false: let habit      = habitEntity!
+            habit.name             = name
+            habit.frequency        = Int16(frequency)
+            habit.icon             = iconString
+            habit.gradient         = Int16(colorIndex)
             habit.notificationBool = alarmItem.alarmActivated
             coreData.saveAlarmData(habit: habit, alarmItem: alarmItem)
             coreData.updateHabit()
         }
-        
     }
     
-    
+    ///When save button is pressed this deactivates all existing userNotifications, creates new habit or updates existing habit in core data, sets up any new userNotifications and pushes user to HabitHomeVC.
     @objc func saveButtonPressed(_ sender: GradientButton) {
         sender.bounceAnimation()
         generator.impactOccurred()
@@ -154,23 +132,18 @@ class NewHabitVC: UITableViewController  {
             nameTextField.layer.borderWidth = 2
             return
         }
-
-       nameTextField.layer.borderWidth = 0
-        alarmItem.title = name // This is here to ensure alarm sets properly when habit first created
+        
+        UserNotifications.removeNotifications(title: habitEntity?.name ?? name)
+        nameTextField.layer.borderWidth = 0
         createHabit()
         setupNotifications()
-        
-        
-        
-
-        
         let habitVC = HabitHomeVC()
         show(habitVC, sender: self)
     }
     
     
     func setupNotifications() {
-        UserNotifications.removeNotifications(title: previousName)
+        alarmItem.title = name // This is here to ensure alarm sets properly when habit first created
         if alarmItem.alarmActivated == true {
             UserNotifications.scheduleNotifications(alarmItem: alarmItem)
         }
@@ -178,56 +151,22 @@ class NewHabitVC: UITableViewController  {
     
     
     @objc func datePickerTime(_ sender: DatePicker) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        let dateAsString = formatter.string(from: sender.date)
-        
-        let date = formatter.date(from: dateAsString)
-        formatter.dateFormat = "HH:mm"
-        
-        let twentyFourHourDate = formatter.string(from: date!)
-        let time = twentyFourHourDate.components(separatedBy: ":")
+        let time = DateModel().convertDatePickerTime(date: sender.date)
         alarmItem.hour = Int(time[0])!
         alarmItem.minute = Int(time[1])!
     }
     
-    
+    // TODO: - move externally - 30 lines
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
         generator.impactOccurred()
-        
         sender.setGradientColors()
-        
         
         switch sender.selectedSegmentIndex {
         case 0: alarmItem.alarmActivated = false
         case 1: alarmItem.alarmActivated = true
-           
-            let current = UNUserNotificationCenter.current()
-            
-            current.getNotificationSettings { (settings) in
-                if settings.authorizationStatus == .authorized {
-                    DispatchQueue.main.async {
-                        sender.selectedSegmentIndex = 1
-                    }
-                }
-                if settings.authorizationStatus == .denied {
-                    
-                    let deniedAlert = UIAlertController(title: Labels.notificationDeniedTitle, message: Labels.notificationDeniedMessage, preferredStyle: .alert)
-                    deniedAlert.addAction(UIAlertAction(title: "App Settings", style: .default, handler: { (alert) in
-                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-                            UIApplication.shared.open(appSettings)
-                        }
-                    }))
-                    deniedAlert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    DispatchQueue.main.async {
-                        self.present(deniedAlert, animated: true) {
-                            sender.selectedSegmentIndex = 0
-                        }
-                    }
-                }
-            }
+                UserNotifications().dateSegmentChanged(segment: sender, vc: self)
         default:
-            alarmItem.alarmActivated = false
+                alarmItem.alarmActivated = false
         }
     }
     
@@ -242,6 +181,7 @@ class NewHabitVC: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        // TODO: - move to constants array. 7 lines
         switch section {
         case 0: return "Name"
         case 1: return "How many days per week?"
@@ -249,7 +189,7 @@ class NewHabitVC: UITableViewController  {
         case 3: return "Icon"
         case 4: return "Remind Me"
         default:
-                return ""
+            return ""
         }
     }
     
@@ -258,30 +198,21 @@ class NewHabitVC: UITableViewController  {
         case 0: let cell = tableView.dequeueReusableCell(withIdentifier: HabitNameCell.reuseID, for: indexPath) as! HabitNameCell
             cell.nameTextField.delegate = self
             nameTextField = cell.nameTextField
-            if habitEntity != nil {
-                cell.nameTextField.text = name
-            }
+            cell.nameTextField.text = name
             return cell
             
         case 1: let cell = tableView.dequeueReusableCell(withIdentifier: HabitFrequencyCell.reuseID, for: indexPath) as! HabitFrequencyCell
             cell.delegate = self
             cell.frequencyButtonArray[frequency - 1].sendActions(for: .touchUpInside)
-            
             return cell
             
         case 2: let cell = tableView.dequeueReusableCell(withIdentifier: HabitColorCell.reuseID, for: indexPath) as! HabitColorCell
             cell.delegate = self
-            for (index, button) in cell.buttonArray.enumerated() {
-                if index == colorIndex {
-                    button.sendActions(for: .touchUpInside)
-                }
-            }
+            cell.buttonArray[colorIndex].sendActions(for: .touchUpInside)
             return cell
             
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: HabitIconCell.reuseID, for: indexPath) as! HabitIconCell
             cell.delegate = self
-            
-            
             for button in cell.buttonArray {
                 if button.imageView!.image == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
@@ -294,23 +225,17 @@ class NewHabitVC: UITableViewController  {
             
         case 4: let cell = tableView.dequeueReusableCell(withIdentifier: HabitReminderCell.reuseID, for: indexPath) as! HabitReminderCell
             cell.delegate = self
-           
-            let userNotifications = UserNotifications()
-            userNotifications.confirmRegisteredNotifications(segment: cell.alarmSegment)
-        
+            cell.alarmSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
+            cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
+            UserNotifications().confirmRegisteredNotifications(segment: cell.alarmSegment)
             
             switch alarmItem.alarmActivated {
             case true: cell.alarmSegment.selectedSegmentIndex = 1
-                cell.datePicker.date = DateFuncs.setupDatePickerDate(hour: alarmItem.hour, minute: alarmItem.minute)
+                cell.datePicker.date = DateFuncs.setupDatePickerDate(hour: alarmItem.hour, minute: alarmItem.minute) //Sets datepicker to previously select alarm time.
             case false: cell.alarmSegment.selectedSegmentIndex = 0
             }
             
-            cell.alarmSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
-            cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
-            print("testitem\(alarmItem.days)")
-            let boolArray = coreData.convertStringArraytoBoolArray(alarmItem: alarmItem)
-            
-            print("bool\(boolArray)")
+            let boolArray = coreData.convertStringArraytoBoolArray(alarmItem: alarmItem) //Converts core data string to bool array as way to store days of week where UserNotifications active.
             for (index, bool) in boolArray.enumerated() {
                 if bool == true {
                     cell.buttonArray[index].sendActions(for: .touchUpInside)
@@ -327,7 +252,7 @@ class NewHabitVC: UITableViewController  {
             return cell
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.label
@@ -366,11 +291,9 @@ extension NewHabitVC: passColorsData, passIconData, passDayData, passFrequencyDa
         self.colorIndex = colorIndex
     }
     
-    
     func passIconData(iconString: String) {
         self.iconString = iconString
     }
-    
     
     func passDayData(dayArray: String) {
         alarmItem.days = dayArray

@@ -82,4 +82,21 @@ class DateModel {
         let date                 = dateFormatter.string(from: dateCreated)
         return date
     }
+    
+    
+    ///Takes time from datepicker, converts it to string and splits hours and minutes into seperate strings for use in UserNotifications.
+    func convertDatePickerTime(date: Date) -> [String] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        let dateAsString = formatter.string(from: date)
+        
+        let date = formatter.date(from: dateAsString)
+        formatter.dateFormat = "HH:mm"
+        
+        let twentyFourHourDate = formatter.string(from: date!)
+        let time = twentyFourHourDate.components(separatedBy: ":")
+        
+        return time
+    }
+    
 }
