@@ -14,7 +14,7 @@ class QuoteView: UITableViewHeaderFooterView {
     let quoteView   = UIView()
     let quoteLabel  = UILabel()
     let nameLabel   = UILabel()
-    let quoteButton = UIButton()
+    let quoteButton = GradientButton()
     
     //MARK: - Class Funcs
     
@@ -22,6 +22,12 @@ class QuoteView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         configure()
         layoutUI()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        quoteButton.layer.cornerRadius = 0.5 * quoteButton.bounds.size.width
+        quoteButton.addGradient(colors: gradients.array[5])
     }
     
     required init?(coder: NSCoder) {
@@ -43,9 +49,8 @@ class QuoteView: UITableViewHeaderFooterView {
         nameLabel.font                       = UIFont.systemFont(ofSize: 12)
         
         quoteButton.translatesAutoresizingMaskIntoConstraints = false
-        quoteButton.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
-        quoteButton.addTarget(self, action: #selector(quoteButtonPressed), for: .touchUpInside)
-        
+        quoteButton.setImage(UIImage(systemName: "quote.closing"), for: .normal)
+      
         quoteView.layer.cornerRadius         = 10
     }
     
@@ -60,7 +65,7 @@ class QuoteView: UITableViewHeaderFooterView {
             quoteView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             
             quoteLabel.topAnchor.constraint(equalTo: quoteView.topAnchor, constant: 10),
-            quoteLabel.leadingAnchor.constraint(equalTo: quoteView.leadingAnchor, constant: 10),
+            quoteLabel.leadingAnchor.constraint(equalTo: quoteView.leadingAnchor, constant: padding),
             quoteLabel.trailingAnchor.constraint(equalTo: quoteButton.leadingAnchor, constant: -padding),
             quoteLabel.bottomAnchor.constraint(equalTo: nameLabel.topAnchor),
             
@@ -70,16 +75,10 @@ class QuoteView: UITableViewHeaderFooterView {
             nameLabel.bottomAnchor.constraint(equalTo: quoteView.bottomAnchor, constant: -padding),
             
             quoteButton.centerYAnchor.constraint(equalTo: quoteView.centerYAnchor),
-            quoteButton.heightAnchor.constraint(equalTo: quoteView.heightAnchor, multiplier: 0.3),
+            quoteButton.heightAnchor.constraint(equalTo: quoteView.heightAnchor, multiplier: 0.6),
             quoteButton.widthAnchor.constraint(equalTo: quoteButton.heightAnchor),
             quoteButton.trailingAnchor.constraint(equalTo: quoteView.trailingAnchor, constant: -10)
         ])
-    }
-    
-    //MARK: - @objc funcs
-    
-    @objc func quoteButtonPressed(sender: UIButton) {
-        sender.bounceAnimation()
     }
     
 }

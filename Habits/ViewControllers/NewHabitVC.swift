@@ -149,14 +149,14 @@ class NewHabitVC: UITableViewController  {
         }
     }
     
-    
+    ///Takes time from datepicker, converts it to two seperate intergers representing hours & minutes to use to set alarms with userNotifications.
     @objc func datePickerTime(_ sender: DatePicker) {
         let time = DateModel().convertDatePickerTime(date: sender.date)
-        alarmItem.hour = Int(time[0])!
-        alarmItem.minute = Int(time[1])!
+        alarmItem.hour = Int(time[0]) ?? 0
+        alarmItem.minute = Int(time[1]) ?? 0
     }
     
-    // TODO: - move externally - 30 lines
+    ///Determines whether or not to set userNotifications for a habit. If user selects to activate them a method runs to determine whether user has granted system access and responds accordingly.
     @objc func dateSegmentChanged(_ sender: UISegmentedControl) {
         generator.impactOccurred()
         sender.setGradientColors()
@@ -181,7 +181,6 @@ class NewHabitVC: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        // TODO: - move to constants array. 7 lines
         switch section {
         case 0: return "Name"
         case 1: return "How many days per week?"
@@ -214,7 +213,7 @@ class NewHabitVC: UITableViewController  {
         case 3: let cell = tableView.dequeueReusableCell(withIdentifier: HabitIconCell.reuseID, for: indexPath) as! HabitIconCell
             cell.delegate = self
             for button in cell.buttonArray {
-                if button.imageView!.image == UIImage(named: iconString) {
+                if button.imageView?.image == UIImage(named: iconString) {
                     button.sendActions(for: .touchUpInside)
                 }
                 if iconString == "" {

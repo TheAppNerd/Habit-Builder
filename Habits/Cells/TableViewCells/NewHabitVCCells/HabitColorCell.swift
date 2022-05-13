@@ -68,8 +68,9 @@ class HabitColorCell: UITableViewCell {
         }
         
         sender.layer.borderWidth     = 2
-        let index                    = buttonArray.firstIndex(of: sender)!
+        if let index                    = buttonArray.firstIndex(of: sender) {
         delegate?.passColorsData(colorIndex: index)
+        }
     }
     
     

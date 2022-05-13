@@ -43,8 +43,8 @@ class HabitReminderCell: UITableViewCell {
     
     @objc func timeChanged() {
         let time = DateFuncs.timeChanged(datePicker: datePicker)
-        hour                   = Int(time[0])!
-        minute                 = Int(time[1])!
+        hour                   = Int(time[0]) ?? 0
+        minute                 = Int(time[1]) ?? 0
     }
     
     
@@ -66,7 +66,6 @@ class HabitReminderCell: UITableViewCell {
         dayStackView.spacing      = 6
         
         for index in 0...6 {
-            //change name of day button
             let dayButton = GradientButton()
             dayButton.addTarget(self, action: #selector(dayButtonpressed), for: .touchUpInside)
             dayButton.setTitle(Labels.daysArray[index], for: .normal)
@@ -77,8 +76,6 @@ class HabitReminderCell: UITableViewCell {
             dayStackView.addArrangedSubview(dayButton)
             buttonArray.append(dayButton)
         }
-        
-       
     }
     
     private func layoutUI() {

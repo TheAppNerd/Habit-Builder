@@ -72,7 +72,9 @@ class DarkModeVC: UIViewController {
         
         sender.colors = gradients.array[5]
         sender.setTitleColor(.label, for: .normal)
-        setDarkMode(to: (sender.titleLabel?.text!)!)
+        if let darkModeString = sender.titleLabel?.text {
+        setDarkMode(to: darkModeString)
+        }
     }
     
     

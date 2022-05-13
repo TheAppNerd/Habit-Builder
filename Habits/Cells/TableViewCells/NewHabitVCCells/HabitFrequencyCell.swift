@@ -49,8 +49,9 @@ class HabitFrequencyCell: UITableViewCell {
         sender.setTitleColor(.white, for: .normal)
         sender.colors = Gradients().darkBlueGradient
         
-        let frequency = Int(sender.currentTitle!) ?? 1
+        if let frequency = Int(sender.currentTitle ?? "1") {
         delegate?.passFrequencyData(frequency: frequency)
+        }
     }
     
     private func configure() {
