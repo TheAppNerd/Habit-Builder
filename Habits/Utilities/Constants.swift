@@ -49,13 +49,13 @@ enum BackgroundColors {
 
 enum SocialMedia {
     static let privacyPolicyURL     = "https://www.termsfeed.com/live/4dfe5dc3-2370-4ce3-ab06-78c6d5e19e39"
-    static let linkedInUsername     = "Alexander-Thompson-847a6486"
+    static let linkedInUsername     = "appNerd"
     static let linkedInURL          = "https://www.linkedin.com/in/\(SocialMedia.linkedInUsername)"
     
-    static let instagramUsername    = "AlexThompsonDevelopment"
+    static let instagramUsername    = "appNerd"
     static let instagramURL         = "https://instagram.com/\(SocialMedia.instagramUsername)"
     
-    static let githubUsername       = "AlexThompsonDevelopment"
+    static let githubUsername       = "TheAppNerd"
     static let githubURL            = "https://github.com/\(SocialMedia.githubUsername)"
     
     static let fSCalendarURL        = "https://github.com/WenchaoD/FSCalendar"

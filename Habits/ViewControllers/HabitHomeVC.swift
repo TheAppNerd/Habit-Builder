@@ -169,8 +169,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
     
     ///Loads new quote on tableview header.
-    @objc func quoteNextButtonPressed(_ sender: UIButton) {
-        sender.bounceAnimation()
+    @objc func quoteNextButtonPressed(_ sender: GradientButton) {
         generator.impactOccurred()
         tableView.reloadData()
     }
@@ -252,7 +251,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell  = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as!HabitCell
+        let cell  = tableView.dequeueReusableCell(withIdentifier: HabitCell.reuseID) as! HabitCell
         let habit = coreData.loadHabitArray()[indexPath.row]
     
         for (index,button) in cell.dayButtons.enumerated() {
@@ -266,7 +265,7 @@ extension HabitHomeVC: UITableViewDelegate, UITableViewDataSource, UITableViewDr
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc          = HabitDetailsVC()
-        let currentCell = tableView.cellForRow(at: indexPath)! as! HabitCell
+        let currentCell = tableView.cellForRow(at: indexPath) as! HabitCell
         generator.impactOccurred()
         currentCell.bounce()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {

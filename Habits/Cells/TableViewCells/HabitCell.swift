@@ -16,7 +16,6 @@ class HabitCell: UITableViewCell {
     // TODO: add a view behind buttons to make ti easier to select them without going to details screen.
   
     
-    
     static let reuseID = "HabitCell"
     
     let habitName               = TitleLabel(textAlignment: .left, fontSize: 22)

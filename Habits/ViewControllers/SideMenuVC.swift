@@ -58,7 +58,7 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
     
     ///Calls all the side menu menu methods from HomeVC to show VC's properly in navigation.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentCell = tableView.cellForRow(at: indexPath)! as! MenuCell
+        let currentCell = tableView.cellForRow(at: indexPath) as! MenuCell
         currentCell.cellImage.bounceAnimation()
         
         delegate?.sideMenuItemPressed(row: indexPath.row)
