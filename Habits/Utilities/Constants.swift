@@ -23,7 +23,7 @@ enum Labels {
 
 enum SFSymbols {
     static let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
-    
+    static let gear                 = UIImage(systemName: "gear")
     static let menuButton           = UIImage(systemName: "sidebar.leading")
     static let addHabitButton       = UIImage(systemName: "plus.app")
     static let quoteButton          = UIImage(systemName: "quote.bubble")

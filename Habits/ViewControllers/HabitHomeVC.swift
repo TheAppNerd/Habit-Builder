@@ -45,16 +45,18 @@ import CoreData
     //MARK: - Functions
     
     private func configureViewController() {
+        navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         view.backgroundColor = BackgroundColors.mainBackGround
         generator.prepare()
     }
     
     private func configureBarButtonItems() {
-        let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
-        let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
-        let quoteButton = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed))
-        navigationItem.setLeftBarButton(menuButton, animated: true)
+        let menuButton     = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
+        let settingsButton = UIBarButtonItem(image: SFSymbols.gear, style: .plain, target: self, action: #selector(settingsPressed))
+        let addButton      = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
+        let quoteButton    = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed))
+        navigationItem.setLeftBarButtonItems([menuButton, settingsButton], animated: true)
         
         //This prevents quote button being active when empty state is up as tableview is not active then, thus the quote header view wont function properly.
         switch coreData.loadHabitArray().isEmpty {
@@ -145,9 +147,18 @@ import CoreData
     
     
     @objc func addHabitPressed() {
-        let newHabitVC = NewHabitVC()
+       let newHabitVC = NewHabitVC()
         show(newHabitVC, sender: self)
     }
+     
+     @objc func settingsPressed() {
+         let vc = UINavigationController(rootViewController: SettingsVC())
+         vc.modalPresentationStyle = .popover
+         
+         let settingsVC = SettingsVC()
+         settingsVC.modalPresentationStyle = .popover
+         present(vc, animated: true)
+     }
     
     ///Toggles the tableViewHeader to appear which shows quotes.
     @objc func quoteButtonPressed() {
