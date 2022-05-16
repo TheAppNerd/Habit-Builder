@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChartModel {
+struct ChartModel {
     // TODO: - rename chartyear and chartyears
     // TODO: - remove static
     // TODO: - break down into smaller funcs
