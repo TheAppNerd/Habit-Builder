@@ -65,10 +65,8 @@ struct TableViewFuncs {
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.allowsSelection = false
             tableView.register(SettingsSwitchCell.self, forCellReuseIdentifier: SettingsSwitchCell.reuseID)
-            tableView.register(SettingsTintCell.self, forCellReuseIdentifier: SettingsTintCell.reuseID)
             tableView.register(SettingsDarkModeCell.self, forCellReuseIdentifier: SettingsDarkModeCell.reuseID)
-            tableView.register(SettingsThemeCell.self, forCellReuseIdentifier: SettingsThemeCell.reuseID)
-            tableView.register(SettingIconsCell.self, forCellReuseIdentifier: SettingIconsCell.reuseID)
+            tableView.register(SettingsDisclosureCell.self, forCellReuseIdentifier: SettingsDisclosureCell.reuseID)
         }
         
     }

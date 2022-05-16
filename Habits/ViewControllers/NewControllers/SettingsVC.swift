@@ -70,11 +70,14 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
         switch indexPath {
         case [0,0]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingsDarkModeCell.reuseID) as! SettingsDarkModeCell
                     return cell
-        case [0,1]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingsTintCell.reuseID) as! SettingsTintCell
+        case [0,1]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingsDisclosureCell.reuseID) as! SettingsDisclosureCell
+            cell.set(settingType: .tint)
             return cell
-        case [1,0]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingsThemeCell.reuseID) as! SettingsThemeCell
+        case [1,0]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingsDisclosureCell.reuseID) as! SettingsDisclosureCell
+            cell.set(settingType: .theme)
             return cell
-        case [1,1]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingIconsCell.reuseID) as! SettingIconsCell
+        case [1,1]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingsDisclosureCell.reuseID) as! SettingsDisclosureCell
+            cell.set(settingType: .icon)
             return cell
         case [2,0]: let cell = tableView.dequeueReusableCell(withIdentifier: SettingsSwitchCell.reuseID) as! SettingsSwitchCell
             cell.set(switchSetting: .privacy)
@@ -89,13 +92,10 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath == [1,1] {
-            return view.frame.height / 5
-        } else {
             return view.frame.height / 15
         }
     }
     
     
     
-}
+

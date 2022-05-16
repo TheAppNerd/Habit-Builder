@@ -31,6 +31,7 @@ class HabitNameCell: UITableViewCell {
         backgroundColor                 = BackgroundColors.secondaryBackground
         layer.cornerRadius              = 10
         contentView.layer.cornerRadius  = 10
+        
     }
     
     
