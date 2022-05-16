@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 
-class HabitHomeVC: UIViewController, SettingsPush {
+ class HabitHomeVC: UIViewController, SettingsPush {
     
     //MARK: - Properties
     

@@ -8,7 +8,7 @@
 import UIKit
 import UserNotifications
 
-class UserNotifications {
+struct UserNotifications {
     
     ///Sends a request to the user to authosise user notifications in this app.
     func requestUserAuthorisation() {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DateModel {
+struct DateModel {
     
     //MARK: - Properties
     
