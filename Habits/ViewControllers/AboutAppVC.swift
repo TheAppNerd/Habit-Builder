@@ -69,7 +69,9 @@ class AboutAppVC: UIViewController {
         iconImage.layer.masksToBounds    = true
         iconImage.translatesAutoresizingMaskIntoConstraints = false
         
-        versionLabel.text                = " Habits - Version \(UIApplication.appVersion!)  "
+        if let appVersion = UIApplication.appVersion {
+        versionLabel.text                = " Habits - Version \(appVersion)  "
+        }
         versionLabel.textAlignment       = .center
         versionLabel.font                = UIFont.systemFont(ofSize: 18, weight: .bold)
         versionLabel.backgroundColor     = .clear

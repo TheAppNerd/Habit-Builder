@@ -28,6 +28,7 @@ final class CoreDataMethods {
                 print("Core Data Error: \(error)")
             }
         }
+        
         return container
     }()
 }

@@ -38,7 +38,7 @@ class NewHabitVC: UITableViewController  {
     func loadData() {
         if habitEntity != nil {
             title = "Edit Habit"
-            let habit                = habitEntity!
+            guard let habit          = habitEntity else { return }
             name                     = habit.name ?? ""
             frequency                = Int(habit.frequency)
             colorIndex               = Int(habit.gradient)
@@ -112,12 +112,12 @@ class NewHabitVC: UITableViewController  {
         switch habitEntity == nil {
         case true:
             coreData.saveHabit(name: name, icon: iconString, frequency: Int16(frequency), index: count, gradient: Int16(colorIndex), dateCreated: Date(), notificationBool: alarmItem.alarmActivated, alarmItem: alarmItem)
-        case false: let habit      = habitEntity!
-            habit.name             = name
-            habit.frequency        = Int16(frequency)
-            habit.icon             = iconString
-            habit.gradient         = Int16(colorIndex)
-            habit.notificationBool = alarmItem.alarmActivated
+        case false: guard let habit = habitEntity else { return }
+            habit.name              = name
+            habit.frequency         = Int16(frequency)
+            habit.icon              = iconString
+            habit.gradient          = Int16(colorIndex)
+            habit.notificationBool  = alarmItem.alarmActivated
             coreData.saveAlarmData(habit: habit, alarmItem: alarmItem)
             coreData.updateHabit()
         }
@@ -253,8 +253,8 @@ class NewHabitVC: UITableViewController  {
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.label
+        let header = view as? UITableViewHeaderFooterView
+        header?.textLabel?.textColor = UIColor.label
     }
 }
 

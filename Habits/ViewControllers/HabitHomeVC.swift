@@ -148,7 +148,8 @@ import CoreData
     
     @objc func addHabitPressed() {
        let newHabitVC = NewHabitVC()
-        show(newHabitVC, sender: self)
+       show(newHabitVC, sender: self)
+
     }
      
      @objc func settingsPressed() {
