@@ -172,7 +172,10 @@ class NewHabitVC: UITableViewController  {
     
     // MARK: - TableView - UITableViewDelegate, UITableViewDataSource
     
+    // TODO: - Super required here?
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 6
     }
     
