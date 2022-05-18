@@ -18,7 +18,7 @@ class HowToUseVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLayout()
+        configureL`ayout()
         scrollView.delegate = self
     }
     
