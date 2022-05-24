@@ -40,21 +40,29 @@ import CoreData
         configureMenuView()
         configureQuotesManager()
         AppStoreManagerReview.reviewCount()
+        
+        
+
     }
     
     //MARK: - Functions
+     
+     @objc func dismissMenuPressed() {
+         guard menuButtonPressed == false else {return}
+             menuBarButtonPressed()
+     }
     
     private func configureViewController() {
+        navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 25)]
         view.backgroundColor = BackgroundColors.mainBackGround
         generator.prepare()
     }
     
     private func configureBarButtonItems() {
-        let menuButton  = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
-        let addButton   = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
-        let quoteButton = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed))
-        navigationItem.setLeftBarButton(menuButton, animated: true)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: SFSymbols.menuButton, style: .done, target: self, action: #selector(menuBarButtonPressed))
+        let addButton      = UIBarButtonItem(image: SFSymbols.addHabitButton, style: .plain, target: self, action: #selector(addHabitPressed))
+        let quoteButton    = UIBarButtonItem(image: SFSymbols.quoteButton, style: .done, target: self, action: #selector(quoteButtonPressed))
         
         //This prevents quote button being active when empty state is up as tableview is not active then, thus the quote header view wont function properly.
         switch coreData.loadHabitArray().isEmpty {
@@ -80,6 +88,12 @@ import CoreData
             quotesManager.parse()
         }
     }
+     
+     private func configureTap() {
+         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissMenuPressed))
+         view.addGestureRecognizer(tap)
+         tap.cancelsTouchesInView = false
+     }
     
     
     private func showEmptyStateView() {
@@ -128,6 +142,7 @@ import CoreData
         menuView.pinMenuTo(view, with: menuBarPadding)
         tableView.edgeTo(view, padding: 0)
         sideMenuVC.delegate = self
+        configureTap()
     }
     
     
@@ -145,9 +160,11 @@ import CoreData
     
     
     @objc func addHabitPressed() {
-        let newHabitVC = NewHabitVC()
-        show(newHabitVC, sender: self)
+       let newHabitVC = NewHabitVC()
+       show(newHabitVC, sender: self)
+
     }
+
     
     ///Toggles the tableViewHeader to appear which shows quotes.
     @objc func quoteButtonPressed() {
@@ -183,6 +200,7 @@ import CoreData
             self.emptyStateView.frame.origin.x = self.menuButtonPressed ? 0 : self.emptyStateView.frame.width - menuBarPadding
             self.tableView.frame.origin.x      = self.menuButtonPressed ? 0 : self.tableView.frame.width - menuBarPadding
         }
+       
     }
     
 }

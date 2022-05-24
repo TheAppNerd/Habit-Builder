@@ -61,13 +61,11 @@ struct DateModel {
     
     ///Takes the date habit was created and amount of habits completed and works out the average habits completed per week.
     static func calculateAverageStreak(with dateCreated: Date, days daysCompleted: Int) -> String {
-        let dateFormatter        = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, yyyy"
-        let date                 = dateFormatter.string(from: dateCreated)
-        
+       
         let timeSinceCreated     = Date().timeIntervalSince(dateCreated)
         let week: Double         = 86400 * 7
         var totalWeeks           = timeSinceCreated / week
+        print(totalWeeks)
         if totalWeeks < 1 {
             totalWeeks = 1
         }

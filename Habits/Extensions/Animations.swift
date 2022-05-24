@@ -9,8 +9,8 @@ import UIKit
 
 // TODO: Move these to extensions
 
-extension UIButton {
-    
+extension UIView {
+
     ///Adds a bounce animation to buttons.
     func bounceAnimation() {
         UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut) { [weak self] in
@@ -23,21 +23,6 @@ extension UIButton {
     }
 }
 
-
-extension UIImageView {
-    
-    ///Adds a bounce animation to images.
-    func bounceAnimation() {
-        UIView.animate(withDuration: 0.15, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0.5, options: .curveEaseInOut) {
-            [weak self] in
-            self?.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        } completion: { [weak self] _ in
-            UIView.animate(withDuration: 0.05, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 2, options: .curveEaseInOut) {
-                self?.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }
-        }
-    }
-}
 
 
 extension UIView {

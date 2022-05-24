@@ -38,6 +38,8 @@ class HabitTextField: UITextField {
         placeholder               = Labels.placeholder
         layer.borderColor         = UIColor.red.cgColor
         text                      = ""
+        leftView                  = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        leftViewMode              = .always
     }
     
     

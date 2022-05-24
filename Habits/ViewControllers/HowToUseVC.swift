@@ -19,11 +19,11 @@ class HowToUseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureLayout()
-        configureScrollView()
         scrollView.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
        configureScrollView()
     }
     
@@ -72,6 +72,8 @@ class HowToUseVC: UIViewController {
     }
     
 }
+
+//MARK: - ScrollView - UIScrollViewDelegate
 
 extension HowToUseVC: UIScrollViewDelegate {
     

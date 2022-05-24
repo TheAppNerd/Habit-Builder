@@ -36,6 +36,7 @@ class HabitDetailsVC: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         //loads the collection view as current year
         habitDetailsChartView.collectionView.isPagingEnabled = false //paging turned off due to xcode bug which prevents scroll to item working when it is active.
         let section = 0
@@ -116,6 +117,7 @@ class HabitDetailsVC: UIViewController {
     
     ///Updates streak numbers whenever dates changed.
     func updateStreaks() {
+        
         guard let dateCreated = habitEntity.dateCreated else { return }
         let daysCompleted     = coreData.loadHabitDates(habit: habitEntity).count
         let averageString     = DateModel.calculateAverageStreak(with: dateCreated, days: daysCompleted)
