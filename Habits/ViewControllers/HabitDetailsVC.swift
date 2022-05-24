@@ -117,6 +117,7 @@ class HabitDetailsVC: UIViewController {
     
     ///Updates streak numbers whenever dates changed.
     func updateStreaks() {
+        
         guard let dateCreated = habitEntity.dateCreated else { return }
         let daysCompleted     = coreData.loadHabitDates(habit: habitEntity).count
         let averageString     = DateModel.calculateAverageStreak(with: dateCreated, days: daysCompleted)

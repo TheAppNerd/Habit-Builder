@@ -44,7 +44,7 @@ struct SettingsFuncs {
     func presentDarkMode(vc: UIViewController) {
         let dark = DarkModeVC()
         dark.modalPresentationStyle = .overCurrentContext
-        dark.modalTransitionStyle = .crossDissolve
+        dark.modalTransitionStyle = .coverVertical
         vc.present(dark, animated: true)
     }
     
