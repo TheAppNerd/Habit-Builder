@@ -140,8 +140,10 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return 3
-        case 1: return 4
+        case 0:
+            return 3
+        case 1:
+            return 4
         default:
             return 3
         }
@@ -165,9 +167,12 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return "Follow Me"
-        case 1: return "Special Thanks"
-        default: return ""
+        case 0:
+            return "Follow Me"
+        case 1:
+            return "Special Thanks"
+        default:
+            return ""
         }
     }
     
@@ -175,9 +180,12 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath[0] == 0 {
             switch indexPath.row {
-            case 0: loadSocialMedia(urlString: SocialMedia.linkedInURL)
-            case 1: loadSocialMedia(urlString: SocialMedia.instagramURL)
-            case 2: loadSocialMedia(urlString: SocialMedia.githubURL)
+            case 0:
+                loadSocialMedia(urlString: SocialMedia.linkedInURL)
+            case 1:
+                loadSocialMedia(urlString: SocialMedia.instagramURL)
+            case 2:
+                loadSocialMedia(urlString: SocialMedia.githubURL)
             default:
                 print("error")
             }

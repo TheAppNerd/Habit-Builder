@@ -33,25 +33,25 @@ class EmptyStateView: UIView {
     //MARK: - Functions
     
     private func configure() {
-    // TODO: -  move to constants
-        message.text                      = "Welcome to Habit Builder!"
-        secondaryMessage.text             = "There are no habits here yet"
-                
+        message.text                      = Labels.emptyPrimaryLabel
         message.textColor                 = .label
+        
+        secondaryMessage.text             = Labels.emptySecondaryMessage
         secondaryMessage.textColor        = .secondaryLabel
-        imageView.image                   = UIImage(named: "IconClear")
+        
+        imageView.image                   = icons.clearIcon
         imageView.layer.masksToBounds     = true
         imageView.layer.cornerRadius      = 10
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         addHabitButton.layer.cornerRadius = 10
-        addHabitButton.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        addHabitButton.setTitle(" Add Habit", for: .normal)
+        addHabitButton.setImage(SFSymbols.addHabitButton, for: .normal)
+        addHabitButton.setTitle(Labels.emptyAddHabit, for: .normal)
         addHabitButton.tintColor = .white
        
         howToUseButton.layer.cornerRadius = 10
-        howToUseButton.setImage(UIImage(systemName: "map.fill"), for: .normal)
-        howToUseButton.setTitle(" How to Use", for: .normal)
+        howToUseButton.setImage(SFSymbols.map, for: .normal)
+        howToUseButton.setTitle(Labels.emptyHowToUse, for: .normal)
         howToUseButton.tintColor = .white
     }
     

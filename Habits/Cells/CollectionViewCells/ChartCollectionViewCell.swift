@@ -8,6 +8,7 @@
 import UIKit
 
 class ChartCollectionViewCell: UICollectionViewCell {
+
     
     //MARK: - Properties
     
@@ -63,10 +64,11 @@ class ChartCollectionViewCell: UICollectionViewCell {
     
     private func configure() {
         for index in 0...11 {
-            let monthLabel = BodyLabel(textInput: Labels.monthArray[index], textAlignment: .center, fontSize: 12)
+            let monthLabel = BodyLabel(textInput: Labels.monthArray[index], textAlignment: .center, fontSize: 13)
+            monthLabel.adjustsFontSizeToFitWidth = false
             monthStack.addArrangedSubview(monthLabel)
             
-            let countLabel = BodyLabel(textInput: "0", textAlignment: .center, fontSize: 12)
+            let countLabel = BodyLabel(textInput: "0", textAlignment: .center, fontSize: 14)
             countArray.append(countLabel)
             countStack.addArrangedSubview(countArray[index])
             
@@ -89,7 +91,7 @@ class ChartCollectionViewCell: UICollectionViewCell {
             countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             countStack.topAnchor.constraint(equalTo: self.topAnchor),
             countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            countStack.heightAnchor.constraint(equalToConstant: 20),
+            countStack.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1),
             
             progressStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             progressStack.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
@@ -104,7 +106,7 @@ class ChartCollectionViewCell: UICollectionViewCell {
             yearLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             yearLabel.topAnchor.constraint(equalTo: monthStack.bottomAnchor),
             yearLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            yearLabel.heightAnchor.constraint(equalToConstant: 20)
+            yearLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1),
         ])
     }
     

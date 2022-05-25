@@ -17,7 +17,7 @@ enum AppStoreManagerReview {
     }
     
     ///Adds a counter to homeVC which will request user review app every 10 times which func is called.
-    static func reviewCount() { // TODO: move externally
+    static func reviewCount() {
         let defaults = UserDefaults.standard
         var retrievedCount = defaults.integer(forKey: "reviewCount") as Int
         retrievedCount += 1

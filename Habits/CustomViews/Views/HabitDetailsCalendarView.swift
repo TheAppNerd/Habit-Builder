@@ -37,6 +37,7 @@ class HabitDetailsCalendarView: UIView {
             self?.calendarImage.image = UIImage(systemName: "calendar")?.addTintGradient(colors: colors)
         }
         calendarView.appearance.selectionColor = UIColor(cgColor: colors[0])
+        calendarView.appearance.todayColor = UIColor(cgColor: colors[1])
     }
     
     

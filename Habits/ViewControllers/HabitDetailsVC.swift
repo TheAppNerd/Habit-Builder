@@ -22,7 +22,7 @@ class HabitDetailsVC: UIViewController {
     let habitDetailsChartView    = HabitDetailsChartView()
     
     
-    //MARK: - Class Funcs
+    //MARK: - Class Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class HabitDetailsVC: UIViewController {
         habitDetailsChartView.collectionView.isPagingEnabled = true
     }
     
-    //MARK: - Functions
+    //MARK: - Methods
     
     ///Takes all dates from habits dates in core data and selects them in the calendar.
     private func configureCalendarDates() {
@@ -54,6 +54,7 @@ class HabitDetailsVC: UIViewController {
         for date in dateArray {
             habitDetailsCalendarView.calendarView.select(date)
         }
+        habitDetailsCalendarView.calendarView.setCurrentPage(Date(), animated: false)
     }
     
     private func configureViews() {
@@ -103,7 +104,7 @@ class HabitDetailsVC: UIViewController {
         let habit = coreData.loadHabitArray()[index]
         habitEntity = habit
         habitIndex = index
-        chartYears = ChartModel.setChartData(habit: habit)
+        chartYears = ChartModel().setChartData(habit: habit)
         setColors()
     }
     
@@ -120,8 +121,8 @@ class HabitDetailsVC: UIViewController {
         
         guard let dateCreated = habitEntity.dateCreated else { return }
         let daysCompleted     = coreData.loadHabitDates(habit: habitEntity).count
-        let averageString     = DateModel.calculateAverageStreak(with: dateCreated, days: daysCompleted)
-        let dateString        = DateModel.convertDateToString(using: dateCreated)
+        let averageString     = DateModel().calculateAverageStreak(with: dateCreated, days: daysCompleted)
+        let dateString        = DateModel().convertDateToString(using: dateCreated)
         
         habitDetailsStreakView.setLabels(date: dateString, count: daysCompleted, average: averageString)
     }
@@ -144,7 +145,7 @@ class HabitDetailsVC: UIViewController {
             coreData.removeHabitDate(habit: habitEntity, date: date)
         }
         updateStreaks()
-        chartYears = ChartModel.setChartData(habit: self.habitEntity)
+        chartYears = ChartModel().setChartData(habit: self.habitEntity)
         habitDetailsChartView.collectionView.reloadData()
     }
     
@@ -194,7 +195,6 @@ extension HabitDetailsVC: FSCalendarDataSource, FSCalendarDelegate {
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         updateDates(amend: .removeDate, date: date)
     }
-    
 }
 
 

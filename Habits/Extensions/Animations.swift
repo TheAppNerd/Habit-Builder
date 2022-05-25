@@ -9,7 +9,7 @@ import UIKit
 
 extension UIView {
     
-    ///Rotates a view in place clockwork direction.
+    ///Rotates a view in place in a clockwork direction.
     func rotate() {
         let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue      = NSNumber(value: Double.pi * 2)
@@ -29,6 +29,7 @@ extension UIView {
             }
         }
     }
+    
 }
 
 

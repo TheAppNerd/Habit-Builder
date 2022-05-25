@@ -12,9 +12,6 @@ protocol QuotesManagerDelegate: AnyObject {
     func updateQuotes(_ quotes: [Quote] )
 }
 
-// TODO: - update the parsing better to accomodate response and error properly.
-// TODO: - add images to quotes.
-
 struct QuotesManager {
     
     weak var delegate: QuotesManagerDelegate?

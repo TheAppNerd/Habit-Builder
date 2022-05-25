@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: move all this to constants enum and place in array.
 struct Gradients {
     
     let pinkGradient = [UIColor(red: 241/255.0, green: 167/255.0, blue: 241/255.0, alpha: 1.0).cgColor, UIColor(red: 250/255.0, green: 208/255.0, blue: 196/255.0, alpha: 1.0).cgColor]

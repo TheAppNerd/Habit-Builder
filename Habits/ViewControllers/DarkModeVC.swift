@@ -49,10 +49,14 @@ class DarkModeVC: UIViewController {
         let defaults = UserDefaults.standard
  
         switch defaults.object(forKey: darkMode.key) as? String {
-        case darkMode.device: darkModeView.deviceButton.sendActions(for: .touchUpInside)
-        case darkMode.light: darkModeView.lightButton.sendActions(for: .touchUpInside)
-        case darkMode.dark: darkModeView.darkButton.sendActions(for: .touchUpInside)
-        case nil: darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        case darkMode.device:
+            darkModeView.deviceButton.sendActions(for: .touchUpInside)
+        case darkMode.light:
+            darkModeView.lightButton.sendActions(for: .touchUpInside)
+        case darkMode.dark:
+            darkModeView.darkButton.sendActions(for: .touchUpInside)
+        case nil:
+            darkModeView.deviceButton.sendActions(for: .touchUpInside)
         default:
             darkModeView.deviceButton.sendActions(for: .touchUpInside)
         }
@@ -90,16 +94,20 @@ class DarkModeVC: UIViewController {
         
         //move key to a constant
         switch str {
-        case darkMode.device: mode = UIScreen.main.traitCollection.userInterfaceStyle
+        case darkMode.device:
+            mode = UIScreen.main.traitCollection.userInterfaceStyle
             defaults.set(darkMode.device, forKey: darkMode.key)
             
-        case darkMode.light: mode = UIUserInterfaceStyle.light
+        case darkMode.light:
+            mode = UIUserInterfaceStyle.light
             defaults.set(darkMode.light, forKey: darkMode.key)
             
-        case darkMode.dark: mode = UIUserInterfaceStyle.dark
+        case darkMode.dark:
+            mode = UIUserInterfaceStyle.dark
             defaults.set(darkMode.dark, forKey: darkMode.key)
             
-        default: mode = UITraitCollection.current.userInterfaceStyle
+        default:
+            mode = UITraitCollection.current.userInterfaceStyle
         }
         UIApplication.shared.windows.forEach { window in
             window.overrideUserInterfaceStyle = mode

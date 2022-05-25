@@ -30,7 +30,6 @@ class FSCalendarView: FSCalendar {
        appearance.weekdayTextColor    = .label
        appearance.titleDefaultColor   = .secondaryLabel
        appearance.titleSelectionColor = .label
-       appearance.todayColor          = .purple
        appearance.borderRadius        = 0.5
        placeholderType                = .none
         }

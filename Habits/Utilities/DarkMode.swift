@@ -8,8 +8,6 @@
 import UIKit
 
 struct DarkMode {
-    // TODO: - move dark mode out of scenedelegate
-    
     /// Loads the saved dark mode status of the app from UserDefaults.
     ///
     /// ```
@@ -22,10 +20,14 @@ struct DarkMode {
         guard let selectedDarkMode = defaults.object(forKey: "darkMode") as? String else { return UITraitCollection.current.userInterfaceStyle}
         
         switch selectedDarkMode {
-        case "Device": return UITraitCollection.current.userInterfaceStyle
-        case "Light": return UIUserInterfaceStyle.light
-        case "Dark": return UIUserInterfaceStyle.dark
-        default: return UITraitCollection.current.userInterfaceStyle
+        case "Device":
+            return UITraitCollection.current.userInterfaceStyle
+        case "Light":
+            return UIUserInterfaceStyle.light
+        case "Dark":
+            return UIUserInterfaceStyle.dark
+        default:
+            return UITraitCollection.current.userInterfaceStyle
         }
     }
 }

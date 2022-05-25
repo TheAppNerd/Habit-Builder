@@ -98,11 +98,11 @@ class HabitCell: UITableViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         //this marks the current day of the week with a different background colour.
-        dayLabels[DateModel.getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        dayLabels[DateModel().getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
     
     private func configureButtonStackView() {
-         let dayArray = DateModel.weeklyDayArray()
+         let dayArray = DateModel().weeklyDayArray()
          for index in 0...6 {
              let dayButton = DayButton()
              dayButton.widthAnchor.constraint(equalTo: dayButton.heightAnchor).isActive = true
@@ -189,8 +189,10 @@ class HabitCell: UITableViewCell {
         }
         
         switch habit.notificationBool {
-        case true: habitAlarmIcon.image  = SFSymbols.bell
-        case false: habitAlarmIcon.image = SFSymbols.bellSlash
+        case true:
+            habitAlarmIcon.image  = SFSymbols.bell
+        case false:
+            habitAlarmIcon.image = SFSymbols.bellSlash
         }
     }
     
@@ -199,14 +201,14 @@ class HabitCell: UITableViewCell {
     ///
     /// - Parameter habit: The core data habit entity to pull the current completed dates
     func updateButtons(habit: HabitEnt) {
-        let dateArray = DateModel.weeklyDateArray()
+        let dateArray = DateModel().weeklyDateArray()
         let dates = CoreDataMethods.shared.loadHabitDates(habit: habit)
         for (index,button) in dayButtons.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
-            button.setTitle("\(DateModel.weeklyDayArray()[index])", for: .normal)
+            button.setTitle("\(DateModel().weeklyDayArray()[index])", for: .normal)
             button.setImage(nil, for: .normal)
         
-            let selectedDate = DateFuncs.startOfDay(date: dateArray[index])
+            let selectedDate = DateFuncs().startOfDay(date: dateArray[index])
             
             if dates.contains(selectedDate) {
                 button.layer.borderColor = UIColor.clear.cgColor

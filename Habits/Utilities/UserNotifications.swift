@@ -22,19 +22,18 @@ struct UserNotifications {
         }
     }
     
-    // TODO: Remove static
     
     ///Removes all notifications for a habit when this is called. The 1...7 is to ensure notifications are cancelled for each day of the week.
-    static func removeNotifications(title: String) {
+        func removeNotifications(title: String) {
         let center = UNUserNotificationCenter.current()
         for num in 1...7 {
             center.removePendingNotificationRequests(withIdentifiers: ["\(title)\(num)"])
         }
     }
     
-    // TODO: Remove static
+
     ///Implements notifications for single habit using day array to confirm which days of the week the user has selected for the alarm.
-    static func scheduleNotifications(alarmItem: AlarmItem) {
+        func scheduleNotifications(alarmItem: AlarmItem) {
         let dayArray               = CoreDataMethods.shared.convertStringArraytoBoolArray(alarmItem: alarmItem)
         let center                 = UNUserNotificationCenter.current()
         let content                = UNMutableNotificationContent()
@@ -83,6 +82,8 @@ struct UserNotifications {
         }
     }
     
+    
+    ///Checks if user has allowed UserNotifications in app. If not, alarm pops up to notify user and direct them to settings to change this. Will then change Segment contro back to alarm off position until user allows UserNotifications.
     func dateSegmentChanged(segment: UISegmentedControl, vc: UIViewController) {
         let current = UNUserNotificationCenter.current()
         current.getNotificationSettings { (settings) in
