@@ -8,6 +8,10 @@
 import UIKit
 
 enum Labels {
+    static let emptyPrimaryLabel         = "Welcome to Habit Builder!"
+    static let emptySecondaryMessage     = "There are no habits here yet"
+    static let emptyAddHabit             = " Add Habit"
+    static let emptyHowToUse             = " How to Use"
     static let HabitVCTitle              = "Habits"
     static let tableViewFooterLabel      = "Add a new habit"
     static let AddHabitVCTitle           = "Add Habit"
@@ -34,6 +38,7 @@ enum SFSymbols {
     static let trashSlash           = UIImage(systemName: "trash.slash.fill")
     static let flame                = UIImage(systemName: "flame.fill")
     static let chart                = UIImage(systemName: "chart.bar.xaxis")
+    static let map                  = UIImage(systemName: "map.fill")
 }
 
 enum GradientColors {
@@ -67,7 +72,7 @@ enum SocialMedia {
 }
 
 enum dates {
-    static let weeklyDateArray            = DateModel.weeklyDateArray()
+    static let weeklyDateArray            = DateModel().weeklyDateArray()
 }
 
 enum amendDates {
@@ -82,13 +87,12 @@ enum feedback {
 }
 
 enum icons {
+    static let clearIcon = UIImage(named: "IconClear")
     static let iconArray = ["bicycle", "blender", "deadline", "desktopcomputer", "dumbbell", "guitar", "hammer", "jogging", "kettlebell", "meditation", "notebook", "painting", "pills", "plantpot", "reading", "refund", "shower", "taoism", "tea", "tooth", "vegetable", "washingmachine", "water", "watermelon", "alarmclock", "music", "pillow", "laughing"]
 }
 
 enum menuPage {
-    
     static let menuTitles = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode", "App Settings"]
-    
     static let menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle", "gearshape"]
     
 }

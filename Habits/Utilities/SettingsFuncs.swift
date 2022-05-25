@@ -44,7 +44,7 @@ struct SettingsFuncs {
     func presentDarkMode(vc: UIViewController) {
         let dark = DarkModeVC()
         dark.modalPresentationStyle = .overCurrentContext
-        dark.modalTransitionStyle = .coverVertical
+        dark.modalTransitionStyle = .crossDissolve
         vc.present(dark, animated: true)
     }
     
@@ -57,14 +57,22 @@ struct SettingsFuncs {
     
     func activateSettings(row: Int, vc: UIViewController) {
         switch row {
-        case 0: shareApp(vc: vc)
-        case 1: reviewApp()
-        case 2: EmailFeedback().newEmail()
-        case 3: pushHowToUse(vc: vc)
-        case 4: openPrivacy()
-        case 5: pushAbout(vc: vc)
-        case 6: presentDarkMode(vc: vc)
-        case 7: openAppSettings()
+        case 0:
+            shareApp(vc: vc)
+        case 1:
+            reviewApp()
+        case 2:
+            EmailFeedback().newEmail()
+        case 3:
+            pushHowToUse(vc: vc)
+        case 4:
+            openPrivacy()
+        case 5:
+            pushAbout(vc: vc)
+        case 6:
+            presentDarkMode(vc: vc)
+        case 7:
+            openAppSettings()
         default: print("error")
         }
     }

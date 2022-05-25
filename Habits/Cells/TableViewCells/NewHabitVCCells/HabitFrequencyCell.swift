@@ -15,7 +15,6 @@ class HabitFrequencyCell: UITableViewCell {
     
     //MARK: - Properties
     
-    // TODO: - move all reuseID's to constants
     weak var delegate: passFrequencyData?
     static let reuseID       = "HabitFrequencyCell"
     let frequencyStackView   = UIStackView()
@@ -36,9 +35,8 @@ class HabitFrequencyCell: UITableViewCell {
     
     //MARK: - Functions
     
-    // TODO: move funcs out of cell
     @objc func frequencyButtonPressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
+        sender.bounce()
         generator.impactOccurred()
         for item in frequencyButtonArray {
             item.isSelected = false
@@ -55,7 +53,7 @@ class HabitFrequencyCell: UITableViewCell {
     }
     
     private func configure() {
-        generator.prepare() // TODO: - move this out of here as @objc func is leaving
+        generator.prepare()
         backgroundColor                 = BackgroundColors.secondaryBackground
         layer.cornerRadius              = 10
         frequencyStackView.translatesAutoresizingMaskIntoConstraints = false

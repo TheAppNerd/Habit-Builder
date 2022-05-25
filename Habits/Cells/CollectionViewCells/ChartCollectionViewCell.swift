@@ -8,17 +8,15 @@
 import UIKit
 
 class ChartCollectionViewCell: UICollectionViewCell {
-    
-    // TODO: move chart to own class?
-    // TODO: move funcs out of cell
+
     
     //MARK: - Properties
     
     static let reuseID                  = "ChartCellCollectionViewCell"
     
-    let countStack                      = UIStackView()
-    let monthStack                      = UIStackView()
-    let progressStack                   = UIStackView()
+    let countStack                      = CustomStackView(axis: .horizontal, distribution: .fillEqually, spacing: 10)
+    let monthStack                      = CustomStackView(axis: .horizontal, distribution: .fillEqually, spacing: 10)
+    let progressStack                   = CustomStackView(axis: .vertical, distribution: .fillEqually, spacing: 10)
     let yearLabel                       = UILabel()
    
     var countArray: [UILabel]           = []
@@ -31,7 +29,6 @@ class ChartCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        configureStackView()
         layoutUI()
     }
         
@@ -66,21 +63,12 @@ class ChartCollectionViewCell: UICollectionViewCell {
     
     
     private func configure() {
-       // TODO: - Use custom labels
         for index in 0...11 {
-            let monthLabel = UILabel()
-            monthLabel.translatesAutoresizingMaskIntoConstraints = false
-            monthLabel.adjustsFontSizeToFitWidth = true
-            monthLabel.font                      = monthLabel.font.withSize(12)
-            monthLabel.textAlignment             = .center
-            monthLabel.text                      = Labels.monthArray[index]
+            let monthLabel = BodyLabel(textInput: Labels.monthArray[index], textAlignment: .center, fontSize: 13)
+            monthLabel.adjustsFontSizeToFitWidth = false
             monthStack.addArrangedSubview(monthLabel)
             
-            let countLabel = UILabel()
-            countLabel.translatesAutoresizingMaskIntoConstraints = false
-            countLabel.text                      = "0"
-            countLabel.textAlignment             = .center
-            countLabel.font                      = UIFont.boldSystemFont(ofSize: 12)
+            let countLabel = BodyLabel(textInput: "0", textAlignment: .center, fontSize: 14)
             countArray.append(countLabel)
             countStack.addArrangedSubview(countArray[index])
             
@@ -89,38 +77,21 @@ class ChartCollectionViewCell: UICollectionViewCell {
             progressStack.addArrangedSubview(chartProgressView)
         }
         
-        
         yearLabel.translatesAutoresizingMaskIntoConstraints = false
         yearLabel.font = UIFont.boldSystemFont(ofSize: 16)
         yearLabel.textAlignment = .left
-    }
-    
-    // TODO: - crerate custom stack
-    private func configureStackView() {
-        monthStack.translatesAutoresizingMaskIntoConstraints = false
-        monthStack.axis         = .horizontal
-        monthStack.distribution = .fillEqually
-        monthStack.spacing      = 10
         
-        countStack.translatesAutoresizingMaskIntoConstraints = false
-        countStack.axis         = .horizontal
-        countStack.distribution = .fillEqually
-        countStack.spacing      = 10
-        
-        progressStack.translatesAutoresizingMaskIntoConstraints = false
-        progressStack.axis = .vertical
-        progressStack.distribution = .fillEqually
-        progressStack.spacing = 10
         progressStack.transform = CGAffineTransform(rotationAngle: .pi / -2)
     }
     
+
     private func layoutUI() {
         addSubviews(countStack, progressStack, monthStack, yearLabel)
         NSLayoutConstraint.activate([
             countStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             countStack.topAnchor.constraint(equalTo: self.topAnchor),
             countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            countStack.heightAnchor.constraint(equalToConstant: 20),
+            countStack.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1),
             
             progressStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             progressStack.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
@@ -135,7 +106,7 @@ class ChartCollectionViewCell: UICollectionViewCell {
             yearLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             yearLabel.topAnchor.constraint(equalTo: monthStack.bottomAnchor),
             yearLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            yearLabel.heightAnchor.constraint(equalToConstant: 20)
+            yearLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1),
         ])
     }
     

@@ -42,7 +42,7 @@ class HabitReminderCell: UITableViewCell {
     //MARK: - Functions
     
     @objc func timeChanged() {
-        let time = DateFuncs.timeChanged(datePicker: datePicker)
+        let time = DateFuncs().timeChanged(datePicker: datePicker)
         hour                   = Int(time[0]) ?? 0
         minute                 = Int(time[1]) ?? 0
     }
@@ -104,7 +104,7 @@ class HabitReminderCell: UITableViewCell {
     }
     
     @objc func dayButtonpressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
+        sender.bounce()
         generator.impactOccurred()
         sender.isSelected.toggle()
         var stringWeek: String = ""

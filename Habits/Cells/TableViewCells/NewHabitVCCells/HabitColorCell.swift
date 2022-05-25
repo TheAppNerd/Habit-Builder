@@ -61,7 +61,7 @@ class HabitColorCell: UITableViewCell {
     
     
     @objc func colorButtonPressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
+        sender.bounce()
         generator.impactOccurred()
         for button in buttonArray {
             button.layer.borderWidth = 0

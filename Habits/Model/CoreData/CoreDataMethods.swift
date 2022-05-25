@@ -119,7 +119,7 @@ extension CoreDataMethods {
     
     ///Saves date to habit entity.
     func addHabitDate(habit: HabitEnt, date: Date) {
-        let dateArray = fetchHabitDates(habit: habit)
+        let dateArray = loadHabitDates(habit: habit)
         
         if !dateArray.contains(date) {
             let habitDate = HabitDates(context: persistentContainer.viewContext)
@@ -131,7 +131,7 @@ extension CoreDataMethods {
     
     ///Removes date from habit entity.
     func removeHabitDate(habit: HabitEnt, date: Date) {
-        let dateArray = fetchHabitDates(habit: habit)
+        let dateArray = loadHabitDates(habit: habit)
         
         if dateArray.contains(date) {
             let habitDate  = HabitDates(context: persistentContainer.viewContext)
@@ -143,19 +143,6 @@ extension CoreDataMethods {
             }
             updateHabit()
         }
-    }
-    
-    
-    ///Retrieves dates with a relationship to specific habit and adds them to an array.
-    func fetchHabitDates(habit: HabitEnt) -> [Date] {
-        let dates = habit.datesSaved?.allObjects as! [HabitDates]
-        var dateArray: [Date] = []
-        for attrib in dates {
-            if let date = attrib.date {
-                dateArray.append(date)
-            }
-        }
-        return dateArray
     }
     
     
@@ -174,8 +161,6 @@ extension CoreDataMethods {
         }
         return boolArray
     }
-    
-    // TODO: Detrmine if both load habit funcs required.
     
     ///Retrieves dates with a relationship to specific habit and adds them to an array.
     func loadHabitDates(habit: HabitEnt) -> [Date] {
