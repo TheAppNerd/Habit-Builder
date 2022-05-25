@@ -32,6 +32,7 @@ class SideMenuVC: UIViewController {
         tableView.frame              = view.bounds
         tableView.delegate           = self
         tableView.dataSource         = self
+        
         view.addSubview(tableView)
     }
     
@@ -53,13 +54,14 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
             cell.cellImage.image = UIImage(systemName: menuPage.menuImages[indexPath.row])?.addTintGradient(colors: gradients.array[indexPath.row - 7])
         }
         cell.cellLabel.text  = menuPage.menuTitles[indexPath.row]
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell
     }
     
     ///Calls all the side menu menu methods from HomeVC to show VC's properly in navigation.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentCell = tableView.cellForRow(at: indexPath) as! MenuCell
-        currentCell.cellImage.bounceAnimation()
+        currentCell.cellImage.bounce()
         
         delegate?.sideMenuItemPressed(row: indexPath.row)
     }

@@ -101,7 +101,7 @@ class HabitIconCell: UITableViewCell {
     
     
     @objc func iconButtonPressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
+        sender.bounce()
         generator.impactOccurred()
         for item in buttonArray {
             item.tintColor  = .secondaryLabel

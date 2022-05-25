@@ -11,11 +11,7 @@ import CoreData
 class HabitCell: UITableViewCell {
     
     //MARK: - Properties
-    
-    
-    // TODO: add a view behind buttons to make ti easier to select them without going to details screen.
-  
-    
+
     static let reuseID = "HabitCell"
     
     let habitName               = TitleLabel(textAlignment: .left, fontSize: 22)
@@ -98,7 +94,7 @@ class HabitCell: UITableViewCell {
         labelStackView.axis         = .horizontal
         labelStackView.spacing      = 10
         labelStackView.alignment    = .fill
-        labelStackView.distribution = .equalCentering
+        labelStackView.distribution = .fillEqually
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         //this marks the current day of the week with a different background colour.
@@ -118,7 +114,7 @@ class HabitCell: UITableViewCell {
          buttonStackView.translatesAutoresizingMaskIntoConstraints = false
          buttonStackView.axis         = .horizontal
          buttonStackView.spacing      = 10
-         buttonStackView.distribution = .equalCentering
+         buttonStackView.distribution = .fillEqually
          buttonStackView.alignment    = .fill
      }
     
@@ -135,7 +131,7 @@ class HabitCell: UITableViewCell {
             
             habitIcon.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
             habitIcon.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
-            habitIcon.trailingAnchor.constraint(equalTo: habitName.leadingAnchor, constant: -10),
+            habitIcon.trailingAnchor.constraint(equalTo: habitName.leadingAnchor, constant: -padding / 2),
             habitIcon.heightAnchor.constraint(equalToConstant: padding * 1.5),
             habitIcon.widthAnchor.constraint(equalTo: habitIcon.heightAnchor),
             
@@ -146,7 +142,7 @@ class HabitCell: UITableViewCell {
             
             habitFrequency.leadingAnchor.constraint(equalTo: habitName.trailingAnchor, constant: padding),
             habitFrequency.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding),
-            habitFrequency.trailingAnchor.constraint(equalTo: habitAlarmIcon.leadingAnchor, constant: -10),
+            habitFrequency.trailingAnchor.constraint(equalTo: habitAlarmIcon.leadingAnchor, constant: -padding / 2),
             habitFrequency.heightAnchor.constraint(equalToConstant: padding * 1.5),
             
             habitAlarmIcon.topAnchor.constraint(equalTo: cellView.topAnchor, constant: padding * 1.2 ),
@@ -154,15 +150,16 @@ class HabitCell: UITableViewCell {
             habitAlarmIcon.heightAnchor.constraint(equalToConstant: padding),
             habitAlarmIcon.widthAnchor.constraint(equalToConstant: padding),
             
+
             labelStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
             labelStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
             labelStackView.heightAnchor.constraint(equalToConstant: padding),
-            labelStackView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -10),
+            labelStackView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -5),
             
-            buttonStackView.heightAnchor.constraint(equalToConstant: 30),
+            buttonStackView.topAnchor.constraint(equalTo: labelStackView.bottomAnchor, constant: 5),
             buttonStackView.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: padding),
             buttonStackView.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -padding),
-            buttonStackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -10)
+            buttonStackView.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -padding / 2)
         ])
     }
     

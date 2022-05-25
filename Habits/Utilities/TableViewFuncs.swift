@@ -14,7 +14,6 @@ struct TableViewFuncs {
         case NewHabitVC
         case SideMenuVC
         case AboutAppVC
-        case SettingsVC
     }
     
     
@@ -60,13 +59,6 @@ struct TableViewFuncs {
             tableView.layer.cornerRadius = 10
             tableView.translatesAutoresizingMaskIntoConstraints = false
             tableView.register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
-            
-        case.SettingsVC:
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-            tableView.allowsSelection = false
-            tableView.register(SettingsSwitchCell.self, forCellReuseIdentifier: SettingsSwitchCell.reuseID)
-            tableView.register(SettingsDarkModeCell.self, forCellReuseIdentifier: SettingsDarkModeCell.reuseID)
-            tableView.register(SettingsDisclosureCell.self, forCellReuseIdentifier: SettingsDisclosureCell.reuseID)
         }
         
     }

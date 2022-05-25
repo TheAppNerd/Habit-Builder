@@ -122,7 +122,6 @@ class AboutAppVC: UIViewController {
     }
     
     
-    // TODO: - move outside vc
     func loadSocialMedia(urlString: String) {
         guard let url = URL(string: urlString) else { return }
         UIApplication.shared.open(url)
@@ -180,7 +179,7 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
             case 1: loadSocialMedia(urlString: SocialMedia.instagramURL)
             case 2: loadSocialMedia(urlString: SocialMedia.githubURL)
             default:
-                print("Error") // TODO: -  create a default error func to utilise across app
+                print("error")
             }
         }
         

@@ -125,7 +125,7 @@ class NewHabitVC: UITableViewController  {
     
     ///When save button is pressed this deactivates all existing userNotifications, creates new habit or updates existing habit in core data, sets up any new userNotifications and pushes user to HabitHomeVC.
     @objc func saveButtonPressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
+        sender.bounce()
         generator.impactOccurred()
         
         guard name != "" else {
@@ -170,8 +170,6 @@ class NewHabitVC: UITableViewController  {
     }
     
     // MARK: - TableView - UITableViewDelegate, UITableViewDataSource
-    
-    // TODO: - Super required here?
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         

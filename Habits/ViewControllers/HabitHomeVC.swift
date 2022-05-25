@@ -21,12 +21,12 @@ import CoreData
     var quotesArray: [Quote]    = []
     var quoteButtonTapped: Bool = false
     var menuButtonPressed       = false
+   
     
     //MARK: - Class Funcs
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
         showEmptyStateView()
     }
     
@@ -97,6 +97,7 @@ import CoreData
     
     
     private func showEmptyStateView() {
+        tableView.reloadData()
         switch coreData.loadHabitArray().isEmpty {
         case true:  view.addSubview(emptyStateView)
                     emptyStateView.frame = tableView.frame

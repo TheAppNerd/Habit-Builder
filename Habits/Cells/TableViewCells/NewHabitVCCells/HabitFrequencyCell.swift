@@ -38,7 +38,7 @@ class HabitFrequencyCell: UITableViewCell {
     
     // TODO: move funcs out of cell
     @objc func frequencyButtonPressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
+        sender.bounce()
         generator.impactOccurred()
         for item in frequencyButtonArray {
             item.isSelected = false

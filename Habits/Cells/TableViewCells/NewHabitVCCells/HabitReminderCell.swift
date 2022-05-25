@@ -104,7 +104,7 @@ class HabitReminderCell: UITableViewCell {
     }
     
     @objc func dayButtonpressed(_ sender: GradientButton) {
-        sender.bounceAnimation()
+        sender.bounce()
         generator.impactOccurred()
         sender.isSelected.toggle()
         var stringWeek: String = ""
