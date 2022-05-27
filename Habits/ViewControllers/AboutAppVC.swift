@@ -16,10 +16,10 @@ class AboutAppVC: UIViewController {
     let nameLabel       = UILabel()
     let tableView       = UITableView()
     let detailsView     = UIView()
-    let iconArray       = ["linkedIn", "Instagram", "GitHub"]
-    let usernameArray   = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername]
-    let thanksArray     = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
-    let urlArray        = [SocialMedia.fSCalendarURL, SocialMedia.flatIconURL, SocialMedia.appBreweryURL, SocialMedia.seanAllenURL]
+    let iconArray       = ["linkedIn", "Instagram", "GitHub"] // TODO: - move to constants
+    let usernameArray   = [SocialMedia.linkedInUsername, SocialMedia.instagramUsername, SocialMedia.githubUsername] // TODO: - move to constants
+    let thanksArray     = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"] // TODO: - move to constants
+    let urlArray        = [SocialMedia.fSCalendarURL, SocialMedia.flatIconURL, SocialMedia.appBreweryURL, SocialMedia.seanAllenURL] // TODO: - move to constants
     
     
     //MARK: - Class Funcs
@@ -50,7 +50,7 @@ class AboutAppVC: UIViewController {
     
     
     private func configureTableView() {
-        TableViewFuncs().setupTableView(for: .AboutAppVC, using: tableView)
+        tableView.setup(for: .AboutAppVC)
         tableView.delegate           = self
         tableView.dataSource         = self
         tableView.frame.size.height  = tableView.contentSize.height

@@ -121,8 +121,8 @@ class HabitDetailsVC: UIViewController {
         
         guard let dateCreated = habitEntity.dateCreated else { return }
         let daysCompleted     = coreData.loadHabitDates(habit: habitEntity).count
-        let averageString     = DateModel().calculateAverageStreak(with: dateCreated, days: daysCompleted)
-        let dateString        = DateModel().convertDateToString(using: dateCreated)
+        let averageString     = dateCreated.calculateAverageStreak(days: daysCompleted)
+        let dateString        = dateCreated.convertDateToString()
         
         habitDetailsStreakView.setLabels(date: dateString, count: daysCompleted, average: averageString)
     }
