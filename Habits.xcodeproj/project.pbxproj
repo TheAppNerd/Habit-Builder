@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3CC551A27B6840B7BDF879AB /* Pods_Habits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 838E44C3241E759CB1015ADF /* Pods_Habits.framework */; };
 		FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */; };
-		FA0D65DF2829F0AD000DB768 /* TableViewFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0D65DE2829F0AD000DB768 /* TableViewFuncs.swift */; };
 		FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */; };
 		FA1AB1C52822B69C0097A3AA /* NewHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1AB1C42822B69C0097A3AA /* NewHabitVC.swift */; };
 		FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C7305263636D800E63CBE /* AppDelegate.swift */; };
@@ -21,7 +20,6 @@
 		FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D6D8226E729AB005AA4B2 /* Animations.swift */; };
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
 		FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5A26F028E6005CC9F1 /* Constants.swift */; };
-		FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */; };
 		FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */; };
 		FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */; };
 		FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */; };
@@ -29,7 +27,6 @@
 		FA224D6926F17216005CC9F1 /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */; };
 		FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */; };
 		FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29042A26EF6B9100B7B00A /* DarkMode.swift */; };
-		FA29E0DC26FAA53300426F97 /* DateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29E0DB26FAA53300426F97 /* DateModel.swift */; };
 		FA360BED26C4C86300884B90 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BEC26C4C86300884B90 /* Gradients.swift */; };
 		FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF126C605C300884B90 /* HabitNameCell.swift */; };
 		FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */; };
@@ -56,6 +53,9 @@
 		FABD431027A55A4000612896 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FABD430F27A55A4000612896 /* CloudKit.framework */; };
 		FAC19AC9279A7D1F0067D894 /* UISegmentedControl + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */; };
 		FAC720AB283DA49D00E0B347 /* CustomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720AA283DA49D00E0B347 /* CustomStackView.swift */; };
+		FAC720AD28405D6A00E0B347 /* UIDate + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720AC28405D6A00E0B347 /* UIDate + Ext.swift */; };
+		FAC720AF28405EAC00E0B347 /* UIDatePicker + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720AE28405EAC00E0B347 /* UIDatePicker + Ext.swift */; };
+		FAC720B12840770700E0B347 /* UITableView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720B02840770700E0B347 /* UITableView + Ext.swift */; };
 		FAD4655627FFD0A300E6CF7A /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */; };
 		FAE8EAD127B3187D00FBA6F3 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */; };
 		FAE8EAD327B35C9100FBA6F3 /* Quotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */; };
@@ -80,7 +80,6 @@
 		2FF57C4A93B664F2B8DAF532 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 		838E44C3241E759CB1015ADF /* Pods_Habits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ext.swift"; sourceTree = "<group>"; };
-		FA0D65DE2829F0AD000DB768 /* TableViewFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewFuncs.swift; sourceTree = "<group>"; };
 		FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenVC.swift; sourceTree = "<group>"; };
 		FA1AB1C42822B69C0097A3AA /* NewHabitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHabitVC.swift; sourceTree = "<group>"; };
 		FA1C7302263636D800E63CBE /* Habits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habits.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +92,6 @@
 		FA1D6D8226E729AB005AA4B2 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
 		FA224D5A26F028E6005CC9F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFuncs.swift; sourceTree = "<group>"; };
 		FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewFooter.swift; sourceTree = "<group>"; };
 		FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsCalendarView.swift; sourceTree = "<group>"; };
 		FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsStreakView.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 		FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 		FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		FA29042A26EF6B9100B7B00A /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
-		FA29E0DB26FAA53300426F97 /* DateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateModel.swift; sourceTree = "<group>"; };
 		FA360BEC26C4C86300884B90 /* Gradients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gradients.swift; sourceTree = "<group>"; };
 		FA360BF126C605C300884B90 /* HabitNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitNameCell.swift; sourceTree = "<group>"; };
 		FA360BF326C609BC00884B90 /* HabitFrequencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitFrequencyCell.swift; sourceTree = "<group>"; };
@@ -130,6 +127,9 @@
 		FABD430F27A55A4000612896 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl + Ext.swift"; sourceTree = "<group>"; };
 		FAC720AA283DA49D00E0B347 /* CustomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStackView.swift; sourceTree = "<group>"; };
+		FAC720AC28405D6A00E0B347 /* UIDate + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDate + Ext.swift"; sourceTree = "<group>"; };
+		FAC720AE28405EAC00E0B347 /* UIDatePicker + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker + Ext.swift"; sourceTree = "<group>"; };
+		FAC720B02840770700E0B347 /* UITableView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Ext.swift"; sourceTree = "<group>"; };
 		FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quotes.swift; sourceTree = "<group>"; };
@@ -317,8 +317,6 @@
 		FA6A49F9275EBDE00084EFCC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				FA224D5C26F0318B005CC9F1 /* DateFuncs.swift */,
-				FA29E0DB26FAA53300426F97 /* DateModel.swift */,
 				FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */,
 				FA29042A26EF6B9100B7B00A /* DarkMode.swift */,
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
@@ -327,7 +325,6 @@
 				FA224D5A26F028E6005CC9F1 /* Constants.swift */,
 				FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */,
 				FA79D7662820F318004E0CAC /* SettingsFuncs.swift */,
-				FA0D65DE2829F0AD000DB768 /* TableViewFuncs.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -431,6 +428,9 @@
 				FA1D6D8226E729AB005AA4B2 /* Animations.swift */,
 				FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */,
 				FA798DA327E03C60005D647B /* UIDevice + Ext.swift */,
+				FAC720AC28405D6A00E0B347 /* UIDate + Ext.swift */,
+				FAC720AE28405EAC00E0B347 /* UIDatePicker + Ext.swift */,
+				FAC720B02840770700E0B347 /* UITableView + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -548,7 +548,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */,
-				FA0D65DF2829F0AD000DB768 /* TableViewFuncs.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HowToUseVC.swift in Sources */,
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
@@ -568,7 +567,6 @@
 				FAF4E6D2264A30BD0029E50D /* UIView + Ext.swift in Sources */,
 				FA360BED26C4C86300884B90 /* Gradients.swift in Sources */,
 				FA3E607D2766CF8100A1A804 /* CoreDataMethods.swift in Sources */,
-				FA29E0DC26FAA53300426F97 /* DateModel.swift in Sources */,
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
 				FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */,
 				FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */,
@@ -584,7 +582,9 @@
 				FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */,
 				FA79D76928213F37004E0CAC /* ScrollViewPage.swift in Sources */,
 				FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */,
+				FAC720AD28405D6A00E0B347 /* UIDate + Ext.swift in Sources */,
 				FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */,
+				FAC720AF28405EAC00E0B347 /* UIDatePicker + Ext.swift in Sources */,
 				FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */,
 				FAF4E6CB2648F30B0029E50D /* DatePicker.swift in Sources */,
 				FA1C7306263636D800E63CBE /* AppDelegate.swift in Sources */,
@@ -593,9 +593,9 @@
 				FA798DA427E03C60005D647B /* UIDevice + Ext.swift in Sources */,
 				FA79D7672820F318004E0CAC /* SettingsFuncs.swift in Sources */,
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
+				FAC720B12840770700E0B347 /* UITableView + Ext.swift in Sources */,
 				FAC720AB283DA49D00E0B347 /* CustomStackView.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
-				FA224D5D26F0318B005CC9F1 /* DateFuncs.swift in Sources */,
 				FA1AB1C52822B69C0097A3AA /* NewHabitVC.swift in Sources */,
 				FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */,
 				FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */,

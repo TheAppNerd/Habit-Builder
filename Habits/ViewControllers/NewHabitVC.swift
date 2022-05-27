@@ -40,7 +40,7 @@ class NewHabitVC: UITableViewController  {
         if #available(iOS 15.0, *) {
             UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
         }
-        TableViewFuncs().setupTableView(for: .NewHabitVC, using: tableView)
+        tableView.setup(for: .NewHabitVC)
         generator.prepare()
     }
     
@@ -166,7 +166,7 @@ class NewHabitVC: UITableViewController  {
     
     ///Takes time from datepicker, converts it to two seperate integers representing hours & minutes to use to set alarms with userNotifications.
     @objc func datePickerTime(_ sender: DatePicker) {
-        let time = DateModel().convertDatePickerTime(date: sender.date)
+        let time = sender.convertDatePickerTime()
         if let hour = Int(time[0]), let minute = Int(time[1]) {
             alarmItem.hour = hour
             alarmItem.minute = minute
@@ -264,7 +264,8 @@ class NewHabitVC: UITableViewController  {
             switch alarmItem.alarmActivated {
             case true:
                 cell.alarmSegment.selectedSegmentIndex = 1
-                cell.datePicker.date = DateFuncs().setupDatePickerDate(hour: alarmItem.hour, minute: alarmItem.minute) //Sets datepicker to previously select alarm time.
+                cell.datePicker.setupDatePickerDate(hour: alarmItem.hour, minute: alarmItem.minute) //Sets datepicker to previously selected alarm time.
+               
             case false:
                 cell.alarmSegment.selectedSegmentIndex = 0
             }

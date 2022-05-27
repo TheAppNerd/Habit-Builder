@@ -28,7 +28,7 @@ class SideMenuVC: UIViewController {
     }
     
     func configureTableView() {
-        TableViewFuncs().setupTableView(for: .SideMenuVC, using: tableView)
+        tableView.setup(for: .SideMenuVC)
         tableView.frame              = view.bounds
         tableView.delegate           = self
         tableView.dataSource         = self

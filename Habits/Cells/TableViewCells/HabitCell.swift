@@ -98,11 +98,11 @@ class HabitCell: UITableViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         //this marks the current day of the week with a different background colour.
-        dayLabels[DateModel().getDayOfWeek()-1].backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        dayLabels[Date().getDayOfWeek()].backgroundColor = UIColor.white.withAlphaComponent(0.3)
     }
     
     private func configureButtonStackView() {
-         let dayArray = DateModel().weeklyDayArray()
+         let dayArray = Date().weeklyDayArray()
          for index in 0...6 {
              let dayButton = DayButton()
              dayButton.widthAnchor.constraint(equalTo: dayButton.heightAnchor).isActive = true
@@ -201,14 +201,14 @@ class HabitCell: UITableViewCell {
     ///
     /// - Parameter habit: The core data habit entity to pull the current completed dates
     func updateButtons(habit: HabitEnt) {
-        let dateArray = DateModel().weeklyDateArray()
+        let dateArray = Date().weeklyDateArray()
         let dates = CoreDataMethods.shared.loadHabitDates(habit: habit)
         for (index,button) in dayButtons.enumerated() {
             button.layer.borderColor = UIColor.white.cgColor
-            button.setTitle("\(DateModel().weeklyDayArray()[index])", for: .normal)
+            button.setTitle("\(Date().weeklyDayArray()[index])", for: .normal)
             button.setImage(nil, for: .normal)
         
-            let selectedDate = DateFuncs().startOfDay(date: dateArray[index])
+            let selectedDate = dateArray[index].startOfDay()
             
             if dates.contains(selectedDate) {
                 button.layer.borderColor = UIColor.clear.cgColor

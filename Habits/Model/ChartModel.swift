@@ -19,7 +19,7 @@ struct ChartModel {
     /// - Returns: an array of Chartyears representing each year habits have been completed.
         func setChartData(habit: HabitEnt) -> [ChartYear] {
         let calendar                 = Calendar.current
-        let currentYear              = DateModel().getYear()
+        let currentYear              = Date().getYear()
         var chartYears: [Int: [Int]] = [:]
      
         chartYears[currentYear]      = [0,0,0,0,0,0,0,0,0,0,0,0]

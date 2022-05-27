@@ -72,7 +72,7 @@ enum SocialMedia {
 }
 
 enum dates {
-    static let weeklyDateArray            = DateModel().weeklyDateArray()
+    static let weeklyDateArray            = Date().weeklyDateArray()
 }
 
 enum amendDates {

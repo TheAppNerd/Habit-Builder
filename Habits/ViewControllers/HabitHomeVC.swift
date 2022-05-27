@@ -69,7 +69,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     
     
     private func configureTableView() {
-        TableViewFuncs().setupTableView(for: .HabitHomeVC, using: tableView)
+        tableView.setup(for: .HabitHomeVC)
         tableView.delegate               = self
         tableView.dataSource             = self
         tableView.dragDelegate           = self
@@ -194,7 +194,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     /// - Parameter UIButton: This func is attached to all 7 date buttons on tableView Cells.
     @objc func dateButtonPressed(_ sender: UIButton) {
         generator.impactOccurred()
-        let selectedDate            = DateModel().weeklyDateArray()[sender.tag]
+        let selectedDate            = Date().weeklyDateArray()[sender.tag]
         let buttonPosition: CGPoint = sender.convert(CGPoint.zero, to: self.tableView)
         guard let indexPath         = self.tableView.indexPathForRow(at: buttonPosition) else { return }
         coreData.updateDates(selectedDate: selectedDate, index: indexPath.row)
