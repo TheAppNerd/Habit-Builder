@@ -41,6 +41,7 @@ class HabitSaveCell: UITableViewCell {
             saveButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             saveButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             saveButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            saveButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
             saveButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }

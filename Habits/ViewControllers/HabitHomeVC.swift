@@ -164,17 +164,13 @@ class HabitHomeVC: UIViewController, SettingsPush {
     @objc func helpButtonPressed(sender: GradientButton) {
         sender.bounce()
         let helpVC = HowToUseVC()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
-            self.show(helpVC, sender: self)
-        }
+        show(helpVC, sender: self)
+
     }
 
-    @objc func addHabitPressed(sender: GradientButton) {
-        sender.bounce()
+    @objc func addHabitPressed() {
         let newHabitVC = NewHabitVC()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
-            self.show(newHabitVC, sender: self)
-        }
+        show(newHabitVC, sender: self)
     }
 
     /// Used by a tap gesture on the tableview to allow user to tap the side menu closed.

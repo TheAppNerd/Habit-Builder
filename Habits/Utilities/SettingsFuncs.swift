@@ -25,6 +25,7 @@ struct SettingsFuncs {
     func reviewApp() {
         let urlStr = "\(SocialMedia.appLink)?action=write-review"
         guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
+        UIApplication.shared.open(url)
     }
 
     /// Redirects User to privacy policy URL.
