@@ -104,7 +104,7 @@ class HabitDetailsVC: UIViewController {
         let habit = coreData.loadHabitArray()[index]
         habitEntity = habit
         habitIndex = index
-        chartYears = ChartModel().setChartData(habit: habit)
+        chartYears = Charts.setChartData(habit: habit)
         setColors()
     }
 
@@ -145,7 +145,7 @@ class HabitDetailsVC: UIViewController {
             coreData.removeHabitDate(habit: habitEntity, date: date)
         }
         updateStreaks()
-        chartYears = ChartModel().setChartData(habit: self.habitEntity)
+        chartYears = Charts.setChartData(habit: self.habitEntity)
         habitDetailsChartView.collectionView.reloadData()
     }
 

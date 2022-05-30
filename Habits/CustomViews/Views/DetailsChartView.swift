@@ -37,7 +37,7 @@ class DetailsChartView: UIView {
         }
     }
 
-    func configure() {
+    private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor    = BackgroundColors.secondaryBackground
         layer.cornerRadius = 10

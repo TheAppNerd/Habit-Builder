@@ -32,7 +32,7 @@ class LoadingScreenVC: UIViewController {
         icontick.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func presentHabitVC() {
+    private func presentHabitVC() {
         let destVC = UINavigationController(rootViewController: HabitHomeVC())
         destVC.modalPresentationStyle = .fullScreen
         destVC.modalTransitionStyle = .crossDissolve
