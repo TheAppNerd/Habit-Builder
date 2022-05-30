@@ -8,14 +8,14 @@
 import UIKit
 
 class MenuCell: UITableViewCell {
-
-    //MARK: - Properties
+    
+    // MARK: - Properties
     
     static let reuseID = "MenuCell"
     let cellImage      = UIImageView()
     let cellLabel      = TitleLabel(textAlignment: .left, fontSize: 20)
-        
-    //MARK: - Class Funcs
+    
+    // MARK: - Class Methods
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,14 +27,13 @@ class MenuCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Functions
+    // MARK: - Methods
     
     private func configure() {
         contentView.isUserInteractionEnabled = true
         backgroundColor = BackgroundColors.secondaryBackground
-      
+        
         cellLabel.textColor  = .label
-        cellLabel.translatesAutoresizingMaskIntoConstraints = false
         cellImage.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -44,7 +43,7 @@ class MenuCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             cellImage.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
-            cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: padding * 2),
+            cellImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding * 2),
             cellImage.trailingAnchor.constraint(equalTo: cellLabel.leadingAnchor, constant: -padding),
             cellImage.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
             cellImage.widthAnchor.constraint(equalTo: cellImage.heightAnchor),
@@ -52,7 +51,7 @@ class MenuCell: UITableViewCell {
             cellLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: padding),
             cellLabel.leadingAnchor.constraint(equalTo: cellImage.trailingAnchor, constant: padding),
             cellLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding),
-            cellLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding),
+            cellLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding)
         ])
     }
     

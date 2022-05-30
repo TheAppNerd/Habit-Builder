@@ -8,22 +8,24 @@
 import UIKit
 
 class ChartProgressView: UIProgressView {
-    
+
+    // MARK: - Class Methods
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    // MARK: - Methods
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 5
         progress           = 0.0
         backgroundColor    = .quaternaryLabel
-        tintColor          = .blue
         clipsToBounds      = true
     }
-    
+
 }

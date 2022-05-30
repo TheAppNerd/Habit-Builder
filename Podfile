@@ -5,5 +5,6 @@ target 'Habits' do
   use_frameworks!
 
  pod 'FSCalendar'
+ pod 'SwiftLint'
 
 end

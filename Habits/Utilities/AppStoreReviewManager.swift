@@ -9,14 +9,14 @@ import StoreKit
 
 enum AppStoreManagerReview {
     
-    ///Requests user to review app if they haven't already.
+    /// Requests user to review app if they haven't already.
     static func requestReviewIfAppropriate() {
         if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
             SKStoreReviewController.requestReview(in: scene)
         }
     }
     
-    ///Adds a counter to homeVC which will request user review app every 10 times which func is called.
+    /// Adds a counter to homeVC which will request user review app every 10 times which func is called.
     static func reviewCount() {
         let defaults = UserDefaults.standard
         var retrievedCount = defaults.integer(forKey: "reviewCount") as Int

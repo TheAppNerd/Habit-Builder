@@ -8,20 +8,20 @@
 import UIKit
 
 class DayButton: UIButton {
-    
-    //MARK: - Class Funcs
-    
+
+    // MARK: - Class Methods
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Functions
-    
+
+    // MARK: - Methods
+
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         setTitleColor(.white, for: .normal)
@@ -33,5 +33,5 @@ class DayButton: UIButton {
         backgroundColor   = .clear
         layer.borderWidth = 2
     }
-    
+
 }

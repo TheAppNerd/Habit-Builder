@@ -8,15 +8,14 @@
 import UIKit
 
 extension UIDevice {
-    
-    ///Determines which device the user is using. Information included in feedback email to assist with bug fixing.
+
+    /// Determines which device the user is using. Information included in feedback email to assist with bug fixing.
     func modelIdentifier() -> String {
         if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
         var sysinfo = utsname()
         uname(&sysinfo)
         let identifier =  String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)!.trimmingCharacters(in: .controlCharacters)
-        
-        
+
         switch identifier {
         case "iPod5,1":                                       return "iPod touch (5th generation)"
         case "iPod7,1":                                       return "iPod touch (6th generation)"
@@ -55,5 +54,5 @@ extension UIDevice {
             return "iPhone"
         }
     }
-    
+
 }

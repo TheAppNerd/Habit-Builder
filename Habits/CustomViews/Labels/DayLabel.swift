@@ -9,7 +9,7 @@ import UIKit
 
 class DayLabel: UILabel {
     
-    //MARK: - Class Funcs
+    // MARK: - Class Methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +25,7 @@ class DayLabel: UILabel {
         self.text = text
     }
     
-    //MARK: - Functions
+    //MARK: - Methods
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false

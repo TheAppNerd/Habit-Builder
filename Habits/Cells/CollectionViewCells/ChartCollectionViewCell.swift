@@ -9,81 +9,67 @@ import UIKit
 
 class ChartCollectionViewCell: UICollectionViewCell {
 
-    
-    //MARK: - Properties
-    
+    // MARK: - Properties
+
     static let reuseID                  = "ChartCellCollectionViewCell"
-    
+
     let countStack                      = CustomStackView(axis: .horizontal, distribution: .fillEqually, spacing: 10)
     let monthStack                      = CustomStackView(axis: .horizontal, distribution: .fillEqually, spacing: 10)
     let progressStack                   = CustomStackView(axis: .vertical, distribution: .fillEqually, spacing: 10)
-    let yearLabel                       = UILabel()
-   
+    let yearLabel                       = BodyLabel(textInput: "", textAlignment: .left, fontSize: 16)
     var countArray: [UILabel]           = []
     var progressArray: [UIProgressView] = []
-   
-    
-    
-    //MARK: - Class Funcs
-    
+
+    // MARK: - Class Methods
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
         layoutUI()
     }
-        
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    //MARK: - Functions
+
+    // MARK: - Methods
     func set(chartYear: ChartYear) {
         yearLabel.text = String(chartYear.year)
-        for num in 0...11 {
-            
-            //workaround to add tint to progress bars
-            progressArray[num].progressImage = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: chartYear.color)
-            
-            countArray[num].text           = String(chartYear.monthCount[num])
-            
-            //only shows month count on months that arent empty
-            if chartYear.monthCount[num] == 0 {
-                countArray[num].alpha    = 0
+        for index in 0...11 {
+            // TODO: - create proper custom gradient view
+            progressArray[index].progressImage = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: chartYear.color) //workaround to add tint to progress bars
+            countArray[index].text           = String(chartYear.monthCount[index])
+
+            // Only shows month count on months that arent empty
+            if chartYear.monthCount[index] == 0 {
+                countArray[index].alpha     = 0
             } else {
-                countArray[num].alpha   = 1.0
+                countArray[index].alpha     = 1.0
             }
-            
+
             UIView.animate(withDuration: 1.0) { [weak self] in
                 let progress: Float = 1.0 / 31
-                self?.progressArray[num].setProgress(Float(chartYear.monthCount[num]) * progress, animated: true)
+                self?.progressArray[index].setProgress(Float(chartYear.monthCount[index]) * progress, animated: true)
             }
         }
     }
-    
-    
+
     private func configure() {
         for index in 0...11 {
             let monthLabel = BodyLabel(textInput: Labels.monthArray[index], textAlignment: .center, fontSize: 13)
             monthLabel.adjustsFontSizeToFitWidth = false
             monthStack.addArrangedSubview(monthLabel)
-            
+
             let countLabel = BodyLabel(textInput: "0", textAlignment: .center, fontSize: 14)
             countArray.append(countLabel)
             countStack.addArrangedSubview(countArray[index])
-            
+
             let chartProgressView = ChartProgressView()
             progressArray.append(chartProgressView)
             progressStack.addArrangedSubview(chartProgressView)
         }
-        
-        yearLabel.translatesAutoresizingMaskIntoConstraints = false
-        yearLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        yearLabel.textAlignment = .left
-        
         progressStack.transform = CGAffineTransform(rotationAngle: .pi / -2)
     }
-    
 
     private func layoutUI() {
         addSubviews(countStack, progressStack, monthStack, yearLabel)
@@ -92,7 +78,7 @@ class ChartCollectionViewCell: UICollectionViewCell {
             countStack.topAnchor.constraint(equalTo: self.topAnchor),
             countStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             countStack.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1),
-            
+
             progressStack.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             progressStack.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
             progressStack.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.65),
@@ -102,13 +88,12 @@ class ChartCollectionViewCell: UICollectionViewCell {
             monthStack.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             monthStack.bottomAnchor.constraint(equalTo: yearLabel.topAnchor),
             monthStack.heightAnchor.constraint(equalToConstant: 20),
-            
+
             yearLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             yearLabel.topAnchor.constraint(equalTo: monthStack.bottomAnchor),
             yearLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            yearLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1),
+            yearLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1)
         ])
     }
-    
-}
 
+}

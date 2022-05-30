@@ -9,12 +9,12 @@ import UIKit
 
 class ScrollViewPage: UIView {
 
-    //MARK: - Properties
+    // MARK: - Properties
     
     let label     = UILabel()
     let imageView = UIImageView()
-  
-    //MARK: - Class Funcs
+
+    // MARK: - Class Methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +26,7 @@ class ScrollViewPage: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Functions
+    // MARK: - Methods
     
     private func configure() {
         label.textAlignment             = .center

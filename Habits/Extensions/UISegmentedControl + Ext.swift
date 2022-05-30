@@ -9,10 +9,11 @@ import UIKit
 
 extension UISegmentedControl {
     
-    ///add a gradient to segmented controller.
+    /// Add a gradient to segmented controller.
     func setGradientColors() {
-        let rectangleGradient     = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: gradients.array[5])
-        let rectangle             = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: [UIColor.clear.cgColor, UIColor.clear.cgColor])
+        let clearColor            = [UIColor.clear.cgColor, UIColor.clear.cgColor]
+        let rectangleGradient     = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: Gradients.array[5])
+        let rectangle             = UIImage(systemName: "rectangle.fill")?.addTintGradient(colors: clearColor)
         
         setBackgroundImage(rectangle, for: .normal, barMetrics: .default)
         setBackgroundImage(rectangleGradient, for: .selected, barMetrics: .default)

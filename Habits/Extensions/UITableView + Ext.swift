@@ -8,15 +8,14 @@
 import UIKit
 
 extension UITableView {
-    
-    enum selectedVC {
-        case HabitHomeVC
-        case NewHabitVC
-        case SideMenuVC
-        case AboutAppVC
+
+    enum SelectedVC {
+        case habitHomeVC
+        case newHabitVC
+        case sideMenuVC
+        case aboutAppVC
     }
-    
-    
+
     /// User selects which VC & tableview they are calling this func for and it will apply numerous tableView settings which bloat up the main VC.
     ///
     /// ```
@@ -26,15 +25,15 @@ extension UITableView {
     /// - Warning: TableViewDelegate and DataSource still need to be called in the view controller.
     /// - Parameter selectedVC: enum to select which VC this method will apply to.
     /// - Parameter tableView: which tableView this method will apply to.
-    func setup(for viewController: selectedVC) {
+    func setup(for viewController: SelectedVC) {
         switch viewController {
-        case .HabitHomeVC:
+        case .habitHomeVC:
             register(HabitCell.self, forCellReuseIdentifier: HabitCell.reuseID)
             backgroundColor        = BackgroundColors.mainBackGround
             separatorStyle         = .none
             dragInteractionEnabled = true
-            
-        case .NewHabitVC:
+
+        case .newHabitVC:
             backgroundColor = BackgroundColors.mainBackGround
             allowsSelection = false
             separatorStyle  = .none
@@ -44,14 +43,14 @@ extension UITableView {
             register(HabitReminderCell.self, forCellReuseIdentifier: HabitReminderCell.reuseID)
             register(HabitColorCell.self, forCellReuseIdentifier: HabitColorCell.reuseID)
             register(HabitSaveCell.self, forCellReuseIdentifier: HabitSaveCell.reuseID)
-            
-        case .SideMenuVC:
+
+        case .sideMenuVC:
             backgroundColor    = BackgroundColors.secondaryBackground
             estimatedRowHeight = 70
             separatorStyle     = .none
             register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
-            
-        case .AboutAppVC:
+
+        case .aboutAppVC:
             separatorStyle     = .none
             rowHeight          = 50
             backgroundColor    = BackgroundColors.secondaryBackground
@@ -60,6 +59,6 @@ extension UITableView {
             translatesAutoresizingMaskIntoConstraints = false
             register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
         }
-        
+
     }
 }

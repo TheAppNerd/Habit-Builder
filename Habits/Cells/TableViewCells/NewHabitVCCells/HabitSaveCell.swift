@@ -9,14 +9,12 @@ import UIKit
 
 class HabitSaveCell: UITableViewCell {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     static let reuseID = "SaveCell"
-
-    let saveButton = GradientButton(colors: Gradients().darkBlueGradient)
+    let saveButton = GradientButton(colors: Gradients.darkBlueGradient)
     
-    
-    //MARK: - Class Funcs
+    // MARK: - Class Methods
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,13 +26,11 @@ class HabitSaveCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    //MARK: - Functions
+    // MARK: - Methods
     
     private func configure() {
         saveButton.setTitle("Save Habit", for: .normal)
         saveButton.layer.cornerRadius = 10
-        
     }
     
     private func layoutUI() {

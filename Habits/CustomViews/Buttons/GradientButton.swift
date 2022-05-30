@@ -9,12 +9,12 @@ import UIKit
 
 class GradientButton: UIButton {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     var colors = [CGColor]()
     let gradientLayer: CAGradientLayer = CAGradientLayer()
     
-    //MARK: - Class Funcs
+    // MARK: - Class Methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,7 +35,7 @@ class GradientButton: UIButton {
         layoutGradient()
     }
     
-    //MARK: - Functions
+    // MARK: - Methods
     
     private func layoutGradient() {
         gradientLayer.startPoint   = CGPoint(x: 1, y: 0)

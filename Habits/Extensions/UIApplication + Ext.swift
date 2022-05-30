@@ -7,10 +7,9 @@
 
 import UIKit
 
-
 extension UIApplication {
     
-    ///Returns current app version.
+    /// Returns current app version.
     static var appVersion: String? {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
