@@ -35,7 +35,7 @@
 		FA360BFA26C62C6A00884B90 /* HabitColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA360BF926C62C6A00884B90 /* HabitColorCell.swift */; };
 		FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60772762EA0C00A1A804 /* AlarmItem.swift */; };
 		FA3E607D2766CF8100A1A804 /* CoreDataMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E607C2766CF8100A1A804 /* CoreDataMethods.swift */; };
-		FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60842769AAC500A1A804 /* ChartModel.swift */; };
+		FA3E60852769AAC500A1A804 /* Charts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3E60842769AAC500A1A804 /* Charts.swift */; };
 		FA798DA227DF0433005D647B /* AppStoreReviewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */; };
 		FA798DA427E03C60005D647B /* UIDevice + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA798DA327E03C60005D647B /* UIDevice + Ext.swift */; };
 		FA79D7532818C1C8004E0CAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79D7522818C1C8004E0CAC /* Assets.xcassets */; };
@@ -111,7 +111,7 @@
 		FA3E60772762EA0C00A1A804 /* AlarmItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmItem.swift; sourceTree = "<group>"; };
 		FA3E607A2766C3C400A1A804 /* HabitEntities.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HabitEntities.xcdatamodel; sourceTree = "<group>"; };
 		FA3E607C2766CF8100A1A804 /* CoreDataMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataMethods.swift; sourceTree = "<group>"; };
-		FA3E60842769AAC500A1A804 /* ChartModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
+		FA3E60842769AAC500A1A804 /* Charts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charts.swift; sourceTree = "<group>"; };
 		FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreReviewManager.swift; sourceTree = "<group>"; };
 		FA798DA327E03C60005D647B /* UIDevice + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice + Ext.swift"; sourceTree = "<group>"; };
 		FA79D7522818C1C8004E0CAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -297,7 +297,6 @@
 				FA224D7826F4177A005CC9F1 /* CoreData */,
 				FA3E60772762EA0C00A1A804 /* AlarmItem.swift */,
 				FAFF09AB2702E3FA008E8569 /* ChartYear.swift */,
-				FA3E60842769AAC500A1A804 /* ChartModel.swift */,
 				FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */,
 				FAE8EAD427B35CE600FBA6F3 /* QuotesManager.swift */,
 			);
@@ -344,6 +343,7 @@
 			children = (
 				FA798DA127DF0433005D647B /* AppStoreReviewManager.swift */,
 				FA29042A26EF6B9100B7B00A /* DarkMode.swift */,
+				FA3E60842769AAC500A1A804 /* Charts.swift */,
 				FA360BEC26C4C86300884B90 /* Gradients.swift */,
 				FAF4E6DB265222320029E50D /* UserNotifications.swift */,
 				FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */,
@@ -591,7 +591,7 @@
 				FA360BED26C4C86300884B90 /* Gradients.swift in Sources */,
 				FA3E607D2766CF8100A1A804 /* CoreDataMethods.swift in Sources */,
 				FAF4E6E226537DEF0029E50D /* DayLabel.swift in Sources */,
-				FA3E60852769AAC500A1A804 /* ChartModel.swift in Sources */,
+				FA3E60852769AAC500A1A804 /* Charts.swift in Sources */,
 				FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */,
 				FA9C1BC0276C564300869E24 /* HabitEntities.xcdatamodeld in Sources */,
 				FAE8EAD527B35CE600FBA6F3 /* QuotesManager.swift in Sources */,
@@ -770,7 +770,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AlexThompson.Habit-Builder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -792,7 +792,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AlexThompson.Habit-Builder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

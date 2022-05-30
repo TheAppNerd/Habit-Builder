@@ -84,7 +84,7 @@ class DarkModeVC: UIViewController {
     /// setDarkMode(to: "Dark")
     /// ```
     /// - Parameter str: The sender button title label when selecting dark mode.
-    func setDarkMode(to whichMode: String) {
+   private func setDarkMode(to whichMode: String) {
         let defaults = UserDefaults.standard
         var mode     = traitCollection.userInterfaceStyle
 

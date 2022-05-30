@@ -34,7 +34,10 @@ class MenuCell: UITableViewCell {
         backgroundColor = BackgroundColors.secondaryBackground
         
         cellLabel.textColor  = .label
+
         cellImage.translatesAutoresizingMaskIntoConstraints = false
+
+        //iconButton.imageEdgeInsets    = UIEdgeInsets(top: 6, left: 9, bottom: 6, right: 9)
     }
     
     private func layoutUI() {

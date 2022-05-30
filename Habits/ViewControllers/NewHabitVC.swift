@@ -13,6 +13,7 @@ class NewHabitVC: UITableViewController {
     // MARK: - Properties
 
     let coreData               = CoreDataMethods.shared
+    let userNotifications      = UserNotifications()
     let generator              = UIImpactFeedbackGenerator(style: .medium)
     var habitEntity: HabitEnt?
     var nameTextField          = UITextField()
@@ -111,7 +112,7 @@ class NewHabitVC: UITableViewController {
     private func setupNotifications() {
         alarmItem.title = name // This is here to ensure alarm sets properly when habit first created
         if alarmItem.alarmActivated == true {
-            UserNotifications().scheduleNotifications(alarmItem: alarmItem)
+            userNotifications.scheduleNotifications(alarmItem: alarmItem)
         }
     }
 
@@ -122,7 +123,7 @@ class NewHabitVC: UITableViewController {
         let deleteAlert = UIAlertController(title: Labels.deleteAlertTitle, message: Labels.deleteAlartMessage, preferredStyle: .alert)
         deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         deleteAlert.addAction(UIAlertAction(title: "Delete", style: .default, handler: { _ in
-            UserNotifications().removeNotifications(title: self.habitEntity?.name ?? self.name)
+            self.userNotifications.removeNotifications(title: self.habitEntity?.name ?? self.name)
             if let habit = self.habitEntity {
                 self.coreData.deleteHabit(habit)
             }
@@ -145,7 +146,7 @@ class NewHabitVC: UITableViewController {
             return
         }
 
-        UserNotifications().removeNotifications(title: habitEntity?.name ?? name)
+        userNotifications.removeNotifications(title: habitEntity?.name ?? name)
         nameTextField.layer.borderWidth = 0
         createHabit()
         setupNotifications()
@@ -171,7 +172,7 @@ class NewHabitVC: UITableViewController {
             alarmItem.alarmActivated = false
         case 1:
             alarmItem.alarmActivated = true
-            UserNotifications().dateSegmentChanged(segment: sender, vc: self)
+            userNotifications.dateSegmentChanged(segment: sender, vc: self)
         default:
             alarmItem.alarmActivated = false
         }
@@ -244,7 +245,7 @@ class NewHabitVC: UITableViewController {
             cell.delegate = self
             cell.alarmSegment.addTarget(self, action: #selector(dateSegmentChanged), for: .valueChanged)
             cell.datePicker.addTarget(self, action: #selector(datePickerTime), for: .valueChanged)
-            UserNotifications().confirmRegisteredNotifications(segment: cell.alarmSegment)
+            userNotifications.confirmRegisteredNotifications(segment: cell.alarmSegment)
 
             switch alarmItem.alarmActivated {
             case true:
