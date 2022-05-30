@@ -9,14 +9,14 @@ import UIKit
 
 class QuoteView: UITableViewHeaderFooterView {
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     let quoteView   = UIView()
     let quoteLabel  = UILabel()
     let nameLabel   = UILabel()
     let quoteButton = GradientButton()
     
-    //MARK: - Class Funcs
+    // MARK: - Class Methods
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -27,14 +27,14 @@ class QuoteView: UITableViewHeaderFooterView {
     override func layoutSubviews() {
         super.layoutSubviews()
         quoteButton.layer.cornerRadius = 0.5 * quoteButton.bounds.size.width
-        quoteButton.addGradient(colors: gradients.array[5])
+        quoteButton.addGradient(colors: Gradients.array[5])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Functions
+    // MARK: - Methods
     
     private func configure() {
         quoteView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ class QuoteView: UITableViewHeaderFooterView {
         
         quoteButton.translatesAutoresizingMaskIntoConstraints = false
         quoteButton.setImage(UIImage(systemName: "quote.closing"), for: .normal)
-      
+
         quoteView.layer.cornerRadius         = 10
     }
     

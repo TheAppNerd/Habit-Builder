@@ -10,7 +10,7 @@ import FSCalendar
 
 class FSCalendarView: FSCalendar {
 
-    //MARK: - Class Funcs
+    // MARK: - Class Methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,9 +20,9 @@ class FSCalendarView: FSCalendar {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Functions
-    
+
+    // MARK: - Methods
+
     private func configure() {
        setCurrentPage(Date(), animated: false)
        allowsMultipleSelection        = true
@@ -34,4 +34,3 @@ class FSCalendarView: FSCalendar {
        placeholderType                = .none
         }
     }
-

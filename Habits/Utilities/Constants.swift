@@ -21,9 +21,8 @@ enum Labels {
     static let notificationDeniedTitle   = "Permission Denied"
     static let notificationDeniedMessage = "To enable notifications please activate them in the settings for this app"
     static let daysArray                 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    static let monthArray                = ["01","02","03","04","05","06","07","08","09","10","11","12",]
+    static let monthArray                = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
 }
-
 
 enum SFSymbols {
     static let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
@@ -45,61 +44,65 @@ enum GradientColors {
     static let clearGradient        = [UIColor.clear.cgColor, UIColor.clear.cgColor]
 }
 
-
 enum BackgroundColors {
     static let mainBackGround       = UIColor.systemBackground
     static let secondaryBackground  = UIColor.secondarySystemBackground
 }
 
-
 enum SocialMedia {
+    static let array                = ["LinkedIn", "Instagram", "GitHub"]
+
     static let privacyPolicyURL     = "https://www.termsfeed.com/live/4dfe5dc3-2370-4ce3-ab06-78c6d5e19e39"
     static let linkedInUsername     = "appNerd"
     static let linkedInURL          = "https://www.linkedin.com/in/\(SocialMedia.linkedInUsername)"
-    
+
     static let instagramUsername    = "appNerd"
     static let instagramURL         = "https://instagram.com/\(SocialMedia.instagramUsername)"
-    
+
     static let githubUsername       = "TheAppNerd"
     static let githubURL            = "https://github.com/\(SocialMedia.githubUsername)"
-    
+
+    static let usernameArray        = [linkedInUsername, instagramUsername, githubUsername]
+
     static let fSCalendarURL        = "https://github.com/WenchaoD/FSCalendar"
     static let flatIconURL          = "https://www.flaticon.com"
     static let appBreweryURL        = "https://www.appbrewery.co"
     static let seanAllenURL         = "https://seanallen.co"
-    
+
+    static let thanksURLArray       = [fSCalendarURL, flatIconURL, appBreweryURL, seanAllenURL]
+
+    static let thanksNameArray      = ["FSCalendar", "FlatIcon", "Angela Yu", "Sean Allen"]
+
     static let appLink              = "https://apps.apple.com/au/app/habit-builder/id1614197639"
 }
 
-enum dates {
+enum Dates {
     static let weeklyDateArray            = Date().weeklyDateArray()
 }
 
-enum amendDates {
+enum AmendDates {
     case addDate
     case removeDate
 }
 
-
-enum feedback {
+enum Feedback {
     static let emailAddress         = "Alex@appNerd.com.au"
     static let feedbackSubject      = "Habit Builder Feedback"
 }
 
-enum icons {
+enum Icons {
     static let clearIcon = UIImage(named: "IconClear")
     static let iconArray = ["bicycle", "blender", "deadline", "desktopcomputer", "dumbbell", "guitar", "hammer", "jogging", "kettlebell", "meditation", "notebook", "painting", "pills", "plantpot", "reading", "refund", "shower", "taoism", "tea", "tooth", "vegetable", "washingmachine", "water", "watermelon", "alarmclock", "music", "pillow", "laughing"]
 }
 
-enum menuPage {
+enum MenuPage {
     static let menuTitles = [ "Share App", "Leave Rating", "Contact Us", "How it Works", "Privacy", "About App", "Dark Mode", "App Settings"]
     static let menuImages = [ "square.and.arrow.up", "heart.text.square", "envelope", "questionmark.circle", "hand.raised", "note.text", "moon.circle", "gearshape"]
-    
 }
 
-enum helpPage {
+enum HelpPage {
     static let imageNames = ["addHabitScreen", "homeScreen", "detailsScreen", "sideMenuScreen", "quoteScreen", "darkModeScreen"]
-    
+
     static let helpText = [
         """
 Create a habit you want
@@ -138,10 +141,9 @@ light & dark mode.
         ]
 }
 
-enum darkMode {
+enum DarkModeString {
     static let device      = "Device"
     static let light       = "Light"
     static let dark        = "Dark"
     static let key         = "darkMode"
 }
-

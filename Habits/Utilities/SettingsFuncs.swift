@@ -6,6 +6,7 @@
 //
 
 import UIKit
+// TODO: - comment this page
 
 struct SettingsFuncs {
     
@@ -16,7 +17,7 @@ struct SettingsFuncs {
             let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
             activityViewController.isModalInPresentation = true
             vc.present(activityViewController, animated: true, completion: nil)
-         
+            
         }
     }
     
@@ -51,9 +52,9 @@ struct SettingsFuncs {
     func openAppSettings() {
         if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
             UIApplication.shared.open(appSettings)
-        
+            
+        }
     }
-}
     
     func activateSettings(row: Int, vc: UIViewController) {
         switch row {

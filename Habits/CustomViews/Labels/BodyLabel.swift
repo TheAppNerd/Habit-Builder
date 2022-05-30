@@ -9,7 +9,7 @@ import UIKit
 
 class BodyLabel: UILabel {
 
-    //MARK: - Class Funcs
+    // MARK: - Class Methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +27,7 @@ class BodyLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Functions
+    // MARK: - Methods
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false

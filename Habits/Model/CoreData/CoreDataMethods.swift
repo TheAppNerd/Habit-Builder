@@ -10,15 +10,15 @@ import CoreData
 
 
 final class CoreDataMethods {
-    
-    //MARK: - Properties
-        
+
+    // MARK: - Properties
+
     static let shared = CoreDataMethods()
-    
-    //MARK: - Class Funcs
-    
+
+    // MARK: - Class Methods
+
     private init() {}
-        
+
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         let container = NSPersistentCloudKitContainer(name: "HabitEntities")
         container.persistentStoreDescriptions.first!.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
@@ -28,15 +28,15 @@ final class CoreDataMethods {
                 print("Core Data Error: \(error)")
             }
         }
-        
+
         return container
     }()
 }
 
 extension CoreDataMethods {
-    
-    //MARK: - Functions
-    
+
+    // MARK: - Methods
+
     /// Creates and saves a new habit in core data
     ///
     /// ```
@@ -61,17 +61,16 @@ extension CoreDataMethods {
         habit.dateCreated      = dateCreated
         habit.notificationBool = notificationBool
         saveAlarmData(habit: habit, alarmItem: alarmItem)
-        
+
         do {
             try persistentContainer.viewContext.save()
         } catch {
-            //If core data unable to save rolls back to previous core data commit.
             persistentContainer.viewContext.rollback()
             print("Failed to save: \(error)")
         }
     }
-    
-    ///Loads array of all saved habits in core data. Uses sort descriptor to load them in correct order user has saved them as order can be manually altered.
+
+    /// Loads array of all saved habits in core data. Uses sort descriptor to load them in correct order user has saved them as order can be manually altered.
     func loadHabitArray() -> [HabitEnt] {
         let fetchRequest: NSFetchRequest<HabitEnt> = HabitEnt.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "habitOrder", ascending: true)
@@ -83,8 +82,8 @@ extension CoreDataMethods {
             return []
         }
     }
-    
-    ///Deletes all record of saved habit from core data including all saved dates.
+
+    /// Deletes all record of saved habit from core data including all saved dates.
     func deleteHabit(_ habit: HabitEnt) {
         persistentContainer.viewContext.delete(habit)
         do {
@@ -94,8 +93,8 @@ extension CoreDataMethods {
             print("Failed to save:\(error)")
         }
     }
-    
-    ///Updates a previously existing habit in core data weith new values.
+
+    /// Updates a previously existing habit in core data weith new values.
     func updateHabit() {
         do {
             try persistentContainer.viewContext.save()
@@ -104,23 +103,23 @@ extension CoreDataMethods {
             print("Failed to save: \(error)")
         }
     }
-    
-    ///Func which allows the user to change the order of habits & save that new order to core data.
+
+    /// Func which allows the user to change the order of habits & save that new order to core data.
     func updateHabitOrder(sourceIndex: Int, destinationIndex: Int) {
         var array = loadHabitArray()
         let mover = array.remove(at: sourceIndex)
         array.insert(mover, at: destinationIndex)
-        
+
         for (index, habit) in array.enumerated() {
             habit.habitOrder = Int16(index)
         }
         updateHabit()
     }
-    
-    ///Saves date to habit entity.
+
+    /// Saves date to habit entity.
     func addHabitDate(habit: HabitEnt, date: Date) {
         let dateArray = loadHabitDates(habit: habit)
-        
+
         if !dateArray.contains(date) {
             let habitDate = HabitDates(context: persistentContainer.viewContext)
             habitDate.date = date
@@ -128,11 +127,11 @@ extension CoreDataMethods {
             updateHabit()
         }
     }
-    
-    ///Removes date from habit entity.
+
+    /// Removes date from habit entity.
     func removeHabitDate(habit: HabitEnt, date: Date) {
         let dateArray = loadHabitDates(habit: habit)
-        
+
         if dateArray.contains(date) {
             let habitDate  = HabitDates(context: persistentContainer.viewContext)
             habitDate.date = date
@@ -144,14 +143,13 @@ extension CoreDataMethods {
             updateHabit()
         }
     }
-    
-    
-    ///A method to convert days of the week for alarms into a single string in order to save to Core Data more efficiently.
+
+    /// A method to convert days of the week for alarms into a single string in order to save to Core Data more efficiently.
     func convertStringArraytoBoolArray(alarmItem: AlarmItem) -> [Bool] {
         var boolArray: [Bool] = []
         let dayString         = alarmItem.days
         let dayArray          = Array(dayString)
-        
+
         for day in dayArray {
             if day == "t" {
                 boolArray.append(true)
@@ -161,17 +159,16 @@ extension CoreDataMethods {
         }
         return boolArray
     }
-    
-    ///Retrieves dates with a relationship to specific habit and adds them to an array.
+
+    /// Retrieves dates with a relationship to specific habit and adds them to an array.
     func loadHabitDates(habit: HabitEnt) -> [Date] {
         let dates   = habit.datesSaved
         let set     = dates as? Set<HabitDates> ?? []
         let dateSet = set.map {$0.date!}
         return dateSet
     }
-    
-    
-    ///Saves alarm data to activate alarmas for a habit if user has opted to.
+
+    /// Saves alarm data to activate alarmas for a habit if user has opted to.
     func saveAlarmData(habit: HabitEnt, alarmItem: AlarmItem) {
         if alarmItem.alarmActivated  == true {
             habit.notificationBool   = true
@@ -180,8 +177,8 @@ extension CoreDataMethods {
             habit.notificationMinute = Int16(alarmItem.minute)
         }
     }
-    
-    ///Determines whether a specific date is already saved to a habits dates & either adds or removes the date from the list.
+
+    /// Determines whether a specific date is already saved to a habits dates & either adds or removes the date from the list.
     func updateDates(selectedDate: Date, index: Int) {
         let habit = loadHabitArray()[index]
         let dates = loadHabitDates(habit: habit)
@@ -191,8 +188,5 @@ extension CoreDataMethods {
             addHabitDate(habit: habit, date: selectedDate)
         }
     }
-    
+
 }
-
-
-

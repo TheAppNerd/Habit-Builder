@@ -9,7 +9,7 @@ import UIKit
 
 extension UIDatePicker {
     
-    ///Takes time from date picker and seperates hours and minutes in order to set user notification.
+    /// Takes time from date picker and seperates hours and minutes in order to set user notification.
         func timeChanged() -> [String] {
         let formatter          = DateFormatter()
         formatter.dateFormat   = "h:mm a"
@@ -22,7 +22,7 @@ extension UIDatePicker {
         return twentyFourHourDate.components(separatedBy: ":")
     }
     
-    ///Used to pull previous alarm time saved in core data and reapply it to the date picker.
+    /// Used to pull previous alarm time saved in core data and reapply it to the date picker.
         func setupDatePickerDate(hour: Int, minute: Int) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
@@ -31,7 +31,7 @@ extension UIDatePicker {
             }
     }
     
-    ///Takes time from datepicker, converts it to string and splits hours and minutes into seperate strings for use in UserNotifications.
+    /// Takes time from datepicker, converts it to string and splits hours and minutes into seperate strings for use in UserNotifications.
     func convertDatePickerTime() -> [String] {
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mm a"
@@ -46,4 +46,3 @@ extension UIDatePicker {
         return time
     }
 }
-

@@ -8,37 +8,36 @@
 import UIKit
 
 class HabitNameCell: UITableViewCell {
-    
-    //MARK: - Properties
+
+    // MARK: - Properties
+
     static let reuseID = "HabitNameCell"
     var nameTextField  = HabitTextField()
-    
-    //MARK: - Class Funcs
-    
+
+    // MARK: - Class Methods
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
         layoutUI()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Functions
-    
+
+    // MARK: - Methods
+
     private func configure() {
         backgroundColor                 = BackgroundColors.secondaryBackground
         layer.cornerRadius              = 10
         contentView.layer.cornerRadius  = 10
-        
     }
-    
-    
+
     private func layoutUI() {
         contentView.addSubview(nameTextField)
         let padding: CGFloat = 10
-        
+
         NSLayoutConstraint.activate([
             nameTextField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
             nameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
@@ -47,5 +46,5 @@ class HabitNameCell: UITableViewCell {
             nameTextField.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
-    
+
 }

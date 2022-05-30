@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3CC551A27B6840B7BDF879AB /* Pods_Habits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 838E44C3241E759CB1015ADF /* Pods_Habits.framework */; };
+		8C97F54378F25A58746BEE1D /* Pods_Habits.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EB5749E25E811C1DBDA1D75 /* Pods_Habits.framework */; };
 		FA09DC1D26CF17E000B58F32 /* UIImage + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */; };
 		FA175EDC2754C8D80067D2A5 /* LoadingScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */; };
 		FA1AB1C52822B69C0097A3AA /* NewHabitVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1AB1C42822B69C0097A3AA /* NewHabitVC.swift */; };
@@ -17,13 +18,12 @@
 		FA1C73292636491A00E63CBE /* HabitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C73282636491A00E63CBE /* HabitCell.swift */; };
 		FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C732F26365AFC00E63CBE /* BodyLabel.swift */; };
 		FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C733326365CFA00E63CBE /* TitleLabel.swift */; };
-		FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D6D8226E729AB005AA4B2 /* Animations.swift */; };
 		FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA212C492639181000BFDA3F /* HabitTextField.swift */; };
 		FA224D5B26F028E6005CC9F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5A26F028E6005CC9F1 /* Constants.swift */; };
 		FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */; };
-		FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */; };
-		FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */; };
-		FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */; };
+		FA224D6126F0A815005CC9F1 /* DetailsCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6026F0A815005CC9F1 /* DetailsCalendarView.swift */; };
+		FA224D6526F16BAD005CC9F1 /* DetailsStreakView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6426F16BAD005CC9F1 /* DetailsStreakView.swift */; };
+		FA224D6726F16E54005CC9F1 /* DetailsChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6626F16E54005CC9F1 /* DetailsChartView.swift */; };
 		FA224D6926F17216005CC9F1 /* HabitDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */; };
 		FA224D7126F1A1A9005CC9F1 /* FSCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */; };
 		FA29042B26EF6B9100B7B00A /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA29042A26EF6B9100B7B00A /* DarkMode.swift */; };
@@ -42,7 +42,6 @@
 		FA79D755281A22B8004E0CAC /* ChartProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79D754281A22B8004E0CAC /* ChartProgressView.swift */; };
 		FA79D7672820F318004E0CAC /* SettingsFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79D7662820F318004E0CAC /* SettingsFuncs.swift */; };
 		FA79D76928213F37004E0CAC /* ScrollViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79D76828213F37004E0CAC /* ScrollViewPage.swift */; };
-		FA79D76B28223F4D004E0CAC /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA79D76A28223F4D004E0CAC /* CustomView.swift */; };
 		FA8A297426D3B319008CD5AE /* DarkModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297326D3B319008CD5AE /* DarkModeView.swift */; };
 		FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */; };
 		FA8A297C26D49C5E008CD5AE /* AboutAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */; };
@@ -56,6 +55,8 @@
 		FAC720AD28405D6A00E0B347 /* UIDate + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720AC28405D6A00E0B347 /* UIDate + Ext.swift */; };
 		FAC720AF28405EAC00E0B347 /* UIDatePicker + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720AE28405EAC00E0B347 /* UIDatePicker + Ext.swift */; };
 		FAC720B12840770700E0B347 /* UITableView + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720B02840770700E0B347 /* UITableView + Ext.swift */; };
+		FAC720B3284089C100E0B347 /* BoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720B2284089C100E0B347 /* BoldLabel.swift */; };
+		FAC720B528408B2100E0B347 /* UIViewController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC720B428408B2100E0B347 /* UIViewController + Ext.swift */; };
 		FAD4655627FFD0A300E6CF7A /* EmailFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */; };
 		FAE8EAD127B3187D00FBA6F3 /* QuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */; };
 		FAE8EAD327B35C9100FBA6F3 /* Quotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */; };
@@ -78,7 +79,10 @@
 /* Begin PBXFileReference section */
 		2B9A87DC47397BE1B1C251BF /* Pods-Habits.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.release.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.release.xcconfig"; sourceTree = "<group>"; };
 		2FF57C4A93B664F2B8DAF532 /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
+		4EB5749E25E811C1DBDA1D75 /* Pods_Habits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5608A6015B8CF7A91791763C /* Pods-Habits.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.debug.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.debug.xcconfig"; sourceTree = "<group>"; };
 		838E44C3241E759CB1015ADF /* Pods_Habits.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Habits.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE406DEBB271B469394DA9D0 /* Pods-Habits.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Habits.release.xcconfig"; path = "Target Support Files/Pods-Habits/Pods-Habits.release.xcconfig"; sourceTree = "<group>"; };
 		FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ext.swift"; sourceTree = "<group>"; };
 		FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenVC.swift; sourceTree = "<group>"; };
 		FA1AB1C42822B69C0097A3AA /* NewHabitVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHabitVC.swift; sourceTree = "<group>"; };
@@ -89,13 +93,12 @@
 		FA1C73282636491A00E63CBE /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
 		FA1C732F26365AFC00E63CBE /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		FA1C733326365CFA00E63CBE /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
-		FA1D6D8226E729AB005AA4B2 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		FA212C492639181000BFDA3F /* HabitTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitTextField.swift; sourceTree = "<group>"; };
 		FA224D5A26F028E6005CC9F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewFooter.swift; sourceTree = "<group>"; };
-		FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsCalendarView.swift; sourceTree = "<group>"; };
-		FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsStreakView.swift; sourceTree = "<group>"; };
-		FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsChartView.swift; sourceTree = "<group>"; };
+		FA224D6026F0A815005CC9F1 /* DetailsCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCalendarView.swift; sourceTree = "<group>"; };
+		FA224D6426F16BAD005CC9F1 /* DetailsStreakView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsStreakView.swift; sourceTree = "<group>"; };
+		FA224D6626F16E54005CC9F1 /* DetailsChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsChartView.swift; sourceTree = "<group>"; };
 		FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsVC.swift; sourceTree = "<group>"; };
 		FA224D7026F1A1A9005CC9F1 /* FSCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarView.swift; sourceTree = "<group>"; };
 		FA29042A26EF6B9100B7B00A /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
@@ -116,7 +119,6 @@
 		FA79D75F281BA871004E0CAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "/Users/alex/Documents/xcode projects/Personal Projects/Habits/Support/Info.plist"; sourceTree = "<absolute>"; };
 		FA79D7662820F318004E0CAC /* SettingsFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFuncs.swift; sourceTree = "<group>"; };
 		FA79D76828213F37004E0CAC /* ScrollViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewPage.swift; sourceTree = "<group>"; };
-		FA79D76A28223F4D004E0CAC /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		FA8A297326D3B319008CD5AE /* DarkModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeView.swift; sourceTree = "<group>"; };
 		FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeVC.swift; sourceTree = "<group>"; };
 		FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppVC.swift; sourceTree = "<group>"; };
@@ -130,6 +132,8 @@
 		FAC720AC28405D6A00E0B347 /* UIDate + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDate + Ext.swift"; sourceTree = "<group>"; };
 		FAC720AE28405EAC00E0B347 /* UIDatePicker + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker + Ext.swift"; sourceTree = "<group>"; };
 		FAC720B02840770700E0B347 /* UITableView + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Ext.swift"; sourceTree = "<group>"; };
+		FAC720B2284089C100E0B347 /* BoldLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldLabel.swift; sourceTree = "<group>"; };
+		FAC720B428408B2100E0B347 /* UIViewController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Ext.swift"; sourceTree = "<group>"; };
 		FAD4655527FFD0A300E6CF7A /* EmailFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailFeedback.swift; sourceTree = "<group>"; };
 		FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteView.swift; sourceTree = "<group>"; };
 		FAE8EAD227B35C9100FBA6F3 /* Quotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quotes.swift; sourceTree = "<group>"; };
@@ -156,12 +160,30 @@
 			files = (
 				3CC551A27B6840B7BDF879AB /* Pods_Habits.framework in Frameworks */,
 				FABD431027A55A4000612896 /* CloudKit.framework in Frameworks */,
+				8C97F54378F25A58746BEE1D /* Pods_Habits.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E27409BA65CE8244119568F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5608A6015B8CF7A91791763C /* Pods-Habits.debug.xcconfig */,
+				DE406DEBB271B469394DA9D0 /* Pods-Habits.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		58C9E792671FC5A85AFD6566 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4EB5749E25E811C1DBDA1D75 /* Pods_Habits.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		640066CB0149AB90DF9191D8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				FA1C7304263636D800E63CBE /* Habits */,
+				3E27409BA65CE8244119568F /* Pods */,
+				58C9E792671FC5A85AFD6566 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +254,7 @@
 				FA1C732F26365AFC00E63CBE /* BodyLabel.swift */,
 				FA1C733326365CFA00E63CBE /* TitleLabel.swift */,
 				FAF4E6E126537DEF0029E50D /* DayLabel.swift */,
+				FAC720B2284089C100E0B347 /* BoldLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -248,9 +273,9 @@
 			children = (
 				FA8A297326D3B319008CD5AE /* DarkModeView.swift */,
 				FA224D5E26F04442005CC9F1 /* TableViewFooter.swift */,
-				FA224D6026F0A815005CC9F1 /* HabitDetailsCalendarView.swift */,
-				FA224D6426F16BAD005CC9F1 /* HabitDetailsStreakView.swift */,
-				FA224D6626F16E54005CC9F1 /* HabitDetailsChartView.swift */,
+				FA224D6026F0A815005CC9F1 /* DetailsCalendarView.swift */,
+				FA224D6426F16BAD005CC9F1 /* DetailsStreakView.swift */,
+				FA224D6626F16E54005CC9F1 /* DetailsChartView.swift */,
 				FAF4E6E5265608830029E50D /* EmptyStateView.swift */,
 				FAE8EAD027B3187D00FBA6F3 /* QuoteView.swift */,
 				FA79D76828213F37004E0CAC /* ScrollViewPage.swift */,
@@ -337,7 +362,6 @@
 				FA224D6826F17216005CC9F1 /* HabitDetailsVC.swift */,
 				FAF4E713265F43270029E50D /* HowToUseVC.swift */,
 				FAF4E6D7264A47B90029E50D /* SideMenuVC.swift */,
-				FA79D76A28223F4D004E0CAC /* CustomView.swift */,
 				FA8A297526D3BA91008CD5AE /* DarkModeVC.swift */,
 				FA8A297B26D49C5E008CD5AE /* AboutAppVC.swift */,
 				FA175EDB2754C8D80067D2A5 /* LoadingScreenVC.swift */,
@@ -425,12 +449,12 @@
 				FAF4E6D1264A30BD0029E50D /* UIView + Ext.swift */,
 				FAB0D25B26B8DEAC0095B12E /* UIApplication + Ext.swift */,
 				FA09DC1C26CF17E000B58F32 /* UIImage + Ext.swift */,
-				FA1D6D8226E729AB005AA4B2 /* Animations.swift */,
 				FAC19AC8279A7D1F0067D894 /* UISegmentedControl + Ext.swift */,
 				FA798DA327E03C60005D647B /* UIDevice + Ext.swift */,
 				FAC720AC28405D6A00E0B347 /* UIDate + Ext.swift */,
 				FAC720AE28405EAC00E0B347 /* UIDatePicker + Ext.swift */,
 				FAC720B02840770700E0B347 /* UITableView + Ext.swift */,
+				FAC720B428408B2100E0B347 /* UIViewController + Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -547,7 +571,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA1D6D8326E729AB005AA4B2 /* Animations.swift in Sources */,
 				FA1C733026365AFC00E63CBE /* BodyLabel.swift in Sources */,
 				FAF4E714265F43270029E50D /* HowToUseVC.swift in Sources */,
 				FA360BF226C605C300884B90 /* HabitNameCell.swift in Sources */,
@@ -556,7 +579,7 @@
 				FAE8EAD127B3187D00FBA6F3 /* QuoteView.swift in Sources */,
 				FA224D6926F17216005CC9F1 /* HabitDetailsVC.swift in Sources */,
 				FA224D5F26F04442005CC9F1 /* TableViewFooter.swift in Sources */,
-				FA224D6726F16E54005CC9F1 /* HabitDetailsChartView.swift in Sources */,
+				FA224D6726F16E54005CC9F1 /* DetailsChartView.swift in Sources */,
 				FA798DA227DF0433005D647B /* AppStoreReviewManager.swift in Sources */,
 				FA3E60782762EA0C00A1A804 /* AlarmItem.swift in Sources */,
 				FA360BF426C609BC00884B90 /* HabitFrequencyCell.swift in Sources */,
@@ -595,9 +618,11 @@
 				FA1C733426365CFA00E63CBE /* TitleLabel.swift in Sources */,
 				FAC720B12840770700E0B347 /* UITableView + Ext.swift in Sources */,
 				FAC720AB283DA49D00E0B347 /* CustomStackView.swift in Sources */,
+				FAC720B528408B2100E0B347 /* UIViewController + Ext.swift in Sources */,
+				FAC720B3284089C100E0B347 /* BoldLabel.swift in Sources */,
 				FA212C4A2639181000BFDA3F /* HabitTextField.swift in Sources */,
 				FA1AB1C52822B69C0097A3AA /* NewHabitVC.swift in Sources */,
-				FA224D6526F16BAD005CC9F1 /* HabitDetailsStreakView.swift in Sources */,
+				FA224D6526F16BAD005CC9F1 /* DetailsStreakView.swift in Sources */,
 				FA8A297626D3BA91008CD5AE /* DarkModeVC.swift in Sources */,
 				FAB0D25C26B8DEAC0095B12E /* UIApplication + Ext.swift in Sources */,
 				FA360BF626C6120100884B90 /* HabitIconCell.swift in Sources */,
@@ -607,8 +632,7 @@
 				FAF4E6E426549DDC0029E50D /* DayButton.swift in Sources */,
 				FAFF09AE27046E93008E8569 /* ChartCollectionViewCell.swift in Sources */,
 				FABA380A26C7DF650088254C /* GradientButton.swift in Sources */,
-				FA79D76B28223F4D004E0CAC /* CustomView.swift in Sources */,
-				FA224D6126F0A815005CC9F1 /* HabitDetailsCalendarView.swift in Sources */,
+				FA224D6126F0A815005CC9F1 /* DetailsCalendarView.swift in Sources */,
 				FAF4E718265F456E0029E50D /* ScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
