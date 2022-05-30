@@ -12,7 +12,7 @@ class DarkModeView: UIView {
 
     //MARK: - Properties
 
-    let lightLabel      = UILabel()
+    let lightLabel      = BodyLabel(textInput: "", textAlignment: .center, fontSize: 18)
     let deviceButton    = GradientButton()
     let lightButton     = GradientButton()
     let darkButton      = GradientButton()
@@ -24,6 +24,7 @@ class DarkModeView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+        configureButtons()
         layoutUI()
     }
 
@@ -34,12 +35,13 @@ class DarkModeView: UIView {
 
     //MARK: - Methods
 
-    // TODO: - Break down into multiple funcs
     private func configure() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor    = BackgroundColors.secondaryBackground
         self.layer.cornerRadius = 10
+    }
 
+    private func configureButtons() {
         let buttonArray         = [deviceButton, lightButton, darkButton, doneButton]
         for button in buttonArray {
             button.translatesAutoresizingMaskIntoConstraints = false
@@ -48,9 +50,6 @@ class DarkModeView: UIView {
             button.backgroundColor    = BackgroundColors.mainBackGround
         }
 
-        lightLabel.translatesAutoresizingMaskIntoConstraints = false
-        lightLabel.textAlignment  = .center
-        lightLabel.font           = UIFont.systemFont(ofSize: 18, weight: .bold)
         lightLabel.attributedText = NSAttributedString(string: "Dark Mode", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
 
         deviceButton.setTitle("Device", for: .normal)

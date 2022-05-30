@@ -83,7 +83,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
         view.addSubview(tableView)
     }
 
-    func configureEmptyState() {
+    private func configureEmptyState() {
         emptyStateView.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
         emptyStateView.howToUseButton.addTarget(self, action: #selector(helpButtonPressed), for: .touchUpInside)
     }
@@ -116,7 +116,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
 
     /// Registers TableViewFooter & hides it if empty state view is active.
-    func configureTableViewFooter() {
+    private func configureTableViewFooter() {
         tableView.register(QuoteView.self, forHeaderFooterViewReuseIdentifier: "header")
         let tableViewFooter = TableViewFooter()
         tableViewFooter.addHabitButton.addTarget(self, action: #selector(addHabitPressed), for: .touchUpInside)
@@ -137,7 +137,7 @@ class HabitHomeVC: UIViewController, SettingsPush {
     }
 
     /// Pins the side menu to HabitVC view to allow for frame offset.
-    func configureMenuView() {
+    private func configureMenuView() {
         let menuBarPadding: CGFloat = self.view.frame.width * 0.50
         lazy var menuView: UIView = {
             let sideView = UIView()

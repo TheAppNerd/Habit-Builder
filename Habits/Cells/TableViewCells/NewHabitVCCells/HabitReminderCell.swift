@@ -22,7 +22,7 @@ class HabitReminderCell: UITableViewCell {
     let generator         = UIImpactFeedbackGenerator(style: .medium)
     let datePicker        = DatePicker()
     let alarmSegment      = UISegmentedControl(items: ["Alarm Off", "Alarm On"])
-    let dayStackView      = UIStackView()
+    let dayStackView      = CustomStackView(axis: .horizontal, distribution: .fillEqually, spacing: 6)
     var hour              = Int()
     var minute            = Int()
     var buttonArray       = [GradientButton]()
@@ -59,11 +59,6 @@ class HabitReminderCell: UITableViewCell {
         alarmSegment.layer.borderWidth  = 1.5
         alarmSegment.layer.borderColor  = Gradients.array[5][0]
         alarmSegment.setGradientColors()
-
-        dayStackView.translatesAutoresizingMaskIntoConstraints = false
-        dayStackView.axis         = .horizontal
-        dayStackView.distribution = .fillEqually
-        dayStackView.spacing      = 6
 
         for index in 0...6 {
             let dayButton = GradientButton()

@@ -6,10 +6,10 @@
 //
 
 import UIKit
-// TODO: - comment this page
 
 struct SettingsFuncs {
-    
+
+    /// Utilises UIActivityViewController to allow user to share app.
     func shareApp(vc: UIViewController) {
         if let urlString = NSURL(string: SocialMedia.appLink) {
             let activityItems = [urlString]
@@ -20,12 +20,14 @@ struct SettingsFuncs {
             
         }
     }
-    
+
+    /// Takes user to the app store review section.
     func reviewApp() {
         let urlStr = "\(SocialMedia.appLink)?action=write-review"
         guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
     }
-    
+
+    /// Redirects User to privacy policy URL.
     func openPrivacy() {
         guard let url = URL(string: SocialMedia.privacyPolicyURL), UIApplication.shared.canOpenURL(url) else { return }
         UIApplication.shared.open(url)
@@ -33,7 +35,6 @@ struct SettingsFuncs {
     
     func pushHowToUse(vc: UIViewController) {
         let how = HowToUseVC()
-        
         vc.show(how, sender: vc)
     }
     
@@ -41,21 +42,27 @@ struct SettingsFuncs {
         let about = AboutAppVC()
         vc.show(about, sender: vc)
     }
-    
+
+    /// Presents Dark Mode Settings over top of current view controller.
     func presentDarkMode(vc: UIViewController) {
         let dark = DarkModeVC()
         dark.modalPresentationStyle = .overCurrentContext
         dark.modalTransitionStyle = .crossDissolve
         vc.present(dark, animated: true)
     }
-    
+
+    /// Redirects users to app settings in phone system settings.
     func openAppSettings() {
         if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
             UIApplication.shared.open(appSettings)
-            
         }
     }
-    
+
+    /// Utilised from a protocol in SideMenuVC to HabitHomeVC to call funcs from a UINavigationController.
+    ///
+    /// ```
+    /// activateSettings(row: 3, vc: self)
+    /// ```
     func activateSettings(row: Int, vc: UIViewController) {
         switch row {
         case 0:

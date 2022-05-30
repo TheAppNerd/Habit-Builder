@@ -60,5 +60,8 @@ extension UITableView {
             register(MenuCell.self, forCellReuseIdentifier: MenuCell.reuseID)
         }
 
+        if #available(iOS 15, *) {
+            self.sectionHeaderTopPadding = 0
+        }
     }
 }

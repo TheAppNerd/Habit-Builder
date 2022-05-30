@@ -12,10 +12,10 @@ class AboutAppVC: UIViewController {
     // MARK: - Properties
 
     let iconImage       = UIImageView()
-    let versionLabel    = BoldLabel()
+    let habitLabel      = BoldLabel()
+    let versionLabel    = BodyLabel(textInput: "", textAlignment: .center, fontSize: 12)
     let nameLabel       = BoldLabel()
-    let tableView       = UITableView()
-    let detailsView     = UIView()
+    let tableView       = UITableView(frame: .zero, style: .insetGrouped)
 
     // MARK: - Class Methods
 
@@ -26,80 +26,61 @@ class AboutAppVC: UIViewController {
         layoutUI()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        tableView.frame.size.height   = tableView.contentSize.height
-        iconImage.layer.cornerRadius  = iconImage.frame.size.width / 2
-    }
-
     // MARK: - Methods
 
-    /// Rectifies xcode tableview error.
-    private func tableViewHeaderPadding() {
-        if #available(iOS 15.0, *) {
-            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
-        }
-    }
-
     private func configureTableView() {
-        tableViewHeaderPadding()
         tableView.setup(for: .aboutAppVC)
+        tableView.isScrollEnabled    = false
+        tableView.backgroundColor    = BackgroundColors.mainBackGround
         tableView.delegate           = self
         tableView.dataSource         = self
-        tableView.frame.size.height  = tableView.contentSize.height
     }
 
-    // TODO: - Clean this up and single responsibility
     private func configure() {
         view.backgroundColor = BackgroundColors.mainBackGround
 
-        detailsView.backgroundColor      = BackgroundColors.secondaryBackground
-        detailsView.layer.cornerRadius   = 10
-        detailsView.translatesAutoresizingMaskIntoConstraints = false
-
-        iconImage.image                  = UIImage(named: "IconClear")
-        iconImage.backgroundColor        = BackgroundColors.secondaryBackground
-        iconImage.layer.masksToBounds    = true
+        iconImage.image                = UIImage(named: "IconClear")
         iconImage.translatesAutoresizingMaskIntoConstraints = false
 
-        if let appVersion = UIApplication.appVersion {
-            versionLabel.text                = " Habits - Version \(appVersion)  "
-        }
+        nameLabel.text                 = "Made with ♥️ by Alex Thompson"
 
-        nameLabel.text                   = " Made by Alex Thompson  "
+        habitLabel.text = "Habit Builder"
+        versionLabel.textColor = .secondaryLabel
+        if let appVersion = UIApplication.appVersion {
+            versionLabel.text          = "Version \(appVersion)"
+        }
     }
 
     private func layoutUI() {
-        view.addSubviews(detailsView, iconImage, versionLabel, nameLabel, tableView)
+        view.addSubviews(iconImage, habitLabel, versionLabel, nameLabel, tableView)
         let padding: CGFloat = 5
 
         NSLayoutConstraint.activate([
-            detailsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-            detailsView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
-            detailsView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            detailsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            detailsView.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: -20),
+            iconImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding * 2),
+            iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            iconImage.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
+            iconImage.heightAnchor.constraint(equalTo: iconImage.widthAnchor),
 
-            iconImage.topAnchor.constraint(equalTo: detailsView.topAnchor, constant: padding * 2),
-            iconImage.centerXAnchor.constraint(equalTo: detailsView.centerXAnchor),
-            iconImage.heightAnchor.constraint(equalTo: detailsView.heightAnchor, multiplier: 0.5),
-            iconImage.widthAnchor.constraint(equalTo: iconImage.heightAnchor),
+            habitLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            habitLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: padding * 3),
+            habitLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            habitLabel.bottomAnchor.constraint(equalTo: versionLabel.topAnchor, constant: -padding),
+            habitLabel.heightAnchor.constraint(equalToConstant: 20),
 
-            nameLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: padding),
-            nameLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: padding ),
-            nameLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -padding),
-            nameLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -padding * 2),
-            nameLabel.heightAnchor.constraint(equalToConstant: 20),
-
-            versionLabel.leadingAnchor.constraint(equalTo: detailsView.leadingAnchor, constant: padding),
-            versionLabel.trailingAnchor.constraint(equalTo: detailsView.trailingAnchor, constant: -padding),
-            versionLabel.bottomAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: -padding),
+            versionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            versionLabel.topAnchor.constraint(equalTo: habitLabel.bottomAnchor, constant: padding),
+            versionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             versionLabel.heightAnchor.constraint(equalToConstant: 20),
 
             tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: detailsView.bottomAnchor, constant: 40),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-            tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8)
+            tableView.topAnchor.constraint(equalTo: versionLabel.bottomAnchor, constant: padding),
+            tableView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -padding * 4),
+            tableView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            nameLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding * 4),
+            nameLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
 
@@ -134,6 +115,7 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
             cell.cellLabel.text  = SocialMedia.thanksNameArray[indexPath.row]
         }
         cell.cellLabel.font      = UIFont.systemFont(ofSize: 12)
+        cell.backgroundColor     = BackgroundColors.secondaryBackground
         cell.accessoryType       = .disclosureIndicator
         return cell
     }
@@ -169,6 +151,7 @@ extension AboutAppVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.size.height / 18
+        return view.frame.size.height / 19
     }
+
 }

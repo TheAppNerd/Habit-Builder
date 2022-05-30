@@ -35,10 +35,6 @@ class NewHabitVC: UITableViewController {
     // MARK: - Methods
 
     private func configure() {
-        // Fixes a bug with section header padding size.
-        if #available(iOS 15.0, *) {
-            UITableView.appearance().sectionHeaderTopPadding = CGFloat(0)
-        }
         tableView.setup(for: .newHabitVC)
         generator.prepare()
     }
