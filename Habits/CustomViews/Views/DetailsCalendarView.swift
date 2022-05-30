@@ -49,10 +49,8 @@ class DetailsCalendarView: UIView {
         line.translatesAutoresizingMaskIntoConstraints = false
 
         calendarLabel = BodyLabel(textInput: "Habit Calendar", textAlignment: .left, fontSize: 18)
-        calendarLabel.translatesAutoresizingMaskIntoConstraints = false
 
         infoLabel = BodyLabel(textInput: "Swipe to see more", textAlignment: .right, fontSize: 12)
-        infoLabel.translatesAutoresizingMaskIntoConstraints = false
 
         calendarImage.layer.cornerRadius = 10
         calendarImage.backgroundColor = UIColor.clear

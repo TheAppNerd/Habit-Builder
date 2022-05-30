@@ -69,7 +69,7 @@ class HabitDetailsVC: UIViewController {
         navigationItem.rightBarButtonItem = editButton
     }
 
-    func configureCollectionView() {
+    private func configureCollectionView() {
         habitDetailsChartView.collectionView.dataSource = self
         habitDetailsChartView.collectionView.delegate = self
         habitDetailsChartView.collectionView.register(ChartCollectionViewCell.self, forCellWithReuseIdentifier: ChartCollectionViewCell.reuseID)
@@ -117,7 +117,7 @@ class HabitDetailsVC: UIViewController {
     }
 
     /// Updates streak numbers whenever dates changed.
-    func updateStreaks() {
+    private func updateStreaks() {
 
         guard let dateCreated = habitEntity.dateCreated else { return }
         let daysCompleted     = coreData.loadHabitDates(habit: habitEntity).count
@@ -135,7 +135,7 @@ class HabitDetailsVC: UIViewController {
     ///
     /// - Parameter amend: amendDates enum to choose between adding or removing date
     /// - Parameter date: the date being added or removed. Listed in the FSCalendar method.
-    func updateDates(amend: AmendDates, date: Date) {
+    private func updateDates(amend: AmendDates, date: Date) {
         switch amend {
         case .addDate:
             habitDetailsCalendarView.calendarView.select(date)

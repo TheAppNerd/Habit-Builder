@@ -21,8 +21,8 @@ class DetailsStreakView: UIView {
     var averageCountLabel       = BodyLabel(textInput: "Average habits per week:", textAlignment: .left, fontSize: 16)
     var averageCountResultLabel = BodyLabel(textInput: "", textAlignment: .right, fontSize: 20)
 
-    let labelStack              = UIStackView()
-    let resultStack             = UIStackView()
+    let labelStack              = CustomStackView(axis: .vertical, distribution: .fillEqually, spacing: 6)
+    let resultStack             = CustomStackView(axis: .vertical, distribution: .fillEqually, spacing: 6)
 
     let streakImage             = UIImageView()
     let line                    = UIView()
@@ -70,19 +70,9 @@ class DetailsStreakView: UIView {
     }
 
     private func configureStackViews() {
-        labelStack.translatesAutoresizingMaskIntoConstraints = false
-        labelStack.axis          = .vertical
-        labelStack.distribution  = .fillEqually
-        labelStack.spacing       = 6
-
         labelStack.addArrangedSubview(dateCreatedLabel)
         labelStack.addArrangedSubview(totalCountLabel)
         labelStack.addArrangedSubview(averageCountLabel)
-
-        resultStack.translatesAutoresizingMaskIntoConstraints = false
-        resultStack.axis         = .vertical
-        resultStack.distribution = .fillEqually
-        resultStack.spacing      = 6
 
         resultStack.addArrangedSubview(dateCreatedResultLabel)
         resultStack.addArrangedSubview(totalCountResultLabel)

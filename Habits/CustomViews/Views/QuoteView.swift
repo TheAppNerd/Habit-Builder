@@ -13,7 +13,7 @@ class QuoteView: UITableViewHeaderFooterView {
     
     let quoteView   = UIView()
     let quoteLabel  = UILabel()
-    let nameLabel   = UILabel()
+    let nameLabel   = BodyLabel(textInput: "", textAlignment: .right, fontSize: 12)
     let quoteButton = GradientButton()
     
     // MARK: - Class Methods
@@ -45,8 +45,6 @@ class QuoteView: UITableViewHeaderFooterView {
         quoteLabel.textAlignment             = .center
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.textAlignment              = .right
-        nameLabel.font                       = UIFont.systemFont(ofSize: 12)
         
         quoteButton.translatesAutoresizingMaskIntoConstraints = false
         quoteButton.setImage(UIImage(systemName: "quote.closing"), for: .normal)

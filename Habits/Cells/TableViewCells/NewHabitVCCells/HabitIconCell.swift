@@ -20,10 +20,7 @@ class HabitIconCell: UITableViewCell {
     weak var delegate: passIconData?
 
     static let reuseID = "IconCell"
-    let stackViewOne   = UIStackView()
-    let stackViewTwo   = UIStackView()
-    let stackViewThree = UIStackView()
-    let stackViewFour  = UIStackView()
+    let iconStack = CustomStackView(axis: .vertical, distribution: .fillEqually, spacing: 10)
     var buttonArray: [GradientButton] = []
 
     // MARK: - Class Methods
@@ -31,6 +28,7 @@ class HabitIconCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        configureStackViews()
         layoutUI()
     }
 
@@ -40,18 +38,15 @@ class HabitIconCell: UITableViewCell {
 
     // MARK: - Methods
 
-    // TODO: - break down method
     private func configure() {
         backgroundColor = BackgroundColors.secondaryBackground
         self.layer.cornerRadius = 10
         generator.prepare()
-        let stackArray = [stackViewOne, stackViewTwo, stackViewThree, stackViewFour]
+    }
 
-        for stack in stackArray {
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            stack.axis         = .horizontal
-            stack.distribution = .fillEqually
-            stack.spacing      = 6
+    private func configureStackViews() {
+        for _ in 0...3 {
+            let stackView = CustomStackView(axis: .horizontal, distribution: .fillEqually, spacing: 6)
 
             for _ in 0...6 {
                 let iconButton                = GradientButton()
@@ -60,9 +55,10 @@ class HabitIconCell: UITableViewCell {
                 iconButton.tintColor          = .secondaryLabel
                 iconButton.addTarget(self, action: #selector(iconButtonPressed), for: .touchUpInside)
 
-                stack.addArrangedSubview(iconButton)
+                stackView.addArrangedSubview(iconButton)
                 buttonArray.append(iconButton)
             }
+            iconStack.addArrangedSubview(stackView)
         }
 
         for count in 0...buttonArray.count - 1 {
@@ -71,33 +67,15 @@ class HabitIconCell: UITableViewCell {
     }
 
     private func layoutUI() {
-        contentView.addSubviews(stackViewOne, stackViewTwo, stackViewThree, stackViewFour)
+        contentView.addSubviews(iconStack)
         let padding: CGFloat = 10
 
         NSLayoutConstraint.activate([
-            stackViewOne.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            stackViewOne.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            stackViewOne.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            stackViewOne.bottomAnchor.constraint(equalTo: stackViewTwo.topAnchor, constant: -padding),
-            stackViewOne.heightAnchor.constraint(equalToConstant: 40),
-
-            stackViewTwo.topAnchor.constraint(equalTo: stackViewOne.bottomAnchor, constant: padding),
-            stackViewTwo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            stackViewTwo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            stackViewTwo.bottomAnchor.constraint(equalTo: stackViewThree.topAnchor, constant: -padding),
-            stackViewTwo.heightAnchor.constraint(equalToConstant: 40),
-
-            stackViewThree.topAnchor.constraint(equalTo: stackViewTwo.bottomAnchor, constant: padding),
-            stackViewThree.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            stackViewThree.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            stackViewThree.bottomAnchor.constraint(equalTo: stackViewFour.topAnchor, constant: -padding),
-            stackViewThree.heightAnchor.constraint(equalToConstant: 40),
-
-            stackViewFour.topAnchor.constraint(equalTo: stackViewThree.bottomAnchor, constant: padding),
-            stackViewFour.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            stackViewFour.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            stackViewFour.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
-            stackViewFour.heightAnchor.constraint(equalToConstant: 40)
+            iconStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            iconStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            iconStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            iconStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
+            iconStack.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height / 4.5)
         ])
     }
 

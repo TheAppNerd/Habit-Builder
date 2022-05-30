@@ -28,7 +28,9 @@ class SideMenuVC: UIViewController {
         configureTableView()
     }
 
-    func configureTableView() {
+    // MARK: - Methods
+
+    private func configureTableView() {
         tableView.setup(for: .sideMenuVC)
         tableView.frame      = view.bounds
         tableView.delegate   = self
@@ -49,12 +51,13 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MenuCell.reuseID) as! MenuCell
+        var index: Int
         if indexPath.row < 7 {
-            // TODO: - fix this
-            cell.cellImage.image = UIImage(systemName: MenuPage.menuImages[indexPath.row])?.addTintGradient(colors: Gradients.array[indexPath.row])
+            index = indexPath.row
         } else {
-            cell.cellImage.image = UIImage(systemName: MenuPage.menuImages[indexPath.row])?.addTintGradient(colors: Gradients.array[indexPath.row - 7])
+            index = indexPath.row - 7
         }
+        cell.cellImage.image = UIImage(systemName: MenuPage.menuImages[indexPath.row])?.addTintGradient(colors: Gradients.array[index])
         cell.cellLabel.text  = MenuPage.menuTitles[indexPath.row]
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell

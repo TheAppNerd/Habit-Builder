@@ -36,9 +36,8 @@ class ChartCollectionViewCell: UICollectionViewCell {
     func set(chartYear: ChartYear) {
         yearLabel.text = String(chartYear.year)
         for index in 0...11 {
-            // TODO: - create proper custom gradient view
-            progressArray[index].progressImage = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: chartYear.color) //workaround to add tint to progress bars
-            countArray[index].text           = String(chartYear.monthCount[index])
+            progressArray[index].progressImage = UIImage(systemName: "rectangle.portrait.fill")?.addTintGradient(colors: chartYear.color)
+            countArray[index].text             = String(chartYear.monthCount[index])
 
             // Only shows month count on months that arent empty
             if chartYear.monthCount[index] == 0 {
