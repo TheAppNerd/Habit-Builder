@@ -103,7 +103,7 @@ class DetailsStreakView: UIView {
             labelStack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
             labelStack.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
             labelStack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -padding / 2),
-            labelStack.trailingAnchor.constraint(equalTo: resultStack.leadingAnchor, constant: padding),
+            labelStack.trailingAnchor.constraint(equalTo: resultStack.leadingAnchor, constant: -padding),
 
             resultStack.leadingAnchor.constraint(equalTo: labelStack.trailingAnchor, constant: padding),
             resultStack.topAnchor.constraint(equalTo: line.bottomAnchor, constant: 5),
