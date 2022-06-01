@@ -41,13 +41,21 @@ I initially started with a story board build. I had barely made anything outside
 
 In my final rebuild of the app I did away with story boards, moved entirely to programmatic code, added core data, cloud kit, User Notifications and many other features to finally have an app I felt confident shipping to the app store. 
 
+### Accomplishments
+- App store submission accepted in first attempt
+- 5 star app store rating
+- Successfully migrated from storyboard to programmatic
+- Custom built annual bar chart
+- App Built completely independently
 
 ## How To Use
 
--Clone the project to run in Xcode
--Available on the Apple AppStore: https://apps.apple.com/au/app/habit-builder/id1614197639
+- Clone the project to run in Xcode
+- Available on the Apple AppStore: https://apps.apple.com/au/app/habit-builder/id1614197639
 
 ## Acknowledgements
 
+- FSCalendar: https://github.com/WenchaoD/FSCalendar
+- FlatIcon: https://www.flaticon.com
 
 
