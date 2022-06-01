@@ -23,21 +23,29 @@ Habit Builder is an app I built to help people keep track of their weekly habit 
 - Reminds users to complete their task using User Notifications
 - Allows user to keep track of consistency with a calendar & bar chart for visual feedback
 - Users can customise each habit with name, icon, colour & intended weekly frequency
+- Read through motivational quotes collected from an online database
+- Switch between light and dark mode
 
 ### Frameworks
+- UIKit
+- User Notifications
+- Core Data
+- CloudKit
+- CocoaPods
+
+### What I learned
 
 Habit Builder is one of the first projects I ever made in learning to become an app developer. Its safe to say I've actually rebuilt this from scatch about 5 or 6 times. Funnily enough I never intended for this to be a major app, it was more just a simple app to teach myself the foundations of Swift. I soon realised that an app like this would be personally very handy for me and decided I wanted to make something I would personally use everyday. 
 
 I initially started with a story board build. I had barely made anything outside of tutorials and it was very slow going. Over time I was able to increase the complexity, improve the UI & UX, add more and more features and add more complex calculations. 
 
-In my final rebuild of the app I did away with story boards, moved entirely to programmatic code, added core data, cloud kit, User Notifications and other things to finally have an app I felt confident shipping to the app store. 
+In my final rebuild of the app I did away with story boards, moved entirely to programmatic code, added core data, cloud kit, User Notifications and many other features to finally have an app I felt confident shipping to the app store. 
 
-
-
-Habit Builder is an 
 
 ## How To Use
 
+-Clone the project to run in Xcode
+-Available on the Apple AppStore: https://apps.apple.com/au/app/habit-builder/id1614197639
 
 ## Acknowledgements
 
