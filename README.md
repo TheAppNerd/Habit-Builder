@@ -1,5 +1,5 @@
 
-<img align="left" width="160" height="160" src="https://user-images.githubusercontent.com/50789735/171336227-6fdef91f-89c8-4aa6-9e1d-b9095d83433e.png">
+<img align="left" width="170" height="170" src="https://user-images.githubusercontent.com/50789735/171336227-6fdef91f-89c8-4aa6-9e1d-b9095d83433e.png">
 
 # Welcome to Habit Builder!
 
