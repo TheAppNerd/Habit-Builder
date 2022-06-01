@@ -17,7 +17,7 @@
 
 ## Screenshots
 
-<img align="center" width="1000" src="https://user-images.githubusercontent.com/50789735/171342545-9ae30a2d-7fcd-449d-b2bb-f46f346eac68.png">
+<img align="center" width="1000" src="https://user-images.githubusercontent.com/50789735/171388265-32e794ab-96e8-493d-9efa-8ab2618ed529.png">
 
 
 ## Technologies
