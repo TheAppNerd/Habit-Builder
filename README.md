@@ -46,7 +46,7 @@ In my final rebuild of the app I did away with story boards, moved entirely to p
 - 5 star app store rating
 - Successfully migrated from storyboard to programmatic
 - Custom built annual bar chart
-- App Built completely independently
+- App built completely independently
 
 ## How To Use
 
