@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "sideMenuScreen.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
